@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vertical_grid_view_layout_element"
+    android:focusable="true"
+    android:layout_width="@dimen/gridComponentSize"
+    android:layout_height="@dimen/gridComponentSize"
+    android:background="@drawable/grid_view_background_resource_selector"
+    android:foreground="@drawable/grid_view_foreground_resource_selector"
+    android:stateListAnimator="@animator/grid_view_component_animator"
+    >
+
+    <ImageView
+        android:id="@+id/genre_image_view"
+        android:layout_width="@dimen/gridComponentImageSizeWidth"
+        android:layout_height="@dimen/gridComponentImageSizeHeight"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/gridView_element_image_marginStart"
+        android:layout_marginEnd="@dimen/gridView_element_image_marginEnd"
+        android:layout_marginTop="@dimen/gridView_element_image_marginTop"
+        android:layout_marginBottom="@dimen/gridView_element_image_marginBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/genre_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/genre_description_marginStart"
+        android:layout_marginTop="@dimen/genre_description_marginTop"
+        android:layout_marginEnd="@dimen/genre_description_marginEnd"
+        android:layout_marginBottom="@dimen/genre_description_marginBottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.169" />
+
+    <ImageView
+        android:id="@+id/selected_icon"
+        android:layout_width="@dimen/select_icon_width"
+        android:layout_height="@dimen/select_icon_height"
+        android:layout_marginTop="@dimen/select_icon_marginTop"
+        android:layout_marginStart="@dimen/select_icon_marginStart"
+        android:layout_marginEnd="@dimen/select_icon_marginEnd"
+        android:layout_marginBottom="@dimen/select_icon_marginBottom"
+        android:src="@drawable/select_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--  MainActivity dimens  -->
+
+        <!-- Vertical GridView Fragment -->
+
+            <dimen name="verticalGridView_fragment_marginStart" type="dimen" format="float">62dp</dimen>
+            <dimen name="verticalGridView_fragment_marginEnd" type="dimen" format="float">61.25dp</dimen>
+            <dimen name="verticalGridView_fragment_paddingBottom">13dp</dimen>
+            <dimen name="verticalGridView_fragment_marginTop">15dp</dimen>
+
+
+        <!-- Vertical GridView dimens   -->
+
+
+            <dimen name="verticalGridView_marginStart" type="dimen" format="float">50.5dp</dimen>
+            <dimen name="verticalGridView_marginEnd" type="dimen" format="float">51dp</dimen>
+            <dimen name="verticalGridView_paddingStart" type="dimen" format="float">11.5dp</dimen>
+            <dimen name="verticalGridView_paddingEnd" type="dimen" format="float">10.25dp</dimen>
+            <dimen name="verticalGridView_paddingTop">66.5dp</dimen>
+            <dimen name="verticalGridView_marginTop">15dp</dimen>
+            <dimen name="verticalGridView_paddingBottom">13dp</dimen>
+
+
+        <!--  Choose genres TextView dimens-->
+
+            <dimen name="choose_textView_textSize">18sp</dimen>
+            <dimen name="choose_textView_marginTop">113dp</dimen>
+            <dimen name="choose_textView_marginStart">335dp</dimen>
+            <dimen name="choose_textView_marginEnd">335dp</dimen>
+
+        <!--  Logo  -->
+
+        <dimen name="logoipsum_width">88dp</dimen>
+        <dimen name="logoipsum_marginTop">16dp</dimen>
+        <dimen name="logoipsum_height" type="dimen" format="float">20.32dp</dimen>
+        <dimen name="logoipsum_marginBottom" type="dimen" format="float">16dp</dimen>
+    <!--  /HomeFragment  -->
+
+    <!--  Vertical GridView Element dimens  -->
+        <!--  Description  -->
+
+            <dimen name="genre_description_marginStart">5dp</dimen>
+            <dimen name="genre_description_marginTop">5dp</dimen>
+            <dimen name="genre_description_marginEnd">5dp</dimen>
+            <dimen name="genre_description_marginBottom">74dp</dimen>
+
+        <!--  Select icon  -->
+
+            <dimen name="select_icon_width">15dp</dimen>
+            <dimen name="select_icon_height">15dp</dimen>
+            <dimen name="select_icon_marginStart">74dp</dimen>
+            <dimen name="select_icon_marginTop">133dp</dimen>
+            <dimen name="select_icon_marginEnd">74dp</dimen>
+            <dimen name="select_icon_marginBottom">17dp</dimen>
+
+        <!--  Genre Image  -->
+            <dimen name="gridComponentSize">163dp</dimen>
+            <dimen name="gridComponentImageSizeWidth" format="float">125dp</dimen>
+            <dimen name="gridComponentImageSizeHeight" format="float">100dp</dimen>
+            <dimen name="gridView_element_image_marginStart">19dp</dimen>
+            <dimen name="gridView_element_image_marginEnd">19dp</dimen>
+            <dimen name="gridView_element_image_marginTop" type="dimen" format="float">31.5dp</dimen>
+            <dimen name="gridView_element_image_marginBottom" type="dimen" format="float">31.5dp</dimen>
+
+        <!--  Element Background  -->
+            <dimen name="rounded_square_radius">12dp</dimen>
+            <dimen name="verticalGridView_element_elevationSize">20dp</dimen>
+            <dimen name="verticalGridView_element_normalSize">0dp</dimen>
+
+    <!--  /Vertical GridView Element dimens  -->
+
+
+
+</resources>

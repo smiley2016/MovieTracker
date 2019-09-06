@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:leanback="http://schemas.android.com/apk/res-auto"
+
+    >
+
+    <androidx.leanback.widget.VerticalGridView
+        android:id="@+id/movie_navigation_gridView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="72dp"
+        android:paddingStart="7dp"
+        android:paddingEnd="3dp"
+        android:paddingBottom="13dp"
+        android:clipToPadding="false"
+        android:nextFocusUp="@id/toolbar_search"
+        leanback:focusOutFront="true"
+        leanback:focusOutEnd="true"/>
+
+</RelativeLayout>

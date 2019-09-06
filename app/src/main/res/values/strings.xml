@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MovieTracker</string>
+    <string name="back_button_press">Please click back again to exit</string>
+
+    <!--  HomeFragment  -->
+    <string name="choose_genre_textView">Choose genres you want to Watch</string>
+    <string name="verticalGridView_element_setScaleSizeTo">1.14</string>
+    <string name="verticalGridView_element_normalScaleSize">1</string>
+    <string name="empty_genre_list_from_server">Empty genre list downloaded from the Server</string>
+    <string name="search_in_genres">search in genres</string>
+    <string name="settings">settings</string>
+    <string name="logo">logo</string>
+    <string name="removed_genre">Genre removed</string>
+    <string name="added_genre">Genre added</string>
+
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape android:shape="rectangle" xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="@dimen/rounded_square_radius"/>
+    <size android:height="@dimen/gridComponentSize" android:width="@dimen/gridComponentSize"/>
+    <solid android:color="@color/rounded_square_color"/>
+</shape>
