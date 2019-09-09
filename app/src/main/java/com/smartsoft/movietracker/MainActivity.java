@@ -1,23 +1,15 @@
 package com.smartsoft.movietracker;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.smartsoft.movietracker.model.Genre;
-import com.smartsoft.movietracker.service.RunOnBackgroundService;
+import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
-import com.smartsoft.movietracker.view.home.HomeFragment;
 
 import java.util.Iterator;
 

@@ -1,17 +1,6 @@
 package com.smartsoft.movietracker.view.navigation;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.leanback.widget.VerticalGridView;
 
 import com.smartsoft.movietracker.R;
-import com.smartsoft.movietracker.model.Movie;
+import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.presenter.navigation.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
 

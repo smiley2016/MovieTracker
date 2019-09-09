@@ -4,10 +4,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.smartsoft.movietracker.model.Genre;
-import com.smartsoft.movietracker.model.GenreResult;
+import com.smartsoft.movietracker.model.genre.Genre;
+import com.smartsoft.movietracker.model.genre.GenreResult;
 import com.smartsoft.movietracker.service.ApiController;
-import com.smartsoft.movietracker.utils.Constant;
 
 import java.util.ArrayList;
 

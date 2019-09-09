@@ -1,9 +1,6 @@
 package com.smartsoft.movietracker.service;
 
-import com.smartsoft.movietracker.model.Genre;
-import com.smartsoft.movietracker.model.GenreResult;
-
-import java.util.ArrayList;
+import com.smartsoft.movietracker.model.genre.GenreResult;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

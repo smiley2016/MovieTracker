@@ -1,12 +1,11 @@
-package com.smartsoft.movietracker.model;
+package com.smartsoft.movietracker.model.movie;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class Result {
+public class MovieResult {
     @SerializedName("page")
     @Expose
     private Integer page;
@@ -20,7 +19,7 @@ public class Result {
     @Expose
     private ArrayList<Movie> results = null;
 
-    public Result(Integer page, Integer totalResults, Integer totalPages, ArrayList<Movie> results) {
+    public MovieResult(Integer page, Integer totalResults, Integer totalPages, ArrayList<Movie> results) {
         this.page = page;
         this.totalResults = totalResults;
         this.totalPages = totalPages;

@@ -3,11 +3,10 @@ package com.smartsoft.movietracker.presenter.navigation;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import com.smartsoft.movietracker.model.Movie;
-import com.smartsoft.movietracker.model.Result;
+import com.smartsoft.movietracker.model.movie.Movie;
+import com.smartsoft.movietracker.model.movie.MovieResult;
 import com.smartsoft.movietracker.presenter.home.HomePresenter;
 import com.smartsoft.movietracker.service.ApiController;
-import com.smartsoft.movietracker.utils.Constant;
 
 import java.util.ArrayList;
 import retrofit2.Call;
@@ -23,9 +22,9 @@ public class MovieNavigationPresenter {
     public void updateMovieNavigationGridView(View view){
 
 
-        ApiController.getInstance().getMovies(new Callback<Result>() {
+        ApiController.getInstance().getMovies(new Callback<MovieResult>() {
             @Override
-            public void onResponse(@NonNull Call<Result> call, @NonNull Response<Result> response) {
+            public void onResponse(@NonNull Call<MovieResult> call, @NonNull Response<MovieResult> response) {
                 Log.e(TAG, response.toString());
                 ArrayList<Movie> movies = response.body().getResults();
                 view.updateMovieNavigationGridView(movies);
@@ -33,7 +32,7 @@ public class MovieNavigationPresenter {
             }
 
             @Override
-            public void onFailure(@NonNull Call<Result> call, Throwable t) {
+            public void onFailure(@NonNull Call<MovieResult> call, Throwable t) {
                 Log.e(TAG, t.toString());
             }
         });

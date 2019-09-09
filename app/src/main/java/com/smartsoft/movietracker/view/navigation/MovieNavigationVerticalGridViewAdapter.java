@@ -1,6 +1,7 @@
 package com.smartsoft.movietracker.view.navigation;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,20 +17,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.makeramen.roundedimageview.RoundedImageView;
 import com.smartsoft.movietracker.R;
-import com.smartsoft.movietracker.model.Movie;
+import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.presenter.navigation.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.RoundedView;
+import com.smartsoft.movietracker.view.detail.DetailPageActivity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter<MovieNavigationVerticalGridViewAdapter.Holder> {
+public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter<MovieNavigationVerticalGridViewAdapter.Holder> implements Serializable {
 
     private static final String TAG = "MovieNavigationVertical";
     private ArrayList<Movie> movieList;
@@ -88,6 +88,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
             layout = itemView.findViewById(R.id.movie_element_card);
             description = itemView.findViewById(R.id.description);
             progressBar = itemView.findViewById(R.id.spinner);
+
         }
 
 
@@ -107,6 +108,14 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
                 }
             }).error(R.drawable.error).into(poster);
 
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(ctx, DetailPageActivity.class);
+                    intent.putExtra("Movie",  movie);
+                    ctx.startActivity(intent);
+                }
+            });
         }
     }
 
