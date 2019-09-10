@@ -6,12 +6,40 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/detail_page_scroll_view"
+    android:background="#FF000000"
     android:isScrollContainer="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
     >
+
+        <ImageView
+            android:id="@+id/background_image"
+            android:layout_width="720dp"
+            android:layout_height="400dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <ImageView
+            android:id="@+id/movie_bottom_overlay"
+            android:layout_width="960dp"
+            android:layout_height="160dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/background_image"
+            android:src="@drawable/movie_bottom_overlay"
+            />
+
+        <ImageView
+            android:id="@+id/movie_background_overlay"
+            android:layout_width="360dp"
+            android:layout_height="400dp"
+            app:layout_constraintStart_toStartOf="@id/background_image"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/movie_picture_gradient_overlay"
+            />
 
         <TextView
             android:id="@+id/program_Title"
@@ -20,10 +48,12 @@
             android:layout_marginStart="48dp"
             android:layout_marginTop="64dp"
             android:layout_marginEnd="512dp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
+
 
         <TextView
             android:id="@+id/movie_Description"
@@ -35,21 +65,26 @@
             app:layout_constraintTop_toBottomOf="@id/program_Title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:scrollbars="vertical"
             />
+
+
 
         <TextView
             android:id="@+id/plot"
             android:layout_width="400dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginStart="48dp"
             android:layout_marginEnd="512dp"
+            android:ellipsize="end"
+            android:maxLines="3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/movie_Description"
             app:layout_constraintEnd_toEndOf="parent"
             />
 
-        <ImageView
+        <Button
             android:id="@+id/add_watchlist_button"
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -58,7 +93,10 @@
             android:layout_marginEnd="488dp"
             app:layout_constraintStart_toEndOf="@id/plot"
             app:layout_constraintTop_toBottomOf="@id/program_Title"
-            android:src="@drawable/add_watchlist_icon"
+            android:foreground="@drawable/add_watchlist_icon"
+            android:background="@drawable/toolbar_component_background_selector"
+            android:stateListAnimator="@animator/move_description_animator"
+            android:focusable="true"
             />
 
         <RelativeLayout
@@ -90,7 +128,7 @@
             <androidx.leanback.widget.HorizontalGridView
                 android:id="@+id/cast_Actors"
                 android:layout_width="912dp"
-                android:layout_height="120dp"
+                android:layout_height="140dp"
                 android:layout_marginTop="18dp"
                 android:layout_marginStart="48dp"
                 android:layout_marginBottom="30dp"
@@ -130,23 +168,26 @@
                 android:id="@+id/review_GridView"
                 android:layout_width="match_parent"
                 android:layout_height="136dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginStart="48dp"
+                android:paddingTop="6dp"
+                android:paddingStart="48dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="8dp"
                 android:layout_alignParentStart="true"
                 android:layout_below="@id/review_textView"
                 android:layout_alignParentEnd="true"
+                android:clipToPadding="false"
+
                 />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/similar_videos"
-            android:layout_width="match_parent"
-            android:layout_height="192dp"
+            android:layout_width="960dp"
+            android:layout_height="216dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/review_section_layout"
-            android:layout_marginBottom="68dp"
             >
 
             <TextView
@@ -168,12 +209,16 @@
             <androidx.leanback.widget.HorizontalGridView
                 android:id="@+id/videos_GridView"
                 android:layout_width="match_parent"
-                android:layout_height="136dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@id/similar_videos_textView"
+                android:layout_height="158dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginStart="48dp"
+                android:paddingTop="8dp"
+                android:paddingStart="40dp"
+                android:paddingEnd="0dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/similar_videos_textView"
+                android:clipToPadding="false"
+
                 />
 
         </RelativeLayout>

@@ -19,10 +19,13 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.smartsoft.movietracker.MainActivity;
 import com.smartsoft.movietracker.R;
+import com.smartsoft.movietracker.interfaces.MainActivityBackgroundInterface;
 import com.smartsoft.movietracker.model.movie.Movie;
-import com.smartsoft.movietracker.presenter.navigation.MovieNavigationPresenter;
+import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
+import com.smartsoft.movietracker.utils.FragmentNavigation;
 import com.smartsoft.movietracker.utils.RoundedView;
 import com.smartsoft.movietracker.view.detail.DetailPageActivity;
 
@@ -54,7 +57,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        holder.bind(movieList.get(position), ctx);
+        holder.bind(movieList.get(position), ctx, presenter);
         if(position >= movieList.size()-1 % Constant.HomeFragment.COLUMN_NUM){
            presenter.updateMovieNavigationGridView(view);
         }
@@ -93,7 +96,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
 
 
-        public void bind(Movie movie, Context ctx){
+        public void bind(Movie movie, Context ctx, MovieNavigationPresenter presenter){
             Glide.with(ctx).load(Constant.Common.IMAGE_BASE_URL +movie.getPosterPath()).listener(new RequestListener<Drawable>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -107,6 +110,13 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
                     return false;
                 }
             }).error(R.drawable.error).into(poster);
+
+            layout.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean b) {
+                    FragmentNavigation.getInstance(ctx).setBackground(movie.getBackdropPath());
+                }
+            });
 
             layout.setOnClickListener(new View.OnClickListener() {
                 @Override

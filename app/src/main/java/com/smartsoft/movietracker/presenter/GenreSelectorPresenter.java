@@ -1,4 +1,4 @@
-package com.smartsoft.movietracker.presenter.home;
+package com.smartsoft.movietracker.presenter;
 
 import android.util.Log;
 
@@ -14,11 +14,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomePresenter {
+public class GenreSelectorPresenter {
 
-    public static String TAG = HomePresenter.class.getName();
+    public static String TAG = GenreSelectorPresenter.class.getName();
 
-    public HomePresenter() {
+    public GenreSelectorPresenter() {
     }
 
     public void updateGenres(View view){
@@ -37,8 +37,6 @@ public class HomePresenter {
                 }
             });
         }
-
-
 
 
     public interface View {

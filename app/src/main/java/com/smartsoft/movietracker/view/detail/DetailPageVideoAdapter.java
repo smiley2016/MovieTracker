@@ -1,6 +1,7 @@
 package com.smartsoft.movietracker.view.detail;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -24,6 +26,7 @@ import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.video.Video;
 import com.smartsoft.movietracker.presenter.DetailPagePresenter;
 import com.smartsoft.movietracker.utils.Constant;
+import com.smartsoft.movietracker.view.player.PlayerActivity;
 
 import java.util.ArrayList;
 
@@ -63,7 +66,7 @@ public class DetailPageVideoAdapter extends RecyclerView.Adapter<DetailPageVideo
         private TextView videoTitle;
         private ImageView substract;
         private ImageView videoThumbnail;
-        private RelativeLayout layout;
+        private ConstraintLayout layout;
         private ProgressBar progressBar;
 
         public Holder(@NonNull View itemView) {
@@ -73,14 +76,13 @@ public class DetailPageVideoAdapter extends RecyclerView.Adapter<DetailPageVideo
             substract = itemView.findViewById(R.id.subtract);
             videoTitle = itemView.findViewById(R.id.video_title);
             layout = itemView.findViewById(R.id.video_element_layout);
-            progressBar = itemView.findViewById(R.id.video_progress_bar);
-        }
+//            progressBar = itemView.findViewById(R.id.video_progress_bar);
+      }
 
         public void bind(Context ctx, Video video){
             Glide.with(ctx).load(Constant.Common.BASE_YOUTUBE_URL_FOR_PICTURE + video.getKey() + Constant.Common.YOUTUBE_THUMBNAIL).listener(new RequestListener<Drawable>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                    progressBar.setVisibility(View.GONE);
                     videoThumbnail.setImageDrawable(ctx.getDrawable(R.drawable.background));
                     Log.e("3ss", e.getMessage());
                     return false;
@@ -88,14 +90,20 @@ public class DetailPageVideoAdapter extends RecyclerView.Adapter<DetailPageVideo
 
                 @Override
                 public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                    progressBar.setVisibility(View.GONE);
                     return false;
                 }
             }).into(videoThumbnail);
 
-//            Glide.with(ctx).load(Constant.Common.BASE_YOUTUBE_URL_FOR_PICTURE + video.getKey() + Constant.Common.YOUTUBE_THUMBNAIL).error(R.drawable.error).into(videoThumbnail);
-
             videoTitle.setText(video.getName());
+
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(ctx, PlayerActivity.class);
+                    intent.putExtra("videoKey", video.getKey());
+                    ctx.startActivity(intent);
+                }
+            });
         }
     }
 }

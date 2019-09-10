@@ -1,4 +1,4 @@
-package com.smartsoft.movietracker.interfaces.detail;
+package com.smartsoft.movietracker.interfaces;
 
 import com.smartsoft.movietracker.model.cast.Cast;
 import com.smartsoft.movietracker.model.review.Review;

@@ -21,11 +21,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.cast.Cast;
-import com.smartsoft.movietracker.presenter.DetailPagePresenter;
-import com.smartsoft.movietracker.presenter.navigation.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -78,7 +74,7 @@ public class DetailPageCastAdapter extends RecyclerView.Adapter<DetailPageCastAd
 
         public void bind(Context ctx, Cast cast) {
 
-                    Glide.with(ctx).load(Constant.Common.IMAGE_BASE_URL + cast.getProfilePath()).circleCrop().error(R.drawable.unkown_person).listener(new RequestListener<Drawable>() {
+                    Glide.with(ctx).load(Constant.Common.IMAGE_BASE_URL + cast.getProfilePath()).circleCrop().error(R.mipmap.unkown_person_round_v2_legacy_round).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                             progressBar.setVisibility(View.GONE);
@@ -90,7 +86,6 @@ public class DetailPageCastAdapter extends RecyclerView.Adapter<DetailPageCastAd
                         @Override
                         public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                             progressBar.setVisibility(View.GONE);
-                            actorName.setVisibility(View.INVISIBLE);
                             actorName.setText(cast.getName());
                             return false;
                         }

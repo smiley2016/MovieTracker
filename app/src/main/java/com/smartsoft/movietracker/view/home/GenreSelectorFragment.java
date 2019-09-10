@@ -1,32 +1,37 @@
 package com.smartsoft.movietracker.view.home;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.leanback.widget.VerticalGridView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.genre.Genre;
-import com.smartsoft.movietracker.presenter.home.HomePresenter;
+import com.smartsoft.movietracker.presenter.GenreSelectorPresenter;
 import com.smartsoft.movietracker.utils.Constant;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment implements HomePresenter.View {
+public class GenreSelectorFragment extends Fragment implements GenreSelectorPresenter.View {
 
     private VerticalGridView verticalGridView;
     private VerticalGridViewGenreAdapter adapter;
     private ArrayList<Genre> list = new ArrayList<>();
-    private HomePresenter presenter = new HomePresenter();
+    private GenreSelectorPresenter presenter = new GenreSelectorPresenter();
     private View rootView;
-    private static final String TAG = HomeFragment.class.getSimpleName();
+    private static final String TAG = GenreSelectorFragment.class.getSimpleName();
 
 
     @Nullable
@@ -63,5 +68,4 @@ public class HomeFragment extends Fragment implements HomePresenter.View {
         verticalGridView.setAdapter(adapter);
 
     }
-
 }

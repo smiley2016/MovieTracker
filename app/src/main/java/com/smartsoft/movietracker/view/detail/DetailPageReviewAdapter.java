@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.review.Review;
 import com.smartsoft.movietracker.presenter.DetailPagePresenter;
+import com.smartsoft.movietracker.utils.Dialogs;
 
 import java.util.ArrayList;
 
@@ -61,14 +62,20 @@ public class DetailPageReviewAdapter extends RecyclerView.Adapter<DetailPageRevi
         public Holder(@NonNull View itemView) {
 
             super(itemView);
-            layout = itemView.findViewById(R.id.cast_element_layout);
+            layout = itemView.findViewById(R.id.review_element_layout);
             reviewer = itemView.findViewById(R.id.reviewer);
             reviewComment = itemView.findViewById(R.id.review_comment);
         }
 
         public void bind(Context ctx,Review review){
-            reviewer.setText(review.getContent());
-            reviewComment.setText(review.getAuthor());
+            reviewer.setText(review.getAuthor());
+            reviewComment.setText(review.getContent());
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Dialogs.startDialog(ctx, review.getContent(), review.getAuthor());
+                }
+            });
         }
     }
 }

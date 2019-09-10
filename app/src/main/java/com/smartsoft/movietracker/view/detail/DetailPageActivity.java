@@ -2,7 +2,9 @@ package com.smartsoft.movietracker.view.detail;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.widget.ScrollView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.smartsoft.movietracker.R;
-import com.smartsoft.movietracker.interfaces.detail.DetailPageInterface;
+import com.smartsoft.movietracker.interfaces.DetailPageInterface;
 import com.smartsoft.movietracker.model.cast.Cast;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.model.review.Review;
@@ -46,8 +48,9 @@ public class DetailPageActivity extends FragmentActivity implements DetailPageIn
 
         movie = (Movie) getIntent().getSerializableExtra("Movie");
 
-        ScrollView view = findViewById(R.id.detail_page_scroll_view);
-        Glide.with(this).load(Constant.Common.IMAGE_BASE_URL+movie.getBackdropPath()).into(new SimpleTarget<Drawable>() {
+
+        ImageView view = findViewById(R.id.background_image);
+        Glide.with(this).load(Constant.Common.IMAGE_ORIGINAL_BASE_URL+movie.getBackdropPath()).into(new SimpleTarget<Drawable>() {
             @Override
             public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                 view.setBackground(resource);
@@ -60,20 +63,39 @@ public class DetailPageActivity extends FragmentActivity implements DetailPageIn
         details = findViewById(R.id.movie_Description);
         details.setText(String.format("Year %s | IMDb%s", movie.getReleaseDate(), movie.getVoteAverage()));
 
+
+
+
         plot = findViewById(R.id.plot);
         plot.setText(movie.getOverview());
 
+        Button addWatchList = findViewById(R.id.add_watchlist_button);
+        addWatchList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(plot.getMaxLines() == 3){
+                    addWatchList.setForeground(getDrawable(R.drawable.collapse_icon));
+                    plot.setMaxLines(Integer.MAX_VALUE);
+
+                }else{
+                    addWatchList.setForeground(getDrawable(R.drawable.add_watchlist_icon));
+                    plot.setMaxLines(3);
+                }
+
+            }
+        });
+
         castGridView = findViewById(R.id.cast_Actors);
         castGridView.setNumRows(1);
-        castGridView.setItemSpacing(8);
+        castGridView.setVerticalSpacing(8);
 
         reviewGridView = findViewById(R.id.review_GridView);
         reviewGridView.setItemSpacing(8);
-        reviewGridView.setNumRows(8);
+        reviewGridView.setVerticalSpacing(8);
 
         videoGridView = findViewById(R.id.videos_GridView);
-        videoGridView.setItemSpacing(8);
         videoGridView.setNumRows(1);
+        videoGridView.setItemSpacing(8);
 
         startGridViewAdapters();
 

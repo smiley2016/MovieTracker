@@ -1,22 +1,31 @@
 package com.smartsoft.movietracker;
 
-import androidx.fragment.app.FragmentActivity;
-
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentActivity;
+
+import com.bumptech.glide.Glide;
+import com.smartsoft.movietracker.interfaces.MainActivityBackgroundInterface;
 import com.smartsoft.movietracker.model.genre.Genre;
+import com.smartsoft.movietracker.presenter.MainActivityBackgroundPresenter;
 import com.smartsoft.movietracker.utils.Constant;
+import com.smartsoft.movietracker.utils.Debouncer;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
 
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 
-public class MainActivity extends FragmentActivity {
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
+public class MainActivity extends FragmentActivity implements MainActivityBackgroundInterface {
 
     public TextView text;
     private ImageView search;
+    private ImageView background;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +53,43 @@ public class MainActivity extends FragmentActivity {
             }
         });
 
+        FragmentNavigation.getInstance(this).setBackgroundPresenter(this, new MainActivityBackgroundPresenter(this));
+        background = findViewById(R.id.activity_background);
     }
 
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-//        FragmentNavigation.getInstance(this).onBackPressed(this, findViewById(R.id.movie_genres_gridView_fragment));
+    }
+
+
+    @Override
+    public void setBackground(String image) {
+
+//        Debouncer debouncer = new Debouncer();
+//        debouncer.debounce(image, new Runnable() {
+//            @Override
+//            public void run() {
+//               runOnUiThread(callback.callback());
+//        }, 300, TimeUnit.MILLISECONDS);
+//
+//        myCallback callback = new myCallback() {
+//            @Override
+//            public void callback() {
+//                Glide.with(ctx).load(Constant.Common.IMAGE_ORIGINAL_BASE_URL + image)
+//                        .placeholder(background.getDrawable())
+//                        .transition(withCrossFade(500))
+//                        .into(background);
+//            }
+//            });
+//        }
+//
+//    }
+//
+//    public interface myCallback{
+//        void callback(Context ctx);
+//    }
     }
 }
 

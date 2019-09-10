@@ -2,7 +2,7 @@
     <string name="app_name">MovieTracker</string>
     <string name="back_button_press">Please click back again to exit</string>
 
-    <!--  HomeFragment  -->
+    <!--  GenreSelectorFragment  -->
     <string name="choose_genre_textView">Choose genres you want to Watch</string>
     <string name="verticalGridView_element_setScaleSizeTo">1.14</string>
     <string name="verticalGridView_element_normalScaleSize">1</string>
@@ -12,5 +12,6 @@
     <string name="logo">logo</string>
     <string name="removed_genre">Genre removed</string>
     <string name="added_genre">Genre added</string>
+    <string name="review_by">Review by</string>
 
 </resources>

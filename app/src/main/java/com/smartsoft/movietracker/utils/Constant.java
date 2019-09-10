@@ -14,6 +14,8 @@ public class Constant {
         public static String BASE_URL="https://api.themoviedb.org/3/";
         public static String API_KEY = "221aac16f7f58f1cf0fd5f99ff6e6b60";
         public static String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+        public static String IMAGE_ORIGINAL_BASE_URL = "https://image.tmdb.org/t/p/original";
+
         public static final String LANGUAGE = "en-US";
         public static final String SORT_BY = "popularity.desc";
         public static int PAGE = 0;

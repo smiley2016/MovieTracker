@@ -3,10 +3,9 @@ package com.smartsoft.movietracker.presenter;
 import android.util.Log;
 
 
-import com.smartsoft.movietracker.interfaces.detail.DetailPageInterface;
+import com.smartsoft.movietracker.interfaces.DetailPageInterface;
 import com.smartsoft.movietracker.model.cast.CastResult;
 import com.smartsoft.movietracker.model.review.ReviewResult;
-import com.smartsoft.movietracker.model.video.Video;
 import com.smartsoft.movietracker.model.video.VideoResult;
 import com.smartsoft.movietracker.service.ApiController;
 import com.smartsoft.movietracker.view.detail.DetailPageActivity;
