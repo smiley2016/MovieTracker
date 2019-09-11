@@ -25,7 +25,7 @@ public class Dialogs {
         TextView review_comment = dialog.findViewById(R.id.dialog_review_comment);
         review_comment.setText(comment);
         TextView reviewer = dialog.findViewById(R.id.dialog_reviewer);
-        reviewer.setText(reviewer.getText() + Author);
+        reviewer.setText(String.format("%s %s", reviewer.getText(), Author));
         button.setFocusable(true);
         review_comment.setMovementMethod(new ScrollingMovementMethod() {
         });

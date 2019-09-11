@@ -3,53 +3,39 @@ package com.smartsoft.movietracker.utils;
 import android.content.Context;
 import android.os.Handler;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.smartsoft.movietracker.MainActivity;
 import com.smartsoft.movietracker.R;
-import com.smartsoft.movietracker.interfaces.MainActivityBackgroundInterface;
-import com.smartsoft.movietracker.presenter.MainActivityBackgroundPresenter;
+import com.smartsoft.movietracker.interfaces.MainActivityInterface;
+import com.smartsoft.movietracker.presenter.MainActivityPresenter;
 import com.smartsoft.movietracker.view.home.GenreSelectorFragment;
 import com.smartsoft.movietracker.view.navigation.MovieNavigationFragment;
 
 public class FragmentNavigation extends Fragment {
     private static final String TAG = FragmentNavigation.class.getSimpleName();
-    private static Handler mHandler = new Handler();
-    private static Context ctx;
     private static FragmentNavigation sInstance;
     private static FragmentManager mFragmentManager;
-    private static FragmentTransaction mFragmentTransaction;
-    public static int mMainActivityFragmentContainer;
-    private MainActivityBackgroundInterface backgroundInterface;
-    private MainActivityBackgroundPresenter backgroundPresenter;
+    private static int mMainActivityFragmentContainer;
 
 
     public static FragmentNavigation getInstance(Context context) {
-        ctx = context;
         if (sInstance == null) {
-            mMainActivityFragmentContainer = R.id.movie_genres_gridView_fragment;
-            sInstance = new FragmentNavigation();
-            mFragmentManager = ((MainActivity) context).getSupportFragmentManager();
+            setAttributes(context);
         }
 
         return sInstance;
     }
 
-    public void setBackgroundPresenter(MainActivityBackgroundInterface backgroundInterface, MainActivityBackgroundPresenter presenter){
-        this.backgroundInterface = backgroundInterface;
-        this.backgroundPresenter = presenter;
+    public static void setAttributes(Context context){
+        mMainActivityFragmentContainer = R.id.movie_genres_gridView_fragment;
+        sInstance = new FragmentNavigation();
+        mFragmentManager = ((MainActivity)context).getSupportFragmentManager();
     }
 
-    public void setBackground(String image){
-        backgroundPresenter.setBackground(image);
-    }
-
-
-    public void showHomeFragment(TextView textView){
-        textView.setText(ctx.getResources().getString(R.string.choose_genre_textView));
+    public void showHomeFragment(){
         replaceFragment(new GenreSelectorFragment(), mMainActivityFragmentContainer, false);
     }
 
@@ -57,31 +43,10 @@ public class FragmentNavigation extends Fragment {
         replaceFragment(new MovieNavigationFragment(), mMainActivityFragmentContainer, true);
     }
 
-    public void popBackstack() {
-        mFragmentManager.popBackStack();
-    }
 
-    private void addFragment(Fragment fragment, int container) {
-        mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.add(container, fragment, fragment.getTag());
-        mFragmentTransaction.addToBackStack(null);
-        try {
-            mFragmentTransaction.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void removeFragment(Fragment fragment) {
-        mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.remove(fragment);
-        mFragmentTransaction.commit();
-    }
 
     private void replaceFragment(Fragment fragment, int container, boolean addToBackStack) {
-        mFragmentTransaction = mFragmentManager.beginTransaction();
-        Fragment topFragment = mFragmentManager.findFragmentById(container);
-
+        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
             // if there is fragment to replace, then replace it:
             mFragmentTransaction.replace(container, fragment, fragment.getTag());
             if(addToBackStack){
@@ -92,29 +57,11 @@ public class FragmentNavigation extends Fragment {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            mFragmentManager.executePendingTransactions();
 
 
 
     }
 
-    public Fragment getCurrentFragment(int container) {
-        return mFragmentManager.findFragmentById(container);
-    }
-
-
-    public void onBackPressed(MainActivity activity, View view) {
-
-        // If Home page is open: double press exit:
-        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof GenreSelectorFragment) {
-            activity.moveTaskToBack(true);
-            return;
-        }
-
-        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof MovieNavigationFragment) {
-            showHomeFragment(activity.text);
-        }
-    }
 
 
 

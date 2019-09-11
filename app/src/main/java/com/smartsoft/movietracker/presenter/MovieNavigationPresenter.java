@@ -11,6 +11,11 @@ import com.smartsoft.movietracker.service.ApiController;
 import com.smartsoft.movietracker.view.home.GenreSelectorFragment;
 
 import java.util.ArrayList;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,24 +30,32 @@ public class MovieNavigationPresenter {
 
     public void updateMovieNavigationGridView(View view){
 
+        ApiController.getInstance().getMovies()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ArrayList<Movie>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-        ApiController.getInstance().getMovies(new Callback<MovieResult>() {
-            @Override
-            public void onResponse(@NonNull Call<MovieResult> call, @NonNull Response<MovieResult> response) {
-                Log.e(TAG, response.toString());
-                ArrayList<Movie> movies = response.body().getResults();
-                view.updateMovieNavigationGridView(movies);
+                    }
 
-            }
+                    @Override
+                    public void onNext(ArrayList<Movie> movies) {
+                        view.updateMovieNavigationGridView(movies);
+                    }
 
-            @Override
-            public void onFailure(@NonNull Call<MovieResult> call, Throwable t) {
-                Log.e(TAG, t.toString());
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("3ss", "retrofit fail" + e.getMessage());
+                    }
 
+                    @Override
+                    public void onComplete() {
 
-    }
+                    }
+                });
+
+   }
 
 
 

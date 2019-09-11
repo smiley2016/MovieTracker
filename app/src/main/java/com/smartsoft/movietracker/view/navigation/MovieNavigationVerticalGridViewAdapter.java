@@ -21,7 +21,6 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.smartsoft.movietracker.MainActivity;
 import com.smartsoft.movietracker.R;
-import com.smartsoft.movietracker.interfaces.MainActivityBackgroundInterface;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
@@ -114,7 +113,8 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
             layout.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View view, boolean b) {
-                    FragmentNavigation.getInstance(ctx).setBackground(movie.getBackdropPath());
+                    ((MainActivity)ctx).setBackground(movie.getBackdropPath());
+
                 }
             });
 

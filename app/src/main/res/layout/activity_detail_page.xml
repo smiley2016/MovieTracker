@@ -86,15 +86,15 @@
 
         <Button
             android:id="@+id/add_watchlist_button"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="29dp"
+            android:layout_height="29dp"
             android:layout_marginTop="96dp"
             android:layout_marginStart="2dp"
             android:layout_marginEnd="488dp"
             app:layout_constraintStart_toEndOf="@id/plot"
             app:layout_constraintTop_toBottomOf="@id/program_Title"
             android:foreground="@drawable/add_watchlist_icon"
-            android:background="@drawable/toolbar_component_background_selector"
+            android:background="@drawable/toolbar_component_background_shape"
             android:stateListAnimator="@animator/move_description_animator"
             android:focusable="true"
             />

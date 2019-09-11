@@ -64,12 +64,11 @@ public class DetailPageActivity extends FragmentActivity implements DetailPageIn
         details.setText(String.format("Year %s | IMDb%s", movie.getReleaseDate(), movie.getVoteAverage()));
 
 
-
-
         plot = findViewById(R.id.plot);
         plot.setText(movie.getOverview());
 
         Button addWatchList = findViewById(R.id.add_watchlist_button);
+        addWatchList.requestFocus();
         addWatchList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

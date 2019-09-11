@@ -1,5 +1,6 @@
 package com.smartsoft.movietracker.view.navigation;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,23 +11,22 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.leanback.widget.VerticalGridView;
 
+import com.smartsoft.movietracker.MainActivity;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
+import com.smartsoft.movietracker.view.BaseFragment;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class MovieNavigationFragment extends Fragment implements MovieNavigationPresenter.View {
+public class MovieNavigationFragment extends BaseFragment implements MovieNavigationPresenter.View {
 
     public static String TAG = MovieNavigationFragment.class.getSimpleName();
     private VerticalGridView verticalGridView;
     private MovieNavigationVerticalGridViewAdapter adapter;
     private MovieNavigationPresenter presenter;
-    private View rootView;
-
-    public MovieNavigationFragment() {
-    }
 
 
     @Nullable
@@ -74,11 +74,17 @@ public class MovieNavigationFragment extends Fragment implements MovieNavigation
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        ((MainActivity) Objects.requireNonNull(getActivity())).setInvisibleSearchIcon();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         Constant.Common.PAGE = 0;
         adapter.clearAll();
-        Constant.Genre.genre.clear();
+        ((MainActivity) Objects.requireNonNull(getActivity())).setVisibleSearchIcon();
     }
 
 

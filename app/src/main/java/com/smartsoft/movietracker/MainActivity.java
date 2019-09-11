@@ -1,59 +1,105 @@
 package com.smartsoft.movietracker;
 
-import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
-
 import com.bumptech.glide.Glide;
-import com.smartsoft.movietracker.interfaces.MainActivityBackgroundInterface;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.smartsoft.movietracker.interfaces.MainActivityInterface;
 import com.smartsoft.movietracker.model.genre.Genre;
-import com.smartsoft.movietracker.presenter.MainActivityBackgroundPresenter;
+import com.smartsoft.movietracker.presenter.MainActivityPresenter;
+import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
-import com.smartsoft.movietracker.utils.Debouncer;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
-
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
-public class MainActivity extends FragmentActivity implements MainActivityBackgroundInterface {
+public class MainActivity extends FragmentActivity implements MainActivityInterface {
 
+    private static final String TAG = "MainActivity";
     public TextView text;
-    private ImageView search;
     private ImageView background;
+    private ObservableEmitter<String> urlStreamEmitter;
+    private Drawable drawable;
+    private ImageView search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
-        FragmentNavigation.getInstance(this).showHomeFragment(text);
+        Log.e(TAG, Thread.currentThread().toString());
+        Observable.create((ObservableOnSubscribe<String>) emitter -> urlStreamEmitter = emitter)
+                .debounce(1000, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        Glide.with(getBaseContext()).asDrawable().load(s).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).transition(withCrossFade(500)).into(new SimpleTarget<Drawable>() {
+                            @Override
+                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                if (drawable != null)
+                                    Glide.with(getBaseContext()).load(s).placeholder(drawable).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).transition(withCrossFade(500)).into(background);
+                                else {
+                                    Glide.with(getBaseContext()).load(s).placeholder(R.drawable.background).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).transition(withCrossFade(500)).into(background);
+                                }
+                                drawable = resource;
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
-    public void initViews(){
+
+    public void initViews() {
+        FragmentNavigation.getInstance(this).showHomeFragment();
         text = findViewById(R.id.choose_textView);
         search = findViewById(R.id.toolbar_search);
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentNavigation.getInstance(getApplicationContext()).showMovieNavigationFragment();
-                Iterator<Genre> it = Constant.Genre.genre.iterator();
-                StringBuilder genreString = new StringBuilder();
-                while(it.hasNext()){
-                    genreString.append(it.next().getName()).append(" - ");
-                }
-                genreString.replace(genreString.length()-3, genreString.length()-1, "");
-                text.setText(genreString);
+        search.setOnClickListener(view -> {
+            if (!Constant.Genre.genre.isEmpty()) {
+                FragmentNavigation.getInstance(this).showMovieNavigationFragment();
+                setInvisibleSearchIcon();
+            } else {
+                Toast.makeText(MainActivity.this, "Please choose at least a genre", Toast.LENGTH_SHORT).show();
             }
-        });
 
-        FragmentNavigation.getInstance(this).setBackgroundPresenter(this, new MainActivityBackgroundPresenter(this));
+        });
         background = findViewById(R.id.activity_background);
     }
 
@@ -65,31 +111,32 @@ public class MainActivity extends FragmentActivity implements MainActivityBackgr
 
 
     @Override
+    public void setTitle() {
+        Iterator<Genre> it = Constant.Genre.genre.iterator();
+        StringBuilder genreString = new StringBuilder();
+        while (it.hasNext()) {
+            if(it.hasNext()){
+                genreString.append(it.next().getName()).append(" - ");
+            }
+        }
+        text.setText(genreString);
+    }
+
+    @Override
     public void setBackground(String image) {
 
-//        Debouncer debouncer = new Debouncer();
-//        debouncer.debounce(image, new Runnable() {
-//            @Override
-//            public void run() {
-//               runOnUiThread(callback.callback());
-//        }, 300, TimeUnit.MILLISECONDS);
-//
-//        myCallback callback = new myCallback() {
-//            @Override
-//            public void callback() {
-//                Glide.with(ctx).load(Constant.Common.IMAGE_ORIGINAL_BASE_URL + image)
-//                        .placeholder(background.getDrawable())
-//                        .transition(withCrossFade(500))
-//                        .into(background);
-//            }
-//            });
-//        }
-//
-//    }
-//
-//    public interface myCallback{
-//        void callback(Context ctx);
-//    }
+        urlStreamEmitter.onNext(Constant.Common.IMAGE_ORIGINAL_BASE_URL + image);
+
+    }
+
+    @Override
+    public void setVisibleSearchIcon() {
+        search.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void setInvisibleSearchIcon() {
+        search.setVisibility(View.INVISIBLE);
     }
 }
 

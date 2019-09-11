@@ -17,20 +17,23 @@ import androidx.leanback.widget.VerticalGridView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.smartsoft.movietracker.MainActivity;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.presenter.GenreSelectorPresenter;
 import com.smartsoft.movietracker.utils.Constant;
+import com.smartsoft.movietracker.view.BaseFragment;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class GenreSelectorFragment extends Fragment implements GenreSelectorPresenter.View {
+public class GenreSelectorFragment extends BaseFragment implements GenreSelectorPresenter.View {
 
     private VerticalGridView verticalGridView;
     private VerticalGridViewGenreAdapter adapter;
     private ArrayList<Genre> list = new ArrayList<>();
     private GenreSelectorPresenter presenter = new GenreSelectorPresenter();
-    private View rootView;
     private static final String TAG = GenreSelectorFragment.class.getSimpleName();
 
 
@@ -53,12 +56,28 @@ public class GenreSelectorFragment extends Fragment implements GenreSelectorPres
 
     }
 
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         presenter.updateGenres(this);
+        ((MainActivity) Objects.requireNonNull(getActivity())).setTitle();
         Log.e("3ss",list.size()+"");
     }
+
+//    @Override
+//    public void onDetach() {
+//        super.onDetach();
+//
+//        try {
+//            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+//            childFragmentManager.setAccessible(true);
+//            childFragmentManager.set(this, null);
+//
+//        } catch (NullPointerException | NoSuchFieldException | IllegalAccessException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     @Override
     public void updateGenres(ArrayList<Genre> genre) {
