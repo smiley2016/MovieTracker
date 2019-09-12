@@ -74,7 +74,7 @@ public class DetailPageCastAdapter extends RecyclerView.Adapter<DetailPageCastAd
 
         public void bind(Context ctx, Cast cast) {
 
-                    Glide.with(ctx).load(Constant.Common.IMAGE_BASE_URL + cast.getProfilePath()).circleCrop().error(R.mipmap.unkown_person_round_v2_legacy_round).listener(new RequestListener<Drawable>() {
+                    Glide.with(ctx).load(Constant.API.IMAGE_BASE_URL + cast.getProfilePath()).circleCrop().error(R.mipmap.unkown_person_round_v2_legacy_round).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                             progressBar.setVisibility(View.GONE);

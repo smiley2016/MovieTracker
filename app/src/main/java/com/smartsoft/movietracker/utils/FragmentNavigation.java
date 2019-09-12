@@ -19,21 +19,24 @@ public class FragmentNavigation extends Fragment {
     private static FragmentNavigation sInstance;
     private static FragmentManager mFragmentManager;
     private static int mMainActivityFragmentContainer;
+    private static Context ctx;
 
 
     public static FragmentNavigation getInstance(Context context) {
+        ctx = context;
         if (sInstance == null) {
-            setAttributes(context);
+            mMainActivityFragmentContainer = R.id.movie_genres_gridView_fragment;
+            sInstance = new FragmentNavigation();
+            mFragmentManager = ((MainActivity)context).getSupportFragmentManager();
         }
 
         return sInstance;
     }
 
-    public static void setAttributes(Context context){
-        mMainActivityFragmentContainer = R.id.movie_genres_gridView_fragment;
-        sInstance = new FragmentNavigation();
-        mFragmentManager = ((MainActivity)context).getSupportFragmentManager();
+    public void clearInstance(){
+        sInstance = null;
     }
+
 
     public void showHomeFragment(){
         replaceFragment(new GenreSelectorFragment(), mMainActivityFragmentContainer, false);
@@ -46,8 +49,10 @@ public class FragmentNavigation extends Fragment {
 
 
     private void replaceFragment(Fragment fragment, int container, boolean addToBackStack) {
-        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-            // if there is fragment to replace, then replace it:
+        if(!((MainActivity)ctx).isDestroyed()){
+            FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+            // if there is layout_fragment to replace, then replace it:
+            mFragmentTransaction.setReorderingAllowed(false);
             mFragmentTransaction.replace(container, fragment, fragment.getTag());
             if(addToBackStack){
                 mFragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
@@ -58,6 +63,9 @@ public class FragmentNavigation extends Fragment {
                 e.printStackTrace();
             }
 
+
+            mFragmentManager.executePendingTransactions();
+        }
 
 
     }

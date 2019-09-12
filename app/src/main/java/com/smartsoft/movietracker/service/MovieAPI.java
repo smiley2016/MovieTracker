@@ -14,7 +14,7 @@ public interface MovieAPI {
     @GET("discover/movie")
     Observable<MovieResult> getMovies(@Query("api_key") String apiKey,
                                       @Query("language") String language,
-                                      @Query("sort_by") String sortBy,
+                                      @Query("sort_by") ArrayList<String> sortBy,
                                       @Query("include_adult") boolean control,
                                       @Query("include_video") boolean isVideo,
                                       @Query("page") int page,

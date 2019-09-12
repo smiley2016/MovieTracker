@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,7 +23,6 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.video.Video;
-import com.smartsoft.movietracker.presenter.DetailPagePresenter;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.view.player.PlayerActivity;
 
@@ -80,7 +78,7 @@ public class DetailPageVideoAdapter extends RecyclerView.Adapter<DetailPageVideo
       }
 
         public void bind(Context ctx, Video video){
-            Glide.with(ctx).load(Constant.Common.BASE_YOUTUBE_URL_FOR_PICTURE + video.getKey() + Constant.Common.YOUTUBE_THUMBNAIL).listener(new RequestListener<Drawable>() {
+            Glide.with(ctx).load(Constant.API.BASE_YOUTUBE_URL_FOR_PICTURE + video.getKey() + Constant.API.YOUTUBE_THUMBNAIL).listener(new RequestListener<Drawable>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                     videoThumbnail.setImageDrawable(ctx.getDrawable(R.drawable.background));

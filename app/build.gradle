@@ -20,6 +20,9 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
+
+
+
 }
 
 dependencies {
@@ -43,3 +46,5 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 }
+
+

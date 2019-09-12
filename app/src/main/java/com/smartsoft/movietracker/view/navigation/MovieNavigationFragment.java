@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.leanback.widget.VerticalGridView;
 
@@ -16,17 +17,17 @@ import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
-import com.smartsoft.movietracker.view.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class MovieNavigationFragment extends BaseFragment implements MovieNavigationPresenter.View {
+public class MovieNavigationFragment extends Fragment implements MovieNavigationPresenter.View {
 
     public static String TAG = MovieNavigationFragment.class.getSimpleName();
     private VerticalGridView verticalGridView;
     private MovieNavigationVerticalGridViewAdapter adapter;
     private MovieNavigationPresenter presenter;
+    private View rootView;
 
 
     @Nullable
@@ -63,7 +64,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     }
 
     public void startRecyclerViewAdapter(ArrayList<Movie> movies){
-        adapter = new MovieNavigationVerticalGridViewAdapter(movies, getContext(), presenter, this);
+        adapter = new MovieNavigationVerticalGridViewAdapter(movies, getActivity(), presenter, this);
         verticalGridView.setHasFixedSize(true);
         verticalGridView.setAdapter(adapter);
     }
@@ -74,17 +75,19 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     }
 
     @Override
-    public void onAttach(@NonNull Context context) {
+    public void onAttach(Context context) {
         super.onAttach(context);
         ((MainActivity) Objects.requireNonNull(getActivity())).setInvisibleSearchIcon();
     }
 
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Constant.Common.PAGE = 0;
+        Constant.API.PAGE = 0;
         adapter.clearAll();
         ((MainActivity) Objects.requireNonNull(getActivity())).setVisibleSearchIcon();
+        ((MainActivity)Objects.requireNonNull(getActivity())).setBackground(getActivity().getDrawable(R.drawable.background));
     }
 
 

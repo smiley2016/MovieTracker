@@ -10,15 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.review.Review;
 import com.smartsoft.movietracker.presenter.DetailPagePresenter;
 import com.smartsoft.movietracker.utils.Dialogs;
 
 import java.util.ArrayList;
-
-import okhttp3.internal.connection.RealConnection;
 
 public class DetailPageReviewAdapter extends RecyclerView.Adapter<DetailPageReviewAdapter.Holder> {
 
@@ -73,7 +70,7 @@ public class DetailPageReviewAdapter extends RecyclerView.Adapter<DetailPageRevi
             layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Dialogs.startDialog(ctx, review.getContent(), review.getAuthor());
+                    Dialogs.startReviewDialog(ctx, review.getContent(), review.getAuthor());
                 }
             });
         }

@@ -2,7 +2,7 @@ package com.smartsoft.movietracker;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,15 +11,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.smartsoft.movietracker.interfaces.MainActivityInterface;
 import com.smartsoft.movietracker.model.genre.Genre;
-import com.smartsoft.movietracker.presenter.MainActivityPresenter;
-import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
+import com.smartsoft.movietracker.utils.Dialogs;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
@@ -39,8 +39,10 @@ public class MainActivity extends FragmentActivity implements MainActivityInterf
     public TextView text;
     private ImageView background;
     private ObservableEmitter<String> urlStreamEmitter;
-    private Drawable drawable;
+    private ObservableEmitter<Drawable> drawableStreamEmitter;
+    private Drawable placeholderDrawable;
     private ImageView search;
+    private ImageView settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,36 @@ public class MainActivity extends FragmentActivity implements MainActivityInterf
         setContentView(R.layout.activity_main);
         initViews();
         Log.e(TAG, Thread.currentThread().toString());
+
+
+    }
+
+
+    public void initViews() {
+        FragmentNavigation.getInstance(this).showHomeFragment();
+        Constant.API.sortList.clear();
+        text = findViewById(R.id.choose_textView);
+        search = findViewById(R.id.toolbar_search);
+        search.setOnClickListener(view -> {
+            if (!Constant.Genre.genre.isEmpty()) {
+                FragmentNavigation.getInstance(this).showMovieNavigationFragment();
+                setInvisibleSearchIcon();
+            } else {
+                Toast.makeText(MainActivity.this, "Please choose at least a genre", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+        background = findViewById(R.id.activity_background);
+
+        settings = findViewById(R.id.toolbar_settings);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialogs.startToolbarSettingsDialog(MainActivity.this);
+
+            }
+        });
+
         Observable.create((ObservableOnSubscribe<String>) emitter -> urlStreamEmitter = emitter)
                 .debounce(1000, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
@@ -63,12 +95,12 @@ public class MainActivity extends FragmentActivity implements MainActivityInterf
                         Glide.with(getBaseContext()).asDrawable().load(s).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).transition(withCrossFade(500)).into(new SimpleTarget<Drawable>() {
                             @Override
                             public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                                if (drawable != null)
-                                    Glide.with(getBaseContext()).load(s).placeholder(drawable).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).transition(withCrossFade(500)).into(background);
+                                if (placeholderDrawable != null)
+                                    Glide.with(getBaseContext()).load(s).placeholder(placeholderDrawable).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).transition(withCrossFade(500)).into(background);
                                 else {
                                     Glide.with(getBaseContext()).load(s).placeholder(R.drawable.background).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).transition(withCrossFade(500)).into(background);
                                 }
-                                drawable = resource;
+                                placeholderDrawable = resource;
                             }
                         });
 
@@ -76,7 +108,7 @@ public class MainActivity extends FragmentActivity implements MainActivityInterf
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.e(TAG, e.getCause().toString());
                     }
 
                     @Override
@@ -84,25 +116,48 @@ public class MainActivity extends FragmentActivity implements MainActivityInterf
 
                     }
                 });
+
+        Observable.create((ObservableOnSubscribe<Drawable>) emitter -> {
+            drawableStreamEmitter = emitter;
+        })
+                .debounce(1000, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Drawable>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Drawable drawable) {
+                        Log.e(TAG, "found image "+drawable);
+                        Log.e(TAG, "found second image"+placeholderDrawable);
+                        if(drawable != null){
+                            Glide.with(getBaseContext()).load(drawable).placeholder(placeholderDrawable).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).transition(withCrossFade(500)).into(background);
+                        }
+                        placeholderDrawable = drawable;
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, e.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+
     }
 
-
-    public void initViews() {
-        FragmentNavigation.getInstance(this).showHomeFragment();
-        text = findViewById(R.id.choose_textView);
-        search = findViewById(R.id.toolbar_search);
-        search.setOnClickListener(view -> {
-            if (!Constant.Genre.genre.isEmpty()) {
-                FragmentNavigation.getInstance(this).showMovieNavigationFragment();
-                setInvisibleSearchIcon();
-            } else {
-                Toast.makeText(MainActivity.this, "Please choose at least a genre", Toast.LENGTH_SHORT).show();
-            }
-
-        });
-        background = findViewById(R.id.activity_background);
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e(TAG, "onStart: ");
     }
-
 
     @Override
     public void onBackPressed() {
@@ -125,7 +180,13 @@ public class MainActivity extends FragmentActivity implements MainActivityInterf
     @Override
     public void setBackground(String image) {
 
-        urlStreamEmitter.onNext(Constant.Common.IMAGE_ORIGINAL_BASE_URL + image);
+        urlStreamEmitter.onNext(Constant.API.IMAGE_ORIGINAL_BASE_URL + image);
+
+    }
+
+    @Override
+    public void setBackground(Drawable img){
+        drawableStreamEmitter.onNext(img);
 
     }
 
@@ -138,6 +199,8 @@ public class MainActivity extends FragmentActivity implements MainActivityInterf
     public void setInvisibleSearchIcon() {
         search.setVisibility(View.INVISIBLE);
     }
+
+
 }
 
 

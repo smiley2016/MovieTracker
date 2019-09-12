@@ -17,13 +17,6 @@ import com.smartsoft.movietracker.utils.Constant;
 import java.util.ArrayList;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -45,7 +38,7 @@ public class ApiController {
         Retrofit mRetrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl(Constant.Common.BASE_URL)
+                .baseUrl(Constant.API.BASE_URL)
                 .build();
         genreApiService = mRetrofit.create(GenreAPI.class);
         movieApiService = mRetrofit.create(MovieAPI.class);
@@ -72,29 +65,30 @@ public class ApiController {
         for (Genre value : genre) {
             genreIds.add(value.getId());
         }
-        Constant.Common.PAGE++;
-        Log.e(TAG, String.valueOf(Constant.Common.PAGE));
-        return movieApiService.getMovies(Constant.Common.API_KEY,
-                Constant.Common.LANGUAGE,
-                Constant.Common.SORT_BY,
-                Constant.Common.INCLUDE_ADULT,
-                Constant.Common.INCLUDE_VIDEO,
-                Constant.Common.PAGE,
+
+        Constant.API.PAGE++;
+        Log.e(TAG, String.valueOf(Constant.API.PAGE));
+        return movieApiService.getMovies(Constant.API.API_KEY,
+                Constant.API.LANGUAGE,
+                Constant.API.sortList,
+                Constant.API.INCLUDE_ADULT,
+                Constant.API.INCLUDE_VIDEO,
+                Constant.API.PAGE,
                 genreIds).map(MovieResult::getResults);
     }
 
     public Observable<ArrayList<Cast>> getCast(int movie_id){
-        return castApiService.getCast(movie_id, Constant.Common.API_KEY)
+        return castApiService.getCast(movie_id, Constant.API.API_KEY)
                 .map(CastResult::getCast);
     }
 
     public Observable<ArrayList<Review>> getReviews(int movie_id){
-        return reviewApiService.getReviews(movie_id, Constant.Common.API_KEY)
+        return reviewApiService.getReviews(movie_id, Constant.API.API_KEY)
                 .map(ReviewResult::getReviews);
     }
 
     public Observable<ArrayList<Video>> getVideos(int movie_id){
-        return videoApiService.getVideos(movie_id, Constant.Common.API_KEY)
+        return videoApiService.getVideos(movie_id, Constant.API.API_KEY)
                 .map(VideoResult::getResults);
     }
 

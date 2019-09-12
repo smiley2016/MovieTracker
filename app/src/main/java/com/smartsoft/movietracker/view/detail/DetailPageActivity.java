@@ -50,7 +50,7 @@ public class DetailPageActivity extends FragmentActivity implements DetailPageIn
 
 
         ImageView view = findViewById(R.id.background_image);
-        Glide.with(this).load(Constant.Common.IMAGE_ORIGINAL_BASE_URL+movie.getBackdropPath()).into(new SimpleTarget<Drawable>() {
+        Glide.with(this).load(Constant.API.IMAGE_ORIGINAL_BASE_URL+movie.getBackdropPath()).into(new SimpleTarget<Drawable>() {
             @Override
             public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                 view.setBackground(resource);

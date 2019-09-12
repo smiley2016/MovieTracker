@@ -3,6 +3,7 @@ package com.smartsoft.movietracker.view.navigation;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +25,6 @@ import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
-import com.smartsoft.movietracker.utils.FragmentNavigation;
-import com.smartsoft.movietracker.utils.RoundedView;
 import com.smartsoft.movietracker.view.detail.DetailPageActivity;
 
 import java.io.Serializable;
@@ -80,7 +79,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
     public static class Holder extends RecyclerView.ViewHolder{
 
-        RoundedView poster;
+        ImageView poster;
         ImageView description;
         RelativeLayout layout;
         ProgressBar progressBar;
@@ -96,7 +95,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
 
         public void bind(Movie movie, Context ctx, MovieNavigationPresenter presenter){
-            Glide.with(ctx).load(Constant.Common.IMAGE_BASE_URL +movie.getPosterPath()).listener(new RequestListener<Drawable>() {
+            Glide.with(ctx).load(Constant.API.IMAGE_BASE_URL +movie.getPosterPath()).listener(new RequestListener<Drawable>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                     progressBar.setVisibility(View.GONE);
@@ -110,11 +109,15 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
                 }
             }).error(R.drawable.error).into(poster);
 
+
+
             layout.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View view, boolean b) {
-                    ((MainActivity)ctx).setBackground(movie.getBackdropPath());
-
+                    if(b){
+                        ((MainActivity)ctx).setBackground(movie.getBackdropPath());
+                        Log.e(TAG, "hivas");
+                    }
                 }
             });
 

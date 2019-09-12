@@ -41,7 +41,13 @@ public class MovieNavigationPresenter {
 
                     @Override
                     public void onNext(ArrayList<Movie> movies) {
-                        view.updateMovieNavigationGridView(movies);
+                        ArrayList<Movie> movieList = new ArrayList<>();
+                        for (Movie it: movies){
+                            if(it.getPosterPath() != null){
+                                movieList.add(it);
+                            }
+                        }
+                        view.updateMovieNavigationGridView(movieList);
                     }
 
                     @Override
