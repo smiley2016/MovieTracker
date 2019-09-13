@@ -1,6 +1,7 @@
 package com.smartsoft.movietracker;
 
 import android.graphics.drawable.Drawable;
+import android.media.midi.MidiDeviceService;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -21,6 +22,9 @@ import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.Dialogs;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
+import com.smartsoft.movietracker.view.home.GenreSelectorFragment;
+import com.smartsoft.movietracker.view.navigation.MovieNavigationFragment;
+
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
@@ -42,14 +46,12 @@ public class MainActivity extends FragmentActivity implements MainActivityInterf
     private ObservableEmitter<Drawable> drawableStreamEmitter;
     private Drawable placeholderDrawable;
     private ImageView search;
-    private ImageView settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
-        Log.e(TAG, Thread.currentThread().toString());
 
 
     }
@@ -57,7 +59,7 @@ public class MainActivity extends FragmentActivity implements MainActivityInterf
 
     public void initViews() {
         FragmentNavigation.getInstance(this).showHomeFragment();
-        Constant.API.sortList.clear();
+
         text = findViewById(R.id.choose_textView);
         search = findViewById(R.id.toolbar_search);
         search.setOnClickListener(view -> {
@@ -71,14 +73,22 @@ public class MainActivity extends FragmentActivity implements MainActivityInterf
         });
         background = findViewById(R.id.activity_background);
 
-        settings = findViewById(R.id.toolbar_settings);
+        ImageView settings = findViewById(R.id.toolbar_settings);
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialogs.startToolbarSettingsDialog(MainActivity.this);
-
+                if(FragmentNavigation.getInstance(MainActivity.this).getCurrentFragment() instanceof MovieNavigationFragment) {
+                    Dialogs.startToolbarSettingsDialog(MainActivity.this, (MovieNavigationFragment) FragmentNavigation.getInstance(MainActivity.this).getCurrentFragment());
+                    Constant.MovieNavigationFragment.isSorted = true;
+                    Constant.API.sortList.clear();
+                }else{
+                    Dialogs.startToolbarSettingsDialog(MainActivity.this, null);
+                    Constant.API.sortList.clear();
+                }
             }
         });
+
+
 
         Observable.create((ObservableOnSubscribe<String>) emitter -> urlStreamEmitter = emitter)
                 .debounce(1000, TimeUnit.MILLISECONDS)
@@ -108,7 +118,7 @@ public class MainActivity extends FragmentActivity implements MainActivityInterf
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, e.getCause().toString());
+                        Log.e(TAG, e.toString());
                     }
 
                     @Override

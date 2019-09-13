@@ -23,7 +23,6 @@
 
         <activity android:name=".view.detail.DetailPageActivity" />
 
-        <service android:name=".service.RunOnBackgroundService" />
     </application>
     <uses-feature
         android:name="android.hardware.touchscreen"

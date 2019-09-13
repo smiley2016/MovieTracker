@@ -8,6 +8,7 @@ import com.smartsoft.movietracker.MainActivity;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.model.movie.MovieResult;
 import com.smartsoft.movietracker.service.ApiController;
+import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.view.home.GenreSelectorFragment;
 
 import java.util.ArrayList;
@@ -24,11 +25,14 @@ public class MovieNavigationPresenter {
     public static String TAG = MovieNavigationPresenter.class.getName();
 
     GenreSelectorFragment fragment;
+    View view ;
 
-    public MovieNavigationPresenter() {
+    public MovieNavigationPresenter(View view) {
+        this.view = view;
+
     }
 
-    public void updateMovieNavigationGridView(View view){
+    public void updateMovieNavigationGridView(){
 
         ApiController.getInstance().getMovies()
                 .subscribeOn(Schedulers.io())
@@ -47,7 +51,7 @@ public class MovieNavigationPresenter {
                                 movieList.add(it);
                             }
                         }
-                        view.updateMovieNavigationGridView(movieList);
+                        view.updateMovieNavigationGridView(movies);
                     }
 
                     @Override

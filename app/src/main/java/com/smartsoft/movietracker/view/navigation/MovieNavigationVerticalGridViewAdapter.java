@@ -57,7 +57,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         holder.bind(movieList.get(position), ctx, presenter);
         if(position >= movieList.size()-1 % Constant.HomeFragment.COLUMN_NUM){
-           presenter.updateMovieNavigationGridView(view);
+           presenter.updateMovieNavigationGridView();
         }
 
     }

@@ -25,6 +25,10 @@ public class Constant {
 
     }
 
+    public static class MovieNavigationFragment{
+        public static boolean isSorted = false;
+    }
+
     public static class Genre{
         public static ArrayList<com.smartsoft.movietracker.model.genre.Genre> genre = new ArrayList<>();
     }

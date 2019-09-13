@@ -45,8 +45,8 @@ public class MovieNavigationFragment extends Fragment implements MovieNavigation
         super.onViewCreated(view, savedInstanceState);
         verticalGridView = view.findViewById(R.id.movie_navigation_gridView);
         verticalGridView.setNumColumns(7);
-        presenter = new MovieNavigationPresenter();
-        presenter.updateMovieNavigationGridView(this);
+        presenter = new MovieNavigationPresenter(this);
+        presenter.updateMovieNavigationGridView();
         verticalGridView.setItemSpacing(16);
 
     }
@@ -55,12 +55,22 @@ public class MovieNavigationFragment extends Fragment implements MovieNavigation
     @Override
     public void updateMovieNavigationGridView(ArrayList<Movie> movies) {
         if(adapter != null){
+            if(Constant.MovieNavigationFragment.isSorted){
+                adapter.clearAll();
+                adapter.updateMovieList(movies);
+                Constant.MovieNavigationFragment.isSorted = false;
+            }
+
             adapter.updateMovieList(movies);
         }else {
             startRecyclerViewAdapter(movies);
         }
 
 
+    }
+
+    public MovieNavigationPresenter getPresenter(){
+        return presenter;
     }
 
     public void startRecyclerViewAdapter(ArrayList<Movie> movies){
@@ -86,6 +96,7 @@ public class MovieNavigationFragment extends Fragment implements MovieNavigation
         super.onDestroyView();
         Constant.API.PAGE = 0;
         adapter.clearAll();
+        Constant.API.sortList.clear();
         ((MainActivity) Objects.requireNonNull(getActivity())).setVisibleSearchIcon();
         ((MainActivity)Objects.requireNonNull(getActivity())).setBackground(getActivity().getDrawable(R.drawable.background));
     }

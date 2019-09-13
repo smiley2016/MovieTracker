@@ -27,7 +27,7 @@ import com.smartsoft.movietracker.utils.Constant;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class DetailPageActivity extends FragmentActivity implements DetailPageInterface.DetailPageViewInterface, Serializable {
+public class DetailPageActivity extends FragmentActivity implements DetailPageInterface.DetailPageViewInterface {
 
     private DetailPagePresenter presenter;
     private HorizontalGridView castGridView, reviewGridView, videoGridView;

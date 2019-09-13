@@ -22,6 +22,7 @@ import com.bumptech.glide.request.target.Target;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.cast.Cast;
 import com.smartsoft.movietracker.utils.Constant;
+import com.smartsoft.movietracker.utils.Dialogs;
 
 import java.util.ArrayList;
 
@@ -91,7 +92,12 @@ public class DetailPageCastAdapter extends RecyclerView.Adapter<DetailPageCastAd
                         }
                     }).into(actorPicture);
 
-
+                layout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Dialogs.startCastDialog(ctx, cast);
+                    }
+                });
 
             }
         }

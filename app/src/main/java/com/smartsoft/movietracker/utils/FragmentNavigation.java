@@ -3,6 +3,7 @@ package com.smartsoft.movietracker.utils;
 import android.content.Context;
 import android.os.Handler;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -20,7 +21,7 @@ public class FragmentNavigation extends Fragment {
     private static FragmentManager mFragmentManager;
     private static int mMainActivityFragmentContainer;
     private static Context ctx;
-
+    private Fragment currentFragment;
 
     public static FragmentNavigation getInstance(Context context) {
         ctx = context;
@@ -39,11 +40,18 @@ public class FragmentNavigation extends Fragment {
 
 
     public void showHomeFragment(){
-        replaceFragment(new GenreSelectorFragment(), mMainActivityFragmentContainer, false);
+        currentFragment = new GenreSelectorFragment();
+        replaceFragment(currentFragment, mMainActivityFragmentContainer, false);
+
     }
 
     public void showMovieNavigationFragment(){
-        replaceFragment(new MovieNavigationFragment(), mMainActivityFragmentContainer, true);
+        currentFragment = new MovieNavigationFragment();
+        replaceFragment(currentFragment, mMainActivityFragmentContainer, true);
+    }
+
+    public Fragment getCurrentFragment(){
+        return currentFragment;
     }
 
 
