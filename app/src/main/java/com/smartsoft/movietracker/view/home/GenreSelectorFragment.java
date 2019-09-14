@@ -2,7 +2,6 @@ package com.smartsoft.movietracker.view.home;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.telecom.Connection;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,36 +10,23 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.leanback.app.VerticalGridFragment;
-import androidx.leanback.app.VerticalGridSupportFragment;
-import androidx.leanback.widget.ArrayObjectAdapter;
-import androidx.leanback.widget.VerticalGridPresenter;
 import androidx.leanback.widget.VerticalGridView;
-import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.smartsoft.movietracker.MainActivity;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.Genre;
-import com.smartsoft.movietracker.model.GenreResult;
-import com.smartsoft.movietracker.model.Movie;
 import com.smartsoft.movietracker.presenter.home.HomePresenter;
+import com.smartsoft.movietracker.utils.BaseFragment;
 import com.smartsoft.movietracker.utils.Constant;
 
-import org.json.JSONException;
-
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
 
-public class HomeFragment extends Fragment implements HomePresenter.View {
+public class GenreSelectorFragment extends BaseFragment implements HomePresenter.View {
 
     VerticalGridView verticalGridView;
     VerticalGridViewGenreAdapter adapter;
     ArrayList<Genre> list = new ArrayList<>();
     private HomePresenter presenter = new HomePresenter();
-    private View rootView;
-    private static final String TAG = HomeFragment.class.getSimpleName();
+    private static final String TAG = GenreSelectorFragment.class.getSimpleName();
 
 
     @Nullable

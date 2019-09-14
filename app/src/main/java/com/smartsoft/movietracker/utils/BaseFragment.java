@@ -1,35 +1,34 @@
 package com.smartsoft.movietracker.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.smartsoft.movietracker.MainActivity;
 import com.smartsoft.movietracker.R;
-import com.smartsoft.movietracker.view.home.HomeFragment;
+import com.smartsoft.movietracker.view.home.GenreSelectorFragment;
 import com.smartsoft.movietracker.view.navigation.MovieNavigationFragment;
 
-public class FragmentNavigation extends Fragment {
-    private static final String TAG = FragmentNavigation.class.getSimpleName();
+public class BaseFragment extends Fragment {
+    private static final String TAG = BaseFragment.class.getSimpleName();
     private static Handler mHandler = new Handler();
     private static Context ctx;
-    private static FragmentNavigation sInstance;
+    private static BaseFragment sInstance;
     private static FragmentManager mFragmentManager;
     private static FragmentTransaction mFragmentTransaction;
     public static int mMainActivityFragmentContainer;
+    protected View rootView;
 
 
-    public static FragmentNavigation getInstance(Context context) {
+    public static BaseFragment getInstance(Context context) {
         ctx = context;
         if (sInstance == null) {
             mMainActivityFragmentContainer = R.id.movie_genres_gridView_fragment;
-            sInstance = new FragmentNavigation();
+            sInstance = new BaseFragment();
             mFragmentManager = ((MainActivity) context).getSupportFragmentManager();
         }
 
@@ -39,7 +38,7 @@ public class FragmentNavigation extends Fragment {
 
     public void showHomeFragment(TextView textView){
         textView.setText(ctx.getResources().getString(R.string.choose_genre_textView));
-        replaceFragment(new HomeFragment(), mMainActivityFragmentContainer, false);
+        replaceFragment(new GenreSelectorFragment(), mMainActivityFragmentContainer, false);
     }
 
     public void showMovieNavigationFragment(){
@@ -95,7 +94,7 @@ public class FragmentNavigation extends Fragment {
     public void onBackPressed(MainActivity activity, View view) {
 
         // If Home page is open: double press exit:
-        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof HomeFragment) {
+        if( getCurrentFragment(mMainActivityFragmentContainer) instanceof GenreSelectorFragment) {
             activity.moveTaskToBack(true);
             return;
         }

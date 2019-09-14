@@ -1,23 +1,15 @@
 package com.smartsoft.movietracker;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.smartsoft.movietracker.model.Genre;
-import com.smartsoft.movietracker.service.RunOnBackgroundService;
 import com.smartsoft.movietracker.utils.Constant;
-import com.smartsoft.movietracker.utils.FragmentNavigation;
-import com.smartsoft.movietracker.view.home.HomeFragment;
+import com.smartsoft.movietracker.utils.BaseFragment;
 
 import java.util.Iterator;
 
@@ -31,7 +23,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
-        FragmentNavigation.getInstance(this).showHomeFragment(text);
+        BaseFragment.getInstance(this).showHomeFragment(text);
 
     }
 
@@ -41,7 +33,7 @@ public class MainActivity extends FragmentActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentNavigation.getInstance(getApplicationContext()).showMovieNavigationFragment();
+                BaseFragment.getInstance(getApplicationContext()).showMovieNavigationFragment();
                 Iterator<Genre> it = Constant.Genre.genre.iterator();
                 StringBuilder genreString = new StringBuilder();
                 while(it.hasNext()){
@@ -58,7 +50,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-//        FragmentNavigation.getInstance(this).onBackPressed(this, findViewById(R.id.movie_genres_gridView_fragment));
+//        BaseFragment.getInstance(this).onBackPressed(this, findViewById(R.id.movie_genres_gridView_fragment));
     }
 }
 

@@ -24,17 +24,17 @@ import androidx.leanback.widget.VerticalGridView;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.Movie;
 import com.smartsoft.movietracker.presenter.navigation.MovieNavigationPresenter;
+import com.smartsoft.movietracker.utils.BaseFragment;
 import com.smartsoft.movietracker.utils.Constant;
 
 import java.util.ArrayList;
 
-public class MovieNavigationFragment extends Fragment implements MovieNavigationPresenter.View {
+public class MovieNavigationFragment extends BaseFragment implements MovieNavigationPresenter.View {
 
     public static String TAG = MovieNavigationFragment.class.getSimpleName();
     private VerticalGridView verticalGridView;
     private MovieNavigationVerticalGridViewAdapter adapter;
     private MovieNavigationPresenter presenter;
-    private View rootView;
 
     public MovieNavigationFragment() {
     }
