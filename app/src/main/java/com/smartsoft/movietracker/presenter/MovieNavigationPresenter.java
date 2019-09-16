@@ -1,15 +1,11 @@
 package com.smartsoft.movietracker.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
-import com.smartsoft.movietracker.MainActivity;
 import com.smartsoft.movietracker.model.movie.Movie;
-import com.smartsoft.movietracker.model.movie.MovieResult;
 import com.smartsoft.movietracker.service.ApiController;
 import com.smartsoft.movietracker.utils.Constant;
-import com.smartsoft.movietracker.view.home.GenreSelectorFragment;
 
 import java.util.ArrayList;
 
@@ -17,9 +13,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 public class MovieNavigationPresenter {
 
     public static String TAG = MovieNavigationPresenter.class.getName();
@@ -27,14 +20,14 @@ public class MovieNavigationPresenter {
     GenreSelectorFragment fragment;
     View view ;
 
-    public MovieNavigationPresenter(View view) {
-        this.view = view;
+    public MovieNavigationPresenter(MovieNavigationInterface movieNavigationInterface) {
+        this.movieNavigationInterface = movieNavigationInterface;
 
     }
 
-    public void updateMovieNavigationGridView(){
+    public void updateMovieNavigationGridView(Context context, ArrayList<Integer> genreIds){
 
-        ApiController.getInstance().getMovies()
+        ApiController.getInstance().getMovies(context, genreIds)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ArrayList<Movie>>() {
@@ -51,7 +44,8 @@ public class MovieNavigationPresenter {
                                 movieList.add(it);
                             }
                         }
-                        view.updateMovieNavigationGridView(movies);
+                        movieNavigationInterface.updateMovieNavigationGridView(movieList);
+                        Constant.MovieNavigationFragment.sortFromMovieNavFragment = true;
                     }
 
                     @Override

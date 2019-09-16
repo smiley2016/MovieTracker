@@ -1,7 +1,6 @@
 package com.smartsoft.movietracker;
 
 import android.graphics.drawable.Drawable;
-import android.media.midi.MidiDeviceService;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -22,7 +21,6 @@ import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.Dialogs;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
-import com.smartsoft.movietracker.view.home.GenreSelectorFragment;
 import com.smartsoft.movietracker.view.navigation.MovieNavigationFragment;
 
 import java.util.Iterator;
@@ -52,8 +50,6 @@ public class MainActivity extends FragmentActivity implements MainActivityInterf
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
-
-
     }
 
 
@@ -63,29 +59,16 @@ public class MainActivity extends FragmentActivity implements MainActivityInterf
         text = findViewById(R.id.choose_textView);
         search = findViewById(R.id.toolbar_search);
         search.setOnClickListener(view -> {
-            if (!Constant.Genre.genre.isEmpty()) {
-                FragmentNavigation.getInstance(this).showMovieNavigationFragment();
-                setInvisibleSearchIcon();
-            } else {
-                Toast.makeText(MainActivity.this, "Please choose at least a genre", Toast.LENGTH_SHORT).show();
-            }
+            FragmentNavigation.getInstance(this).showMovieNavigationFragment();
+            setInvisibleSearchIcon();
+
 
         });
         background = findViewById(R.id.activity_background);
 
         ImageView settings = findViewById(R.id.toolbar_settings);
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(FragmentNavigation.getInstance(MainActivity.this).getCurrentFragment() instanceof MovieNavigationFragment) {
-                    Dialogs.startToolbarSettingsDialog(MainActivity.this, (MovieNavigationFragment) FragmentNavigation.getInstance(MainActivity.this).getCurrentFragment());
-                    Constant.MovieNavigationFragment.isSorted = true;
-                    Constant.API.sortList.clear();
-                }else{
-                    Dialogs.startToolbarSettingsDialog(MainActivity.this, null);
-                    Constant.API.sortList.clear();
-                }
-            }
+        settings.setOnClickListener(view -> {
+            FragmentNavigation.getInstance(MainActivity.this).startToolbarSettingsDialog();
         });
 
 

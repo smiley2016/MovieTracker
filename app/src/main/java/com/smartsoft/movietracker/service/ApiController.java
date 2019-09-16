@@ -1,7 +1,9 @@
 package com.smartsoft.movietracker.service;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.cast.Cast;
 import com.smartsoft.movietracker.model.cast.CastResult;
 import com.smartsoft.movietracker.model.genre.Genre;
@@ -13,6 +15,7 @@ import com.smartsoft.movietracker.model.review.ReviewResult;
 import com.smartsoft.movietracker.model.video.Video;
 import com.smartsoft.movietracker.model.video.VideoResult;
 import com.smartsoft.movietracker.utils.Constant;
+import com.smartsoft.movietracker.utils.SharedPreferences;
 
 import java.util.ArrayList;
 
@@ -60,17 +63,19 @@ public class ApiController {
                 .map(GenreResult::getGenres);
     }
 
-    public Observable<ArrayList<Movie>> getMovies(){
-        ArrayList<Integer> genreIds = new ArrayList<>();
-        for (Genre value : genre) {
-            genreIds.add(value.getId());
-        }
+    public Observable<ArrayList<Movie>> getMovies(Context context, ArrayList<Integer> genreIds){
+
+        SharedPreferences sp = new SharedPreferences(context, context.getString(R.string.sortBy));
+        String sortBy = sp.ReadFromStorage();
+
+        SharedPreferences orderSp = new SharedPreferences( context, context.getString(R.string.orderBy));
+        String orderBy = orderSp.ReadFromStorage();
 
         Constant.API.PAGE++;
         Log.e(TAG, String.valueOf(Constant.API.PAGE));
         return movieApiService.getMovies(Constant.API.API_KEY,
                 Constant.API.LANGUAGE,
-                Constant.API.sortList,
+                sortBy+orderBy,
                 Constant.API.INCLUDE_ADULT,
                 Constant.API.INCLUDE_VIDEO,
                 Constant.API.PAGE,

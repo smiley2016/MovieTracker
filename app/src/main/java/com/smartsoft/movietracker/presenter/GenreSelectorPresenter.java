@@ -54,6 +54,7 @@ public class GenreSelectorPresenter {
         }
 
 
+    //TODO: Ennek a MovieNavigationInterface-nak adj valami mas nevet mert elegge megteveszto (pl GenreView vagy valami hasonlo)
     public interface View {
         void updateGenres(ArrayList<Genre> list);
 

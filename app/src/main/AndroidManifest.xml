@@ -12,8 +12,10 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.player.PlayerActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".view.player.PlayerActivity" />
+        <activity android:name=".MainActivity"
+            android:launchMode="singleInstance"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,7 +23,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.detail.DetailPageActivity" />
+        <activity android:name=".view.detail.DetailPageActivity"/>
 
     </application>
     <uses-feature
