@@ -1,7 +1,7 @@
-package com.smartsoft.movietracker.model;
+package com.smartsoft.movietracker.model.genre;
 
 import java.util.ArrayList;
-import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

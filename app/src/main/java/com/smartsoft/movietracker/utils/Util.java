@@ -11,4 +11,8 @@ public final class Util {
         Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show();
     }
 
+    public static float pxFromDp(final Context context, final float dp) {
+        return dp * context.getResources().getDisplayMetrics().density;
+    }
+
 }

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.smartsoft.movietracker.R;
-import com.smartsoft.movietracker.model.Genre;
+import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.Util;
 
