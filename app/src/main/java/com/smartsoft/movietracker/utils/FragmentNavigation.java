@@ -5,29 +5,42 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
 import com.smartsoft.movietracker.MainActivity;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.view.home.GenreSelectorFragment;
 import com.smartsoft.movietracker.view.navigation.MovieNavigationFragment;
 
+import butterknife.BindInt;
+import butterknife.BindView;
+
 public class FragmentNavigation extends Fragment {
     private static final String TAG = FragmentNavigation.class.getSimpleName();
     private static FragmentNavigation sInstance;
     private static FragmentManager mFragmentManager;
-    private static int mMainActivityFragmentContainer;
+
     private static Context ctx;
+
+    @BindView(R.id.fragment_holder)
+    public RelativeLayout mMainActivityFragmentContainer;
+
+    @BindView(R.id.gridView_container)
+    public FrameLayout mFragmentHolder;
+
     private Bundle bundle;
 
     public static FragmentNavigation getInstance(Context context) {
         ctx = context;
         if (sInstance == null) {
-            mMainActivityFragmentContainer = R.id.movie_genres_gridView_fragment;
             sInstance = new FragmentNavigation();
             mFragmentManager = ((MainActivity)context).getSupportFragmentManager();
         }
@@ -42,7 +55,7 @@ public class FragmentNavigation extends Fragment {
 
     public void showHomeFragment(){
         Fragment myCurrentFragment = Fragment.instantiate(ctx, GenreSelectorFragment.class.getName(), null);
-        replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, false);
+        replaceFragment(myCurrentFragment, mFragmentHolder.getId(), false);
 
     }
 
@@ -58,11 +71,11 @@ public class FragmentNavigation extends Fragment {
         }
 
         myCurrentFragment = Fragment.instantiate(ctx, MovieNavigationFragment.class.getName(), bundle);
-        replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, true);
+        replaceFragment(myCurrentFragment, mFragmentHolder.getId(), true);
     }
 
     private Fragment getCurrentFragment(){
-        return mFragmentManager.findFragmentById(R.id.movie_genres_gridView_fragment);
+        return mFragmentManager.findFragmentById(R.id.gridView_container);
 
     }
 

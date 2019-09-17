@@ -17,8 +17,7 @@ public class MovieNavigationPresenter {
 
     public static String TAG = MovieNavigationPresenter.class.getName();
 
-    GenreSelectorFragment fragment;
-    View view ;
+    MovieNavigationInterface movieNavigationInterface;
 
     public MovieNavigationPresenter(MovieNavigationInterface movieNavigationInterface) {
         this.movieNavigationInterface = movieNavigationInterface;
@@ -59,11 +58,18 @@ public class MovieNavigationPresenter {
                     }
                 });
 
+
+
    }
 
+    public void setBackground(String path){
+        movieNavigationInterface.setBackground(path);
+    }
 
 
-    public interface View{
+
+    public interface MovieNavigationInterface {
         void updateMovieNavigationGridView(ArrayList<Movie> movies);
+        void setBackground(String path);
     }
 }

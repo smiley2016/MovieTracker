@@ -1,12 +1,12 @@
 package com.smartsoft.movietracker.presenter;
 
-import com.smartsoft.movietracker.interfaces.MainActivityInterface;
+import com.smartsoft.movietracker.interfaces.BaseFragmentInterface;
 
 public class MainActivityPresenter {
 
-    private MainActivityInterface backgroundInterface;
+    private BaseFragmentInterface backgroundInterface;
 
-    public MainActivityPresenter(MainActivityInterface backgroundInterface) {
+    public MainActivityPresenter(BaseFragmentInterface backgroundInterface) {
         this.backgroundInterface = backgroundInterface;
     }
 

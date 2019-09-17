@@ -2,25 +2,15 @@ package com.smartsoft.movietracker.utils;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.media.Image;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.Switch;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
-
 import com.bumptech.glide.Glide;
-import com.smartsoft.movietracker.MainActivity;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.cast.Cast;
-import com.smartsoft.movietracker.view.navigation.MovieNavigationFragment;
-
-import static com.smartsoft.movietracker.presenter.MovieNavigationPresenter.TAG;
 
 public class Dialogs {
 

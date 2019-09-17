@@ -53,7 +53,7 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         holder.genreNameTextView.setText(genreList.get(position).getName());
         Glide.with(mContext).load(R.drawable.background).into(holder.genreImageView);
-        holder.bind(mContext, genreList.get(position));
+        holder.bind(genreList.get(position));
         holder.layout.setOnClickListener(view -> manageGenreToList(genreList.get(position), position));
 
 
@@ -87,7 +87,7 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
         }
 
 
-        public void bind(Context mContext, Genre genre) {
+        public void bind(Genre genre) {
             Log.e(TAG, "bind: "+genre.getName() + " isActivated " + genre.isActivated());
             if(genre.isActivated()){
                 select_icon.setVisibility(View.VISIBLE);
@@ -107,10 +107,10 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
     }
 
 
-    private void manageGenreToList(RecyclerViewHolder viewHolder, Genre genres) {
+    private void manageGenreToList(Genre genres, int position) {
         if (Constant.Genre.genre.contains(genres)) {
             Constant.Genre.genre.remove(genres);
-            viewHolder.select_icon.setVisibility(View.INVISIBLE);
+            genres.setActivated(false);
             Util.showToast(mContext, mContext.getResources().getString(R.string.removed_genre) + " " + genres.getName());
         } else {
             genreIds.add(genres.getId());

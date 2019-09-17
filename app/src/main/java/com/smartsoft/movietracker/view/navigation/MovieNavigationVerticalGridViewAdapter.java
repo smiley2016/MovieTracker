@@ -3,7 +3,6 @@ package com.smartsoft.movietracker.view.navigation;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,7 +54,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        holder.bind(movieList.get(position), ctx);
+        holder.bind(movieList.get(position), ctx, presenter);
         if(position >= movieList.size()-1 % Constant.HomeFragment.COLUMN_NUM){
            presenter.updateMovieNavigationGridView(ctx, genreIds);
         }
@@ -94,7 +93,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
 
 
-        void bind(Movie movie, Context ctx){
+        void bind(Movie movie, Context ctx, MovieNavigationPresenter presenter){
             Glide.with(ctx).load(Constant.API.IMAGE_BASE_URL +movie.getPosterPath()).listener(new RequestListener<Drawable>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -113,7 +112,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
             layout.setOnFocusChangeListener((view, b) -> {
                 if(b){
-                    ((MainActivity)ctx).setBackground(movie.getBackdropPath());
+                    presenter.setBackground(movie.getBackdropPath());
                     Log.e(TAG, "hivas");
                 }
             });

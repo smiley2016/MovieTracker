@@ -8,25 +8,21 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.leanback.widget.VerticalGridView;
-
-import com.smartsoft.movietracker.MainActivity;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
+import com.smartsoft.movietracker.view.BaseFragment;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
-public class MovieNavigationFragment extends Fragment implements MovieNavigationPresenter.MovieNavigationInterface {
+public class MovieNavigationFragment extends BaseFragment implements MovieNavigationPresenter.MovieNavigationInterface {
 
     public static String TAG = MovieNavigationFragment.class.getSimpleName();
     private VerticalGridView verticalGridView;
     private MovieNavigationVerticalGridViewAdapter adapter;
     private MovieNavigationPresenter presenter;
-    private View rootView;
     private ArrayList<Integer> genreIds = new ArrayList<>();
 
 
@@ -73,6 +69,11 @@ public class MovieNavigationFragment extends Fragment implements MovieNavigation
 
     }
 
+    @Override
+    public void setBackground(String path) {
+        super.setBackground(path);
+    }
+
     public MovieNavigationPresenter getPresenter(){
         return presenter;
     }
@@ -91,7 +92,7 @@ public class MovieNavigationFragment extends Fragment implements MovieNavigation
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        ((MainActivity) Objects.requireNonNull(getActivity())).setInvisibleSearchIcon();
+        super.setInvisibleSearchIcon();
     }
 
 
@@ -100,8 +101,8 @@ public class MovieNavigationFragment extends Fragment implements MovieNavigation
         super.onDestroyView();
         Constant.API.PAGE = 0;
         adapter.clearAll();
-        ((MainActivity) Objects.requireNonNull(getActivity())).setVisibleSearchIcon();
-        ((MainActivity)Objects.requireNonNull(getActivity())).setBackground(getActivity().getDrawable(R.drawable.background));
+        super.setVisibleSearchIcon();
+        super.setBackground(getContext().getDrawable(R.drawable.background));
     }
 
 
