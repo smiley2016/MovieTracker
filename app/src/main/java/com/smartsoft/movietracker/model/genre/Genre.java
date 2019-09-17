@@ -12,6 +12,8 @@ public class Genre {
     @Expose
     private String name;
 
+    private boolean isActivated;
+
     public Genre(Integer id, String name) {
         this.id = id;
         this.name = name;
@@ -33,4 +35,11 @@ public class Genre {
         this.name = name;
     }
 
+    public void setActivated(boolean activated) {
+        this.isActivated = activated;
+    }
+
+    public boolean isActivated() {
+        return isActivated;
+    }
 }

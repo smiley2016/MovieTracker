@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable;
 
 import io.reactivex.Flowable;
 
-public interface MainActivityInterface {
+public interface BaseFragmentInterface {
 
     void setTitle();
     void setBackground(String image);

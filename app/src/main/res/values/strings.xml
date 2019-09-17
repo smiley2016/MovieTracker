@@ -16,10 +16,12 @@
     <string name="toolbar_settings_title">Title</string>
     <string name="toolbar_settings_release_date">Release Date</string>
     <string name="toolbar_settings_vote_average">Vote average</string>
-    <string name="toolbar_settings_ratings">Rating</string>
+    <string name="toolbar_settings_popularity">Popularity</string>
     <string name="toolbar_settings_sort_button">Sort</string>
     <string name="toolbar_settings_desc">DESC</string>
     <string name="toolbar_settings_asc">ASC</string>
     <string name="youtube_recommendation">Youtube recommendation</string>
+    <string name="sortBy">sort_by</string>
+    <string name="orderBy">order_by</string>
 
 </resources>

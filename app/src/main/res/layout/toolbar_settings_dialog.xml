@@ -1,38 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="260dp"
-    android:layout_height="260dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="300dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:leanback="http://schemas.android.com/tools">
 
-    <RadioButton
-        android:id="@+id/radio_button_title"
+
+    <RadioGroup
+        android:id="@+id/radio_button_group"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:layout_margin="16dp"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        leanback:focusOutEnd="true"
+        leanback:focusOutFront="true">
 
-        />
+        <RadioButton
+            android:id="@+id/radio_button_title"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            />
+
+        <RadioButton
+            android:id="@+id/radio_button_release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            app:layout_constraintTop_toBottomOf="@id/radio_button_title"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="8dp"
+            />
+
+        <RadioButton
+            android:id="@+id/radio_button_vote_average"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            app:layout_constraintTop_toBottomOf="@id/radio_button_release_date"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="8dp"
+            />
+
+        <RadioButton
+            android:id="@+id/radio_button_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            app:layout_constraintTop_toBottomOf="@id/radio_button_vote_average"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="8dp"
+            />
+
+
+
+
+    </RadioGroup>
+
 
     <TextView
         android:id="@+id/title_textView"
         android:layout_width="75dp"
         android:layout_height="35dp"
         android:text="@string/toolbar_settings_title"
-        android:layout_margin="16dp"
-        app:layout_constraintStart_toEndOf="@+id/radio_button_title"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/radio_button_group"
+        app:layout_constraintTop_toTopOf="@id/radio_button_group"
         android:gravity="center"
         />
 
-    <RadioButton
-        android:id="@+id/radio_button_release_date"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        app:layout_constraintTop_toBottomOf="@id/radio_button_title"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="16dp"
-        />
+
 
     <TextView
         android:id="@+id/release_date_textView"
@@ -40,19 +80,12 @@
         android:layout_height="35dp"
         android:text="@string/toolbar_settings_release_date"
         android:layout_margin="16dp"
-        app:layout_constraintStart_toEndOf="@id/radio_button_release_date"
+        app:layout_constraintStart_toEndOf="@id/radio_button_group"
         app:layout_constraintTop_toBottomOf="@id/title_textView"
         android:gravity="center"
         />
 
-    <RadioButton
-        android:id="@+id/radio_button_vote_average"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        app:layout_constraintTop_toBottomOf="@id/radio_button_release_date"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="16dp"
-        />
+
 
     <TextView
         android:id="@+id/vote_average_textView"
@@ -60,30 +93,24 @@
         android:layout_height="35dp"
         android:text="@string/toolbar_settings_vote_average"
         android:layout_margin="16dp"
-        app:layout_constraintStart_toEndOf="@id/radio_button_vote_average"
+        app:layout_constraintStart_toEndOf="@id/radio_button_group"
         app:layout_constraintTop_toBottomOf="@id/release_date_textView"
         android:gravity="center"
         />
 
-    <RadioButton
-        android:id="@+id/radio_button_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        app:layout_constraintTop_toBottomOf="@id/radio_button_vote_average"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="16dp"
-        />
+
 
     <TextView
         android:id="@+id/rating_textView"
         android:layout_width="75dp"
         android:layout_height="35dp"
-        android:text="@string/toolbar_settings_ratings"
+        android:text="@string/toolbar_settings_popularity"
         android:layout_margin="16dp"
-        app:layout_constraintStart_toEndOf="@id/radio_button_rating"
+        app:layout_constraintStart_toEndOf="@id/radio_button_group"
         app:layout_constraintTop_toBottomOf="@id/vote_average_textView"
         android:gravity="center"
         />
+
 
     <Button
         android:id="@+id/toolbar_settings_sort_button"
@@ -94,11 +121,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rating_textView"
+        app:layout_constraintTop_toBottomOf="@id/radio_button_group"
         />
 
     <Switch
-        android:id="@+id/switch_sort"
+        android:id="@+id/switch_order_by"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:rotation="90"
@@ -115,7 +142,7 @@
         android:layout_height="25dp"
         app:layout_constraintStart_toEndOf="@id/release_date_textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/switch_sort"
+        app:layout_constraintBottom_toTopOf="@id/switch_order_by"
         android:layout_marginBottom="16dp"
         android:text="@string/toolbar_settings_asc"
         android:gravity="center"
@@ -124,9 +151,9 @@
         android:id="@+id/toolbar_desc_textView"
         android:layout_width="50dp"
         android:layout_height="25dp"
-        app:layout_constraintStart_toEndOf="@id/vote_average_textView"
+        app:layout_constraintStart_toEndOf="@id/release_date_textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/switch_sort"
+        app:layout_constraintTop_toBottomOf="@id/switch_order_by"
         android:layout_marginTop="16dp"
         android:text="@string/toolbar_settings_desc"
         android:gravity="center"

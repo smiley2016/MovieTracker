@@ -1,6 +1,8 @@
 package com.smartsoft.movietracker.view.home;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,11 @@ import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.Util;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 import java.util.ArrayList;
+
+import static com.smartsoft.movietracker.presenter.GenreSelectorPresenter.TAG;
 
 public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalGridViewGenreAdapter.RecyclerViewHolder> {
 
@@ -25,9 +31,14 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
     private ArrayList<Genre> genreList = new ArrayList<>();
     private boolean isFirstStart;
 
+    private ArrayList<Integer> genreIds;
+    private Bundle bundle;
+
     VerticalGridViewGenreAdapter(Context context, ArrayList<Genre> list) {
         this.mContext = context;
         genreList.addAll(list);
+        genreIds = new ArrayList<>();
+        this.bundle = new Bundle();
 
     }
 
@@ -42,14 +53,9 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         holder.genreNameTextView.setText(genreList.get(position).getName());
         Glide.with(mContext).load(R.drawable.background).into(holder.genreImageView);
+        holder.bind(genreList.get(position));
+        holder.layout.setOnClickListener(view -> manageGenreToList(genreList.get(position), position));
 
-        setCheckImageVisibility(holder, position);
-        holder.layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                manageGenreToList(holder, genreList.get(position));
-            }
-        });
 
     }
 
@@ -80,26 +86,58 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
 
         }
 
-    }
 
-    private void setCheckImageVisibility(RecyclerViewHolder viewHolder, int position){
-        if(!Constant.Genre.genre.isEmpty() && Constant.Genre.genre.indexOf(genreList.get(position)) != -1){
-            viewHolder.select_icon.setVisibility(View.VISIBLE);
-        }else {
-            viewHolder.select_icon.setVisibility(View.INVISIBLE);
+        public void bind(Genre genre) {
+            Log.e(TAG, "bind: "+genre.getName() + " isActivated " + genre.isActivated());
+            if(genre.isActivated()){
+                select_icon.setVisibility(View.VISIBLE);
+            }else{
+                select_icon.setVisibility(View.INVISIBLE);
+            }
         }
     }
 
 
-    private void manageGenreToList(RecyclerViewHolder viewHolder, Genre genres) {
+    public void setBundle(){
+        bundle.putIntegerArrayList("genreIds", genreIds);
+    }
+
+    public Bundle getBundle(){
+        return bundle;
+    }
+
+
+    private void manageGenreToList(Genre genres, int position) {
         if (Constant.Genre.genre.contains(genres)) {
             Constant.Genre.genre.remove(genres);
-            viewHolder.select_icon.setVisibility(View.INVISIBLE);
+            genres.setActivated(false);
             Util.showToast(mContext, mContext.getResources().getString(R.string.removed_genre) + " " + genres.getName());
         } else {
-            Constant.Genre.genre.add(genres);
-            viewHolder.select_icon.setVisibility(View.VISIBLE);
+            genreIds.add(genres.getId());
+            genres.setActivated(true);
             Util.showToast(mContext, mContext.getResources().getString(R.string.added_genre) + " " + genres.getName());
         }
+        notifyItemChanged(position);
+
+    }
+
+    public void setList(){
+        if(bundle != null && !CollectionUtils.isEmpty(genreIds)){
+            for(Integer it: genreIds){
+                if(getGenreById(it) != null){
+                    getGenreById(it).setActivated(true);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public Genre getGenreById(Integer id){
+        for(Genre it: genreList){
+            if(it.getId().equals(id)){
+                return it;
+            }
+        }
+        return null;
     }
 }

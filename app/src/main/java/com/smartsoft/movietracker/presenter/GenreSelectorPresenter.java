@@ -2,12 +2,8 @@ package com.smartsoft.movietracker.presenter;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import com.smartsoft.movietracker.model.genre.Genre;
-import com.smartsoft.movietracker.model.genre.GenreResult;
 import com.smartsoft.movietracker.service.ApiController;
-import com.smartsoft.movietracker.utils.Constant;
 
 import java.util.ArrayList;
 
@@ -15,9 +11,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class GenreSelectorPresenter {
 
@@ -26,7 +19,7 @@ public class GenreSelectorPresenter {
     public GenreSelectorPresenter() {
     }
 
-    public void updateGenres(View view){
+    public void updateGenres(GenreSelectorInterface genreSelectorInterface){
             ApiController.getInstance().getAllGenres()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -38,7 +31,7 @@ public class GenreSelectorPresenter {
 
                     @Override
                     public void onNext(ArrayList<Genre> genres) {
-                        view.updateGenres(genres);
+                        genreSelectorInterface.updateGenres(genres);
                     }
 
                     @Override
@@ -54,7 +47,8 @@ public class GenreSelectorPresenter {
         }
 
 
-    public interface View {
+    //TODO: Ennek a MovieNavigationInterface-nak adj valami mas nevet mert elegge megteveszto (pl GenreView vagy valami hasonlo)
+    public interface GenreSelectorInterface {
         void updateGenres(ArrayList<Genre> list);
 
     }

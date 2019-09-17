@@ -35,15 +35,14 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
     private static final String TAG = "MovieNavigationVertical";
     private ArrayList<Movie> movieList;
     private Context ctx;
-
     private MovieNavigationPresenter presenter;
-    private MovieNavigationPresenter.View view;
+    private ArrayList<Integer> genreIds;
 
-    public MovieNavigationVerticalGridViewAdapter(ArrayList<Movie> movieList, Context ctx, MovieNavigationPresenter presenter, MovieNavigationPresenter.View view) {
+    MovieNavigationVerticalGridViewAdapter(ArrayList<Movie> movieList, Context ctx, MovieNavigationPresenter presenter, ArrayList<Integer> genreIds) {
         this.movieList = movieList;
         this.ctx = ctx;
         this.presenter = presenter;
-        this. view = view;
+        this.genreIds = genreIds;
     }
 
     @NonNull
@@ -57,7 +56,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         holder.bind(movieList.get(position), ctx, presenter);
         if(position >= movieList.size()-1 % Constant.HomeFragment.COLUMN_NUM){
-           presenter.updateMovieNavigationGridView();
+           presenter.updateMovieNavigationGridView(ctx, genreIds);
         }
 
     }
@@ -67,23 +66,23 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
         return movieList.size();
     }
 
-    public void clearAll() {
+    void clearAll() {
         movieList.clear();
     }
 
-    public void updateMovieList(ArrayList<Movie> movies) {
+    void updateMovieList(ArrayList<Movie> movies) {
         movieList.addAll(movies);
         notifyDataSetChanged();
     }
 
 
-    public static class Holder extends RecyclerView.ViewHolder{
+    static class Holder extends RecyclerView.ViewHolder{
 
         ImageView poster;
         ImageView description;
         RelativeLayout layout;
         ProgressBar progressBar;
-        public Holder(@NonNull View itemView) {
+        Holder(@NonNull View itemView) {
             super(itemView);
             poster = itemView.findViewById(R.id.poster);
             layout = itemView.findViewById(R.id.movie_element_card);
@@ -94,7 +93,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
 
 
-        public void bind(Movie movie, Context ctx, MovieNavigationPresenter presenter){
+        void bind(Movie movie, Context ctx, MovieNavigationPresenter presenter){
             Glide.with(ctx).load(Constant.API.IMAGE_BASE_URL +movie.getPosterPath()).listener(new RequestListener<Drawable>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -111,23 +110,17 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
 
 
-            layout.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View view, boolean b) {
-                    if(b){
-                        ((MainActivity)ctx).setBackground(movie.getBackdropPath());
-                        Log.e(TAG, "hivas");
-                    }
+            layout.setOnFocusChangeListener((view, b) -> {
+                if(b){
+                    presenter.setBackground(movie.getBackdropPath());
+                    Log.e(TAG, "hivas");
                 }
             });
 
-            layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(ctx, DetailPageActivity.class);
-                    intent.putExtra("Movie",  movie);
-                    ctx.startActivity(intent);
-                }
+            layout.setOnClickListener(view -> {
+                Intent intent = new Intent(ctx, DetailPageActivity.class);
+                intent.putExtra("Movie",  movie);
+                ctx.startActivity(intent);
             });
         }
     }

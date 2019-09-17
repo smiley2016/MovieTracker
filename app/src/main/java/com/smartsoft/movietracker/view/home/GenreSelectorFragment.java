@@ -10,29 +10,36 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.leanback.widget.VerticalGridView;
 
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.presenter.GenreSelectorPresenter;
 import com.smartsoft.movietracker.utils.Constant;
+import com.smartsoft.movietracker.utils.FragmentNavigation;
+import com.smartsoft.movietracker.view.BaseFragment;
 
 import java.util.ArrayList;
 
-public class GenreSelectorFragment extends Fragment implements GenreSelectorPresenter.View {
+public class GenreSelectorFragment extends BaseFragment implements GenreSelectorPresenter.GenreSelectorInterface {
 
     private VerticalGridView verticalGridView;
     private VerticalGridViewGenreAdapter adapter;
-    private ArrayList<Genre> list = new ArrayList<>();
     private GenreSelectorPresenter presenter = new GenreSelectorPresenter();
     private static final String TAG = GenreSelectorFragment.class.getSimpleName();
-    private View rootView;
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        presenter.updateGenres(this);
+
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         if(rootView == null){
             rootView = inflater.inflate(R.layout.fragment_home, container, false);
         }
@@ -47,36 +54,38 @@ public class GenreSelectorFragment extends Fragment implements GenreSelectorPres
         verticalGridView.setNumColumns(Constant.HomeFragment.COLUMN_NUM);
         verticalGridView.setItemSpacing(16);
 
+
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(adapter != null ){
+            Log.e(TAG, "onResume: "+adapter.getBundle());
+            adapter.setList();
+        }
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        presenter.updateGenres(this);
-        Log.e("3ss",list.size()+"");
+
     }
 
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//
-//        try {
-//            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
-//            childFragmentManager.setAccessible(true);
-//            childFragmentManager.set(this, null);
-//
-//        } catch (NullPointerException | NoSuchFieldException | IllegalAccessException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
     @Override
     public void updateGenres(ArrayList<Genre> genre) {
-        list.addAll(genre);
-        adapter = new VerticalGridViewGenreAdapter(getActivity(), list);
+        adapter = new VerticalGridViewGenreAdapter(getActivity(), genre);
         verticalGridView.setHasFixedSize(true);
         verticalGridView.setAdapter(adapter);
 
+    }
+
+    public Bundle getAdapterBundle(){
+        return adapter.getBundle();
+    }
+
+    public void setAdapterBundle(){
+        adapter.setBundle();
     }
 }
