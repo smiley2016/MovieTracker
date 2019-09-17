@@ -97,21 +97,21 @@ public class PlayerActivity extends AppCompatActivity {
 
 
     @SuppressLint("StaticFieldLeak")
-    public void makeListFromURIs(){
-        MediaSource [] mediaSource = new MediaSource[videos.size()];
+    public void makeListFromURIs() {
+        MediaSource[] mediaSource = new MediaSource[videos.size()];
 
-        for (int i = 0; i<videos.size(); ++i){
+        for (int i = 0; i < videos.size(); ++i) {
             String youtubeLink = String.format("https://youtube.com/watch?v=%s", videos.get(i).getKey());
             int finalI = i;
             new YouTubeExtractor(this) {
                 @Override
                 protected void onExtractionComplete(SparseArray<YtFile> ytFiles, VideoMeta videoMeta) {
-                    if(ytFiles != null){
+                    if (ytFiles != null) {
                         int itag = 22;
                         String downloadUrl = ytFiles.get(itag).getUrl();
                         Uri uri = Uri.parse(downloadUrl);
                         mediaSource[finalI] = buildMediaSource(uri);
-                        if(finalI == videos.size()-1){
+                        if (finalI == videos.size() - 1) {
                             setMediaSource(mediaSource);
                         }
 
@@ -121,12 +121,12 @@ public class PlayerActivity extends AppCompatActivity {
         }
     }
 
-    private void setMediaSource(MediaSource [] mediaSource){
+    private void setMediaSource(MediaSource[] mediaSource) {
         currentWindow = playIndex;
         playerView.setPlayer(player);
         ConcatenatingMediaSource concatenatingMediaSource = new ConcatenatingMediaSource(mediaSource);
         player.prepare(concatenatingMediaSource, true, true);
-        if(playIndex != -1){
+        if (playIndex != -1) {
             player.seekTo(currentWindow, playbackPosition);
         }
 
@@ -178,24 +178,23 @@ public class PlayerActivity extends AppCompatActivity {
         }
     }
 
-    public void showPlayList(){
-        if(videoTitleFrameLayout.getLayoutParams() instanceof ConstraintLayout.MarginLayoutParams){
+    public void showPlayList() {
+        if (videoTitleFrameLayout.getLayoutParams() instanceof ConstraintLayout.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) videoTitleFrameLayout.getLayoutParams();
             p.setMargins(0, (int) pxFromDp(this, 232), 0, (int)pxFromDp(this, 22));
             videoTitleFrameLayout.requestLayout();
         }
     }
 
-    public void hidePlayList(){
+    public void hidePlayList() {
 
-        if(videoTitleFrameLayout.getLayoutParams() instanceof ConstraintLayout.MarginLayoutParams){
+        if (videoTitleFrameLayout.getLayoutParams() instanceof ConstraintLayout.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) videoTitleFrameLayout.getLayoutParams();
             p.setMargins(0, (int) pxFromDp(this, 332), 0, (int) pxFromDp(this, 22));
             videoTitleFrameLayout.requestLayout();
         }
 
     }
-
 
 
     private void releasePlayer() {

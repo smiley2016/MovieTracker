@@ -9,21 +9,25 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.leanback.widget.VerticalGridView;
+
 import com.smartsoft.movietracker.R;
+import com.smartsoft.movietracker.interfaces.ToolbarListener;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
+import com.smartsoft.movietracker.service.BaseFragmentComponentSettings;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.view.BaseFragment;
 
 import java.util.ArrayList;
 
-public class MovieNavigationFragment extends BaseFragment implements MovieNavigationPresenter.MovieNavigationInterface {
+public class MovieNavigationFragment extends BaseFragment implements MovieNavigationPresenter.MovieNavigationInterface, ToolbarListener {
 
     public static String TAG = MovieNavigationFragment.class.getSimpleName();
     private VerticalGridView verticalGridView;
     private MovieNavigationVerticalGridViewAdapter adapter;
     private MovieNavigationPresenter presenter;
     private ArrayList<Integer> genreIds = new ArrayList<>();
+    private View rootView;
 
 
     @Nullable
@@ -54,13 +58,6 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     @Override
     public void updateMovieNavigationGridView(ArrayList<Movie> movies) {
         if(adapter != null){
-            if(Constant.MovieNavigationFragment.sortFromMovieNavFragment){
-                adapter.clearAll();
-                adapter.updateMovieList(movies);
-                Constant.MovieNavigationFragment.sortFromMovieNavFragment = false;
-                return;
-            }
-
             adapter.updateMovieList(movies);
         }else {
             startRecyclerViewAdapter(movies);
@@ -71,12 +68,9 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
 
     @Override
     public void setBackground(String path) {
-        super.setBackground(path);
+        BaseFragmentComponentSettings.getInstance().setBackground(path);
     }
 
-    public MovieNavigationPresenter getPresenter(){
-        return presenter;
-    }
 
     public void startRecyclerViewAdapter(ArrayList<Movie> movies){
         adapter = new MovieNavigationVerticalGridViewAdapter(movies, getActivity(), presenter, genreIds);
@@ -92,7 +86,6 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        super.setInvisibleSearchIcon();
     }
 
 
@@ -101,13 +94,21 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         super.onDestroyView();
         Constant.API.PAGE = 0;
         adapter.clearAll();
-        super.setVisibleSearchIcon();
-        super.setBackground(getContext().getDrawable(R.drawable.background));
+        BaseFragmentComponentSettings.getInstance().setVisibleSearchIcon(View.VISIBLE);
+        BaseFragmentComponentSettings.getInstance().setBackground(getContext().getDrawable(R.drawable.background));
+
     }
 
 
+    public MovieNavigationPresenter getPresenter(){
+        return presenter;
+    }
 
 
-
-
+    @Override
+    public void onSortButtonClicked() {
+        adapter.clearAll();
+        Constant.API.PAGE = 0;
+        presenter.updateMovieNavigationGridView(getContext(), genreIds);
+    }
 }

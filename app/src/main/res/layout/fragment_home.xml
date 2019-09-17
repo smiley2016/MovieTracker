@@ -4,6 +4,12 @@
     android:layout_height="match_parent"
     xmlns:leanback="http://schemas.android.com/apk/res-auto">
 
+    <com.smartsoft.movietracker.view.home.ToolbarView
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+
+        />
+
     <androidx.leanback.widget.VerticalGridView
         android:id="@+id/movie_genres_gridView"
         android:layout_width="match_parent"

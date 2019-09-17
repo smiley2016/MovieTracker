@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:alwaysRetainTaskState="true">
-
-    <ImageView
-        android:id="@+id/fragment_base_background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/background"
-        />
+    android:layout_width="match_parent" android:layout_height="85dp">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -30,8 +21,6 @@
             android:layout_height="@dimen/logoipsum_height"
             android:src="@drawable/logo_ipsum"
             android:focusable="false"
-            android:layout_marginTop="@dimen/logoipsum_marginTop"
-            android:layout_marginBottom="@dimen/logoipsum_marginBottom"
             />
 
 
@@ -67,37 +56,5 @@
 
 
     </androidx.appcompat.widget.Toolbar>
-
-
-
-    <TextView
-        android:id="@+id/choose_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:textSize="@dimen/choose_textView_textSize"
-        android:gravity="center"
-        android:focusable="false"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:text="@string/choose_genre_textView"
-        android:layout_marginTop="@dimen/choose_textView_marginTop"
-        android:layout_marginStart="@dimen/choose_textView_marginStart"
-        android:layout_marginEnd="@dimen/choose_textView_marginEnd"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-
-        />
-
-    <FrameLayout
-        android:id="@+id/gridView_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/verticalGridView_fragment_marginTop"
-        android:layout_marginStart="@dimen/verticalGridView_fragment_marginStart"
-        android:layout_marginEnd="@dimen/verticalGridView_fragment_marginEnd"
-        android:layout_below="@id/choose_textView"
-        />
 
 </RelativeLayout>

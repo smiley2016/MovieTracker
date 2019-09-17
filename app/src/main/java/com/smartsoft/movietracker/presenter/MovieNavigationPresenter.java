@@ -44,7 +44,6 @@ public class MovieNavigationPresenter {
                             }
                         }
                         movieNavigationInterface.updateMovieNavigationGridView(movieList);
-                        Constant.MovieNavigationFragment.sortFromMovieNavFragment = true;
                     }
 
                     @Override

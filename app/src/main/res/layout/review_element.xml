@@ -8,17 +8,6 @@
     android:clipToPadding="false"
     android:stateListAnimator="@animator/review_element_animator">
 
-<!--    <ImageView-->
-<!--        android:id="@+id/ratings"-->
-<!--        android:layout_width="168dp"-->
-<!--        android:layout_height="16dp"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:layout_marginStart="8dp"-->
-<!--        android:layout_marginEnd="8dp"-->
-<!--        android:layout_alignParentStart="true"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:layout_alignParentEnd="true"/>-->
-
     <TextView
         android:id="@+id/review_comment"
         android:layout_width="168dp"

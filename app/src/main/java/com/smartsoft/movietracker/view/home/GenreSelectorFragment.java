@@ -1,33 +1,43 @@
 package com.smartsoft.movietracker.view.home;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.leanback.widget.VerticalGridView;
 
 import com.smartsoft.movietracker.R;
+import com.smartsoft.movietracker.interfaces.BaseFragmentInterface;
+import com.smartsoft.movietracker.interfaces.ToolbarListener;
 import com.smartsoft.movietracker.model.genre.Genre;
+import com.smartsoft.movietracker.presenter.BaseFragmentPresenter;
 import com.smartsoft.movietracker.presenter.GenreSelectorPresenter;
+import com.smartsoft.movietracker.service.BaseFragmentComponentSettings;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
+import com.smartsoft.movietracker.utils.ToolbarDialog;
 import com.smartsoft.movietracker.view.BaseFragment;
 
 import java.util.ArrayList;
 
-public class GenreSelectorFragment extends BaseFragment implements GenreSelectorPresenter.GenreSelectorInterface {
+public class GenreSelectorFragment extends BaseFragment implements GenreSelectorPresenter.GenreSelectorInterface, ToolbarListener {
 
     private VerticalGridView verticalGridView;
     private VerticalGridViewGenreAdapter adapter;
     private GenreSelectorPresenter presenter = new GenreSelectorPresenter();
     private static final String TAG = GenreSelectorFragment.class.getSimpleName();
 
+    private ImageView search;
+    private ImageView settings;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +64,17 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
         verticalGridView.setNumColumns(Constant.HomeFragment.COLUMN_NUM);
         verticalGridView.setItemSpacing(16);
 
+        ToolbarDialog dialog = new ToolbarDialog(this);
+
+        settings = getActivity().findViewById(R.id.toolbar_settings);
+        settings.setOnClickListener(view1 -> dialog.startToolbarSettingsDialog(getContext()));
+
+        search = getActivity().findViewById(R.id.toolbar_search);
+        search.setOnClickListener(view2 -> {
+            FragmentNavigation.getInstance().showMovieNavigationFragment();
+            setVisibleSearchIcon(View.INVISIBLE);
+        });
+
 
     }
 
@@ -65,13 +86,6 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
             adapter.setList();
         }
     }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-
-    }
-
 
     @Override
     public void updateGenres(ArrayList<Genre> genre) {
@@ -87,5 +101,11 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
 
     public void setAdapterBundle(){
         adapter.setBundle();
+    }
+
+
+    @Override
+    public void onSortButtonClicked() {
+
     }
 }
