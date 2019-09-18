@@ -109,7 +109,7 @@ public class FragmentNavigation extends Fragment{
         // if there is layout_fragment to replace, then replace it:
         mFragmentTransaction.setReorderingAllowed(false);
 
-        mFragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left);
+        mFragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_out_right, android.R.anim.slide_in_left);
         mFragmentTransaction.replace(container, fragment, fragment.getTag());
 
         if(addToBackStack){
