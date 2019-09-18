@@ -58,6 +58,7 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        super.initViews();
         super.setToolbarView(this);
 
         verticalGridView = view.findViewById(R.id.gridView_container);

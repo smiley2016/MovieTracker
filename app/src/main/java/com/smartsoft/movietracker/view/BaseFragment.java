@@ -54,7 +54,7 @@ public class BaseFragment extends Fragment implements BaseFragmentInterface.Base
     private ToolbarView toolbarView;
 
 
-    private void initViews() {
+    protected void initViews() {
         FragmentNavigation.getInstance().showGenreSelectorFragment();
 
         background = getActivity().findViewById(R.id.fragment_base_background);
