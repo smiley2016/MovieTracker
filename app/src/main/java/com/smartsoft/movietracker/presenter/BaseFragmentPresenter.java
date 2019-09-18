@@ -26,7 +26,4 @@ public class BaseFragmentPresenter implements BaseFragmentInterface.Presenter{
         baseFragmentInterface.setBackground(img);
     }
 
-    public void setVisibleSearchIcon(int visibility){
-        baseFragmentInterface.setVisibleSearchIcon(visibility);
-    }
 }

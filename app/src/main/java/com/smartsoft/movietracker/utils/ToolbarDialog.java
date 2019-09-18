@@ -41,9 +41,8 @@ public class ToolbarDialog {
             public void onClick(View view) {
                 setOrder( dialog.findViewById(R.id.switch_order_by), orderSp);
                 if(isChanged){
-                    listener.onSortButtonClicked();
+                    listener.onSortButtonClicked(dialog);
                 }
-                dialog.dismiss();
             }
         });
 

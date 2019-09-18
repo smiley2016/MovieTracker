@@ -2,72 +2,29 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:leanback="http://schemas.android.com/apk/res-auto"
     android:alwaysRetainTaskState="true">
 
     <ImageView
         android:id="@+id/fragment_base_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/background"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         />
 
-    <androidx.appcompat.widget.Toolbar
+
+    <com.smartsoft.movietracker.view.home.ToolbarView
+        android:id="@+id/base_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="31dp"
-        android:layout_marginBottom="30dp"
+        android:layout_height="85dp"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:focusable="false"
-        >
 
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="@dimen/logoipsum_width"
-            android:layout_height="@dimen/logoipsum_height"
-            android:src="@drawable/logo_ipsum"
-            android:focusable="false"
-            android:layout_marginTop="@dimen/logoipsum_marginTop"
-            android:layout_marginBottom="@dimen/logoipsum_marginBottom"
-            />
-
-
-        <ImageView
-            android:id="@+id/toolbar_settings"
-            android:src="@drawable/settings_icon"
-            android:focusable="true"
-            android:layout_marginTop="15dp"
-            android:padding="5dp"
-            android:layout_marginBottom="15dp"
-            android:layout_marginEnd="8dp"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="top|end"
-            android:background="@drawable/toolbar_component_background_selector"
-            android:stateListAnimator="@animator/toolbar_component_animator"
-            />
-
-        <ImageView
-            android:id="@+id/toolbar_search"
-            android:focusable="true"
-            android:background="@drawable/toolbar_component_background_selector"
-            android:src="@drawable/search_icon"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:padding="5dp"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="top|end"
-            android:layout_marginEnd="24dp"
-            android:stateListAnimator="@animator/toolbar_component_animator"
-            />
-
-
-    </androidx.appcompat.widget.Toolbar>
-
+        />
 
 
     <TextView
@@ -90,13 +47,21 @@
 
         />
 
-    <FrameLayout
+    <androidx.leanback.widget.VerticalGridView
         android:id="@+id/gridView_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/verticalGridView_fragment_marginTop"
         android:layout_marginStart="@dimen/verticalGridView_fragment_marginStart"
         android:layout_marginEnd="@dimen/verticalGridView_fragment_marginEnd"
+        android:paddingTop="@dimen/verticalGridView_paddingTop"
+        android:paddingBottom="@dimen/verticalGridView_paddingBottom"
+        android:paddingStart="@dimen/verticalGridView_paddingStart"
+        android:paddingEnd="@dimen/verticalGridView_paddingEnd"
+        android:clipToPadding="false"
+        android:nextFocusUp="@id/toolbar_search"
+        leanback:focusOutFront="true"
+        leanback:focusOutEnd="true"
         android:layout_below="@id/choose_textView"
         />
 

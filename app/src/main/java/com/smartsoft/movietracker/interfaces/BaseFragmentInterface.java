@@ -10,14 +10,12 @@ public interface BaseFragmentInterface {
         void setTitle();
         void setBackground(String image);
         void setBackground(Drawable img);
-        void setVisibleSearchIcon(int visibility);
     }
 
     public interface BaseFragmentView{
         void setTitle();
         void setBackground(String image);
         void setBackground(Drawable img);
-        void setVisibleSearchIcon(int visibility);
     }
 
 

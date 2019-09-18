@@ -18,23 +18,16 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.smartsoft.movietracker.R;
-import com.smartsoft.movietracker.R2;
 import com.smartsoft.movietracker.interfaces.BaseFragmentInterface;
 import com.smartsoft.movietracker.interfaces.ToolbarListener;
 import com.smartsoft.movietracker.model.genre.Genre;
-import com.smartsoft.movietracker.presenter.BaseFragmentPresenter;
-import com.smartsoft.movietracker.service.BaseFragmentComponentSettings;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
-import com.smartsoft.movietracker.utils.ToolbarDialog;
 import com.smartsoft.movietracker.view.home.ToolbarView;
 
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -45,14 +38,12 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
-public class BaseFragment extends Fragment {
+public class BaseFragment extends Fragment implements BaseFragmentInterface.BaseFragmentView {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "BaseFragment";
 
     private TextView text;
     private ImageView background;
-    private ImageView search;
-    private ImageView settings;
 
     protected View rootView;
 
@@ -63,19 +54,10 @@ public class BaseFragment extends Fragment {
     private ToolbarView toolbarView;
 
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initViews();
-    }
-
-
     private void initViews() {
-        FragmentNavigation.getInstance().showHomeFragment();
+        FragmentNavigation.getInstance().showGenreSelectorFragment();
 
         background = getActivity().findViewById(R.id.fragment_base_background);
-
-
 
         Observable.create((ObservableOnSubscribe<String>) emitter -> urlStreamEmitter = emitter)
                 .debounce(1000, TimeUnit.MILLISECONDS)
@@ -159,33 +141,39 @@ public class BaseFragment extends Fragment {
 
 
 
-//    @Override
-//    public void setTitle() {
-//        Iterator<Genre> it = Constant.Genre.genre.iterator();
-//        StringBuilder genreString = new StringBuilder();
-//        while (it.hasNext()) {
-//            if(it.hasNext()){
-//                genreString.append(it.next().getName()).append(" - ");
-//            }
-//        }
-//        text.setText(genreString);
-//    }
-//
-//    @Override
-//    public void setBackground(String image) {
-//
-//        urlStreamEmitter.onNext(Constant.API.IMAGE_ORIGINAL_BASE_URL + image);
-//
-//    }
-//
-//    @Override
-//    public void setBackground(Drawable img){
-//        drawableStreamEmitter.onNext(img);
-//
-//    }
-//
-//    @Override
-//    public void setVisibleSearchIcon(int visibility) {
-//        search.setVisibility(visibility);
-//    }
+    @Override
+    public void setTitle() {
+        Iterator<Genre> it = Constant.Genre.genre.iterator();
+        StringBuilder genreString = new StringBuilder();
+        while (it.hasNext()) {
+            if(it.hasNext()){
+                genreString.append(it.next().getName()).append(" - ");
+            }
+        }
+        text.setText(genreString);
+    }
+
+    @Override
+    public void setBackground(String image) {
+
+        urlStreamEmitter.onNext(Constant.API.IMAGE_ORIGINAL_BASE_URL + image);
+
+    }
+
+    @Override
+    public void setBackground(Drawable img){
+        drawableStreamEmitter.onNext(img);
+
+    }
+
+    public void setToolbarSearchButtonVisibility(int visibility){
+        toolbarView.setVisibleSearchIcon(visibility);
+    }
+
+    public void setToolbarView(ToolbarListener listener){
+        toolbarView = rootView.findViewById(R.id.base_toolbar);
+        toolbarView.setListener(listener);
+    }
+
+
 }

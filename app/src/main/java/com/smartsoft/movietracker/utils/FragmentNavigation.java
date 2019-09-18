@@ -30,7 +30,6 @@ public class FragmentNavigation {
     private static FragmentNavigation sInstance;
     private FragmentManager mFragmentManager;
     private int mMainActivityFragmentContainer;
-    private int mFragmentHolder;
     private Bundle bundle;
     private Context ctx;
 
@@ -44,7 +43,6 @@ public class FragmentNavigation {
 
     private FragmentNavigation() {
         mMainActivityFragmentContainer = R.id.fragment_holder;
-        mFragmentHolder = R.id.gridView_container;
     }
 
     public void initAttributes(Activity activity){
@@ -56,16 +54,11 @@ public class FragmentNavigation {
         sInstance = null;
     }
 
-    public void showBaseFragment(){
-        Fragment myCurrentFragment = Fragment.instantiate(ctx, BaseFragment.class.getName(), bundle);
-        replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, true);
-    }
 
-
-    public void showHomeFragment(){
-        Fragment myCurrentFragment = new GenreSelectorFragment();
-        replaceFragment(myCurrentFragment, mFragmentHolder, false);
-        Log.e(TAG, "showHomeFragment: " + myCurrentFragment );
+    public void showGenreSelectorFragment(){
+        Fragment myCurrentFragment = Fragment.instantiate(ctx, GenreSelectorFragment.class.getName(), bundle);
+        replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, false);
+        Log.e(TAG, "showGenreSelectorFragment: " + myCurrentFragment );
     }
 
     public void showMovieNavigationFragment(){
@@ -80,7 +73,7 @@ public class FragmentNavigation {
         }
 
         myCurrentFragment = Fragment.instantiate(ctx, MovieNavigationFragment.class.getName(), bundle);
-        replaceFragment(myCurrentFragment, mFragmentHolder, true);
+        replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, true);
     }
 
     private Fragment getCurrentFragment(){

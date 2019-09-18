@@ -45,9 +45,5 @@ public class BaseFragmentComponentSettings {
     }
 
 
-    public void setVisibleSearchIcon(int visibility) {
-        presenter.setVisibleSearchIcon(visibility);
-    }
-
 
 }

@@ -1,5 +1,6 @@
 package com.smartsoft.movietracker.view.home;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -36,9 +37,6 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
     private GenreSelectorPresenter presenter = new GenreSelectorPresenter();
     private static final String TAG = GenreSelectorFragment.class.getSimpleName();
 
-    private ImageView search;
-    private ImageView settings;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +49,7 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         if(rootView == null){
-            rootView = inflater.inflate(R.layout.fragment_home, container, false);
+            rootView = inflater.inflate(R.layout.fragment_base, container, false);
         }
         return rootView;
 
@@ -60,21 +58,11 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        verticalGridView = view.findViewById(R.id.movie_genres_gridView);
+        super.setToolbarView(this);
+
+        verticalGridView = view.findViewById(R.id.gridView_container);
         verticalGridView.setNumColumns(Constant.HomeFragment.COLUMN_NUM);
         verticalGridView.setItemSpacing(16);
-
-        ToolbarDialog dialog = new ToolbarDialog(this);
-
-        settings = getActivity().findViewById(R.id.toolbar_settings);
-        settings.setOnClickListener(view1 -> dialog.startToolbarSettingsDialog(getContext()));
-
-        search = getActivity().findViewById(R.id.toolbar_search);
-        search.setOnClickListener(view2 -> {
-            FragmentNavigation.getInstance().showMovieNavigationFragment();
-            setVisibleSearchIcon(View.INVISIBLE);
-        });
-
 
     }
 
@@ -105,7 +93,7 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
 
 
     @Override
-    public void onSortButtonClicked() {
-
+    public void onSortButtonClicked(Dialog dialog) {
+        dialog.dismiss();
     }
 }
