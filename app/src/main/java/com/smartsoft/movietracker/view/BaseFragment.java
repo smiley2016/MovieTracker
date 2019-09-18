@@ -22,8 +22,6 @@ import com.smartsoft.movietracker.interfaces.BaseFragmentInterface;
 import com.smartsoft.movietracker.interfaces.ToolbarListener;
 import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.utils.Constant;
-import com.smartsoft.movietracker.utils.FragmentNavigation;
-import com.smartsoft.movietracker.view.home.ToolbarView;
 
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
@@ -53,10 +51,14 @@ public class BaseFragment extends Fragment implements BaseFragmentInterface.Base
 
     private ToolbarView toolbarView;
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+
+    }
 
     protected void initViews() {
-        FragmentNavigation.getInstance().showGenreSelectorFragment();
-
         background = getActivity().findViewById(R.id.fragment_base_background);
 
         Observable.create((ObservableOnSubscribe<String>) emitter -> urlStreamEmitter = emitter)
@@ -114,7 +116,7 @@ public class BaseFragment extends Fragment implements BaseFragmentInterface.Base
                         Log.e(TAG, "found image "+drawable);
                         Log.e(TAG, "found second image"+placeholderDrawable);
                         if(drawable != null){
-                            Glide.with(getContext()).load(drawable).placeholder(placeholderDrawable).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).transition(withCrossFade(500)).into(background);
+                            Glide.with(getActivity()).load(drawable).placeholder(placeholderDrawable).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).transition(withCrossFade(500)).into(background);
                         }
                         placeholderDrawable = drawable;
                     }
@@ -158,6 +160,12 @@ public class BaseFragment extends Fragment implements BaseFragmentInterface.Base
 
         urlStreamEmitter.onNext(Constant.API.IMAGE_ORIGINAL_BASE_URL + image);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initViews();
     }
 
     @Override

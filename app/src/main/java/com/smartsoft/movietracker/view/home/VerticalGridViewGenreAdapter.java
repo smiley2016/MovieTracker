@@ -59,12 +59,6 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
 
     }
 
-    private void isFirstStart(RecyclerViewHolder holder){
-        if(isFirstStart){
-            isFirstStart = false;
-            holder.layout.requestFocus();
-        }
-    }
 
 
     @Override
@@ -108,8 +102,8 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
 
 
     private void manageGenreToList(Genre genres, int position) {
-        if (Constant.Genre.genre.contains(genres)) {
-            Constant.Genre.genre.remove(genres);
+        if (genreIds.contains(genres.getId())) {
+            genreIds.remove(genres.getId());
             genres.setActivated(false);
             Util.showToast(mContext, mContext.getResources().getString(R.string.removed_genre) + " " + genres.getName());
         } else {

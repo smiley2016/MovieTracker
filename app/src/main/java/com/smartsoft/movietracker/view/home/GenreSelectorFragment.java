@@ -47,7 +47,6 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         if(rootView == null){
             rootView = inflater.inflate(R.layout.fragment_base, container, false);
         }
@@ -58,9 +57,7 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        super.initViews();
         super.setToolbarView(this);
-
         verticalGridView = view.findViewById(R.id.gridView_container);
         verticalGridView.setNumColumns(Constant.HomeFragment.COLUMN_NUM);
         verticalGridView.setItemSpacing(16);
@@ -73,6 +70,7 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
         if(adapter != null ){
             Log.e(TAG, "onResume: "+adapter.getBundle());
             adapter.setList();
+
         }
     }
 

@@ -1,4 +1,4 @@
-package com.smartsoft.movietracker.view.home;
+package com.smartsoft.movietracker.view;
 
 import android.content.Context;
 import android.media.Image;

@@ -20,7 +20,9 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.smartsoft.movietracker.R;
+import com.smartsoft.movietracker.interfaces.PlayerInterface;
 import com.smartsoft.movietracker.model.video.Video;
+import com.smartsoft.movietracker.presenter.PlayerPresenter;
 import com.smartsoft.movietracker.utils.Constant;
 
 import java.util.ArrayList;
@@ -30,10 +32,12 @@ public class PlayerGridViewAdapter extends RecyclerView.Adapter<PlayerGridViewAd
 
     private ArrayList<Video> videos;
     private Context ctx;
+    private PlayerPresenter presenter;
 
-    public PlayerGridViewAdapter(ArrayList<Video> videos, Context ctx) {
+    public PlayerGridViewAdapter(ArrayList<Video> videos, Context ctx, PlayerPresenter presenter) {
         this.videos = videos;
         this.ctx = ctx;
+        this.presenter = presenter;
     }
 
     @NonNull
@@ -44,7 +48,7 @@ public class PlayerGridViewAdapter extends RecyclerView.Adapter<PlayerGridViewAd
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        holder.bind(videos.get(position), ctx);
+        holder.bind(videos.get(position), ctx, presenter);
     }
 
     @Override
@@ -66,7 +70,7 @@ public class PlayerGridViewAdapter extends RecyclerView.Adapter<PlayerGridViewAd
             layout = itemView.findViewById(R.id.video_element_layout);
         }
 
-        public void bind(Video video, Context ctx){
+        public void bind(Video video, Context ctx, PlayerPresenter presenter){
             Glide.with(ctx).load(Constant.API.BASE_YOUTUBE_URL_FOR_PICTURE + video.getKey() + Constant.API.YOUTUBE_THUMBNAIL).listener(new RequestListener<Drawable>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -85,9 +89,9 @@ public class PlayerGridViewAdapter extends RecyclerView.Adapter<PlayerGridViewAd
 
             layout.setOnFocusChangeListener((view, b) -> {
                 if(b){
-                    ((PlayerActivity)ctx).showPlayList();
+                    presenter.setPlayListVisibility(View.VISIBLE);
                 }else{
-                    ((PlayerActivity)ctx).hidePlayList();
+                    presenter.setPlayListVisibility(View.INVISIBLE);
                 }
             });
         }

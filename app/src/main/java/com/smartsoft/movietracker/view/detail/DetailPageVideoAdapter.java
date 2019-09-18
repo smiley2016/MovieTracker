@@ -3,6 +3,7 @@ package com.smartsoft.movietracker.view.detail;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,7 @@ import com.bumptech.glide.request.target.Target;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.video.Video;
 import com.smartsoft.movietracker.utils.Constant;
-import com.smartsoft.movietracker.view.player.PlayerActivity;
+import com.smartsoft.movietracker.utils.FragmentNavigation;
 
 import java.util.ArrayList;
 
@@ -31,10 +32,12 @@ public class DetailPageVideoAdapter extends RecyclerView.Adapter<DetailPageVideo
 
     private Context ctx;
     private ArrayList<Video> videos = new ArrayList<>();
+    private Bundle bundle;
 
 
     public DetailPageVideoAdapter(Context ctx) {
         this.ctx = ctx;
+        this.bundle = new Bundle();
     }
 
     @NonNull
@@ -45,7 +48,7 @@ public class DetailPageVideoAdapter extends RecyclerView.Adapter<DetailPageVideo
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        holder.bind(ctx, videos.get(position), videos, position);
+        holder.bind(ctx, videos.get(position), videos, position, bundle);
     }
 
     @Override
@@ -56,6 +59,10 @@ public class DetailPageVideoAdapter extends RecyclerView.Adapter<DetailPageVideo
     public void addAllToList(ArrayList<Video> videos) {
         this.videos.addAll(videos);
         notifyDataSetChanged();
+    }
+
+    public Bundle getBundle(){
+        return bundle;
     }
 
     public static class Holder extends RecyclerView.ViewHolder{
@@ -72,7 +79,7 @@ public class DetailPageVideoAdapter extends RecyclerView.Adapter<DetailPageVideo
             layout = itemView.findViewById(R.id.video_element_layout);
       }
 
-        public void bind(Context ctx, Video video, ArrayList<Video> videos, int position){
+        public void bind(Context ctx, Video video, ArrayList<Video> videos, int position, Bundle bundle){
             Glide.with(ctx).load(Constant.API.BASE_YOUTUBE_URL_FOR_PICTURE + video.getKey() + Constant.API.YOUTUBE_THUMBNAIL).listener(new RequestListener<Drawable>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -92,10 +99,9 @@ public class DetailPageVideoAdapter extends RecyclerView.Adapter<DetailPageVideo
             layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(ctx, PlayerActivity.class);
-                    intent.putExtra("playIndex", position);
-                    intent.putExtra("video", videos);
-                    ctx.startActivity(intent);
+                    bundle.putSerializable("video", videos);
+                    bundle.putInt("playIndex", position);
+                    FragmentNavigation.getInstance().showPlayerFragment();
                 }
             });
         }

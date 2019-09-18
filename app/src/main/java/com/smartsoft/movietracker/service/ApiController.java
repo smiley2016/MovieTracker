@@ -20,6 +20,8 @@ import com.smartsoft.movietracker.utils.SharedPreferences;
 import java.util.ArrayList;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.Function;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -60,7 +62,10 @@ public class ApiController {
 
     public Observable<ArrayList<Genre>> getAllGenres() {
         return genreApiService.getGenres()
-                .map(GenreResult::getGenres);
+                .map(genreResultResponse -> {
+                    Log.e(TAG, genreResultResponse.toString());
+                    return genreResultResponse.body().getGenres();
+                });
     }
 
     public Observable<ArrayList<Movie>> getMovies(Context context, ArrayList<Integer> genreIds){
@@ -79,12 +84,16 @@ public class ApiController {
                 Constant.API.INCLUDE_ADULT,
                 Constant.API.INCLUDE_VIDEO,
                 Constant.API.PAGE,
-                genreIds).map(MovieResult::getResults);
+                genreIds).map(movieResultResponse -> {
+            Log.e(TAG, "getMovies: " + movieResultResponse.toString());
+                    assert movieResultResponse.body() != null;
+                    return movieResultResponse.body().getResults();
+                });
     }
 
     public Observable<ArrayList<Cast>> getCast(int movie_id){
         return castApiService.getCast(movie_id, Constant.API.API_KEY)
-                .map(CastResult::getCast);
+                .map(castResultResponse -> castResultResponse.body().getCast());
     }
 
     public Observable<ArrayList<Review>> getReviews(int movie_id){

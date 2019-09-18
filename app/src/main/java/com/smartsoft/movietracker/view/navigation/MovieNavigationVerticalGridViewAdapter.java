@@ -3,6 +3,7 @@ package com.smartsoft.movietracker.view.navigation;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +26,7 @@ import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
-import com.smartsoft.movietracker.view.detail.DetailPageActivity;
+import com.smartsoft.movietracker.utils.FragmentNavigation;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -37,12 +38,14 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
     private Context ctx;
     private MovieNavigationPresenter presenter;
     private ArrayList<Integer> genreIds;
+    private Bundle bundle;
 
     MovieNavigationVerticalGridViewAdapter(ArrayList<Movie> movieList, Context ctx, MovieNavigationPresenter presenter, ArrayList<Integer> genreIds) {
         this.movieList = movieList;
         this.ctx = ctx;
         this.presenter = presenter;
         this.genreIds = genreIds;
+        this.bundle = new Bundle();
     }
 
     @NonNull
@@ -54,7 +57,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        holder.bind(movieList.get(position), ctx, presenter);
+        holder.bind(movieList.get(position), ctx, presenter, bundle);
         if(position >= movieList.size()-1 % Constant.HomeFragment.COLUMN_NUM){
            presenter.updateMovieNavigationGridView(ctx, genreIds);
         }
@@ -75,6 +78,10 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
         notifyDataSetChanged();
     }
 
+    public Bundle getBundle() {
+        return bundle;
+    }
+
 
     static class Holder extends RecyclerView.ViewHolder{
 
@@ -93,7 +100,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
 
 
-        void bind(Movie movie, Context ctx, MovieNavigationPresenter presenter){
+        void bind(Movie movie, Context ctx, MovieNavigationPresenter presenter, Bundle bundle){
             Glide.with(ctx).load(Constant.API.IMAGE_BASE_URL +movie.getPosterPath()).listener(new RequestListener<Drawable>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -118,9 +125,14 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
             });
 
             layout.setOnClickListener(view -> {
-                Intent intent = new Intent(ctx, DetailPageActivity.class);
-                intent.putExtra("Movie",  movie);
-                ctx.startActivity(intent);
+                bundle.putString("movieName", movie.getTitle());
+                bundle.putDouble("movieRate", movie.getVoteAverage());
+                bundle.putString("movieReleaseDate", movie.getReleaseDate());
+                bundle.putString("moviePlot", movie.getOverview());
+                bundle.putString("movieBackDropPath", movie.getBackdropPath());
+                bundle.putInt("movieId", movie.getId());
+
+                FragmentNavigation.getInstance().showDetailPageFragment();
             });
         }
     }

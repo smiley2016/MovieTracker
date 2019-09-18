@@ -97,7 +97,6 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         Constant.API.PAGE = 0;
         adapter.clearAll();
         super.setToolbarSearchButtonVisibility(View.VISIBLE);
-        super.setBackground(getContext().getDrawable(R.drawable.background));
     }
 
 
@@ -112,5 +111,9 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         adapter.clearAll();
         Constant.API.PAGE = 0;
         presenter.updateMovieNavigationGridView(getContext(), genreIds);
+    }
+
+    public Bundle getAdaptersBundle(){
+        return adapter.getBundle();
     }
 }

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:leanback="http://schemas.android.com/apk/res-auto">
 
-    <com.smartsoft.movietracker.view.home.ToolbarView
+    <com.smartsoft.movietracker.view.ToolbarView
         android:layout_width="match_parent"
         android:layout_height="85dp"
 

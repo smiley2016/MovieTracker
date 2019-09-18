@@ -5,13 +5,10 @@ import android.util.Log;
 
 import com.smartsoft.movietracker.interfaces.DetailPageInterface;
 import com.smartsoft.movietracker.model.cast.Cast;
-import com.smartsoft.movietracker.model.cast.CastResult;
 import com.smartsoft.movietracker.model.review.Review;
-import com.smartsoft.movietracker.model.review.ReviewResult;
 import com.smartsoft.movietracker.model.video.Video;
-import com.smartsoft.movietracker.model.video.VideoResult;
 import com.smartsoft.movietracker.service.ApiController;
-import com.smartsoft.movietracker.view.detail.DetailPageActivity;
+import com.smartsoft.movietracker.view.detail.DetailPageFragment;
 
 import java.util.ArrayList;
 
@@ -19,18 +16,15 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class DetailPagePresenter implements DetailPageInterface.DetailPagePresenterInterface {
 
 
     static final String TAG = "DetailPagePresenter";
-    private DetailPageActivity activity;
+    private DetailPageFragment detailPageFragment;
 
-    public DetailPagePresenter(DetailPageActivity activity) {
-        this.activity = activity;
+    public DetailPagePresenter(DetailPageFragment detailPageFragment) {
+        this.detailPageFragment = detailPageFragment;
     }
 
     @Override
@@ -46,7 +40,7 @@ public class DetailPagePresenter implements DetailPageInterface.DetailPagePresen
 
                     @Override
                     public void onNext(ArrayList<Cast> casts) {
-                        activity.updateCast(casts);
+                        detailPageFragment.updateCast(casts);
                     }
 
                     @Override
@@ -74,7 +68,7 @@ public class DetailPagePresenter implements DetailPageInterface.DetailPagePresen
 
                     @Override
                     public void onNext(ArrayList<Review> reviews) {
-                        activity.updateReviews(reviews);
+                        detailPageFragment.updateReviews(reviews);
                     }
 
                     @Override
@@ -102,7 +96,7 @@ public class DetailPagePresenter implements DetailPageInterface.DetailPagePresen
 
                     @Override
                     public void onNext(ArrayList<Video> videos) {
-                        activity.updateVideos(videos);
+                        detailPageFragment.updateVideos(videos);
                     }
 
                     @Override
