@@ -16,7 +16,6 @@ import com.smartsoft.movietracker.utils.ToolbarDialog;
 public class ToolbarView extends RelativeLayout {
     private ImageView settings;
     private ImageView search;
-    private ImageView logo;
     private ToolbarListener listener;
     private LayoutInflater mInflater;
 
@@ -47,19 +46,11 @@ public class ToolbarView extends RelativeLayout {
     }
 
     private void setOnClickListeners() {
-        search.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentNavigation.getInstance().showMovieNavigationFragment();
-            }
-        });
+        search.setOnClickListener(view -> FragmentNavigation.getInstance().showMovieNavigationFragment());
 
-        settings.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ToolbarDialog dialog = new ToolbarDialog(listener);
-                dialog.startToolbarSettingsDialog(getContext());
-            }
+        settings.setOnClickListener(view -> {
+            ToolbarDialog dialog = new ToolbarDialog(listener);
+            dialog.startToolbarSettingsDialog(getContext());
         });
     }
 

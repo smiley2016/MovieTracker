@@ -16,12 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.genre.Genre;
-import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.Util;
 
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static com.smartsoft.movietracker.presenter.GenreSelectorPresenter.TAG;
 
@@ -29,7 +29,6 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
 
     private Context mContext;
     private ArrayList<Genre> genreList = new ArrayList<>();
-    private boolean isFirstStart;
 
     private ArrayList<Integer> genreIds;
     private Bundle bundle;
@@ -81,8 +80,8 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
         }
 
 
-        public void bind(Genre genre) {
-            Log.e(TAG, "bind: "+genre.getName() + " isActivated " + genre.isActivated());
+        void bind(Genre genre) {
+            Log.e(TAG, mContext.getString(R.string.bind)+genre.getName() + mContext.getString(R.string.isActivated) + genre.isActivated());
             if(genre.isActivated()){
                 select_icon.setVisibility(View.VISIBLE);
             }else{
@@ -92,8 +91,8 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
     }
 
 
-    public void setBundle(){
-        bundle.putIntegerArrayList("genreIds", genreIds);
+    void setBundle(){
+        bundle.putIntegerArrayList(mContext.getString(R.string.genreIds), genreIds);
     }
 
     public Bundle getBundle(){
@@ -115,18 +114,18 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
 
     }
 
-    public void setList(){
+    void setList(){
         if(bundle != null && !CollectionUtils.isEmpty(genreIds)){
             for(Integer it: genreIds){
                 if(getGenreById(it) != null){
-                    getGenreById(it).setActivated(true);
+                    Objects.requireNonNull(getGenreById(it)).setActivated(true);
                 }
             }
         }
         notifyDataSetChanged();
     }
 
-    public Genre getGenreById(Integer id){
+    private Genre getGenreById(Integer id){
         for(Genre it: genreList){
             if(it.getId().equals(id)){
                 return it;

@@ -8,34 +8,53 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center">
 
-    <TextView
-        android:id="@+id/dialog_review_comment"
+
+
+    <ScrollView
+        android:id="@+id/comment_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="start"
-        android:fontFamily="sans-serif"
-        android:textSize="14sp"
-        android:padding="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dialog_reviewer"
-        />
+        android:scrollbars="vertical"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+
+        >
+
+
+        <TextView
+            android:id="@+id/dialog_review_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:fontFamily="sans-serif"
+            android:textSize="14sp"
+            android:padding="16dp"
+            android:focusable="false"
+
+            />
+
+    </ScrollView>
 
     <TextView
         android:id="@+id/dialog_reviewer"
         android:layout_width="168dp"
         android:layout_height="24dp"
-        android:layout_below="@id/dialog_review_comment"
-        android:layout_marginTop="16dp"
+        android:layout_below="@id/comment_scroll_view"
         app:layout_constraintTop_toBottomOf="@id/dialog_reviewer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/dialog_close_button"
-        app:layout_constraintBottom_toTopOf="@id/dialog_review_comment"
+        app:layout_constraintBottom_toTopOf="@id/comment_scroll_view"
+        android:layout_marginTop="16dp"
         android:textSize="12sp"
         android:text="@string/review_by"
         android:fontFamily="Roman"
         android:gravity="start"
+        android:focusable="false"
         />
+
+
     <Button
         android:id="@+id/dialog_close_button"
         android:layout_width="24dp"

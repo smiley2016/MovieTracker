@@ -19,8 +19,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class DetailPagePresenter implements DetailPageInterface.DetailPagePresenterInterface {
 
-
-    static final String TAG = "DetailPagePresenter";
     private DetailPageFragment detailPageFragment;
 
     public DetailPagePresenter(DetailPageFragment detailPageFragment) {

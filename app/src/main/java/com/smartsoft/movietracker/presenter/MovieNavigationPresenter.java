@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.service.ApiController;
-import com.smartsoft.movietracker.utils.Constant;
 
 import java.util.ArrayList;
 
@@ -17,7 +16,7 @@ public class MovieNavigationPresenter {
 
     public static String TAG = MovieNavigationPresenter.class.getName();
 
-    MovieNavigationInterface movieNavigationInterface;
+    private MovieNavigationInterface movieNavigationInterface;
 
     public MovieNavigationPresenter(MovieNavigationInterface movieNavigationInterface) {
         this.movieNavigationInterface = movieNavigationInterface;

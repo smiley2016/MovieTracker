@@ -2,7 +2,6 @@ package com.smartsoft.movietracker.model.review;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.smartsoft.movietracker.model.movie.MovieResult;
 
 import java.util.ArrayList;
 
@@ -32,19 +31,7 @@ public class ReviewResult {
         this.id = id;
     }
 
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
     public ArrayList<Review> getReviews() {
         return reviews;
-    }
-
-    public void setReviews(ArrayList<Review> movieResults) {
-        this.reviews = movieResults;
     }
 }

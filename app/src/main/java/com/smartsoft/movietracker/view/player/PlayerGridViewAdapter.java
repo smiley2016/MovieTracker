@@ -20,7 +20,6 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.smartsoft.movietracker.R;
-import com.smartsoft.movietracker.interfaces.PlayerInterface;
 import com.smartsoft.movietracker.model.video.Video;
 import com.smartsoft.movietracker.presenter.PlayerPresenter;
 import com.smartsoft.movietracker.utils.Constant;
@@ -34,7 +33,7 @@ public class PlayerGridViewAdapter extends RecyclerView.Adapter<PlayerGridViewAd
     private Context ctx;
     private PlayerPresenter presenter;
 
-    public PlayerGridViewAdapter(ArrayList<Video> videos, Context ctx, PlayerPresenter presenter) {
+    PlayerGridViewAdapter(ArrayList<Video> videos, Context ctx, PlayerPresenter presenter) {
         this.videos = videos;
         this.ctx = ctx;
         this.presenter = presenter;
@@ -48,7 +47,7 @@ public class PlayerGridViewAdapter extends RecyclerView.Adapter<PlayerGridViewAd
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        holder.bind(videos.get(position), ctx, presenter);
+        holder.bind(videos.get(position), ctx, presenter, position);
     }
 
     @Override
@@ -56,13 +55,13 @@ public class PlayerGridViewAdapter extends RecyclerView.Adapter<PlayerGridViewAd
         return videos.size();
     }
 
-    public static class Holder extends RecyclerView.ViewHolder{
+    static class Holder extends RecyclerView.ViewHolder{
 
         private TextView videoTitle;
         private ImageView videoThumbnail;
         private ConstraintLayout layout;
 
-        public Holder(@NonNull View itemView) {
+        Holder(@NonNull View itemView) {
             super(itemView);
 
             videoThumbnail = itemView.findViewById(R.id.video_thumbnail);
@@ -70,12 +69,12 @@ public class PlayerGridViewAdapter extends RecyclerView.Adapter<PlayerGridViewAd
             layout = itemView.findViewById(R.id.video_element_layout);
         }
 
-        public void bind(Video video, Context ctx, PlayerPresenter presenter){
+        void bind(Video video, Context ctx, PlayerPresenter presenter, int position){
             Glide.with(ctx).load(Constant.API.BASE_YOUTUBE_URL_FOR_PICTURE + video.getKey() + Constant.API.YOUTUBE_THUMBNAIL).listener(new RequestListener<Drawable>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                     videoThumbnail.setImageDrawable(ctx.getDrawable(R.drawable.error));
-                    Log.e("3ss", e.getMessage());
+                    Log.e("3ss", String.valueOf(e));
                     return false;
                 }
 
@@ -92,6 +91,13 @@ public class PlayerGridViewAdapter extends RecyclerView.Adapter<PlayerGridViewAd
                     presenter.setPlayListVisibility(View.VISIBLE);
                 }else{
                     presenter.setPlayListVisibility(View.INVISIBLE);
+                }
+            });
+
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    presenter.startNewVideo(position);
                 }
             });
         }

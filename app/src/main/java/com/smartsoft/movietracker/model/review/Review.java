@@ -18,13 +18,13 @@ public class Review {
     @Expose
     private String url;
 
+    public Review() {
+    }
+
     public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
 
     public String getContent() {
         return content;
@@ -42,11 +42,4 @@ public class Review {
         this.id = id;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 }

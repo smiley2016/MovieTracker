@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/video_element_layout"
     android:focusable="true"
-    android:background="#242424"
+    android:background="@color/rounded_square_color"
     android:layout_marginBottom="16dp"
     android:stateListAnimator="@animator/video_element_animator">
 

@@ -12,19 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.review.Review;
-import com.smartsoft.movietracker.presenter.DetailPagePresenter;
 import com.smartsoft.movietracker.utils.Dialogs;
 
 import java.util.ArrayList;
 
 public class DetailPageReviewAdapter extends RecyclerView.Adapter<DetailPageReviewAdapter.Holder> {
 
-    private DetailPagePresenter presenter;
     private ArrayList<Review> reviews;
     private Context ctx;
 
 
-    public DetailPageReviewAdapter(Context ctx) {
+    DetailPageReviewAdapter(Context ctx) {
         this.ctx = ctx;
         reviews = new ArrayList<>();
     }
@@ -46,17 +44,17 @@ public class DetailPageReviewAdapter extends RecyclerView.Adapter<DetailPageRevi
         return reviews.size();
     }
 
-    public void addAllToList(ArrayList<Review> reviews) {
+    void addAllToList(ArrayList<Review> reviews) {
         this.reviews.addAll(reviews);
         notifyDataSetChanged();
     }
 
-    public static class Holder extends RecyclerView.ViewHolder{
+    static class Holder extends RecyclerView.ViewHolder{
         private TextView reviewComment;
         private TextView reviewer;
         private RelativeLayout layout;
 
-        public Holder(@NonNull View itemView) {
+        Holder(@NonNull View itemView) {
 
             super(itemView);
             layout = itemView.findViewById(R.id.review_element_layout);
@@ -64,15 +62,10 @@ public class DetailPageReviewAdapter extends RecyclerView.Adapter<DetailPageRevi
             reviewComment = itemView.findViewById(R.id.review_comment);
         }
 
-        public void bind(Context ctx,Review review){
+        void bind(Context ctx, Review review){
             reviewer.setText(review.getAuthor());
             reviewComment.setText(review.getContent());
-            layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Dialogs.startReviewDialog(ctx, review.getContent(), review.getAuthor());
-                }
-            });
+            layout.setOnClickListener(view -> Dialogs.startReviewDialog(ctx, review.getContent(), review.getAuthor()));
         }
     }
 }

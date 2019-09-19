@@ -9,7 +9,7 @@ public class GenreResult {
 
     @SerializedName("genres")
     @Expose
-    private ArrayList<Genre> genres = null;
+    private ArrayList<Genre> genres;
 
     public GenreResult(ArrayList<Genre> genres) {
         this.genres = genres;
@@ -19,7 +19,4 @@ public class GenreResult {
         return genres;
     }
 
-    public void setGenres(ArrayList<Genre> genres) {
-        this.genres = genres;
-    }
 }

@@ -8,13 +8,13 @@ import java.util.ArrayList;
 
 public interface DetailPageInterface {
 
-    public interface DetailPagePresenterInterface{
+    interface DetailPagePresenterInterface{
         void downloadCast(int movie_id);
         void downloadReviews(int movie_id);
         void downloadVideos(int movie_id);
     }
 
-    public interface DetailPageViewInterface{
+    interface DetailPageViewInterface{
         void updateCast(ArrayList<Cast> cast);
         void updateReviews(ArrayList<Review> reviews);
         void updateVideos(ArrayList<Video> videos);

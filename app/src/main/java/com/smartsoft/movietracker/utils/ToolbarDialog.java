@@ -3,7 +3,6 @@ package com.smartsoft.movietracker.utils;
 import android.app.Dialog;
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.Switch;
@@ -11,10 +10,9 @@ import android.widget.Toast;
 
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.interfaces.ToolbarListener;
-import com.smartsoft.movietracker.view.navigation.MovieNavigationFragment;
 
 public class ToolbarDialog {
-    private static final String TAG = "ToolbarDialog";
+    private static final String TAG = ToolbarDialog.class.getName();
     private ToolbarListener listener;
     private boolean isChanged =false;
 
@@ -36,13 +34,10 @@ public class ToolbarDialog {
 
 
         Button sort = dialog.findViewById(R.id.toolbar_settings_sort_button);
-        sort.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setOrder( dialog.findViewById(R.id.switch_order_by), orderSp);
-                if(isChanged){
-                    listener.onSortButtonClicked(dialog);
-                }
+        sort.setOnClickListener(view -> {
+            setOrder( dialog.findViewById(R.id.switch_order_by), orderSp);
+            if(isChanged){
+                listener.onSortButtonClicked(dialog);
             }
         });
 
@@ -58,10 +53,10 @@ public class ToolbarDialog {
     }
 
     private void setSort(RadioGroup radioGroup, SharedPreferences sortSp){
-        radioGroup.setOnCheckedChangeListener((radioGroup1, checked) -> {
-            updateSharedPrefForSort(checked, sortSp);
+        radioGroup.setOnCheckedChangeListener((radioGroup1, checked) ->
+            updateSharedPrefForSort(checked, sortSp)
 
-        });
+        );
     }
 
     private void updateSharedPrefForSort(int checked, SharedPreferences sortSp){

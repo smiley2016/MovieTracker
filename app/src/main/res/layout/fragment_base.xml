@@ -65,6 +65,7 @@
         leanback:focusOutFront="true"
         leanback:focusOutEnd="true"
         android:layout_below="@id/choose_textView"
+        android:clipChildren="false"
         />
 
 </RelativeLayout>

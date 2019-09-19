@@ -5,11 +5,8 @@ import android.util.Log;
 
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.cast.Cast;
-import com.smartsoft.movietracker.model.cast.CastResult;
 import com.smartsoft.movietracker.model.genre.Genre;
-import com.smartsoft.movietracker.model.genre.GenreResult;
 import com.smartsoft.movietracker.model.movie.Movie;
-import com.smartsoft.movietracker.model.movie.MovieResult;
 import com.smartsoft.movietracker.model.review.Review;
 import com.smartsoft.movietracker.model.review.ReviewResult;
 import com.smartsoft.movietracker.model.video.Video;
@@ -20,17 +17,13 @@ import com.smartsoft.movietracker.utils.SharedPreferences;
 import java.util.ArrayList;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Function;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.smartsoft.movietracker.utils.Constant.Genre.genre;
-
 public class ApiController {
 
-    private static final String TAG = "Apicontroller";
+    private static final String TAG = ApiController.class.getName();
     private static ApiController sInstance = null;
     private GenreAPI genreApiService;
     private MovieAPI movieApiService;
@@ -64,6 +57,7 @@ public class ApiController {
         return genreApiService.getGenres()
                 .map(genreResultResponse -> {
                     Log.e(TAG, genreResultResponse.toString());
+                    assert genreResultResponse.body() != null;
                     return genreResultResponse.body().getGenres();
                 });
     }
@@ -85,7 +79,7 @@ public class ApiController {
                 Constant.API.INCLUDE_VIDEO,
                 Constant.API.PAGE,
                 genreIds).map(movieResultResponse -> {
-            Log.e(TAG, "getMovies: " + movieResultResponse.toString());
+            Log.e(TAG, context.getString(R.string.getMovies) + movieResultResponse.toString());
                     assert movieResultResponse.body() != null;
                     return movieResultResponse.body().getResults();
                 });
@@ -93,7 +87,10 @@ public class ApiController {
 
     public Observable<ArrayList<Cast>> getCast(int movie_id){
         return castApiService.getCast(movie_id, Constant.API.API_KEY)
-                .map(castResultResponse -> castResultResponse.body().getCast());
+                .map(castResultResponse -> {
+                    assert castResultResponse.body() != null;
+                    return castResultResponse.body().getCast();
+                });
     }
 
     public Observable<ArrayList<Review>> getReviews(int movie_id){

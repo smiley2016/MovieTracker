@@ -1,7 +1,6 @@
 package com.smartsoft.movietracker.view.detail;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,7 +34,7 @@ public class DetailPageVideoAdapter extends RecyclerView.Adapter<DetailPageVideo
     private Bundle bundle;
 
 
-    public DetailPageVideoAdapter(Context ctx) {
+    DetailPageVideoAdapter(Context ctx) {
         this.ctx = ctx;
         this.bundle = new Bundle();
     }
@@ -56,7 +55,7 @@ public class DetailPageVideoAdapter extends RecyclerView.Adapter<DetailPageVideo
         return videos.size();
     }
 
-    public void addAllToList(ArrayList<Video> videos) {
+    void addAllToList(ArrayList<Video> videos) {
         this.videos.addAll(videos);
         notifyDataSetChanged();
     }
@@ -65,13 +64,13 @@ public class DetailPageVideoAdapter extends RecyclerView.Adapter<DetailPageVideo
         return bundle;
     }
 
-    public static class Holder extends RecyclerView.ViewHolder{
+    static class Holder extends RecyclerView.ViewHolder{
 
         private TextView videoTitle;
         private ImageView videoThumbnail;
         private ConstraintLayout layout;
 
-        public Holder(@NonNull View itemView) {
+        Holder(@NonNull View itemView) {
 
             super(itemView);
             videoThumbnail = itemView.findViewById(R.id.video_thumbnail);
@@ -79,12 +78,12 @@ public class DetailPageVideoAdapter extends RecyclerView.Adapter<DetailPageVideo
             layout = itemView.findViewById(R.id.video_element_layout);
       }
 
-        public void bind(Context ctx, Video video, ArrayList<Video> videos, int position, Bundle bundle){
+        void bind(Context ctx, Video video, ArrayList<Video> videos, int position, Bundle bundle){
             Glide.with(ctx).load(Constant.API.BASE_YOUTUBE_URL_FOR_PICTURE + video.getKey() + Constant.API.YOUTUBE_THUMBNAIL).listener(new RequestListener<Drawable>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                     videoThumbnail.setImageDrawable(ctx.getDrawable(R.drawable.error));
-                    Log.e("3ss", e.getMessage());
+                    Log.e("3ss", String.valueOf(e));
                     return false;
                 }
 
@@ -96,13 +95,10 @@ public class DetailPageVideoAdapter extends RecyclerView.Adapter<DetailPageVideo
 
             videoTitle.setText(video.getName());
 
-            layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    bundle.putSerializable("video", videos);
-                    bundle.putInt("playIndex", position);
-                    FragmentNavigation.getInstance().showPlayerFragment();
-                }
+            layout.setOnClickListener(view -> {
+                bundle.putSerializable("video", videos);
+                bundle.putInt("playIndex", position);
+                FragmentNavigation.getInstance().showPlayerFragment();
             });
         }
     }

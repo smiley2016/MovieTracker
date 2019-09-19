@@ -1,28 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="108dp"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
     android:layout_height="162dp"
     android:stateListAnimator="@animator/movie_component_animator"
     android:focusable="true"
+
     android:id="@+id/movie_element_card"
     >
 
     <ProgressBar
         android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="108dp"
+        android:layout_height="162dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         />
 
 
     <ImageView
         android:id="@+id/poster"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
+        android:layout_width="108dp"
+        android:layout_height="162dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:focusable="false"
         />
 
+    <RelativeLayout
+        android:id="@+id/movie_description"
+        android:layout_width="108dp"
+        android:layout_height="162dp"
+        android:background="#242424"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/poster"
+        android:visibility="gone"
+       >
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/movie_release_date"
+            android:layout_width="104dp"
+            android:layout_height="16dp"
+            android:textSize="12sp"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="8dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:focusable="false"
+            />
+
+        <TextView
+            android:id="@+id/movie_title"
+            android:layout_width="104dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="8dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textStyle="bold"
+            android:focusable="false"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/movie_release_date"
+            />
+
+        <TextView
+            android:id="@+id/movie_genres"
+            android:layout_width="104dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="8dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textColor="#EEEEEE"
+            android:textSize="10sp"
+            android:focusable="false"
+            android:layout_below="@id/movie_title"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            />
+
+        <ImageView
+            android:id="@+id/star_icon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="56dp"
+            android:src="@drawable/star_icon"
+            android:focusable="false"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/movie_genres"
+            />
+
+        <TextView
+            android:id="@+id/imdb_rating"
+            android:layout_width="52dp"
+            android:layout_height="16dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="56dp"
+            android:textColor="#EEEEEE"
+            android:textSize="10sp"
+            android:focusable="false"
+            android:layout_alignParentStart="@id/star_icon"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@id/star_icon"
+            />
+
+        <ImageView
+            android:id="@+id/open_description"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="56dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="6dp"
+            android:src="@drawable/open_detail_icon"
+            android:focusable="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignEnd="@id/imdb_rating"
+            />
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

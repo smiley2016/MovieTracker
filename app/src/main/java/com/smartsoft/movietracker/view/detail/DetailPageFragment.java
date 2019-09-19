@@ -14,12 +14,11 @@ import androidx.annotation.Nullable;
 import androidx.leanback.widget.HorizontalGridView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.interfaces.DetailPageInterface;
 import com.smartsoft.movietracker.model.cast.Cast;
-import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.model.review.Review;
 import com.smartsoft.movietracker.model.video.Video;
 import com.smartsoft.movietracker.presenter.DetailPagePresenter;
@@ -38,7 +37,6 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
     private String plot, releaseDate, title, backDropPath;
     private int movieId;
     private Double voteAverage;
-    private Bundle bundle;
 
     @Nullable
     @Override
@@ -54,12 +52,12 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
         super.onViewCreated(view, savedInstanceState);
         if(getArguments() != null){
 
-            title = getArguments().getString("movieTitle");
-            plot = getArguments().getString("moviePlot");
-            voteAverage = getArguments().getDouble("movieRate");
-            releaseDate = getArguments().getString("movieReleaseDate");
-            backDropPath = getArguments().getString("movieBackDropPath");
-            movieId = getArguments().getInt("movieId");
+            title = getArguments().getString(rootView.getContext().getString(R.string.movieName));
+            plot = getArguments().getString(rootView.getContext().getString(R.string.moviePlot));
+            voteAverage = getArguments().getDouble(rootView.getContext().getString(R.string.movieRate));
+            releaseDate = getArguments().getString(rootView.getContext().getString(R.string.movieReleaseDate));
+            backDropPath = getArguments().getString(rootView.getContext().getString(R.string.movieBackDropPath));
+            movieId = getArguments().getInt(rootView.getContext().getString(R.string.movieId));
         }
         this.initViews();
     }
@@ -67,10 +65,17 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
     protected void initViews() {
 
         ImageView view = rootView.findViewById(R.id.background_image);
-        Glide.with(this).load(Constant.API.IMAGE_ORIGINAL_BASE_URL+backDropPath).into(new SimpleTarget<Drawable>() {
+        Glide.with(this).load(Constant.API.IMAGE_ORIGINAL_BASE_URL+backDropPath).into(new CustomTarget<Drawable>() {
+
+
             @Override
             public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                 view.setBackground(resource);
+            }
+
+            @Override
+            public void onLoadCleared(@Nullable Drawable placeholder) {
+
             }
         });
 
@@ -78,7 +83,7 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
         programTitle.setText(title);
 
         TextView details = rootView.findViewById(R.id.movie_Description);
-        details.setText(String.format("Year %s | IMDb%s", releaseDate, voteAverage));
+        details.setText(String.format("Year %s | IMDb %s", releaseDate, voteAverage));
 
 
         plotTextView = rootView.findViewById(R.id.plot);
@@ -86,39 +91,37 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
 
         Button addWatchList = rootView.findViewById(R.id.add_watchlist_button);
         addWatchList.requestFocus();
-        addWatchList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(plotTextView.getMaxLines() == 3){
-                    addWatchList.setForeground(rootView.getContext().getDrawable(R.drawable.collapse_icon));
-                    plotTextView.setMaxLines(Integer.MAX_VALUE);
+        addWatchList.setOnClickListener(view1 -> {
+            if(plotTextView.getMaxLines() == 3){
+                addWatchList.setForeground(rootView.getContext().getDrawable(R.drawable.collapse_icon));
+                plotTextView.setMaxLines(Integer.MAX_VALUE);
 
-                }else{
-                    addWatchList.setForeground(rootView.getContext().getDrawable(R.drawable.add_watchlist_icon));
-                    plotTextView.setMaxLines(3);
-                }
-
+            }else{
+                addWatchList.setForeground(rootView.getContext().getDrawable(R.drawable.add_watchlist_icon));
+                plotTextView.setMaxLines(3);
             }
+
         });
 
         castGridView = rootView.findViewById(R.id.cast_Actors);
         castGridView.setNumRows(1);
-        castGridView.setVerticalSpacing(8);
+        castGridView.setVerticalSpacing((int) getResources().getDimension(R.dimen.spacing));
 
         reviewGridView = rootView.findViewById(R.id.review_GridView);
-        reviewGridView.setItemSpacing(8);
-        reviewGridView.setVerticalSpacing(8);
+        reviewGridView.setNumRows(1);
+        reviewGridView.setItemSpacing((int) getResources().getDimension(R.dimen.spacing));
+
 
         videoGridView = rootView.findViewById(R.id.videos_GridView);
         videoGridView.setNumRows(1);
-        videoGridView.setItemSpacing(8);
+        videoGridView.setItemSpacing((int) getResources().getDimension(R.dimen.spacing));
 
         startGridViewAdapters();
 
 
     }
 
-    public void startGridViewAdapters(){
+    private void startGridViewAdapters(){
 
 
         DetailPagePresenter presenter = new DetailPagePresenter(this);

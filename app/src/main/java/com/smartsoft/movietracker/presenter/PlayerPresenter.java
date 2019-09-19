@@ -14,4 +14,11 @@ public class PlayerPresenter implements PlayerInterface.PlayerPresenter {
     public void setPlayListVisibility(int visibility) {
         playerInterface.setPlaylistVisibility(visibility);
     }
+
+    @Override
+    public void startNewVideo(int position) {
+        playerInterface.startNewVideo(position);
+    }
+
+
 }

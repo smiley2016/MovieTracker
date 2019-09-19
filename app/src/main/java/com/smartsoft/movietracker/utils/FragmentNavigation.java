@@ -1,33 +1,22 @@
 package com.smartsoft.movietracker.utils;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
-import android.widget.Switch;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.smartsoft.movietracker.MainActivity;
 import com.smartsoft.movietracker.R;
-import com.smartsoft.movietracker.view.BaseFragment;
 import com.smartsoft.movietracker.view.detail.DetailPageFragment;
 import com.smartsoft.movietracker.view.home.GenreSelectorFragment;
 import com.smartsoft.movietracker.view.navigation.MovieNavigationFragment;
 import com.smartsoft.movietracker.view.player.PlayerFragment;
 
-import butterknife.BindInt;
-import butterknife.BindView;
-
-public class FragmentNavigation extends Fragment{
+public class FragmentNavigation {
     private static final String TAG = FragmentNavigation.class.getSimpleName();
     private static FragmentNavigation sInstance;
     private FragmentManager mFragmentManager;
@@ -53,15 +42,11 @@ public class FragmentNavigation extends Fragment{
         bundle = new Bundle();
     }
 
-    public void clearInstance(){
-        sInstance = null;
-    }
-
 
     public void showGenreSelectorFragment(){
         Fragment myCurrentFragment = Fragment.instantiate(ctx, GenreSelectorFragment.class.getName(), bundle);
         replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, false);
-        Log.e(TAG, "showGenreSelectorFragment: " + myCurrentFragment );
+        Log.e(TAG, ctx.getString(R.string.genreSelectorFragment) + myCurrentFragment );
     }
 
     public void showMovieNavigationFragment(){
@@ -106,10 +91,9 @@ public class FragmentNavigation extends Fragment{
 
     private void replaceFragment(Fragment fragment, int container, boolean addToBackStack) {
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-        // if there is layout_fragment to replace, then replace it:
+
         mFragmentTransaction.setReorderingAllowed(false);
 
-        mFragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_out_right, android.R.anim.slide_in_left);
         mFragmentTransaction.replace(container, fragment, fragment.getTag());
 
         if(addToBackStack){
@@ -121,8 +105,6 @@ public class FragmentNavigation extends Fragment{
             e.printStackTrace();
         }
 
-
-        //mFragmentManager.executePendingTransactions();
 
 
     }

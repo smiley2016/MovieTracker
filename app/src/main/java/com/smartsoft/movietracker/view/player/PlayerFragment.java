@@ -57,8 +57,6 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
     private ProgressBar progressBar;
     private FrameLayout videoTitleFrameLayout;
     private HorizontalGridView hGridView;
-    private PlayerGridViewAdapter adapter;
-    private TextView title;
 
     @Nullable
     @Override
@@ -71,11 +69,12 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if(getArguments() != null){
-            videos = (ArrayList<Video>) getArguments().getSerializable("video");
-            playIndex = getArguments().getInt("playIndex");
+            videos = (ArrayList<Video>) getArguments().getSerializable(getString(R.string.video));
+            playIndex = getArguments().getInt(getString(R.string.playIndex));
         }
 
 
@@ -88,7 +87,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
 
         playerView = rootView.findViewById(R.id.video_view);
 
-        title = rootView.findViewById(R.id.player_video_title);
+        TextView title = rootView.findViewById(R.id.player_video_title);
         title.setText(videos.get(playIndex).getName());
 
         hGridView = rootView.findViewById(R.id.recommended_videos_gridView);
@@ -114,11 +113,11 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
 
 
     @SuppressLint("StaticFieldLeak")
-    public void makeListFromURIs() {
+    private void makeListFromURIs() {
         MediaSource[] mediaSource = new MediaSource[videos.size()];
 
-        for (int i = 0; i < videos.size(); ++i) {
-            String youtubeLink = String.format("https://youtube.com/watch?v=%s", videos.get(i).getKey());
+        for (int i = Integer.parseInt(getString(R.string.zero)); i < videos.size(); ++i) {
+            String youtubeLink = String.format(getString(R.string.YoutubeBaseUrl), videos.get(i).getKey());
             int finalI = i;
             new YouTubeExtractor(rootView.getContext()) {
                 @Override
@@ -151,13 +150,13 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
 
         progressBar.setVisibility(View.GONE);
 
-        adapter = new PlayerGridViewAdapter(videos, rootView.getContext(), presenter);
+        PlayerGridViewAdapter adapter = new PlayerGridViewAdapter(videos, rootView.getContext(), presenter);
         hGridView.setAdapter(adapter);
     }
 
     private MediaSource buildMediaSource(Uri uri) {
         return new ExtractorMediaSource.Factory(
-                new DefaultHttpDataSourceFactory("exoplayer-codelab")).
+                new DefaultHttpDataSourceFactory(rootView.getContext().getString(R.string.ExoplayerCodeLab))).
                 createMediaSource(uri);
     }
 
@@ -195,7 +194,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
         }
     }
 
-    public void showPlayList() {
+    private void showPlayList() {
         if (videoTitleFrameLayout.getLayoutParams() instanceof ConstraintLayout.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) videoTitleFrameLayout.getLayoutParams();
             p.setMargins(0, (int) pxFromDp(rootView.getContext(), 232), 0, (int)pxFromDp(rootView.getContext(), 22));
@@ -203,7 +202,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
         }
     }
 
-    public void hidePlayList() {
+    private void hidePlayList() {
 
         if (videoTitleFrameLayout.getLayoutParams() instanceof ConstraintLayout.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) videoTitleFrameLayout.getLayoutParams();
@@ -239,6 +238,14 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
             showPlayList();
         }else{
             hidePlayList();
+        }
+    }
+
+    public void startNewVideo(int position){
+        currentWindow = position;
+        if(playIndex != -1){
+            player.seekTo(currentWindow, playbackPosition);
+            player.setPlayWhenReady(playWhenReady);
         }
     }
 }

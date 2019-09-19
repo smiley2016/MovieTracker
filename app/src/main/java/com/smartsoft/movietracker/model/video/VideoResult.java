@@ -31,7 +31,4 @@ public class VideoResult {
         return videos;
     }
 
-    public void setVideos(ArrayList<Video> videos) {
-        this.videos = videos;
-    }
 }

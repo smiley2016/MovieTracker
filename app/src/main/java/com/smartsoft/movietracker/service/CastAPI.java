@@ -3,7 +3,6 @@ package com.smartsoft.movietracker.service;
 import com.smartsoft.movietracker.model.cast.CastResult;
 
 import io.reactivex.Observable;
-import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

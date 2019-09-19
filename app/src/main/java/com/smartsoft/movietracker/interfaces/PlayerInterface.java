@@ -2,11 +2,13 @@ package com.smartsoft.movietracker.interfaces;
 
 public interface PlayerInterface {
 
-    public interface PlayerView{
+    interface PlayerView{
         void setPlaylistVisibility(int visibility);
+        void startNewVideo(int position);
     }
 
-    public interface PlayerPresenter{
+    interface PlayerPresenter{
         void setPlayListVisibility(int visibility);
+        void startNewVideo(int position);
     }
 }

@@ -3,9 +3,9 @@ package com.smartsoft.movietracker.utils;
 import android.app.Dialog;
 import android.content.Context;
 import android.text.method.ScrollingMovementMethod;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -17,20 +17,17 @@ public class Dialogs {
     public static void startReviewDialog(Context context, String comment, String Author) {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.review_description_dialog);
+        ScrollView scroll = dialog.findViewById(R.id.comment_scroll_view);
         Button button = dialog.findViewById(R.id.dialog_close_button);
         TextView review_comment = dialog.findViewById(R.id.dialog_review_comment);
         review_comment.setText(comment);
         TextView reviewer = dialog.findViewById(R.id.dialog_reviewer);
         reviewer.setText(String.format("%s %s", reviewer.getText(), Author));
-        button.setFocusable(true);
+        scroll.setFocusable(true);
+        scroll.requestFocus();
         review_comment.setMovementMethod(new ScrollingMovementMethod() {
         });
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        button.setOnClickListener(view -> dialog.dismiss());
         dialog.show();
     }
 

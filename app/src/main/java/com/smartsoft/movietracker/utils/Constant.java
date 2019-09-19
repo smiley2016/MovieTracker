@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Constant {
 
-    public static class HomeFragment{
+    public static class GenreSelectorFragment {
         public static int COLUMN_NUM = 5;
     }
 
@@ -20,15 +20,5 @@ public class Constant {
         public static final boolean INCLUDE_ADULT = false;
         public static final boolean INCLUDE_VIDEO = false;
 
-        public static ArrayList<Integer> sortByList = new ArrayList<>();
-
-    }
-
-    public static class MovieNavigationFragment{
-        public static boolean sortFromMovieNavFragment = false;
-    }
-
-    public static class Genre{
-        public static ArrayList<com.smartsoft.movietracker.model.genre.Genre> genre = new ArrayList<>();
     }
 }

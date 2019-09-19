@@ -31,7 +31,7 @@ public class DetailPageCastAdapter extends RecyclerView.Adapter<DetailPageCastAd
     private ArrayList<Cast> casts;
     private Context ctx;
 
-    public DetailPageCastAdapter(Context ctx) {
+    DetailPageCastAdapter(Context ctx) {
         this.ctx = ctx;
         this.casts = new ArrayList<>();
     }
@@ -53,18 +53,18 @@ public class DetailPageCastAdapter extends RecyclerView.Adapter<DetailPageCastAd
         return casts.size();
     }
 
-    public void addAllToList(ArrayList<Cast> casts){
+    void addAllToList(ArrayList<Cast> casts){
         this.casts.addAll(casts);
         notifyDataSetChanged();
     }
 
-    public static class Holder extends RecyclerView.ViewHolder {
+    static class Holder extends RecyclerView.ViewHolder {
         private TextView actorName;
         private ImageView actorPicture;
         private RelativeLayout layout;
         private ProgressBar progressBar;
 
-        public Holder(@NonNull View itemView) {
+        Holder(@NonNull View itemView) {
 
             super(itemView);
             actorName = itemView.findViewById(R.id.actor_name);
@@ -73,7 +73,7 @@ public class DetailPageCastAdapter extends RecyclerView.Adapter<DetailPageCastAd
             progressBar = itemView.findViewById(R.id.cast_element_progress_bar);
         }
 
-        public void bind(Context ctx, Cast cast) {
+        void bind(Context ctx, Cast cast) {
 
                     Glide.with(ctx).load(Constant.API.IMAGE_BASE_URL + cast.getProfilePath()).circleCrop().error(R.mipmap.unkown_person_round_v2_legacy_round).listener(new RequestListener<Drawable>() {
                         @Override
@@ -92,12 +92,7 @@ public class DetailPageCastAdapter extends RecyclerView.Adapter<DetailPageCastAd
                         }
                     }).into(actorPicture);
 
-                layout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Dialogs.startCastDialog(ctx, cast);
-                    }
-                });
+                layout.setOnClickListener(view -> Dialogs.startCastDialog(ctx, cast));
 
             }
         }

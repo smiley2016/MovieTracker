@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,15 +14,13 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.interfaces.BaseFragmentInterface;
 import com.smartsoft.movietracker.interfaces.ToolbarListener;
-import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.utils.Constant;
 
-import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -38,9 +35,8 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 
 public class BaseFragment extends Fragment implements BaseFragmentInterface.BaseFragmentView {
 
-    private static final String TAG = "BaseFragment";
+    private static final String TAG = BaseFragment.class.getName();
 
-    private TextView text;
     private ImageView background;
 
     protected View rootView;
@@ -59,7 +55,9 @@ public class BaseFragment extends Fragment implements BaseFragmentInterface.Base
     }
 
     protected void initViews() {
-        background = getActivity().findViewById(R.id.fragment_base_background);
+        background = rootView.findViewById(R.id.fragment_base_background);
+
+        //TextView text = rootView.findViewById(R.id.choose_textView);
 
         Observable.create((ObservableOnSubscribe<String>) emitter -> urlStreamEmitter = emitter)
                 .debounce(1000, TimeUnit.MILLISECONDS)
@@ -74,15 +72,20 @@ public class BaseFragment extends Fragment implements BaseFragmentInterface.Base
                     @Override
                     public void onNext(String s) {
                         Log.d(TAG, "Context when load image: " + getContext() + "  " + s);
-                        Glide.with(getContext()).asDrawable().load(s).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).transition(withCrossFade(500)).into(new SimpleTarget<Drawable>() {
+                        Glide.with(rootView.getContext()).asDrawable().load(s).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).transition(withCrossFade(500)).into(new CustomTarget<Drawable>() {
                             @Override
                             public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                                 if (placeholderDrawable != null)
-                                    Glide.with(getContext()).load(s).placeholder(placeholderDrawable).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).transition(withCrossFade(500)).into(background);
+                                    Glide.with(rootView.getContext()).load(s).placeholder(placeholderDrawable).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).transition(withCrossFade(500)).into(background);
                                 else {
-                                    Glide.with(getContext()).load(s).placeholder(R.drawable.background).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).transition(withCrossFade(500)).into(background);
+                                    Glide.with(rootView.getContext()).load(s).placeholder(R.drawable.background).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).transition(withCrossFade(500)).into(background);
                                 }
                                 placeholderDrawable = resource;
+                            }
+
+                            @Override
+                            public void onLoadCleared(@Nullable Drawable placeholder) {
+
                             }
                         });
 
@@ -99,9 +102,7 @@ public class BaseFragment extends Fragment implements BaseFragmentInterface.Base
                     }
                 });
 
-        Observable.create((ObservableOnSubscribe<Drawable>) emitter -> {
-            drawableStreamEmitter = emitter;
-        })
+        Observable.create((ObservableOnSubscribe<Drawable>) emitter -> drawableStreamEmitter = emitter)
                 .debounce(1000, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -116,7 +117,7 @@ public class BaseFragment extends Fragment implements BaseFragmentInterface.Base
                         Log.e(TAG, "found image "+drawable);
                         Log.e(TAG, "found second image"+placeholderDrawable);
                         if(drawable != null){
-                            Glide.with(getActivity()).load(drawable).placeholder(placeholderDrawable).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).transition(withCrossFade(500)).into(background);
+                            Glide.with(rootView.getContext()).load(drawable).placeholder(placeholderDrawable).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).transition(withCrossFade(500)).into(background);
                         }
                         placeholderDrawable = drawable;
                     }
@@ -138,21 +139,21 @@ public class BaseFragment extends Fragment implements BaseFragmentInterface.Base
     @Override
     public void onStart() {
         super.onStart();
-        Log.e(TAG, "onStart: ");
+        Log.e(TAG, getString(R.string.onStart));
     }
 
 
 
     @Override
     public void setTitle() {
-        Iterator<Genre> it = Constant.Genre.genre.iterator();
-        StringBuilder genreString = new StringBuilder();
-        while (it.hasNext()) {
-            if(it.hasNext()){
-                genreString.append(it.next().getName()).append(" - ");
-            }
-        }
-        text.setText(genreString);
+//        Iterator<Genre> it = Constant.Genre.genre.iterator();
+//        StringBuilder genreString = new StringBuilder();
+//        while (it.hasNext()) {
+//            if(it.hasNext()){
+//                genreString.append(it.next().getName()).append(" - ");
+//            }
+//        }
+//        text.setText(genreString);
     }
 
     @Override
@@ -174,14 +175,15 @@ public class BaseFragment extends Fragment implements BaseFragmentInterface.Base
 
     }
 
-    public void setToolbarSearchButtonVisibility(int visibility){
+    protected void setToolbarSearchButtonVisibility(int visibility){
         toolbarView.setVisibleSearchIcon(visibility);
     }
 
-    public void setToolbarView(ToolbarListener listener){
+    protected void setToolbarView(ToolbarListener listener){
         toolbarView = rootView.findViewById(R.id.base_toolbar);
         toolbarView.setListener(listener);
     }
+
 
 
 }

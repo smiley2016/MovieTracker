@@ -15,7 +15,6 @@ import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.interfaces.ToolbarListener;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
-import com.smartsoft.movietracker.service.BaseFragmentComponentSettings;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.view.BaseFragment;
 
@@ -44,9 +43,10 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         super.setToolbarView(this);
+        super.setToolbarSearchButtonVisibility(View.INVISIBLE);
 
         if(this.getArguments() != null){
-            genreIds = this.getArguments().getIntegerArrayList("genreIds");
+            genreIds = this.getArguments().getIntegerArrayList(rootView.getContext().getString(R.string.genreIds));
         }
 
         verticalGridView = view.findViewById(R.id.gridView_container);
@@ -54,8 +54,11 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         presenter = new MovieNavigationPresenter(this);
         presenter.updateMovieNavigationGridView(getContext(),genreIds);
         verticalGridView.setItemSpacing(16);
+        verticalGridView.setFocusDrawingOrderEnabled(true);
 
     }
+
+
 
 
     @Override
@@ -74,7 +77,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         super.setBackground(path);
     }
 
-    public void startRecyclerViewAdapter(ArrayList<Movie> movies){
+    private void startRecyclerViewAdapter(ArrayList<Movie> movies){
         adapter = new MovieNavigationVerticalGridViewAdapter(movies, getActivity(), presenter, genreIds);
         verticalGridView.setHasFixedSize(true);
         verticalGridView.setAdapter(adapter);
@@ -86,7 +89,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
     }
 

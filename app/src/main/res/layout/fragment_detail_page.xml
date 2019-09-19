@@ -94,7 +94,7 @@
             app:layout_constraintStart_toEndOf="@id/plot"
             app:layout_constraintTop_toBottomOf="@id/program_Title"
             android:foreground="@drawable/add_watchlist_icon"
-            android:background="@drawable/toolbar_component_background_shape"
+            android:background="@drawable/toolbar_component_background_selector"
             android:stateListAnimator="@animator/move_description_animator"
             android:focusable="true"
             />

@@ -12,7 +12,7 @@ public class CastResult {
     private Integer id;
     @SerializedName("cast")
     @Expose
-    private ArrayList<Cast> cast= new ArrayList<>();
+    private ArrayList<Cast> cast;
 
     public CastResult(Integer id, ArrayList<Cast> cast) {
         this.id = id;
@@ -29,10 +29,6 @@ public class CastResult {
 
     public ArrayList<Cast> getCast() {
         return cast;
-    }
-
-    public void setCast(ArrayList<Cast> cast) {
-        this.cast = cast;
     }
 
 }

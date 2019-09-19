@@ -1,7 +1,6 @@
 package com.smartsoft.movietracker.view.navigation;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +13,7 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -21,12 +21,12 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.smartsoft.movietracker.MainActivity;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
+import com.smartsoft.movietracker.utils.Util;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -58,7 +58,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         holder.bind(movieList.get(position), ctx, presenter, bundle);
-        if(position >= movieList.size()-1 % Constant.HomeFragment.COLUMN_NUM){
+        if(position >= movieList.size()-1 % Constant.GenreSelectorFragment.COLUMN_NUM){
            presenter.updateMovieNavigationGridView(ctx, genreIds);
         }
 
@@ -87,14 +87,16 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
         ImageView poster;
         ImageView description;
-        RelativeLayout layout;
+        ConstraintLayout layout;
         ProgressBar progressBar;
+        RelativeLayout detailLayout;
         Holder(@NonNull View itemView) {
             super(itemView);
             poster = itemView.findViewById(R.id.poster);
             layout = itemView.findViewById(R.id.movie_element_card);
             description = itemView.findViewById(R.id.description);
             progressBar = itemView.findViewById(R.id.spinner);
+            detailLayout = itemView.findViewById(R.id.movie_description);
 
         }
 
@@ -120,17 +122,26 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
             layout.setOnFocusChangeListener((view, b) -> {
                 if(b){
                     presenter.setBackground(movie.getBackdropPath());
-                    Log.e(TAG, "hivas");
+//                    ViewGroup.LayoutParams params = layout.getLayoutParams();
+//                    params.width = (int) Util.pxFromDp(ctx, 224);
+//                    layout.setLayoutParams(params);
+                    detailLayout.setVisibility(View.VISIBLE);
+                    Log.e(TAG, ctx.getString(R.string.CardViewOnFocusChangeListener));
+                }else{
+//                    ViewGroup.LayoutParams params = layout.getLayoutParams();
+//                    params.width = (int) Util.pxFromDp(ctx, 108);
+//                    layout.setLayoutParams(params);
+                  detailLayout.setVisibility(View.GONE);
                 }
             });
 
             layout.setOnClickListener(view -> {
-                bundle.putString("movieName", movie.getTitle());
-                bundle.putDouble("movieRate", movie.getVoteAverage());
-                bundle.putString("movieReleaseDate", movie.getReleaseDate());
-                bundle.putString("moviePlot", movie.getOverview());
-                bundle.putString("movieBackDropPath", movie.getBackdropPath());
-                bundle.putInt("movieId", movie.getId());
+                bundle.putString(ctx.getString(R.string.movieName), movie.getOriginalTitle());
+                bundle.putDouble(ctx.getString(R.string.movieRate), movie.getVoteAverage());
+                bundle.putString(ctx.getString(R.string.movieReleaseDate), movie.getReleaseDate());
+                bundle.putString(ctx.getString(R.string.moviePlot), movie.getOverview());
+                bundle.putString(ctx.getString(R.string.movieBackDropPath), movie.getBackdropPath());
+                bundle.putInt(ctx.getString(R.string.movieId), movie.getId());
 
                 FragmentNavigation.getInstance().showDetailPageFragment();
             });
