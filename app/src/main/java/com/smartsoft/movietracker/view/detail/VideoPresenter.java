@@ -1,0 +1,124 @@
+package com.smartsoft.movietracker.view.detail;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.leanback.widget.ArrayObjectAdapter;
+import androidx.leanback.widget.ClassPresenterSelector;
+import androidx.leanback.widget.HorizontalGridView;
+import androidx.leanback.widget.ItemBridgeAdapter;
+import androidx.leanback.widget.Presenter;
+import androidx.leanback.widget.SinglePresenterSelector;
+
+import com.smartsoft.movietracker.R;
+import com.smartsoft.movietracker.model.video.Video;
+import com.smartsoft.movietracker.model.video.VideoList;
+import com.smartsoft.movietracker.utils.FragmentNavigation;
+
+import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class VideoPresenter extends Presenter implements DetailVideoGridInterface.VideoGridView {
+
+    private Context mContext;
+    private static final String TAG = VideoPresenter.class.getName();
+    private Bundle bundle;
+    private ArrayList<Video> videos;
+
+    public VideoPresenter(Context mContext) {
+        this.mContext = mContext;
+        this.bundle = new Bundle();
+        this.videos = new ArrayList<>();
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent) {
+        return new PresenterViewHolder(View.inflate(mContext, R.layout.video_layout, null));
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder, Object item) {
+        PresenterViewHolder holder = (PresenterViewHolder) viewHolder;
+        this.videos = ((VideoList)item).getVideos();
+        holder.bind(this.videos, this);
+    }
+
+    @Override
+    public void onUnbindViewHolder(ViewHolder viewHolder) {
+
+    }
+
+    @Override
+    public void startPlayerActivity(String videoId) {
+        int playIndex = getPositionOfVideo(videoId);
+        bundle.putInt(String.valueOf(R.string.playIndex), playIndex);
+        bundle.putSerializable(String.valueOf(R.string.video), videos);
+        FragmentNavigation.getInstance().showPlayerFragment(bundle);
+    }
+
+    public int getPositionOfVideo(String videoId){
+        for(int i = 0; i<videos.size(); ++i){
+            if(videos.get(i).getId().equals(videoId)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
+    class PresenterViewHolder extends ViewHolder{
+
+        @BindView(R.id.video_text_view)
+        TextView videoTextView;
+
+        @BindView(R.id.videos_GridView)
+        HorizontalGridView hGridView;
+
+        VideoGridElementPresenter videoGridElementPresenter;
+
+
+
+        public PresenterViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+            videoTextView.setText(R.string.videos);
+
+        }
+
+        public void bind(ArrayList<Video> videos, DetailVideoGridInterface.VideoGridView mInterface){
+            if(!videos.isEmpty()){
+
+                videoGridElementPresenter = new VideoGridElementPresenter(mContext, mInterface);
+                videoTextView.setText(R.string.videos);
+
+
+                ArrayObjectAdapter objectAdapter = new ArrayObjectAdapter();
+                for(Video it: videos){
+                    objectAdapter.add(it);
+                }
+
+                ItemBridgeAdapter itemBridgeAdapter = new ItemBridgeAdapter();
+                itemBridgeAdapter.setAdapter(objectAdapter);
+                itemBridgeAdapter.setPresenter(new SinglePresenterSelector(videoGridElementPresenter));
+
+                hGridView.setAdapter(itemBridgeAdapter);
+//                hGridView.setNumRows(1);
+//                hGridView.setItemSpacing(R.dimen.spacing);
+
+                //videoGridElementPresenter.addAllToList(videos);
+                view.setVisibility(View.VISIBLE);
+            }else{
+                view.setVisibility(View.INVISIBLE);
+                Log.e(TAG, "bind: no list binded" );
+            }
+        }
+
+
+    }
+}

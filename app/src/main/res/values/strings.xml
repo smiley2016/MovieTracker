@@ -48,8 +48,8 @@
     <string name="playIndex">playIndex</string>
     <string name="YoutubeBaseUrl">https://youtube.com/watch?v=%s</string>
     <string name="zero">0</string>
-
-
+    <string name="cast">CAST</string>
+    <string name="videos">Videos</string>
 
 
 </resources>

@@ -74,13 +74,11 @@ public class FragmentNavigation {
 
     }
 
-    public void showPlayerFragment(){
-        Fragment myCurrentFragment = getCurrentFragment();
-        if(((DetailPageFragment)myCurrentFragment).getVideoAdaptersBundle()!= null){
-            bundle = ((DetailPageFragment)myCurrentFragment).getVideoAdaptersBundle();
-        }
+    public void showPlayerFragment(Bundle bundle){
+        Fragment myCurrentFragment;
+        this.bundle = bundle;
 
-        myCurrentFragment = Fragment.instantiate(ctx, PlayerFragment.class.getName(), bundle);
+        myCurrentFragment = Fragment.instantiate(ctx, PlayerFragment.class.getName(), this.bundle);
         replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, true);
     }
 

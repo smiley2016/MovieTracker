@@ -98,7 +98,7 @@ public class DetailPageVideoAdapter extends RecyclerView.Adapter<DetailPageVideo
             layout.setOnClickListener(view -> {
                 bundle.putSerializable("video", videos);
                 bundle.putInt("playIndex", position);
-                FragmentNavigation.getInstance().showPlayerFragment();
+                FragmentNavigation.getInstance().showPlayerFragment(bundle);
             });
         }
     }

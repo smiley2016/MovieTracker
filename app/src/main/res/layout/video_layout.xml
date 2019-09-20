@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/similar_videos"
+    android:layout_width="960dp"
+    android:layout_height="216dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/video_text_view"
+        android:layout_width="87dp"
+        android:layout_height="32dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="843dp"
+        android:fontFamily="sans-serif"
+        android:gravity="start"
+        android:text="Videos"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <androidx.leanback.widget.HorizontalGridView
+        android:id="@+id/videos_GridView"
+        android:layout_width="match_parent"
+        android:layout_height="158dp"
+        android:layout_below="@id/video_text_view"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="8dp"
+        android:clipToPadding="false"
+        android:paddingStart="40dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="0dp"
+
+        />
+
+</RelativeLayout>

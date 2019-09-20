@@ -136,12 +136,13 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
             });
 
             layout.setOnClickListener(view -> {
-                bundle.putString(ctx.getString(R.string.movieName), movie.getOriginalTitle());
-                bundle.putDouble(ctx.getString(R.string.movieRate), movie.getVoteAverage());
-                bundle.putString(ctx.getString(R.string.movieReleaseDate), movie.getReleaseDate());
-                bundle.putString(ctx.getString(R.string.moviePlot), movie.getOverview());
-                bundle.putString(ctx.getString(R.string.movieBackDropPath), movie.getBackdropPath());
-                bundle.putInt(ctx.getString(R.string.movieId), movie.getId());
+                bundle.putSerializable("movie", movie);
+//                bundle.putString(ctx.getString(R.string.movieName), movie.getOriginalTitle());
+//                bundle.putDouble(ctx.getString(R.string.movieRate), movie.getVoteAverage());
+//                bundle.putString(ctx.getString(R.string.movieReleaseDate), movie.getReleaseDate());
+//                bundle.putString(ctx.getString(R.string.moviePlot), movie.getOverview());
+//                bundle.putString(ctx.getString(R.string.movieBackDropPath), movie.getBackdropPath());
+//                bundle.putInt(ctx.getString(R.string.movieId), movie.getId());
 
                 FragmentNavigation.getInstance().showDetailPageFragment();
             });

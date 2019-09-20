@@ -71,6 +71,10 @@ public class Movie implements Serializable {
         this.releaseDate = releaseDate;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     public Boolean getVideo() {
         return video;
     }

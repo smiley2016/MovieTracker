@@ -17,6 +17,7 @@ import com.smartsoft.movietracker.utils.SharedPreferences;
 import java.util.ArrayList;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.Function;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
