@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
 import androidx.leanback.widget.HorizontalGridView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -41,7 +42,7 @@ import at.huber.youtubeExtractor.YtFile;
 
 import static com.smartsoft.movietracker.utils.Util.pxFromDp;
 
-public class PlayerFragment extends BaseFragment implements PlayerInterface.PlayerView {
+public class PlayerFragment extends Fragment implements PlayerInterface.PlayerView {
 
     private PlayerView playerView;
     private SimpleExoPlayer player;
@@ -57,6 +58,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
     private ProgressBar progressBar;
     private FrameLayout videoTitleFrameLayout;
     private HorizontalGridView hGridView;
+    private View rootView;
 
     @Nullable
     @Override
@@ -73,7 +75,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if(getArguments() != null){
-            videos = (ArrayList<Video>) getArguments().getSerializable(getString(R.string.video));
+            videos = (ArrayList<Video>) getArguments().getSerializable(getString(R.string.videos));
             playIndex = getArguments().getInt(getString(R.string.playIndex));
         }
 
@@ -81,7 +83,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
         initViews();
     }
 
-    protected void initViews() {
+    private void initViews() {
 
         presenter = new PlayerPresenter(this);
 

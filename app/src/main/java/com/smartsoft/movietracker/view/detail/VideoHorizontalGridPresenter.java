@@ -27,12 +27,12 @@ import com.smartsoft.movietracker.utils.FragmentNavigation;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class VideoGridElementPresenter extends Presenter implements DetailVideoGridInterface.VideoGridIntPresenter {
+public class VideoHorizontalGridPresenter extends Presenter implements DetailVideoGridInterface.VideoGridIntPresenter {
 
     private Context mContext;
     private DetailVideoGridInterface.VideoGridView mInterface;
 
-    public VideoGridElementPresenter(Context mContext, DetailVideoGridInterface.VideoGridView mInterface) {
+    public VideoHorizontalGridPresenter(Context mContext, DetailVideoGridInterface.VideoGridView mInterface) {
         this.mContext = mContext;
         this.mInterface = mInterface;
     }

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.leanback.widget.ArrayObjectAdapter;
-import androidx.leanback.widget.ClassPresenterSelector;
 import androidx.leanback.widget.HorizontalGridView;
 import androidx.leanback.widget.ItemBridgeAdapter;
 import androidx.leanback.widget.Presenter;
@@ -24,14 +23,14 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class VideoPresenter extends Presenter implements DetailVideoGridInterface.VideoGridView {
+public class VideoVerticalGridPresenter extends Presenter implements DetailVideoGridInterface.VideoGridView {
 
     private Context mContext;
-    private static final String TAG = VideoPresenter.class.getName();
+    private static final String TAG = VideoVerticalGridPresenter.class.getName();
     private Bundle bundle;
     private ArrayList<Video> videos;
 
-    public VideoPresenter(Context mContext) {
+    public VideoVerticalGridPresenter(Context mContext) {
         this.mContext = mContext;
         this.bundle = new Bundle();
         this.videos = new ArrayList<>();
@@ -57,8 +56,8 @@ public class VideoPresenter extends Presenter implements DetailVideoGridInterfac
     @Override
     public void startPlayerActivity(String videoId) {
         int playIndex = getPositionOfVideo(videoId);
-        bundle.putInt(String.valueOf(R.string.playIndex), playIndex);
-        bundle.putSerializable(String.valueOf(R.string.video), videos);
+        bundle.putInt(mContext.getString(R.string.playIndex), playIndex);
+        bundle.putSerializable(mContext.getString(R.string.videos), videos);
         FragmentNavigation.getInstance().showPlayerFragment(bundle);
     }
 
@@ -80,7 +79,7 @@ public class VideoPresenter extends Presenter implements DetailVideoGridInterfac
         @BindView(R.id.videos_GridView)
         HorizontalGridView hGridView;
 
-        VideoGridElementPresenter videoGridElementPresenter;
+        VideoHorizontalGridPresenter videoHorizontalGridPresenter;
 
 
 
@@ -94,7 +93,7 @@ public class VideoPresenter extends Presenter implements DetailVideoGridInterfac
         public void bind(ArrayList<Video> videos, DetailVideoGridInterface.VideoGridView mInterface){
             if(!videos.isEmpty()){
 
-                videoGridElementPresenter = new VideoGridElementPresenter(mContext, mInterface);
+                videoHorizontalGridPresenter = new VideoHorizontalGridPresenter(mContext, mInterface);
                 videoTextView.setText(R.string.videos);
 
 
@@ -105,13 +104,13 @@ public class VideoPresenter extends Presenter implements DetailVideoGridInterfac
 
                 ItemBridgeAdapter itemBridgeAdapter = new ItemBridgeAdapter();
                 itemBridgeAdapter.setAdapter(objectAdapter);
-                itemBridgeAdapter.setPresenter(new SinglePresenterSelector(videoGridElementPresenter));
+                itemBridgeAdapter.setPresenter(new SinglePresenterSelector(videoHorizontalGridPresenter));
 
                 hGridView.setAdapter(itemBridgeAdapter);
 //                hGridView.setNumRows(1);
 //                hGridView.setItemSpacing(R.dimen.spacing);
 
-                //videoGridElementPresenter.addAllToList(videos);
+                //videoHorizontalGridPresenter.addAllToList(videos);
                 view.setVisibility(View.VISIBLE);
             }else{
                 view.setVisibility(View.INVISIBLE);

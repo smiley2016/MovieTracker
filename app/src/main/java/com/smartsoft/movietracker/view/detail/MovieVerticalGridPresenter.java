@@ -14,12 +14,12 @@ import com.smartsoft.movietracker.model.movie.Movie;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieDetailPresenter extends Presenter {
+public class MovieVerticalGridPresenter extends Presenter {
 
     private Context mContext;
 
 
-    MovieDetailPresenter(Context mContext) {
+    MovieVerticalGridPresenter(Context mContext) {
         this.mContext = mContext;
 
     }

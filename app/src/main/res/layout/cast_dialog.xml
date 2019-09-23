@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="350dp" android:layout_height="300dp">
+    android:layout_width="350dp" android:layout_height="300dp"
+    android:background="@drawable/toolbar_component_background_shape">
 
     <ImageView
         android:id="@+id/cast_dialog_image"
@@ -9,7 +10,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-
+        android:focusable="false"
         />
 
     <TextView
@@ -22,6 +23,7 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:textColor="#EEEEEE"
+        android:focusable="false"
         />
 
     <ImageView
@@ -32,6 +34,9 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_margin="16dp"
+        android:focusable="true"
+        android:background="#242424"
+        android:stateListAnimator="@animator/toolbar_component_animator"
         />
 
 </RelativeLayout>

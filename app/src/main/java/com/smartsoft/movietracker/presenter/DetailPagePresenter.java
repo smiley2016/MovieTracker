@@ -1,8 +1,15 @@
 package com.smartsoft.movietracker.presenter;
 
+import android.util.Log;
+
 import com.smartsoft.movietracker.interfaces.DetailPageInterface;
 import com.smartsoft.movietracker.model.MovieDetails;
+import com.smartsoft.movietracker.model.cast.Cast;
 import com.smartsoft.movietracker.service.ApiController;
+
+import java.util.ArrayList;
+
+import javax.security.auth.login.LoginException;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -11,6 +18,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class DetailPagePresenter implements DetailPageInterface.DetailPagePresenterInterface {
+    private static final String TAG = DetailPagePresenter.class.getName();
 
     private DetailPageInterface.DetailPageViewInterface detailPageViewInterface;
 
@@ -34,12 +42,14 @@ public class DetailPagePresenter implements DetailPageInterface.DetailPagePresen
 
                     @Override
                     public void onNext(MovieDetails movieDetails) {
+                        Log.e(TAG, "DetailPagePresenter"+movieDetails);
+
                         detailPageViewInterface.loadData(movieDetails);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.e(TAG, "DetailPagePresenter", e);
                     }
 
                     @Override
@@ -48,4 +58,6 @@ public class DetailPagePresenter implements DetailPageInterface.DetailPagePresen
                     }
                 });
     }
+
+
 }

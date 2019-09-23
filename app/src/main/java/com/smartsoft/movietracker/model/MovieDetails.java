@@ -29,16 +29,4 @@ public class MovieDetails {
     public ArrayList<Video> getVideos() {
         return videos;
     }
-
-    public void setCasts(ArrayList<Cast> casts) {
-        this.casts = casts;
-    }
-
-    public void setReviews(ArrayList<Review> reviews) {
-        this.reviews = reviews;
-    }
-
-    public void setVideos(ArrayList<Video> videos) {
-        this.videos = videos;
-    }
 }

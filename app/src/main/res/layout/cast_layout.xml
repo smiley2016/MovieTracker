@@ -24,7 +24,6 @@
         android:layout_width="912dp"
         android:layout_height="140dp"
         android:layout_below="@id/cast_TextView"
-        android:background="#ff0000"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="48dp"

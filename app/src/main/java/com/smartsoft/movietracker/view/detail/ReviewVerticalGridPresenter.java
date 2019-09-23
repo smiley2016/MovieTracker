@@ -6,25 +6,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.HorizontalGridView;
+import androidx.leanback.widget.ItemBridgeAdapter;
 import androidx.leanback.widget.Presenter;
+import androidx.leanback.widget.SinglePresenterSelector;
 
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.review.Review;
 import com.smartsoft.movietracker.model.review.ReviewList;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ReviewPresenter extends Presenter {
+public class ReviewVerticalGridPresenter extends Presenter {
     private Context mContext;
-    private static final String TAG = ReviewPresenter.class.getName();
+    private static final String TAG = ReviewVerticalGridPresenter.class.getName();
 
-    public ReviewPresenter(Context mContext) {
+    public ReviewVerticalGridPresenter(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -53,20 +54,28 @@ public class ReviewPresenter extends Presenter {
         @BindView(R.id.review_GridView)
         HorizontalGridView hGridView;
 
-        DetailPageReviewAdapter reviewAdapter;
+        ReviewHorizontalGridPresenter reviewAdapter;
 
         public PresenterViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            reviewAdapter = new DetailPageReviewAdapter(mContext);
-            hGridView.setNumRows(1);
-            hGridView.setAdapter(reviewAdapter);
+
         }
 
         public void bind(ArrayList<Review> reviews){
+
             if(!reviews.isEmpty()){
                 view.setVisibility(View.VISIBLE);
-                reviewAdapter.addAllToList(reviews);
+                reviewAdapter = new ReviewHorizontalGridPresenter(mContext);
+
+                ArrayObjectAdapter objectAdapter = new ArrayObjectAdapter();
+
+                for(Review it: reviews){
+                    objectAdapter.add(it);
+                }
+
+                hGridView.setAdapter(new ItemBridgeAdapter(objectAdapter, new SinglePresenterSelector(reviewAdapter)));
+                hGridView.setItemSpacing((int)mContext.getResources().getDimension(R.dimen.spacing));
             }else{
                 Log.d(TAG, "bind: list size 0");
                 view.setVisibility(View.GONE);

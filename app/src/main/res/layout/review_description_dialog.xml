@@ -6,7 +6,8 @@
     android:layout_width="512dp"
     android:background="#242424"
     android:layout_height="wrap_content"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:focusable="false">
 
 
 
@@ -19,7 +20,7 @@
         app:layout_constraintTop_toBottomOf="@id/dialog_reviewer"
         android:scrollbars="vertical"
         android:scrollbarAlwaysDrawVerticalTrack="true"
-
+        android:focusable="false"
         >
 
 
@@ -66,6 +67,7 @@
         android:stateListAnimator="@animator/cast_element_animator"
         android:background="@drawable/toolbar_component_background_selector"
         android:foreground="@drawable/dialog_close_button"
+        android:focusable="true"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

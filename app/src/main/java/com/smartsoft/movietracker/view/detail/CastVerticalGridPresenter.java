@@ -1,5 +1,6 @@
 package com.smartsoft.movietracker.view.detail;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,27 +8,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.HorizontalGridView;
+import androidx.leanback.widget.ItemBridgeAdapter;
 import androidx.leanback.widget.Presenter;
+import androidx.leanback.widget.SinglePresenterSelector;
 
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.cast.Cast;
 import com.smartsoft.movietracker.model.cast.CastList;
-import com.smartsoft.movietracker.model.cast.CastResult;
-import com.smartsoft.movietracker.presenter.DetailPagePresenter;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CastPresenter extends Presenter {
+public class CastVerticalGridPresenter extends Presenter {
 
-    private static final String TAG = CastPresenter.class.getName();
+    private static final String TAG = CastVerticalGridPresenter.class.getName();
 
     private Context mContext;
 
-    public CastPresenter(Context mContext) {
+    public CastVerticalGridPresenter(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -56,21 +58,32 @@ public class CastPresenter extends Presenter {
         @BindView(R.id.cast_actors_grid_view)
         HorizontalGridView hGridView;
 
-        DetailPageCastAdapter castAdapter;
+        CastHorizontalGridPresenter castPresenter;
 
 
         public PresenterViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            castAdapter  = new DetailPageCastAdapter(mContext);
-            hGridView.setAdapter(castAdapter);
-            castTextView.setText(R.string.cast);
+
         }
 
         public void bind(ArrayList<Cast> cast){
+
             if(!cast.isEmpty()){
-                castAdapter.addAllToList(cast);
-                Log.e(TAG, "cast " + cast.size());
+                castPresenter = new CastHorizontalGridPresenter(mContext);
+
+                ArrayObjectAdapter objectAdapter = new ArrayObjectAdapter();
+                for(Cast it: cast){
+                    objectAdapter.add(it);
+                }
+
+                SinglePresenterSelector presenterSelector = new SinglePresenterSelector(castPresenter);
+
+                ItemBridgeAdapter itemBridgeAdapter = new ItemBridgeAdapter(objectAdapter, presenterSelector);
+
+                hGridView.setAdapter(itemBridgeAdapter);
+
+                castTextView.setText(R.string.cast); Log.e(TAG, "cast " + cast.size());
                 view.setVisibility(View.VISIBLE);
             }else{
                 Log.e(TAG, "no cast list");

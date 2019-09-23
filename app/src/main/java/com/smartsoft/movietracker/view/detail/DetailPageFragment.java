@@ -1,6 +1,7 @@
 package com.smartsoft.movietracker.view.detail;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.ClassPresenterSelector;
 import androidx.leanback.widget.ItemBridgeAdapter;
@@ -23,24 +25,27 @@ import com.smartsoft.movietracker.model.review.ReviewList;
 import com.smartsoft.movietracker.model.video.VideoList;
 import com.smartsoft.movietracker.presenter.DetailPagePresenter;
 import com.smartsoft.movietracker.utils.Constant;
-import com.smartsoft.movietracker.view.BaseFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DetailPageFragment extends BaseFragment implements DetailPageInterface.DetailPageViewInterface {
+public class DetailPageFragment extends Fragment implements DetailPageInterface.DetailPageViewInterface {
+    private static final String TAG = DetailPageFragment.class.getName();
+
     private Movie movie;
     private ArrayObjectAdapter objectAdapter;
     private DetailPagePresenter dPresenter;
     private View rootView;
 
-    private MovieDetailPresenter mPresenter;
-    private CastPresenter castPresenter;
-    private ReviewPresenter reviewPresenter;
-    private VideoPresenter videoPresenter;
+    private MovieVerticalGridPresenter movieVerticalGridPresenter;
+    private CastVerticalGridPresenter castVerticalGridPresenter;
+    private ReviewVerticalGridPresenter reviewVerticalGridPresenter;
+    private VideoVerticalGridPresenter videoVerticalGridPresenter;
 
     private ClassPresenterSelector presenterSelector;
     private ItemBridgeAdapter itemBridgeAdapter;
+
+    private VerticalGridView verticalGridView;
 
     @BindView(R.id.background_image)
     ImageView background;
@@ -49,76 +54,66 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        objectAdapter = new ArrayObjectAdapter();
-
-        presenterSelector = new ClassPresenterSelector();
-
-        mPresenter = new MovieDetailPresenter(getContext());
-        castPresenter = new CastPresenter(getContext());
-        reviewPresenter = new ReviewPresenter(getContext());
-        videoPresenter = new VideoPresenter(getContext());
-
-        presenterSelector.addClassPresenter(Movie.class, mPresenter);
-        presenterSelector.addClassPresenter(CastList.class, castPresenter);
-        presenterSelector.addClassPresenter(ReviewList.class, reviewPresenter);
-        presenterSelector.addClassPresenter(VideoList.class, videoPresenter);
+        if (getArguments() != null) {
+            movie = (Movie) getArguments().getSerializable("movie");
+            Log.e(TAG, ""+movie);
+        }
 
         dPresenter = new DetailPagePresenter(this);
-
-
-        itemBridgeAdapter = new ItemBridgeAdapter(objectAdapter, presenterSelector);
-
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         if(rootView == null){
             rootView = inflater.inflate(R.layout.fragment_detail_page, container, false);
         }
 
         ButterKnife.bind(this, rootView);
-
-        if (getArguments() != null) {
-            movie = (Movie) getArguments().getSerializable("movie");
-
-            objectAdapter.add(movie);
-        }
-
-        initViews();
-
-
+        initializeViews();
+        getAllData();
         return rootView;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        getAllData();
-
-
-        VerticalGridView verticalGridView = rootView.findViewById(R.id.detail_page_grid_view);
-        verticalGridView.setAdapter(itemBridgeAdapter);
-    }
 
     private void getAllData() {
-       dPresenter.loadData(movie.getId());
+        dPresenter.loadData(movie.getId());
     }
 
-    protected void initViews() {
+    private void initializeViews() {
         Glide.with(rootView.getContext()).load(Constant.API.IMAGE_ORIGINAL_BASE_URL + movie.getBackdropPath()).into(background);
 
+        verticalGridView = rootView.findViewById(R.id.detail_page_grid_view);
+
+        objectAdapter = new ArrayObjectAdapter();
+        objectAdapter.add(movie);
+
+        movieVerticalGridPresenter = new MovieVerticalGridPresenter(rootView.getContext());
+        castVerticalGridPresenter = new CastVerticalGridPresenter(rootView.getContext());
+        reviewVerticalGridPresenter = new ReviewVerticalGridPresenter(rootView.getContext());
+        videoVerticalGridPresenter = new VideoVerticalGridPresenter(rootView.getContext());
+
+        presenterSelector = new ClassPresenterSelector();
+        presenterSelector.addClassPresenter(Movie.class, movieVerticalGridPresenter);
+        presenterSelector.addClassPresenter(CastList.class, castVerticalGridPresenter);
+        presenterSelector.addClassPresenter(ReviewList.class, reviewVerticalGridPresenter);
+        presenterSelector.addClassPresenter(VideoList.class, videoVerticalGridPresenter);
+
+        itemBridgeAdapter = new ItemBridgeAdapter(objectAdapter, presenterSelector);
+        verticalGridView.setAdapter(itemBridgeAdapter);
 
     }
 
     @Override
     public void loadData(MovieDetails movieDetails) {
-        objectAdapter.add(movieDetails.getCasts());
-        objectAdapter.add(movieDetails.getReviews());
-        objectAdapter.add(movieDetails.getVideos());
+        CastList cast = new CastList(movieDetails.getCasts());
+        ReviewList list = new ReviewList(movieDetails.getReviews());
+        VideoList videoList = new VideoList(movieDetails.getVideos());
+        objectAdapter.add(cast);
+        objectAdapter.add(list);
+        objectAdapter.add(videoList);
+
     }
-
-
 
 
 }
