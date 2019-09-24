@@ -102,14 +102,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
             progressBar = itemView.findViewById(R.id.spinner);
             detailLayout = itemView.findViewById(R.id.movie_description);
 
-            curveRadius = 12f;
-
-            detailLayout.setOutlineProvider(new ViewOutlineProvider() {
-                @Override
-                public void getOutline(View view, Outline outline) {
-                    outline.setRoundRect(0,0, view.getWidth()-((int) curveRadius),view.getHeight() , curveRadius);
-                }
-            });
+            curveRadius = 24f;
 
             detailLayout.setClipToOutline(true);
 
@@ -141,9 +134,8 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
                     poster.setOutlineProvider(new ViewOutlineProvider() {
                         @Override
                         public void getOutline(View view, Outline outline) {
-                            outline.setRoundRect(0, 0,(int)(view.getWidth()+curveRadius), view.getHeight(), curveRadius);
+                            outline.setRoundRect(0,0,(int) (view.getWidth()+curveRadius), view.getHeight(), curveRadius);
                         }
-
                     });
                     poster.setClipToOutline(true);
                     presenter.setBackground(movie.getBackdropPath());
@@ -151,7 +143,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
                     Log.e(TAG, ctx.getString(R.string.CardViewOnFocusChangeListener));
                 }else{
                     poster.setClipToOutline(false);
-                  detailLayout.setVisibility(View.GONE);
+                    detailLayout.setVisibility(View.GONE);
                 }
             });
 

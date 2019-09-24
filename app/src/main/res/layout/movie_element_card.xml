@@ -35,9 +35,10 @@
         android:id="@+id/movie_description"
         android:layout_width="108dp"
         android:layout_height="162dp"
-        android:background="#242424"
+        android:background="@drawable/movie_detail_page_layout_round_shape"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/poster"
+
         android:visibility="gone"
        >
 
