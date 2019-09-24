@@ -11,17 +11,21 @@ import androidx.leanback.widget.Presenter;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.movie.Movie;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MovieVerticalGridPresenter extends Presenter {
 
     private Context mContext;
+    private ArrayList<String> currentGenres;
 
 
-    MovieVerticalGridPresenter(Context mContext) {
+    MovieVerticalGridPresenter(Context mContext, ArrayList<String> currentGenres) {
         this.mContext = mContext;
-
+        this.currentGenres = currentGenres;
     }
 
     @Override
@@ -59,7 +63,16 @@ public class MovieVerticalGridPresenter extends Presenter {
         
         public void bind(Movie movie){
             title.setText(movie.getTitle());
-            movie_description.setText(String.format("Year %s | IMDb %s", movie.getReleaseDate(), movie.getVoteAverage()));
+
+            StringBuilder genreNames = new StringBuilder();
+            Iterator<String> genreNameIterator = currentGenres.iterator();
+            while(genreNameIterator.hasNext()){
+                if(genreNameIterator.hasNext()){
+                    genreNames.append(genreNames).append(genreNameIterator.next()).append(", ");
+                }
+            }
+
+            movie_description.setText(String.format("%s | Year %s | IMDb %s", genreNames, movie.getReleaseDate(), movie.getVoteAverage()));
             plot.setText(movie.getOverview());
             expand.setOnClickListener(view -> {
                 if(plot.getMaxLines() == 3){

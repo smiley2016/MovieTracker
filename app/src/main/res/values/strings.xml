@@ -50,6 +50,7 @@
     <string name="zero">0</string>
     <string name="cast">CAST</string>
     <string name="videos">Videos</string>
+    <string name="genres">genres</string>
 
 
 </resources>

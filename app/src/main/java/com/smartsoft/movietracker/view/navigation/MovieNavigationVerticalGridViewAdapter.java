@@ -23,13 +23,12 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.github.siyamed.shapeimageview.mask.PorterShapeImageView;
 import com.smartsoft.movietracker.R;
+import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
-import com.smartsoft.movietracker.utils.Util;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,14 +39,14 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
     private ArrayList<Movie> movieList;
     private Context ctx;
     private MovieNavigationPresenter presenter;
-    private ArrayList<Integer> genreIds;
+    private ArrayList<Genre> genres;
     private Bundle bundle;
 
-    MovieNavigationVerticalGridViewAdapter(ArrayList<Movie> movieList, Context ctx, MovieNavigationPresenter presenter, ArrayList<Integer> genreIds) {
+    MovieNavigationVerticalGridViewAdapter(ArrayList<Movie> movieList, Context ctx, MovieNavigationPresenter presenter, ArrayList<Genre> genres) {
         this.movieList = movieList;
         this.ctx = ctx;
         this.presenter = presenter;
-        this.genreIds = genreIds;
+        this.genres = genres;
         this.bundle = new Bundle();
     }
 
@@ -60,9 +59,9 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        holder.bind(movieList.get(position), ctx, presenter, bundle);
+        holder.bind(movieList.get(position), ctx, presenter, bundle, genres);
         if(position >= movieList.size()-1 % Constant.GenreSelectorFragment.COLUMN_NUM){
-           presenter.updateMovieNavigationGridView(ctx, genreIds);
+           presenter.updateMovieNavigationGridView(ctx, genres);
         }
 
     }
@@ -110,7 +109,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
 
 
-        void bind(Movie movie, Context ctx, MovieNavigationPresenter presenter, Bundle bundle){
+        void bind(Movie movie, Context ctx, MovieNavigationPresenter presenter, Bundle bundle, ArrayList<Genre> genres){
 
 
             Glide.with(ctx).load(Constant.API.IMAGE_BASE_URL +movie.getPosterPath()).listener(new RequestListener<Drawable>() {
@@ -149,7 +148,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
             layout.setOnClickListener(view -> {
                 bundle.putSerializable("movie", movie);
-
+                bundle.putSerializable(ctx.getString(R.string.genres), genres);
                 FragmentNavigation.getInstance().showDetailPageFragment();
             });
         }

@@ -13,6 +13,7 @@ import androidx.leanback.widget.VerticalGridView;
 
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.interfaces.ToolbarListener;
+import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
@@ -26,7 +27,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     private VerticalGridView verticalGridView;
     private MovieNavigationVerticalGridViewAdapter adapter;
     private MovieNavigationPresenter presenter;
-    private ArrayList<Integer> genreIds = new ArrayList<>();
+    private ArrayList<Genre> genres = new ArrayList<>();
 
 
     @Nullable
@@ -40,19 +41,20 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         super.setToolbarView(this);
         super.setToolbarSearchButtonVisibility(View.INVISIBLE);
 
         if(this.getArguments() != null){
-            genreIds = this.getArguments().getIntegerArrayList(rootView.getContext().getString(R.string.genreIds));
+            genres = (ArrayList<Genre>) this.getArguments().getSerializable(rootView.getContext().getString(R.string.genres));
         }
 
         verticalGridView = view.findViewById(R.id.gridView_container);
         verticalGridView.setNumColumns(7);
         presenter = new MovieNavigationPresenter(this);
-        presenter.updateMovieNavigationGridView(getContext(),genreIds);
+        presenter.updateMovieNavigationGridView(getContext(),genres);
         verticalGridView.setItemSpacing(16);
         verticalGridView.setFocusDrawingOrderEnabled(true);
 
@@ -78,7 +80,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     }
 
     private void startRecyclerViewAdapter(ArrayList<Movie> movies){
-        adapter = new MovieNavigationVerticalGridViewAdapter(movies, getActivity(), presenter, genreIds);
+        adapter = new MovieNavigationVerticalGridViewAdapter(movies, getActivity(), presenter, genres);
         verticalGridView.setHasFixedSize(true);
         verticalGridView.setAdapter(adapter);
     }
@@ -113,7 +115,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         dialog.dismiss();
         adapter.clearAll();
         Constant.API.PAGE = 0;
-        presenter.updateMovieNavigationGridView(getContext(), genreIds);
+        presenter.updateMovieNavigationGridView(getContext(), genres);
     }
 
     public Bundle getAdaptersBundle(){

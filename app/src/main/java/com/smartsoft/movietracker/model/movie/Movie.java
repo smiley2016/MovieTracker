@@ -71,6 +71,10 @@ public class Movie implements Serializable {
         this.releaseDate = releaseDate;
     }
 
+    public List<Integer> getGenreIds() {
+        return genreIds;
+    }
+
     public String getTitle() {
         return title;
     }

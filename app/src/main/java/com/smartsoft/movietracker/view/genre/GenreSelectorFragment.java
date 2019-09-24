@@ -1,4 +1,4 @@
-package com.smartsoft.movietracker.view.home;
+package com.smartsoft.movietracker.view.genre;
 
 import android.app.Dialog;
 import android.os.Bundle;

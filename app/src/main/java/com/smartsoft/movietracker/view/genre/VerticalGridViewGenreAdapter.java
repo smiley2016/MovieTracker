@@ -1,4 +1,4 @@
-package com.smartsoft.movietracker.view.home;
+package com.smartsoft.movietracker.view.genre;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -30,13 +30,13 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
     private Context mContext;
     private ArrayList<Genre> genreList = new ArrayList<>();
 
-    private ArrayList<Integer> genreIds;
+    private ArrayList<Genre> genres;
     private Bundle bundle;
 
     VerticalGridViewGenreAdapter(Context context, ArrayList<Genre> list) {
         this.mContext = context;
         genreList.addAll(list);
-        genreIds = new ArrayList<>();
+        genres = new ArrayList<>();
         this.bundle = new Bundle();
 
     }
@@ -92,7 +92,7 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
 
 
     void setBundle(){
-        bundle.putIntegerArrayList(mContext.getString(R.string.genreIds), genreIds);
+        bundle.putSerializable( mContext.getString(R.string.genres), this.genres);
     }
 
     public Bundle getBundle(){
@@ -101,12 +101,12 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
 
 
     private void manageGenreToList(Genre genres, int position) {
-        if (genreIds.contains(genres.getId())) {
-            genreIds.remove(genres.getId());
+        if (this.genres.contains(genres)) {
+            this.genres.remove(genres);
             genres.setActivated(false);
             Util.showToast(mContext, mContext.getResources().getString(R.string.removed_genre) + " " + genres.getName());
         } else {
-            genreIds.add(genres.getId());
+            this.genres.add(genres);
             genres.setActivated(true);
             Util.showToast(mContext, mContext.getResources().getString(R.string.added_genre) + " " + genres.getName());
         }
@@ -115,10 +115,10 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
     }
 
     void setList(){
-        if(bundle != null && !CollectionUtils.isEmpty(genreIds)){
-            for(Integer it: genreIds){
-                if(getGenreById(it) != null){
-                    Objects.requireNonNull(getGenreById(it)).setActivated(true);
+        if(bundle != null && !CollectionUtils.isEmpty(genres)){
+            for(Genre it: genres){
+                if(getGenreById(it.getId()) != null){
+                    Objects.requireNonNull(getGenreById(it.getId())).setActivated(true);
                 }
             }
         }

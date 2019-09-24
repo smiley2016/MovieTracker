@@ -1,6 +1,7 @@
 package com.smartsoft.movietracker.view.player;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.SparseArray;
@@ -19,6 +20,7 @@ import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.ClassPresenterSelector;
 import androidx.leanback.widget.HorizontalGridView;
 import androidx.leanback.widget.ItemBridgeAdapter;
+import androidx.leanback.widget.ObjectAdapter;
 import androidx.leanback.widget.PresenterSelector;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -101,6 +103,18 @@ public class PlayerFragment extends Fragment implements PlayerInterface.PlayerVi
         hGridView = rootView.findViewById(R.id.recommended_videos_gridView);
         hGridView.setItemSpacing(8);
 
+        PlayerVerticalGridPresenter vPresenter = new PlayerVerticalGridPresenter(rootView.getContext(), presenter, videos);
+
+        ArrayObjectAdapter objectAdapter = new ArrayObjectAdapter();
+
+        for(Video it: videos){
+            objectAdapter.add(it);
+        }
+
+        hGridView.setAdapter(
+                new ItemBridgeAdapter(objectAdapter, new ClassPresenterSelector().addClassPresenter(Video.class, vPresenter))
+        );
+
 
         progressBar = rootView.findViewById(R.id.player_progressBar);
 
@@ -156,10 +170,6 @@ public class PlayerFragment extends Fragment implements PlayerInterface.PlayerVi
         player.setPlayWhenReady(playWhenReady);
 
         progressBar.setVisibility(View.GONE);
-
-        PlayerGridViewAdapter playerGridViewAdapter = new PlayerGridViewAdapter(videos, rootView.getContext(), presenter);
-
-        hGridView.setAdapter(playerGridViewAdapter);
     }
 
     private MediaSource buildMediaSource(Uri uri) {

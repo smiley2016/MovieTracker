@@ -20,11 +20,14 @@ import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.interfaces.DetailPageInterface;
 import com.smartsoft.movietracker.model.MovieDetails;
 import com.smartsoft.movietracker.model.cast.CastList;
+import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.model.review.ReviewList;
 import com.smartsoft.movietracker.model.video.VideoList;
 import com.smartsoft.movietracker.presenter.DetailPagePresenter;
 import com.smartsoft.movietracker.utils.Constant;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,29 +36,22 @@ public class DetailPageFragment extends Fragment implements DetailPageInterface.
     private static final String TAG = DetailPageFragment.class.getName();
 
     private Movie movie;
+    private ArrayList<Genre> genres;
     private ArrayObjectAdapter objectAdapter;
     private DetailPagePresenter dPresenter;
     private View rootView;
-
-    private MovieVerticalGridPresenter movieVerticalGridPresenter;
-    private CastVerticalGridPresenter castVerticalGridPresenter;
-    private ReviewVerticalGridPresenter reviewVerticalGridPresenter;
-    private VideoVerticalGridPresenter videoVerticalGridPresenter;
-
-    private ClassPresenterSelector presenterSelector;
-    private ItemBridgeAdapter itemBridgeAdapter;
-
-    private VerticalGridView verticalGridView;
 
     @BindView(R.id.background_image)
     ImageView background;
 
     @Override
+    @SuppressWarnings("unchecked")
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
             movie = (Movie) getArguments().getSerializable("movie");
+            genres = (ArrayList<Genre>) getArguments().getSerializable(getString(R.string.genres));
             Log.e(TAG, ""+movie);
         }
 
@@ -81,25 +77,37 @@ public class DetailPageFragment extends Fragment implements DetailPageInterface.
     }
 
     private void initializeViews() {
+
         Glide.with(rootView.getContext()).load(Constant.API.IMAGE_ORIGINAL_BASE_URL + movie.getBackdropPath()).into(background);
 
-        verticalGridView = rootView.findViewById(R.id.detail_page_grid_view);
+        ArrayList<String> currentMovieGenres = new ArrayList<>();
+
+        for(int i = 0; i<genres.size(); ++i){
+            for(int j = 0; j<movie.getGenreIds().size(); ++j){
+                if (movie.getGenreIds().get(j).equals(genres.get(i).getId())){
+                    currentMovieGenres.add(genres.get(i).getName());
+                }
+            }
+
+        }
+
+        VerticalGridView verticalGridView = rootView.findViewById(R.id.detail_page_grid_view);
 
         objectAdapter = new ArrayObjectAdapter();
         objectAdapter.add(movie);
 
-        movieVerticalGridPresenter = new MovieVerticalGridPresenter(rootView.getContext());
-        castVerticalGridPresenter = new CastVerticalGridPresenter(rootView.getContext());
-        reviewVerticalGridPresenter = new ReviewVerticalGridPresenter(rootView.getContext());
-        videoVerticalGridPresenter = new VideoVerticalGridPresenter(rootView.getContext());
+        MovieVerticalGridPresenter movieVerticalGridPresenter = new MovieVerticalGridPresenter(rootView.getContext(), currentMovieGenres);
+        CastVerticalGridPresenter castVerticalGridPresenter = new CastVerticalGridPresenter(rootView.getContext());
+        ReviewVerticalGridPresenter reviewVerticalGridPresenter = new ReviewVerticalGridPresenter(rootView.getContext());
+        VideoVerticalGridPresenter videoVerticalGridPresenter = new VideoVerticalGridPresenter(rootView.getContext());
 
-        presenterSelector = new ClassPresenterSelector();
+        ClassPresenterSelector presenterSelector = new ClassPresenterSelector();
         presenterSelector.addClassPresenter(Movie.class, movieVerticalGridPresenter);
         presenterSelector.addClassPresenter(CastList.class, castVerticalGridPresenter);
         presenterSelector.addClassPresenter(ReviewList.class, reviewVerticalGridPresenter);
         presenterSelector.addClassPresenter(VideoList.class, videoVerticalGridPresenter);
 
-        itemBridgeAdapter = new ItemBridgeAdapter(objectAdapter, presenterSelector);
+        ItemBridgeAdapter itemBridgeAdapter = new ItemBridgeAdapter(objectAdapter, presenterSelector);
         verticalGridView.setAdapter(itemBridgeAdapter);
 
     }

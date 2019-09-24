@@ -3,6 +3,7 @@ package com.smartsoft.movietracker.presenter;
 import android.content.Context;
 import android.util.Log;
 
+import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.service.ApiController;
 
@@ -23,7 +24,12 @@ public class MovieNavigationPresenter {
 
     }
 
-    public void updateMovieNavigationGridView(Context context, ArrayList<Integer> genreIds){
+    public void updateMovieNavigationGridView(Context context, ArrayList<Genre> genres){
+        ArrayList<Integer> genreIds = new ArrayList<>();
+
+        for(Genre it : genres){
+            genreIds.add(it.getId());
+        }
 
         ApiController.getInstance().getMovies(context, genreIds)
                 .subscribeOn(Schedulers.io())
