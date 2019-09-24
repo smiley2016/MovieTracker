@@ -1,12 +1,14 @@
 package com.smartsoft.movietracker.view.navigation;
 
 import android.content.Context;
+import android.graphics.Outline;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -21,6 +23,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.github.siyamed.shapeimageview.mask.PorterShapeImageView;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
@@ -90,6 +93,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
         ConstraintLayout layout;
         ProgressBar progressBar;
         RelativeLayout detailLayout;
+        float curveRadius;
         Holder(@NonNull View itemView) {
             super(itemView);
             poster = itemView.findViewById(R.id.poster);
@@ -98,11 +102,24 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
             progressBar = itemView.findViewById(R.id.spinner);
             detailLayout = itemView.findViewById(R.id.movie_description);
 
+            curveRadius = 12f;
+
+            detailLayout.setOutlineProvider(new ViewOutlineProvider() {
+                @Override
+                public void getOutline(View view, Outline outline) {
+                    outline.setRoundRect(0,0, view.getWidth()-((int) curveRadius),view.getHeight() , curveRadius);
+                }
+            });
+
+            detailLayout.setClipToOutline(true);
+
         }
 
 
 
         void bind(Movie movie, Context ctx, MovieNavigationPresenter presenter, Bundle bundle){
+
+
             Glide.with(ctx).load(Constant.API.IMAGE_BASE_URL +movie.getPosterPath()).listener(new RequestListener<Drawable>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -121,28 +138,25 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
             layout.setOnFocusChangeListener((view, b) -> {
                 if(b){
+                    poster.setOutlineProvider(new ViewOutlineProvider() {
+                        @Override
+                        public void getOutline(View view, Outline outline) {
+                            outline.setRoundRect(0, 0,(int)(view.getWidth()+curveRadius), view.getHeight(), curveRadius);
+                        }
+
+                    });
+                    poster.setClipToOutline(true);
                     presenter.setBackground(movie.getBackdropPath());
-//                    ViewGroup.LayoutParams params = layout.getLayoutParams();
-//                    params.width = (int) Util.pxFromDp(ctx, 224);
-//                    layout.setLayoutParams(params);
                     detailLayout.setVisibility(View.VISIBLE);
                     Log.e(TAG, ctx.getString(R.string.CardViewOnFocusChangeListener));
                 }else{
-//                    ViewGroup.LayoutParams params = layout.getLayoutParams();
-//                    params.width = (int) Util.pxFromDp(ctx, 108);
-//                    layout.setLayoutParams(params);
+                    poster.setClipToOutline(false);
                   detailLayout.setVisibility(View.GONE);
                 }
             });
 
             layout.setOnClickListener(view -> {
                 bundle.putSerializable("movie", movie);
-//                bundle.putString(ctx.getString(R.string.movieName), movie.getOriginalTitle());
-//                bundle.putDouble(ctx.getString(R.string.movieRate), movie.getVoteAverage());
-//                bundle.putString(ctx.getString(R.string.movieReleaseDate), movie.getReleaseDate());
-//                bundle.putString(ctx.getString(R.string.moviePlot), movie.getOverview());
-//                bundle.putString(ctx.getString(R.string.movieBackDropPath), movie.getBackdropPath());
-//                bundle.putInt(ctx.getString(R.string.movieId), movie.getId());
 
                 FragmentNavigation.getInstance().showDetailPageFragment();
             });

@@ -5,7 +5,6 @@
     android:layout_height="162dp"
     android:stateListAnimator="@animator/movie_component_animator"
     android:focusable="true"
-
     android:id="@+id/movie_element_card"
     >
 
@@ -19,6 +18,8 @@
         />
 
 
+
+
     <ImageView
         android:id="@+id/poster"
         android:layout_width="108dp"
@@ -27,6 +28,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:focusable="false"
+        android:background="@drawable/movie_poster_rounded_corner_shape"
         />
 
     <RelativeLayout

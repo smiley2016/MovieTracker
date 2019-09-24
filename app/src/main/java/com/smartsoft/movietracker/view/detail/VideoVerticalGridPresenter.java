@@ -107,10 +107,7 @@ public class VideoVerticalGridPresenter extends Presenter implements DetailVideo
                 itemBridgeAdapter.setPresenter(new SinglePresenterSelector(videoHorizontalGridPresenter));
 
                 hGridView.setAdapter(itemBridgeAdapter);
-//                hGridView.setNumRows(1);
-//                hGridView.setItemSpacing(R.dimen.spacing);
-
-                //videoHorizontalGridPresenter.addAllToList(videos);
+                hGridView.setItemSpacing((int)mContext.getResources().getDimension(R.dimen.spacing));
                 view.setVisibility(View.VISIBLE);
             }else{
                 view.setVisibility(View.INVISIBLE);

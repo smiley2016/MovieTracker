@@ -15,11 +15,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.leanback.widget.ArrayObjectAdapter;
+import androidx.leanback.widget.ClassPresenterSelector;
 import androidx.leanback.widget.HorizontalGridView;
+import androidx.leanback.widget.ItemBridgeAdapter;
+import androidx.leanback.widget.PresenterSelector;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -29,6 +34,7 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.smartsoft.movietracker.R;
+import com.smartsoft.movietracker.interfaces.BaseFragmentInterface;
 import com.smartsoft.movietracker.interfaces.PlayerInterface;
 import com.smartsoft.movietracker.model.video.Video;
 import com.smartsoft.movietracker.presenter.PlayerPresenter;
@@ -93,7 +99,6 @@ public class PlayerFragment extends Fragment implements PlayerInterface.PlayerVi
         title.setText(videos.get(playIndex).getName());
 
         hGridView = rootView.findViewById(R.id.recommended_videos_gridView);
-        hGridView.setNumRows(1);
         hGridView.setItemSpacing(8);
 
 
@@ -152,8 +157,9 @@ public class PlayerFragment extends Fragment implements PlayerInterface.PlayerVi
 
         progressBar.setVisibility(View.GONE);
 
-        PlayerGridViewAdapter adapter = new PlayerGridViewAdapter(videos, rootView.getContext(), presenter);
-        hGridView.setAdapter(adapter);
+        PlayerGridViewAdapter playerGridViewAdapter = new PlayerGridViewAdapter(videos, rootView.getContext(), presenter);
+
+        hGridView.setAdapter(playerGridViewAdapter);
     }
 
     private MediaSource buildMediaSource(Uri uri) {
