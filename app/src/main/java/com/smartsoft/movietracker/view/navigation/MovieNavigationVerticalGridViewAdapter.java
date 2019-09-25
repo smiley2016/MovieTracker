@@ -33,6 +33,9 @@ import com.smartsoft.movietracker.utils.FragmentNavigation;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter<MovieNavigationVerticalGridViewAdapter.Holder> implements Serializable {
 
     private static final String TAG = "MovieNavigationVertical";
@@ -87,19 +90,22 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
     static class Holder extends RecyclerView.ViewHolder{
 
+        @BindView(R.id.poster)
         ImageView poster;
+        @BindView(R.id.open_description)
         ImageView description;
+        @BindView(R.id.movie_element_card)
         ConstraintLayout layout;
+        @BindView(R.id.spinner)
         ProgressBar progressBar;
+        @BindView(R.id.movie_description)
         RelativeLayout detailLayout;
+
         float curveRadius;
+
         Holder(@NonNull View itemView) {
             super(itemView);
-            poster = itemView.findViewById(R.id.poster);
-            layout = itemView.findViewById(R.id.movie_element_card);
-            description = itemView.findViewById(R.id.description);
-            progressBar = itemView.findViewById(R.id.spinner);
-            detailLayout = itemView.findViewById(R.id.movie_description);
+            ButterKnife.bind(this, itemView);
 
             curveRadius = 24f;
 
@@ -140,6 +146,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
                     presenter.setBackground(movie.getBackdropPath());
                     detailLayout.setVisibility(View.VISIBLE);
                     Log.e(TAG, ctx.getString(R.string.CardViewOnFocusChangeListener));
+                    presenter.setBackground(movie.getBackdropPath());
                 }else{
                     poster.setClipToOutline(false);
                     detailLayout.setVisibility(View.GONE);

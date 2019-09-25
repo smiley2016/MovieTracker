@@ -22,7 +22,6 @@ public class MovieVerticalGridPresenter extends Presenter {
     private Context mContext;
     private ArrayList<String> currentGenres;
 
-
     MovieVerticalGridPresenter(Context mContext, ArrayList<String> currentGenres) {
         this.mContext = mContext;
         this.currentGenres = currentGenres;
@@ -54,23 +53,27 @@ public class MovieVerticalGridPresenter extends Presenter {
         @BindView(R.id.add_watchlist_button)
         Button expand;
 
+        StringBuilder genreNames;
+
 
         public PresenterViewHolder(View view) {
             super(view);
             ButterKnife.bind(this,view);
+            genreNames = new StringBuilder();
 
         }
         
         public void bind(Movie movie){
             title.setText(movie.getTitle());
 
-            StringBuilder genreNames = new StringBuilder();
+
             Iterator<String> genreNameIterator = currentGenres.iterator();
             while(genreNameIterator.hasNext()){
                 if(genreNameIterator.hasNext()){
-                    genreNames.append(genreNames).append(genreNameIterator.next()).append(", ");
+                    genreNames.append(genreNameIterator.next()).append(", ");
                 }
             }
+            genreNames.replace(genreNames.length()-2, genreNames.length()-1, "");
 
             movie_description.setText(String.format("%s | Year %s | IMDb %s", genreNames, movie.getReleaseDate(), movie.getVoteAverage()));
             plot.setText(movie.getOverview());

@@ -8,6 +8,7 @@ import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.service.ApiController;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -69,6 +70,7 @@ public class MovieNavigationPresenter {
     public void setBackground(String path){
         movieNavigationInterface.setBackground(path);
     }
+
 
 
 

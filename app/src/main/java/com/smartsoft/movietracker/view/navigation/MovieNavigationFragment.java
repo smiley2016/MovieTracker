@@ -20,6 +20,7 @@ import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.view.BaseFragment;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class MovieNavigationFragment extends BaseFragment implements MovieNavigationPresenter.MovieNavigationInterface, ToolbarListener {
 
@@ -44,6 +45,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     @SuppressWarnings("unchecked")
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        super.initViews();
         super.setToolbarView(this);
         super.setToolbarSearchButtonVisibility(View.INVISIBLE);
 
@@ -57,7 +59,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         presenter.updateMovieNavigationGridView(getContext(),genres);
         verticalGridView.setItemSpacing(16);
         verticalGridView.setFocusDrawingOrderEnabled(true);
-
+        setGenreTitle();
     }
 
 
@@ -79,6 +81,17 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         super.setBackground(path);
     }
 
+    private void setGenreTitle() {
+        Iterator<Genre> genreIterator = genres.iterator();
+        StringBuilder genreTitle = new StringBuilder();
+        while (genreIterator.hasNext()){
+            genreTitle.append(genreIterator.hasNext()).append(" - ");
+        }
+        genreTitle.replace(genreTitle.length()-3, genreTitle.length()-1, "");
+
+        super.setTitle(genreTitle);
+    }
+
     private void startRecyclerViewAdapter(ArrayList<Movie> movies){
         adapter = new MovieNavigationVerticalGridViewAdapter(movies, getActivity(), presenter, genres);
         verticalGridView.setHasFixedSize(true);
@@ -96,9 +109,11 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     }
 
 
+
+
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onDestroy() {
+        super.onDestroy();
         Constant.API.PAGE = 0;
         adapter.clearAll();
         super.setToolbarSearchButtonVisibility(View.VISIBLE);

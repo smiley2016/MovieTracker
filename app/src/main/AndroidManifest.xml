@@ -12,7 +12,6 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".genreSelectorInterface.player.PlayerActivity" />
         <activity android:name=".MainActivity"
             android:launchMode="singleInstance"
             >
@@ -22,8 +21,6 @@
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".genreSelectorInterface.detail.DetailPageActivity"/>
 
     </application>
     <uses-feature

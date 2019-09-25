@@ -40,6 +40,7 @@ public class DetailPageFragment extends Fragment implements DetailPageInterface.
     private ArrayObjectAdapter objectAdapter;
     private DetailPagePresenter dPresenter;
     private View rootView;
+    private MovieVerticalGridPresenter movieVerticalGridPresenter;
 
     @BindView(R.id.background_image)
     ImageView background;
@@ -96,7 +97,7 @@ public class DetailPageFragment extends Fragment implements DetailPageInterface.
         objectAdapter = new ArrayObjectAdapter();
         objectAdapter.add(movie);
 
-        MovieVerticalGridPresenter movieVerticalGridPresenter = new MovieVerticalGridPresenter(rootView.getContext(), currentMovieGenres);
+        movieVerticalGridPresenter = new MovieVerticalGridPresenter(rootView.getContext(), currentMovieGenres);
         CastVerticalGridPresenter castVerticalGridPresenter = new CastVerticalGridPresenter(rootView.getContext());
         ReviewVerticalGridPresenter reviewVerticalGridPresenter = new ReviewVerticalGridPresenter(rootView.getContext());
         VideoVerticalGridPresenter videoVerticalGridPresenter = new VideoVerticalGridPresenter(rootView.getContext());
@@ -123,5 +124,8 @@ public class DetailPageFragment extends Fragment implements DetailPageInterface.
 
     }
 
-
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 }
