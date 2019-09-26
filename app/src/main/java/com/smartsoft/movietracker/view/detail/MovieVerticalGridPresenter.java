@@ -4,12 +4,18 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.leanback.widget.Presenter;
 
+import com.google.android.exoplayer2.C;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.movie.Movie;
+import com.smartsoft.movietracker.presenter.DetailPagePresenter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,10 +27,12 @@ public class MovieVerticalGridPresenter extends Presenter {
 
     private Context mContext;
     private ArrayList<String> currentGenres;
+    private DetailPagePresenter detailPagePresenter;
 
-    MovieVerticalGridPresenter(Context mContext, ArrayList<String> currentGenres) {
+    MovieVerticalGridPresenter(Context mContext, ArrayList<String> currentGenres, DetailPagePresenter detailPagePresenter) {
         this.mContext = mContext;
         this.currentGenres = currentGenres;
+        this.detailPagePresenter = detailPagePresenter;
     }
 
     @Override
@@ -51,7 +59,12 @@ public class MovieVerticalGridPresenter extends Presenter {
         @BindView(R.id.detail_movie_plot)
         TextView plot;
         @BindView(R.id.add_watchlist_button)
-        Button expand;
+        ImageView expand;
+        @BindView(R.id.back_button)
+        ImageView backButton;
+
+        @BindView(R.id.detail_page_detail_movie_layout)
+        ConstraintLayout constraintLayout;
 
         StringBuilder genreNames;
 
@@ -77,15 +90,28 @@ public class MovieVerticalGridPresenter extends Presenter {
 
             movie_description.setText(String.format("%s | Year %s | IMDb %s", genreNames, movie.getReleaseDate(), movie.getVoteAverage()));
             plot.setText(movie.getOverview());
+
+//            ConstraintSet constraintSet = new ConstraintSet();
+//            constraintSet.clone(constraintLayout);
+//            constraintSet.connect(R.id.add_watchlist_button, ConstraintSet.BASELINE, R.id.detail_movie_plot, ConstraintSet.BASELINE);
+//            constraintSet.applyTo(constraintLayout);
+
+
+
             expand.setOnClickListener(view -> {
                 if(plot.getMaxLines() == 3){
                     expand.setForeground(mContext.getDrawable(R.drawable.collapse_icon));
                     plot.setMaxLines(Integer.MAX_VALUE);
 
+
                 }else{
                     expand.setForeground(mContext.getDrawable(R.drawable.add_watchlist_icon));
                     plot.setMaxLines(3);
                 }
+            });
+
+            backButton.setOnClickListener(view -> {
+                detailPagePresenter.backPressed();
             });
         }
     }

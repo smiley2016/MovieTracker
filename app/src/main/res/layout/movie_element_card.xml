@@ -38,7 +38,7 @@
         android:background="@drawable/movie_detail_page_layout_round_shape"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/poster"
-
+        android:nextFocusRight="@id/open_description"
         android:visibility="gone"
        >
 
@@ -62,9 +62,10 @@
             android:layout_height="32dp"
             android:layout_marginStart="6dp"
             android:layout_marginEnd="8dp"
-            android:maxLines="2"
+            android:maxLines="3"
             android:ellipsize="end"
             android:textStyle="bold"
+            android:textSize="12sp"
             android:focusable="false"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"

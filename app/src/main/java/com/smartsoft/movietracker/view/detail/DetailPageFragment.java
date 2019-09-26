@@ -28,6 +28,7 @@ import com.smartsoft.movietracker.presenter.DetailPagePresenter;
 import com.smartsoft.movietracker.utils.Constant;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,11 +65,11 @@ public class DetailPageFragment extends Fragment implements DetailPageInterface.
         super.onCreateView(inflater, container, savedInstanceState);
         if(rootView == null){
             rootView = inflater.inflate(R.layout.fragment_detail_page, container, false);
+            ButterKnife.bind(this, rootView);
+            initializeViews();
+            getAllData();
         }
 
-        ButterKnife.bind(this, rootView);
-        initializeViews();
-        getAllData();
         return rootView;
     }
 
@@ -97,7 +98,7 @@ public class DetailPageFragment extends Fragment implements DetailPageInterface.
         objectAdapter = new ArrayObjectAdapter();
         objectAdapter.add(movie);
 
-        movieVerticalGridPresenter = new MovieVerticalGridPresenter(rootView.getContext(), currentMovieGenres);
+        movieVerticalGridPresenter = new MovieVerticalGridPresenter(rootView.getContext(), currentMovieGenres, dPresenter);
         CastVerticalGridPresenter castVerticalGridPresenter = new CastVerticalGridPresenter(rootView.getContext());
         ReviewVerticalGridPresenter reviewVerticalGridPresenter = new ReviewVerticalGridPresenter(rootView.getContext());
         VideoVerticalGridPresenter videoVerticalGridPresenter = new VideoVerticalGridPresenter(rootView.getContext());
@@ -122,6 +123,11 @@ public class DetailPageFragment extends Fragment implements DetailPageInterface.
         objectAdapter.add(list);
         objectAdapter.add(videoList);
 
+    }
+
+    @Override
+    public void backPressed() {
+        Objects.requireNonNull(getActivity()).onBackPressed();
     }
 
     @Override

@@ -85,7 +85,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         Iterator<Genre> genreIterator = genres.iterator();
         StringBuilder genreTitle = new StringBuilder();
         while (genreIterator.hasNext()){
-            genreTitle.append(genreIterator.hasNext()).append(" - ");
+            genreTitle.append(genreIterator.next().getName()).append(" - ");
         }
         genreTitle.replace(genreTitle.length()-3, genreTitle.length()-1, "");
 

@@ -59,5 +59,10 @@ public class DetailPagePresenter implements DetailPageInterface.DetailPagePresen
                 });
     }
 
+    @Override
+    public void backPressed() {
+        detailPageViewInterface.backPressed();
+    }
+
 
 }

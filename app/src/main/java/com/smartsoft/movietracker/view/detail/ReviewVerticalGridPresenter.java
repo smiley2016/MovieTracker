@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.leanback.widget.ArrayObjectAdapter;
@@ -25,7 +26,7 @@ public class ReviewVerticalGridPresenter extends Presenter {
     private Context mContext;
     private static final String TAG = ReviewVerticalGridPresenter.class.getName();
 
-    public ReviewVerticalGridPresenter(Context mContext) {
+    ReviewVerticalGridPresenter(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -54,6 +55,11 @@ public class ReviewVerticalGridPresenter extends Presenter {
         @BindView(R.id.review_GridView)
         HorizontalGridView hGridView;
 
+        @BindView(R.id.review_section_layout)
+        RelativeLayout layout;
+
+
+
         ReviewHorizontalGridPresenter reviewAdapter;
 
         public PresenterViewHolder(View view) {
@@ -78,7 +84,9 @@ public class ReviewVerticalGridPresenter extends Presenter {
                 hGridView.setItemSpacing((int)mContext.getResources().getDimension(R.dimen.spacing));
             }else{
                 Log.d(TAG, "bind: list size 0");
-                view.setVisibility(View.GONE);
+                reviewTextView.setVisibility(View.GONE);
+                hGridView.setVisibility(View.GONE);
+                //view.setVisibility(View.GONE);
             }
         }
     }

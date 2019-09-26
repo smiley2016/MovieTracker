@@ -72,5 +72,6 @@
     <!--  /Vertical GridView Element dimens  -->
 
             <dimen name="spacing">8dp</dimen>
+    <dimen name="image">24dp</dimen>
 
 </resources>
