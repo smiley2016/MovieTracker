@@ -17,6 +17,7 @@
 
     <!--  GenreSelectorFragment  -->
     <string name="choose_genre_textView">Choose genres you want to Watch</string>
+    <string name="no_selected_genres">Please select at least a genre</string>
     <string name="verticalGridView_element_setScaleSizeTo">1.14</string>
     <string name="verticalGridView_element_normalScaleSize">1</string>
     <string name="empty_genre_list_from_server">Empty genre list downloaded from the Server</string>
@@ -51,6 +52,8 @@
     <string name="cast">CAST</string>
     <string name="videos">Videos</string>
     <string name="genres">genres</string>
+    <string name="no_internet_connection">No internet Connection</string>
+    <string name="internet_connected">Internet connected</string>
 
 
 </resources>

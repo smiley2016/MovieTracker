@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -188,6 +189,8 @@ public class BaseFragment extends Fragment implements BaseFragmentInterface.Base
         toolbarView = rootView.findViewById(R.id.base_toolbar);
         toolbarView.setListener(listener);
     }
+
+
 
 
 }

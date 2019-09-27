@@ -78,7 +78,7 @@ public class CastHorizontalGridPresenter extends Presenter {
 
         void bind(Context ctx, Cast cast) {
 
-            Glide.with(ctx).load(Constant.API.IMAGE_BASE_URL + cast.getProfilePath())
+            Glide.with(ctx).load(Constant.API.IMAGE_ORIGINAL_BASE_URL + cast.getProfilePath())
                     .circleCrop()
                     .error(R.mipmap.unkown_person_round_v2_legacy)
                     .listener(new RequestListener<Drawable>() {

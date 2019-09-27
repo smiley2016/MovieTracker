@@ -115,7 +115,9 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     public void onDestroy() {
         super.onDestroy();
         Constant.API.PAGE = 0;
-        adapter.clearAll();
+        if(adapter != null){
+            adapter.clearAll();
+        }
         super.setToolbarSearchButtonVisibility(View.VISIBLE);
     }
 
@@ -131,6 +133,11 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         adapter.clearAll();
         Constant.API.PAGE = 0;
         presenter.updateMovieNavigationGridView(getContext(), genres);
+    }
+
+    @Override
+    public int getBundleSize() {
+        return 255;
     }
 
     public Bundle getAdaptersBundle(){

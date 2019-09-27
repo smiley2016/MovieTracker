@@ -209,7 +209,10 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
             title.setText(movie.getTitle());
 
-            releaseDate.setText(movie.getReleaseDate().substring(0, 4));
+            String [] releaseDateList;
+            releaseDateList = movie.getReleaseDate().split("-");
+
+            releaseDate.setText(releaseDateList[0]);
 
         }
     }

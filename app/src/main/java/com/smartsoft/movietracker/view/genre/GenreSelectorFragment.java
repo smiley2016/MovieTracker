@@ -87,4 +87,11 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
     public void onSortButtonClicked(Dialog dialog) {
         dialog.dismiss();
     }
+
+    @Override
+    public int getBundleSize() {
+        return getAdapterBundle().size();
+    }
+
+
 }

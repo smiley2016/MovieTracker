@@ -13,6 +13,7 @@ import com.smartsoft.movietracker.model.video.Video;
 import com.smartsoft.movietracker.model.video.VideoResult;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.SharedPreferences;
+import com.smartsoft.movietracker.utils.Util;
 
 import java.util.ArrayList;
 
@@ -79,7 +80,7 @@ public class ApiController {
                 Constant.API.INCLUDE_ADULT,
                 Constant.API.INCLUDE_VIDEO,
                 Constant.API.PAGE,
-                genreIds).map(movieResultResponse -> {
+                Util.genreListToCsvIdString(genreIds)).map(movieResultResponse -> {
             Log.e(TAG, context.getString(R.string.getMovies) + movieResultResponse.toString());
                     assert movieResultResponse.body() != null;
                     return movieResultResponse.body().getResults();

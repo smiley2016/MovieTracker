@@ -50,7 +50,7 @@ public class Dialogs {
 
         name.setText(cast.getName());
 
-        Glide.with(context).load(Constant.API.IMAGE_ORIGINAL_BASE_URL + cast.getProfilePath()).into(poster);
+        Glide.with(context).load(Constant.API.IMAGE_ORIGINAL_BASE_URL + cast.getProfilePath()).error(R.mipmap.unkown_person_round_v2_legacy).into(poster);
 
         close.setOnClickListener(view -> dialog.dismiss());
 

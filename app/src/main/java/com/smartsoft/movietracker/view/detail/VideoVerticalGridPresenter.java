@@ -110,7 +110,8 @@ public class VideoVerticalGridPresenter extends Presenter implements DetailVideo
                 hGridView.setItemSpacing((int)mContext.getResources().getDimension(R.dimen.spacing));
                 view.setVisibility(View.VISIBLE);
             }else{
-                view.setVisibility(View.INVISIBLE);
+                videoTextView.setVisibility(View.GONE);
+                hGridView.setVisibility(View.GONE);
                 Log.e(TAG, "bind: no list binded" );
             }
         }

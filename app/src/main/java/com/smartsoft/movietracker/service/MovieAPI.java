@@ -18,5 +18,5 @@ public interface MovieAPI {
                                    @Query("include_adult") boolean control,
                                    @Query("include_video") boolean isVideo,
                                    @Query("page") int page,
-                                   @Query("with_genres") ArrayList<Integer> genIds);
+                                   @Query("with_genres") String genreIds);
 }

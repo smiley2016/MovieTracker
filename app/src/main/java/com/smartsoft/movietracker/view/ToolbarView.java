@@ -7,11 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.interfaces.ToolbarListener;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
 import com.smartsoft.movietracker.utils.ToolbarDialog;
+
+import java.util.ArrayList;
 
 public class ToolbarView extends RelativeLayout {
     private ImageView settings;
@@ -46,7 +49,14 @@ public class ToolbarView extends RelativeLayout {
     }
 
     private void setOnClickListeners() {
-        search.setOnClickListener(view -> FragmentNavigation.getInstance().showMovieNavigationFragment());
+
+        search.setOnClickListener(view -> {
+            if(listener.getBundleSize() > 0){
+                FragmentNavigation.getInstance().showMovieNavigationFragment();
+                return;
+            }
+            Toast.makeText(getContext(), R.string.no_selected_genres, Toast.LENGTH_SHORT).show();
+        });
 
         settings.setOnClickListener(view -> {
             ToolbarDialog dialog = new ToolbarDialog(listener);
@@ -62,5 +72,4 @@ public class ToolbarView extends RelativeLayout {
     public void setVisibleSearchIcon(int visibility) {
         search.setVisibility(visibility);
     }
-
 }

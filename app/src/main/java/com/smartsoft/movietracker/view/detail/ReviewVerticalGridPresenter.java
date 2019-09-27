@@ -86,7 +86,6 @@ public class ReviewVerticalGridPresenter extends Presenter {
                 Log.d(TAG, "bind: list size 0");
                 reviewTextView.setVisibility(View.GONE);
                 hGridView.setVisibility(View.GONE);
-                //view.setVisibility(View.GONE);
             }
         }
     }

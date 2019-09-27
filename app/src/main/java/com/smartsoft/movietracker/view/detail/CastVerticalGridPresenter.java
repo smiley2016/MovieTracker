@@ -87,7 +87,8 @@ public class CastVerticalGridPresenter extends Presenter {
                 view.setVisibility(View.VISIBLE);
             }else{
                 Log.e(TAG, "no cast list");
-                view.setVisibility(View.GONE);
+                castTextView.setVisibility(View.GONE);
+                hGridView.setVisibility(View.GONE);
             }
         }
     }

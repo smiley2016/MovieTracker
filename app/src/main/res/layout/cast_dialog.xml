@@ -5,11 +5,14 @@
 
     <ImageView
         android:id="@+id/cast_dialog_image"
-        android:layout_width="350dp"
-        android:layout_height="270dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_below="@id/cast_dialog_close"
+        android:layout_above="@id/cast_dialog_name"
         android:focusable="false"
         />
 

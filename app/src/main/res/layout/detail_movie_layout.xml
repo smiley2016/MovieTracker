@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/back_button"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,10 +26,11 @@
     <TextView
         android:id="@+id/detail_movie_title"
         android:layout_width="400dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="512dp"
+        android:maxLines="3"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,17 +62,16 @@
 
     <ImageView
         android:id="@+id/add_watchlist_button"
-        android:layout_width="29dp"
-        android:layout_height="29dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="488dp"
         android:background="@drawable/toolbar_component_background_selector"
         android:focusable="true"
-        android:foreground="@drawable/add_watchlist_icon"
+        android:src="@drawable/add_wachlist"
         android:stateListAnimator="@animator/move_description_animator"
         app:layout_constraintStart_toEndOf="@id/detail_movie_plot"
         app:layout_constraintBottom_toBottomOf="@id/detail_movie_plot"
-
         />
 
 

@@ -54,8 +54,6 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
         Glide.with(mContext).load(R.drawable.background).into(holder.genreImageView);
         holder.bind(genreList.get(position));
         holder.layout.setOnClickListener(view -> manageGenreToList(genreList.get(position), position));
-
-
     }
 
 
@@ -104,11 +102,14 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
         if (this.genres.contains(genres)) {
             this.genres.remove(genres);
             genres.setActivated(false);
+            bundle.clear();
+
             Util.showToast(mContext, mContext.getResources().getString(R.string.removed_genre) + " " + genres.getName());
         } else {
             this.genres.add(genres);
             genres.setActivated(true);
             Util.showToast(mContext, mContext.getResources().getString(R.string.added_genre) + " " + genres.getName());
+            setBundle();
         }
         notifyItemChanged(position);
 

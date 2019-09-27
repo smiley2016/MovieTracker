@@ -53,7 +53,6 @@ public class FragmentNavigation {
 
         Fragment myCurrentFragment = getCurrentFragment();
         if( myCurrentFragment instanceof GenreSelectorFragment){
-            ((GenreSelectorFragment)myCurrentFragment).setAdapterBundle();
             if(((GenreSelectorFragment)myCurrentFragment).getAdapterBundle() != null){
                 bundle = ((GenreSelectorFragment)myCurrentFragment).getAdapterBundle();
             }
@@ -82,7 +81,7 @@ public class FragmentNavigation {
         replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, true);
     }
 
-    private Fragment getCurrentFragment(){
+    public Fragment getCurrentFragment(){
         return mFragmentManager.findFragmentById(R.id.fragment_holder);
 
     }

@@ -96,7 +96,7 @@ public class MovieVerticalGridPresenter extends Presenter {
 //            constraintSet.connect(R.id.add_watchlist_button, ConstraintSet.BASELINE, R.id.detail_movie_plot, ConstraintSet.BASELINE);
 //            constraintSet.applyTo(constraintLayout);
 
-
+            expand.requestFocus();
 
             expand.setOnClickListener(view -> {
                 if(plot.getMaxLines() == 3){
