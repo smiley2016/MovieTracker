@@ -1,7 +1,6 @@
 package com.smartsoft.movietracker.view.player;
 
 import android.annotation.SuppressLint;
-import android.content.ClipData;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.SparseArray;
@@ -15,18 +14,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.ClassPresenterSelector;
 import androidx.leanback.widget.HorizontalGridView;
 import androidx.leanback.widget.ItemBridgeAdapter;
-import androidx.leanback.widget.ObjectAdapter;
-import androidx.leanback.widget.PresenterSelector;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -36,7 +31,6 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.smartsoft.movietracker.R;
-import com.smartsoft.movietracker.interfaces.BaseFragmentInterface;
 import com.smartsoft.movietracker.interfaces.PlayerInterface;
 import com.smartsoft.movietracker.model.video.Video;
 import com.smartsoft.movietracker.presenter.PlayerPresenter;
@@ -48,9 +42,9 @@ import at.huber.youtubeExtractor.VideoMeta;
 import at.huber.youtubeExtractor.YouTubeExtractor;
 import at.huber.youtubeExtractor.YtFile;
 
-import static com.smartsoft.movietracker.utils.Util.pxFromDp;
+import static com.smartsoft.movietracker.utils.Utils.pxFromDp;
 
-public class PlayerFragment extends Fragment implements PlayerInterface.PlayerView {
+public class PlayerFragment extends BaseFragment implements PlayerInterface.PlayerView {
 
     private PlayerView playerView;
     private SimpleExoPlayer player;
@@ -66,7 +60,6 @@ public class PlayerFragment extends Fragment implements PlayerInterface.PlayerVi
     private ProgressBar progressBar;
     private FrameLayout videoTitleFrameLayout;
     private HorizontalGridView hGridView;
-    private View rootView;
 
     @Nullable
     @Override
@@ -88,10 +81,10 @@ public class PlayerFragment extends Fragment implements PlayerInterface.PlayerVi
         }
 
 
-        initViews();
+        initializeViews();
     }
 
-    private void initViews() {
+    private void initializeViews() {
 
         presenter = new PlayerPresenter(this);
 
@@ -193,6 +186,11 @@ public class PlayerFragment extends Fragment implements PlayerInterface.PlayerVi
         if ((Util.SDK_INT <= 23 || player == null)) {
             initializePlayer();
         }
+    }
+
+    @Override
+    public void InternetConnected() {
+
     }
 
     private void hideSystemUi() {

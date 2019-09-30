@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.smartsoft.movietracker.MainActivity;
 import com.smartsoft.movietracker.R;
+import com.smartsoft.movietracker.view.NoInternetFragment;
 import com.smartsoft.movietracker.view.detail.DetailPageFragment;
 import com.smartsoft.movietracker.view.genre.GenreSelectorFragment;
 import com.smartsoft.movietracker.view.navigation.MovieNavigationFragment;
@@ -81,9 +82,23 @@ public class FragmentNavigation {
         replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, true);
     }
 
+    public void showNoInternetFragment() {
+        Fragment myCurrentFragment;
+        myCurrentFragment = Fragment.instantiate(ctx, NoInternetFragment.class.getName(), bundle);
+        addFragment(myCurrentFragment);
+    }
+
+    private void addFragment(Fragment myCurrentFragment) {
+        mFragmentManager.beginTransaction().add(myCurrentFragment, myCurrentFragment.getTag()).commit();
+    }
+
     public Fragment getCurrentFragment(){
         return mFragmentManager.findFragmentById(R.id.fragment_holder);
 
+    }
+
+    public void removeFragment(Fragment fragment){
+        mFragmentManager.beginTransaction().remove(fragment).commit();
     }
 
     private void replaceFragment(Fragment fragment, int container, boolean addToBackStack) {
@@ -105,11 +120,6 @@ public class FragmentNavigation {
 
 
     }
-
-
-
-
-
 
 
 

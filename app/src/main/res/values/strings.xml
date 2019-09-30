@@ -54,6 +54,9 @@
     <string name="genres">genres</string>
     <string name="no_internet_connection">No internet Connection</string>
     <string name="internet_connected">Internet connected</string>
+    <string name="no_internet_connection_please_check_your_internet_cable_plugged_in_your_device_or_if_you_are_using_wifi_check_if_it_works_correctly">No internet Connection, please check your internet cable plugged in your device or if you are using wifi check if it works correctly!</string>
+    <string name="try_again">Try Again</string>
+    <string name="exit_application">Exit Application</string>
 
 
 </resources>

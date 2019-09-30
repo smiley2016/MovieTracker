@@ -67,6 +67,11 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
     }
 
     @Override
+    public void InternetConnected() {
+
+    }
+
+    @Override
     public void updateGenres(ArrayList<Genre> genre) {
         adapter = new VerticalGridViewGenreAdapter(getActivity(), genre);
         verticalGridView.setHasFixedSize(true);

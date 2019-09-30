@@ -4,14 +4,8 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 
-import androidx.fragment.app.Fragment;
-
-import com.nispok.snackbar.Snackbar;
 import com.smartsoft.movietracker.R;
-import com.smartsoft.movietracker.view.genre.GenreSelectorFragment;
 
 public class NetworkChangeReceiver extends BroadcastReceiver {
 
@@ -27,24 +21,17 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         try {
-            if (isOnline(context)){
-                Util.showToast(context, context.getString(R.string.internet_connected));
+            if (Utils.isOnline(context)){
+                Utils.showToast(context, context.getString(R.string.internet_connected));
             }else {
-                Util.showToast(context, context.getString(R.string.no_internet_connection));
+                Utils.showToast(context, context.getString(R.string.no_internet_connection));
+                FragmentNavigation.getInstance().showNoInternetFragment();
+
             }
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
     }
 
-    private boolean isOnline(Context context){
-        try {
-            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            assert cm != null;
-            NetworkInfo netInfo = cm.getActiveNetworkInfo();
-            return (netInfo != null && netInfo.isConnected());
-        } catch (NullPointerException e) {
-            return false;
-        }
-    }
+
 }

@@ -13,12 +13,11 @@ import com.smartsoft.movietracker.model.video.Video;
 import com.smartsoft.movietracker.model.video.VideoResult;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.SharedPreferences;
-import com.smartsoft.movietracker.utils.Util;
+import com.smartsoft.movietracker.utils.Utils;
 
 import java.util.ArrayList;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Function;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -80,7 +79,7 @@ public class ApiController {
                 Constant.API.INCLUDE_ADULT,
                 Constant.API.INCLUDE_VIDEO,
                 Constant.API.PAGE,
-                Util.genreListToCsvIdString(genreIds)).map(movieResultResponse -> {
+                Utils.genreListToCsvIdString(genreIds)).map(movieResultResponse -> {
             Log.e(TAG, context.getString(R.string.getMovies) + movieResultResponse.toString());
                     assert movieResultResponse.body() != null;
                     return movieResultResponse.body().getResults();

@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.genre.Genre;
-import com.smartsoft.movietracker.utils.Util;
+import com.smartsoft.movietracker.utils.Utils;
 
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -104,11 +104,11 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
             genres.setActivated(false);
             bundle.clear();
 
-            Util.showToast(mContext, mContext.getResources().getString(R.string.removed_genre) + " " + genres.getName());
+            Utils.showToast(mContext, mContext.getResources().getString(R.string.removed_genre) + " " + genres.getName());
         } else {
             this.genres.add(genres);
             genres.setActivated(true);
-            Util.showToast(mContext, mContext.getResources().getString(R.string.added_genre) + " " + genres.getName());
+            Utils.showToast(mContext, mContext.getResources().getString(R.string.added_genre) + " " + genres.getName());
             setBundle();
         }
         notifyItemChanged(position);

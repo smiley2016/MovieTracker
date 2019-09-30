@@ -26,6 +26,7 @@ import com.smartsoft.movietracker.model.review.ReviewList;
 import com.smartsoft.movietracker.model.video.VideoList;
 import com.smartsoft.movietracker.presenter.DetailPagePresenter;
 import com.smartsoft.movietracker.utils.Constant;
+import com.smartsoft.movietracker.view.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -33,14 +34,13 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DetailPageFragment extends Fragment implements DetailPageInterface.DetailPageViewInterface {
+public class DetailPageFragment extends BaseFragment implements DetailPageInterface.DetailPageViewInterface {
     private static final String TAG = DetailPageFragment.class.getName();
 
     private Movie movie;
     private ArrayList<Genre> genres;
     private ArrayObjectAdapter objectAdapter;
     private DetailPagePresenter dPresenter;
-    private View rootView;
 
     @BindView(R.id.background_image)
     ImageView background;
@@ -70,6 +70,11 @@ public class DetailPageFragment extends Fragment implements DetailPageInterface.
         }
 
         return rootView;
+    }
+
+    @Override
+    public void InternetConnected() {
+
     }
 
 

@@ -104,6 +104,11 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     }
 
     @Override
+    public void InternetConnected() {
+
+    }
+
+    @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
     }

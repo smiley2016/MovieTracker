@@ -1,13 +1,15 @@
 package com.smartsoft.movietracker.utils;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.widget.Toast;
 
 import com.smartsoft.movietracker.model.genre.Genre;
 
 import java.util.List;
 
-public final class Util {
+public final class Utils {
 
     public static void showToast(Context ctx, String message){
         Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show();
@@ -28,6 +30,17 @@ public final class Util {
         }
         text.append(genreIds.get(i));
         return text.toString();
+    }
+
+    public static boolean isOnline(Context context){
+        try {
+            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            assert cm != null;
+            NetworkInfo netInfo = cm.getActiveNetworkInfo();
+            return (netInfo != null && netInfo.isConnected());
+        } catch (NullPointerException e) {
+            return false;
+        }
     }
 
 }

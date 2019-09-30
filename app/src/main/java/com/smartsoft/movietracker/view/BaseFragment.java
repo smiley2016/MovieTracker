@@ -38,7 +38,7 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
-public class BaseFragment extends Fragment implements BaseFragmentInterface.BaseFragmentView {
+public abstract class BaseFragment extends Fragment implements BaseFragmentInterface.BaseFragmentView {
 
     private static final String TAG = BaseFragment.class.getName();
 
@@ -172,7 +172,6 @@ public class BaseFragment extends Fragment implements BaseFragmentInterface.Base
     @Override
     public void onResume() {
         super.onResume();
-        initViews();
     }
 
     @Override
@@ -191,6 +190,6 @@ public class BaseFragment extends Fragment implements BaseFragmentInterface.Base
     }
 
 
-
+    public abstract void InternetConnected();
 
 }
