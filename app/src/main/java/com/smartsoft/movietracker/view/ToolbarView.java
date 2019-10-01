@@ -34,12 +34,11 @@ public class ToolbarView extends RelativeLayout {
 
     public ToolbarView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        mInflater = LayoutInflater.from(context);
-        initViews();
+        initViews(context);
     }
 
-    private void initViews() {
-        View v = mInflater.inflate(R.layout.toolbar_view_layout, this, true);
+    private void initViews(Context context) {
+        View v = LayoutInflater.from(context).inflate(R.layout.toolbar_view_layout, this, true);
 
         search = v.findViewById(R.id.toolbar_search);
         settings = v.findViewById(R.id.toolbar_settings);
