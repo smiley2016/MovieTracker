@@ -1,7 +1,6 @@
 package com.smartsoft.movietracker.view.genre;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +17,7 @@ import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.utils.Utils;
 
-import org.apache.commons.collections4.CollectionUtils;
-
 import java.util.ArrayList;
-import java.util.Objects;
 
 import static com.smartsoft.movietracker.presenter.GenreSelectorPresenter.TAG;
 
@@ -29,16 +25,12 @@ public class GenreSelectorVerticalGridViewAdapter extends RecyclerView.Adapter<G
 
     private Context mContext;
     private ArrayList<Genre> genreList = new ArrayList<>();
-
-    private ArrayList<Genre> genres;
-    private Bundle bundle;
+    private ArrayList<Genre> selectedGenres;
 
     GenreSelectorVerticalGridViewAdapter(Context context, ArrayList<Genre> list) {
         this.mContext = context;
         genreList.addAll(list);
-        genres = new ArrayList<>();
-        this.bundle = new Bundle();
-
+        selectedGenres = new ArrayList<>();
     }
 
     @NonNull
@@ -50,10 +42,7 @@ public class GenreSelectorVerticalGridViewAdapter extends RecyclerView.Adapter<G
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
-        holder.genreNameTextView.setText(genreList.get(position).getName());
-        Glide.with(mContext).load(R.drawable.background).into(holder.genreImageView);
-        holder.bind(genreList.get(position));
-        holder.layout.setOnClickListener(view -> manageGenreToList(genreList.get(position), position));
+        holder.bind(genreList.get(position), position);
     }
 
 
@@ -63,7 +52,7 @@ public class GenreSelectorVerticalGridViewAdapter extends RecyclerView.Adapter<G
     }
 
     ArrayList<Genre> getSelectedGenres() {
-        return genres;
+        return selectedGenres;
     }
 
     class RecyclerViewHolder extends RecyclerView.ViewHolder {
@@ -82,7 +71,13 @@ public class GenreSelectorVerticalGridViewAdapter extends RecyclerView.Adapter<G
         }
 
 
-        void bind(Genre genre) {
+        void bind(Genre genre, int position) {
+            genreNameTextView.setText(genreList.get(position).getName());
+
+            Glide.with(mContext).load(R.drawable.background).into(genreImageView);
+
+            layout.setOnClickListener(view -> manageGenreToList(genreList.get(position), position));
+
             Log.e(TAG, mContext.getString(R.string.bind) + genre.getName() + mContext.getString(R.string.isActivated) + genre.isActivated());
             if (genre.isActivated()) {
                 select_icon.setVisibility(View.VISIBLE);
@@ -94,12 +89,12 @@ public class GenreSelectorVerticalGridViewAdapter extends RecyclerView.Adapter<G
 
 
     private void manageGenreToList(Genre genres, int position) {
-        if (this.genres.contains(genres)) {
-            this.genres.remove(genres);
+        if (selectedGenres.contains(genres)) {
+            selectedGenres.remove(genres);
             genres.setActivated(false);
             Utils.showToast(mContext, mContext.getResources().getString(R.string.removed_genre) + " " + genres.getName());
         } else {
-            this.genres.add(genres);
+            this.selectedGenres.add(genres);
             genres.setActivated(true);
             Utils.showToast(mContext, mContext.getResources().getString(R.string.added_genre) + " " + genres.getName());
         }
