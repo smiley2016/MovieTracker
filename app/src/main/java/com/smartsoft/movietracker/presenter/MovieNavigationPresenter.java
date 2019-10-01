@@ -25,10 +25,10 @@ public class MovieNavigationPresenter {
 
     }
 
-    public void updateMovieNavigationGridView(Context context, ArrayList<Genre> genres) {
+    public void updateMovieNavigationGridView(Context context, ArrayList<Genre> selectedGenres) {
         ArrayList<Integer> genreIds = new ArrayList<>();
 
-        for (Genre it : genres) {
+        for (Genre it : selectedGenres) {
             genreIds.add(it.getId());
         }
 

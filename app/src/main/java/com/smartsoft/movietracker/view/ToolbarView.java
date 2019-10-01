@@ -17,7 +17,6 @@ public class ToolbarView extends RelativeLayout {
     private ImageView settings;
     private ImageView search;
     private ToolbarListener listener;
-    private LayoutInflater mInflater;
 
     public ToolbarView(Context context) {
         this(context, null);

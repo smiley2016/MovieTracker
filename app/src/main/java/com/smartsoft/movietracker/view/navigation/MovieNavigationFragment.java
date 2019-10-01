@@ -28,13 +28,13 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     private VerticalGridView verticalGridView;
     private MovieNavigationVerticalGridViewAdapter adapter;
     private MovieNavigationPresenter presenter;
-    private ArrayList<Genre> genres = new ArrayList<>();
+    private ArrayList<Genre> selectedGenres;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new MovieNavigationPresenter(this);
-        presenter.updateMovieNavigationGridView(getContext(), genres);
+        presenter.updateMovieNavigationGridView(getContext(), selectedGenres);
     }
 
     @Nullable
@@ -65,8 +65,9 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     @SuppressWarnings("unchecked")
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        selectedGenres = new ArrayList<>();
         if (this.getArguments() != null) {
-            genres = (ArrayList<Genre>) this.getArguments().getSerializable(getContext().getString(R.string.selectedGenres));
+            selectedGenres = (ArrayList<Genre>) this.getArguments().getSerializable(context.getString(R.string.selectedGenres));
         }
     }
 
@@ -87,7 +88,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     }
 
     private void setGenreTitle() {
-        Iterator<Genre> genreIterator = genres.iterator();
+        Iterator<Genre> genreIterator = selectedGenres.iterator();
         StringBuilder genreTitle = new StringBuilder();
         while (genreIterator.hasNext()) {
             genreTitle.append(genreIterator.next().getName()).append(" - ");
@@ -98,7 +99,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     }
 
     private void startRecyclerViewAdapter(ArrayList<Movie> movies) {
-        adapter = new MovieNavigationVerticalGridViewAdapter(movies, getActivity(), presenter, genres);
+        adapter = new MovieNavigationVerticalGridViewAdapter(movies, getActivity(), presenter, selectedGenres);
         verticalGridView.setHasFixedSize(true);
         verticalGridView.setAdapter(adapter);
     }
@@ -134,7 +135,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         dialog.dismiss();
         adapter.clearAll();
         Constant.API.PAGE = 0;
-        presenter.updateMovieNavigationGridView(getContext(), genres);
+        presenter.updateMovieNavigationGridView(getContext(), selectedGenres);
     }
 
     @Override
