@@ -14,12 +14,12 @@ public class SharedPreferences {
 
     }
 
-    void writeOnStorage(String value){
+    void writeOnStorage(String value) {
         android.content.SharedPreferences.Editor editor = sp.edit();
         editor.putString(key, value).apply();
     }
 
-    public String ReadFromStorage(){
+    public String ReadFromStorage() {
         return sp.getString(key, "popularity");
     }
 

@@ -1,7 +1,6 @@
 package com.smartsoft.movietracker.view;
 
 import android.content.Context;
-import android.media.Image;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +12,6 @@ import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.interfaces.ToolbarListener;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
 import com.smartsoft.movietracker.utils.ToolbarDialog;
-
-import java.util.ArrayList;
 
 public class ToolbarView extends RelativeLayout {
     private ImageView settings;
@@ -51,7 +48,7 @@ public class ToolbarView extends RelativeLayout {
     private void setOnClickListeners() {
 
         search.setOnClickListener(view -> {
-            if(listener.getBundleSize() > 0){
+            if (listener.getBundleSize() > 0) {
                 FragmentNavigation.getInstance().showMovieNavigationFragment();
                 return;
             }
@@ -64,7 +61,7 @@ public class ToolbarView extends RelativeLayout {
         });
     }
 
-    public void setListener(ToolbarListener listener){
+    public void setListener(ToolbarListener listener) {
         this.listener = listener;
         setOnClickListeners();
     }

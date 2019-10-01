@@ -31,7 +31,7 @@ public class ReviewHorizontalGridPresenter extends Presenter {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Object item) {
         PresenterViewHolder holder = (PresenterViewHolder) viewHolder;
-        Review review = ((Review)item);
+        Review review = ((Review) item);
         holder.bind(mContext, review);
     }
 
@@ -40,7 +40,7 @@ public class ReviewHorizontalGridPresenter extends Presenter {
 
     }
 
-    class PresenterViewHolder extends ViewHolder{
+    class PresenterViewHolder extends ViewHolder {
         @BindView(R.id.review_comment)
         TextView reviewComment;
         @BindView(R.id.reviewer)
@@ -54,7 +54,7 @@ public class ReviewHorizontalGridPresenter extends Presenter {
             ButterKnife.bind(this, view);
         }
 
-        void bind(Context ctx, Review review){
+        void bind(Context ctx, Review review) {
             reviewer.setText(review.getAuthor());
             reviewComment.setText(review.getContent());
             layout.setOnClickListener(view -> Dialogs.startReviewDialog(ctx, review.getContent(), review.getAuthor()));

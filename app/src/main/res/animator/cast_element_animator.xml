@@ -6,8 +6,7 @@
                 android:duration="200"
                 android:propertyName="translationZ"
                 android:valueTo="@dimen/verticalGridView_element_normalSize"
-                android:valueType="floatType"
-                />
+                android:valueType="floatType" />
 
             <objectAnimator
                 android:duration="200"

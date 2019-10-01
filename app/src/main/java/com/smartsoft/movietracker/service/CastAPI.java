@@ -12,5 +12,5 @@ public interface CastAPI {
 
     @GET("movie/{movie_id}/credits")
     Observable<Response<CastResult>> getCast(@Path("movie_id") int movie_id,
-                                 @Query("api_key") String apiKey);
+                                             @Query("api_key") String apiKey);
 }

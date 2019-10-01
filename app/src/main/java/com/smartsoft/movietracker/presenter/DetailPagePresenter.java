@@ -4,12 +4,7 @@ import android.util.Log;
 
 import com.smartsoft.movietracker.interfaces.DetailPageInterface;
 import com.smartsoft.movietracker.model.MovieDetails;
-import com.smartsoft.movietracker.model.cast.Cast;
 import com.smartsoft.movietracker.service.ApiController;
-
-import java.util.ArrayList;
-
-import javax.security.auth.login.LoginException;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -42,7 +37,7 @@ public class DetailPagePresenter implements DetailPageInterface.DetailPagePresen
 
                     @Override
                     public void onNext(MovieDetails movieDetails) {
-                        Log.e(TAG, "DetailPagePresenter"+movieDetails);
+                        Log.e(TAG, "DetailPagePresenter" + movieDetails);
 
                         detailPageViewInterface.loadData(movieDetails);
                     }

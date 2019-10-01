@@ -14,7 +14,7 @@ import com.smartsoft.movietracker.interfaces.ToolbarListener;
 public class ToolbarDialog {
     private static final String TAG = ToolbarDialog.class.getName();
     private ToolbarListener listener;
-    private boolean isChanged =false;
+    private boolean isChanged = false;
 
     public ToolbarDialog(ToolbarListener listener) {
         this.listener = listener;
@@ -27,7 +27,7 @@ public class ToolbarDialog {
         SharedPreferences sortSp = new SharedPreferences(ctx, ctx.getString(R.string.sortBy));
         SharedPreferences orderSp = new SharedPreferences(ctx, ctx.getString(R.string.orderBy));
 
-        setActiveButtonWithSharedPref(sortSp,dialog, ctx);
+        setActiveButtonWithSharedPref(sortSp, dialog, ctx);
         setOrderBySwitchWithSharedPref(dialog, orderSp);
 
         setSort(dialog.findViewById(R.id.radio_button_group), sortSp);
@@ -35,8 +35,8 @@ public class ToolbarDialog {
 
         Button sort = dialog.findViewById(R.id.toolbar_settings_sort_button);
         sort.setOnClickListener(view -> {
-            setOrder( dialog.findViewById(R.id.switch_order_by), orderSp);
-            if(isChanged){
+            setOrder(dialog.findViewById(R.id.switch_order_by), orderSp);
+            if (isChanged) {
                 listener.onSortButtonClicked(dialog);
             }
         });
@@ -44,42 +44,42 @@ public class ToolbarDialog {
         dialog.show();
     }
 
-    private void setOrder(Switch orderBy, SharedPreferences orderSp){
-        if(orderBy.isChecked()){
+    private void setOrder(Switch orderBy, SharedPreferences orderSp) {
+        if (orderBy.isChecked()) {
             orderSp.writeOnStorage(".desc");
-        }else{
-            orderSp.writeOnStorage( ".asc");
+        } else {
+            orderSp.writeOnStorage(".asc");
         }
     }
 
-    private void setSort(RadioGroup radioGroup, SharedPreferences sortSp){
+    private void setSort(RadioGroup radioGroup, SharedPreferences sortSp) {
         radioGroup.setOnCheckedChangeListener((radioGroup1, checked) ->
-            updateSharedPrefForSort(checked, sortSp)
+                updateSharedPrefForSort(checked, sortSp)
 
         );
     }
 
-    private void updateSharedPrefForSort(int checked, SharedPreferences sortSp){
-        switch(checked){
-            case R.id.radio_button_title:{
-                sortSp.writeOnStorage( "original_title");
+    private void updateSharedPrefForSort(int checked, SharedPreferences sortSp) {
+        switch (checked) {
+            case R.id.radio_button_title: {
+                sortSp.writeOnStorage("original_title");
                 Log.e(TAG, "startToolbarSettingsDialog: " + checked);
                 isChanged = true;
                 break;
             }
-            case R.id.radio_button_rating:{
+            case R.id.radio_button_rating: {
                 sortSp.writeOnStorage("popularity");
                 Log.e(TAG, "startToolbarSettingsDialog: " + checked);
                 isChanged = true;
                 break;
             }
-            case R.id.radio_button_release_date:{
+            case R.id.radio_button_release_date: {
                 sortSp.writeOnStorage("release_date");
                 Log.e(TAG, "startToolbarSettingsDialog: " + checked);
                 isChanged = true;
                 break;
             }
-            case R.id.radio_button_vote_average:{
+            case R.id.radio_button_vote_average: {
                 sortSp.writeOnStorage("vote_average");
                 Log.e(TAG, "startToolbarSettingsDialog: " + checked);
                 isChanged = true;
@@ -88,48 +88,47 @@ public class ToolbarDialog {
         }
     }
 
-    private void setOrderBySwitchWithSharedPref(Dialog dialog, SharedPreferences orderSp){
+    private void setOrderBySwitchWithSharedPref(Dialog dialog, SharedPreferences orderSp) {
         String value = orderSp.ReadFromStorage();
         Switch orderBy = dialog.findViewById(R.id.switch_order_by);
-        if(value.equals(".asc")){
+        if (value.equals(".asc")) {
             orderBy.setChecked(false);
-        }else{
+        } else {
             orderBy.setChecked(true);
         }
     }
 
-    private void setActiveButtonWithSharedPref(SharedPreferences sp, Dialog dialog, Context context){
+    private void setActiveButtonWithSharedPref(SharedPreferences sp, Dialog dialog, Context context) {
 
-        String sort =  sp.ReadFromStorage();
+        String sort = sp.ReadFromStorage();
         RadioGroup group = dialog.findViewById(R.id.radio_button_group);
 
-        switch (sort){
-            case "popularity":{
+        switch (sort) {
+            case "popularity": {
                 group.check(R.id.radio_button_rating);
                 break;
             }
-            case "vote_average":{
+            case "vote_average": {
                 group.check(R.id.radio_button_vote_average);
                 break;
             }
-            case "release_date":{
+            case "release_date": {
                 group.check(R.id.radio_button_release_date);
                 break;
             }
-            case "original_title":{
+            case "original_title": {
                 group.check(R.id.radio_button_title);
                 break;
             }
             default: {
                 Toast.makeText(context, "Sort hiba", Toast.LENGTH_SHORT).show();
-                Log.e(TAG, "setActiveButtonWithSharedPref: "+sort );
+                Log.e(TAG, "setActiveButtonWithSharedPref: " + sort);
                 break;
             }
         }
 
 
     }
-
 
 
 }

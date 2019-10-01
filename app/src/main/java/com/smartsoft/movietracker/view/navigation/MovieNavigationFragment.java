@@ -30,46 +30,51 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     private MovieNavigationPresenter presenter;
     private ArrayList<Genre> genres = new ArrayList<>();
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        presenter = new MovieNavigationPresenter(this);
+        presenter.updateMovieNavigationGridView(getContext(), genres);
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        if(rootView == null){
+        if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_base, container, false);
         }
+
+        initViews();
+        initEmmitters();
+        setToolbarView(this);
+        setToolbarSearchButtonVisibility(View.INVISIBLE);
+        initializeViews();
         return rootView;
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        super.initViews();
-        super.setToolbarView(this);
-        super.setToolbarSearchButtonVisibility(View.INVISIBLE);
-
-        if(this.getArguments() != null){
-            genres = (ArrayList<Genre>) this.getArguments().getSerializable(rootView.getContext().getString(R.string.genres));
-        }
-
-        verticalGridView = view.findViewById(R.id.gridView_container);
-        verticalGridView.setNumColumns(7);
-        presenter = new MovieNavigationPresenter(this);
-        presenter.updateMovieNavigationGridView(getContext(),genres);
-        verticalGridView.setItemSpacing(16);
+    private void initializeViews(){
+        verticalGridView = rootView.findViewById(R.id.gridView_container);
+        verticalGridView.setNumColumns(R.dimen.numColumns);
+        verticalGridView.setItemSpacing((int) rootView.getContext().getResources().getDimension(R.dimen.spacing));
         verticalGridView.setFocusDrawingOrderEnabled(true);
         setGenreTitle();
     }
 
-
-
+    @Override
+    @SuppressWarnings("unchecked")
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (this.getArguments() != null) {
+            genres = (ArrayList<Genre>) this.getArguments().getSerializable(rootView.getContext().getString(R.string.genres));
+        }
+    }
 
     @Override
     public void updateMovieNavigationGridView(ArrayList<Movie> movies) {
-        if(adapter != null){
+        if (adapter != null) {
             adapter.updateMovieList(movies);
-        }else {
+        } else {
             startRecyclerViewAdapter(movies);
         }
 
@@ -84,15 +89,15 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     private void setGenreTitle() {
         Iterator<Genre> genreIterator = genres.iterator();
         StringBuilder genreTitle = new StringBuilder();
-        while (genreIterator.hasNext()){
+        while (genreIterator.hasNext()) {
             genreTitle.append(genreIterator.next().getName()).append(" - ");
         }
-        genreTitle.replace(genreTitle.length()-3, genreTitle.length()-1, "");
+        genreTitle.replace(genreTitle.length() - 3, genreTitle.length() - 1, "");
 
-        super.setTitle(genreTitle);
+        super.setTitle(genreTitle.toString());
     }
 
-    private void startRecyclerViewAdapter(ArrayList<Movie> movies){
+    private void startRecyclerViewAdapter(ArrayList<Movie> movies) {
         adapter = new MovieNavigationVerticalGridViewAdapter(movies, getActivity(), presenter, genres);
         verticalGridView.setHasFixedSize(true);
         verticalGridView.setAdapter(adapter);
@@ -109,25 +114,17 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     }
 
     @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-    }
-
-
-
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
         Constant.API.PAGE = 0;
-        if(adapter != null){
+        if (adapter != null) {
             adapter.clearAll();
         }
         super.setToolbarSearchButtonVisibility(View.VISIBLE);
     }
 
 
-    public MovieNavigationPresenter getPresenter(){
+    public MovieNavigationPresenter getPresenter() {
         return presenter;
     }
 
@@ -145,7 +142,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         return 255;
     }
 
-    public Bundle getAdaptersBundle(){
+    public Bundle getAdaptersBundle() {
         return adapter.getBundle();
     }
 }

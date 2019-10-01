@@ -1,6 +1,5 @@
 package com.smartsoft.movietracker;
 
-import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -31,7 +30,7 @@ public class MainActivity extends FragmentActivity {
 
         handler = new Handler();
         runnable = () -> {
-            if(getApplicationContext() != null){
+            if (getApplicationContext() != null) {
                 networkChangeReceiver = new NetworkChangeReceiver(MainActivity.this);
                 registerNetworkBroadcastReceiver();
             }

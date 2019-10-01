@@ -21,9 +21,9 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         try {
-            if (Utils.isOnline(context)){
+            if (Utils.isOnline(context)) {
                 Utils.showToast(context, context.getString(R.string.internet_connected));
-            }else {
+            } else {
                 Utils.showToast(context, context.getString(R.string.no_internet_connection));
                 FragmentNavigation.getInstance().showNoInternetFragment();
 

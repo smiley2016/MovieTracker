@@ -44,7 +44,7 @@ public class VideoVerticalGridPresenter extends Presenter implements DetailVideo
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Object item) {
         PresenterViewHolder holder = (PresenterViewHolder) viewHolder;
-        this.videos = ((VideoList)item).getVideos();
+        this.videos = ((VideoList) item).getVideos();
         holder.bind(this.videos, this);
     }
 
@@ -61,9 +61,9 @@ public class VideoVerticalGridPresenter extends Presenter implements DetailVideo
         FragmentNavigation.getInstance().showPlayerFragment(bundle);
     }
 
-    public int getPositionOfVideo(String videoId){
-        for(int i = 0; i<videos.size(); ++i){
-            if(videos.get(i).getId().equals(videoId)){
+    public int getPositionOfVideo(String videoId) {
+        for (int i = 0; i < videos.size(); ++i) {
+            if (videos.get(i).getId().equals(videoId)) {
                 return i;
             }
         }
@@ -71,7 +71,7 @@ public class VideoVerticalGridPresenter extends Presenter implements DetailVideo
     }
 
 
-    class PresenterViewHolder extends ViewHolder{
+    class PresenterViewHolder extends ViewHolder {
 
         @BindView(R.id.video_text_view)
         TextView videoTextView;
@@ -82,7 +82,6 @@ public class VideoVerticalGridPresenter extends Presenter implements DetailVideo
         VideoHorizontalGridPresenter videoHorizontalGridPresenter;
 
 
-
         public PresenterViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
@@ -90,15 +89,15 @@ public class VideoVerticalGridPresenter extends Presenter implements DetailVideo
 
         }
 
-        public void bind(ArrayList<Video> videos, DetailVideoGridInterface.VideoGridView mInterface){
-            if(!videos.isEmpty()){
+        public void bind(ArrayList<Video> videos, DetailVideoGridInterface.VideoGridView mInterface) {
+            if (!videos.isEmpty()) {
 
                 videoHorizontalGridPresenter = new VideoHorizontalGridPresenter(mContext, mInterface);
                 videoTextView.setText(R.string.videos);
 
 
                 ArrayObjectAdapter objectAdapter = new ArrayObjectAdapter();
-                for(Video it: videos){
+                for (Video it : videos) {
                     objectAdapter.add(it);
                 }
 
@@ -107,12 +106,12 @@ public class VideoVerticalGridPresenter extends Presenter implements DetailVideo
                 itemBridgeAdapter.setPresenter(new SinglePresenterSelector(videoHorizontalGridPresenter));
 
                 hGridView.setAdapter(itemBridgeAdapter);
-                hGridView.setItemSpacing((int)mContext.getResources().getDimension(R.dimen.spacing));
+                hGridView.setItemSpacing((int) mContext.getResources().getDimension(R.dimen.spacing));
                 view.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 videoTextView.setVisibility(View.GONE);
                 hGridView.setVisibility(View.GONE);
-                Log.e(TAG, "bind: no list binded" );
+                Log.e(TAG, "bind: no list binded");
             }
         }
 

@@ -10,5 +10,6 @@ import retrofit2.http.Query;
 public interface ReviewAPI {
 
     @GET("movie/{movie_id}/reviews")
-    Observable<ReviewResult> getReviews(@Path("movie_id") int movie_id, @Query("api_key") String api_key);
+    Observable<ReviewResult> getReviews(@Path("movie_id") int movie_id,
+                                        @Query("api_key") String api_key);
 }

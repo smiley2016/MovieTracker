@@ -47,7 +47,7 @@ public class PlayerVerticalGridPresenter extends Presenter {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Object item) {
         PresenterViewHolder holder = (PresenterViewHolder) viewHolder;
-        Video video = ((Video)item);
+        Video video = ((Video) item);
         holder.bind(video, videos);
     }
 
@@ -56,7 +56,7 @@ public class PlayerVerticalGridPresenter extends Presenter {
 
     }
 
-    class PresenterViewHolder extends ViewHolder{
+    class PresenterViewHolder extends ViewHolder {
 
         @BindView(R.id.video_title)
         TextView videoTitle;
@@ -90,9 +90,9 @@ public class PlayerVerticalGridPresenter extends Presenter {
             videoTitle.setText(video.getName());
 
             layout.setOnFocusChangeListener((view, b) -> {
-                if(b){
+                if (b) {
                     presenter.setPlayListVisibility(View.VISIBLE);
-                }else{
+                } else {
                     presenter.setPlayListVisibility(View.INVISIBLE);
                 }
             });

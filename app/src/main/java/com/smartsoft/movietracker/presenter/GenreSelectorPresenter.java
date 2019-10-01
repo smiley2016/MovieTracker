@@ -19,8 +19,8 @@ public class GenreSelectorPresenter {
     public GenreSelectorPresenter() {
     }
 
-    public void updateGenres(GenreSelectorInterface genreSelectorInterface){
-            ApiController.getInstance().getAllGenres()
+    public void updateGenres(GenreSelectorInterface genreSelectorInterface) {
+        ApiController.getInstance().getAllGenres()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ArrayList<Genre>>() {
@@ -44,7 +44,7 @@ public class GenreSelectorPresenter {
 
                     }
                 });
-        }
+    }
 
 
     //TODO: Ennek a MovieNavigationInterface-nak adj valami mas nevet mert elegge megteveszto (pl GenreView vagy valami hasonlo)

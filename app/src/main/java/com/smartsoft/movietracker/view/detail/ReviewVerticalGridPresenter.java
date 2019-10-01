@@ -38,7 +38,7 @@ public class ReviewVerticalGridPresenter extends Presenter {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Object item) {
         PresenterViewHolder holder = (PresenterViewHolder) viewHolder;
-        ArrayList<Review> reviews  = ((ReviewList)item).getReview();
+        ArrayList<Review> reviews = ((ReviewList) item).getReview();
         holder.bind(reviews);
     }
 
@@ -47,9 +47,9 @@ public class ReviewVerticalGridPresenter extends Presenter {
 
     }
 
-    class PresenterViewHolder extends ViewHolder{
+    class PresenterViewHolder extends ViewHolder {
 
-        @BindView(R.id.review_textView )
+        @BindView(R.id.review_textView)
         TextView reviewTextView;
 
         @BindView(R.id.review_GridView)
@@ -57,7 +57,6 @@ public class ReviewVerticalGridPresenter extends Presenter {
 
         @BindView(R.id.review_section_layout)
         RelativeLayout layout;
-
 
 
         ReviewHorizontalGridPresenter reviewAdapter;
@@ -68,21 +67,21 @@ public class ReviewVerticalGridPresenter extends Presenter {
 
         }
 
-        public void bind(ArrayList<Review> reviews){
+        public void bind(ArrayList<Review> reviews) {
 
-            if(!reviews.isEmpty()){
+            if (!reviews.isEmpty()) {
                 view.setVisibility(View.VISIBLE);
                 reviewAdapter = new ReviewHorizontalGridPresenter(mContext);
 
                 ArrayObjectAdapter objectAdapter = new ArrayObjectAdapter();
 
-                for(Review it: reviews){
+                for (Review it : reviews) {
                     objectAdapter.add(it);
                 }
 
                 hGridView.setAdapter(new ItemBridgeAdapter(objectAdapter, new SinglePresenterSelector(reviewAdapter)));
-                hGridView.setItemSpacing((int)mContext.getResources().getDimension(R.dimen.spacing));
-            }else{
+                hGridView.setItemSpacing((int) mContext.getResources().getDimension(R.dimen.spacing));
+            } else {
                 Log.d(TAG, "bind: list size 0");
                 reviewTextView.setVisibility(View.GONE);
                 hGridView.setVisibility(View.GONE);

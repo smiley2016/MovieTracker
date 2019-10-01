@@ -5,13 +5,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.widget.Toast;
 
-import com.smartsoft.movietracker.model.genre.Genre;
-
 import java.util.List;
 
 public final class Utils {
 
-    public static void showToast(Context ctx, String message){
+    public static void showToast(Context ctx, String message) {
         Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show();
     }
 
@@ -19,20 +17,20 @@ public final class Utils {
         return dp * context.getResources().getDisplayMetrics().density;
     }
 
-    public static String genreListToCsvIdString(List<Integer> genreIds){
-        if( genreIds == null || genreIds.isEmpty() ){
+    public static String genreListToCsvIdString(List<Integer> genreIds) {
+        if (genreIds == null || genreIds.isEmpty()) {
             return "";
         }
         StringBuilder text = new StringBuilder();
         int i;
-        for(i=0; i<genreIds.size()-1; i++){
+        for (i = 0; i < genreIds.size() - 1; i++) {
             text.append(genreIds.get(i)).append(",");
         }
         text.append(genreIds.get(i));
         return text.toString();
     }
 
-    public static boolean isOnline(Context context){
+    public static boolean isOnline(Context context) {
         try {
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             assert cm != null;

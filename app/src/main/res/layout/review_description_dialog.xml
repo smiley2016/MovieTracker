@@ -2,72 +2,68 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:src="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="512dp"
-    android:background="#242424"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:focusable="false">
-
-
-
-    <ScrollView
-        android:id="@+id/comment_scroll_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dialog_reviewer"
-        android:scrollbars="vertical"
-        android:scrollbarAlwaysDrawVerticalTrack="true"
-        android:focusable="false"
-        >
-
-
-        <TextView
-            android:id="@+id/dialog_review_comment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:fontFamily="sans-serif"
-            android:textSize="14sp"
-            android:padding="16dp"
-            android:focusable="false"
-
-            />
-
-    </ScrollView>
-
-    <TextView
-        android:id="@+id/dialog_reviewer"
-        android:layout_width="168dp"
-        android:layout_height="24dp"
-        android:layout_below="@id/comment_scroll_view"
-        app:layout_constraintTop_toBottomOf="@id/dialog_reviewer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/dialog_close_button"
-        app:layout_constraintBottom_toTopOf="@id/comment_scroll_view"
-        android:layout_marginTop="16dp"
-        android:textSize="12sp"
-        android:text="@string/review_by"
-        android:fontFamily="Roman"
-        android:gravity="start"
-        android:focusable="false"
-        />
+    android:background="#242424"
+    android:focusable="false"
+    android:orientation="vertical">
 
 
     <Button
         android:id="@+id/dialog_close_button"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBaseline_toBaselineOf="@id/dialog_reviewer"
         android:layout_marginEnd="16dp"
-        android:stateListAnimator="@animator/cast_element_animator"
         android:background="@drawable/toolbar_component_background_selector"
-        android:foreground="@drawable/dialog_close_button"
         android:focusable="true"
-        />
+        android:foreground="@drawable/dialog_close_button"
+        android:stateListAnimator="@animator/cast_element_animator"
+        app:layout_constraintBaseline_toBaselineOf="@id/dialog_reviewer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/comment_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_reviewer">
+
+
+        <TextView
+            android:id="@+id/dialog_review_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:fontFamily="sans-serif"
+            android:gravity="start"
+            android:padding="16dp"
+            android:textSize="14sp"
+
+            />
+
+    </ScrollView>
+
+
+    <TextView
+        android:id="@+id/dialog_reviewer"
+        android:layout_width="168dp"
+        android:layout_height="24dp"
+        android:layout_below="@id/comment_scroll_view"
+        android:layout_marginTop="16dp"
+        android:focusable="false"
+        android:fontFamily="Roman"
+        android:gravity="start"
+        android:text="@string/review_by"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@id/comment_scroll_view"
+        app:layout_constraintEnd_toStartOf="@id/dialog_close_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_reviewer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

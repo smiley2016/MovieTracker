@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 public class MovieDetails {
 
-    private ArrayList<Cast> casts = new ArrayList<>();
-    private ArrayList<Review> reviews = new ArrayList<>();
-    private ArrayList<Video> videos = new ArrayList<>();
+    private ArrayList<Cast> casts;
+    private ArrayList<Review> reviews;
+    private ArrayList<Video> videos;
 
     public MovieDetails(ArrayList<Cast> casts, ArrayList<Review> reviews, ArrayList<Video> videos) {
         this.casts = casts;

@@ -2,7 +2,6 @@ package com.smartsoft.movietracker.view.detail;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +18,8 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.smartsoft.movietracker.R;
-import com.smartsoft.movietracker.interfaces.DetailPageInterface;
 import com.smartsoft.movietracker.model.video.Video;
 import com.smartsoft.movietracker.utils.Constant;
-import com.smartsoft.movietracker.utils.FragmentNavigation;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,8 +42,8 @@ public class VideoHorizontalGridPresenter extends Presenter implements DetailVid
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Object item) {
         PresenterViewHolder holder = (PresenterViewHolder) viewHolder;
-        Video video = ((Video)item);
-        holder.bind( video);
+        Video video = ((Video) item);
+        holder.bind(video);
     }
 
     @Override
@@ -60,7 +57,7 @@ public class VideoHorizontalGridPresenter extends Presenter implements DetailVid
         mInterface.startPlayerActivity(videoId);
     }
 
-    class PresenterViewHolder extends ViewHolder{
+    class PresenterViewHolder extends ViewHolder {
         @BindView(R.id.video_title)
         TextView videoTitle;
         @BindView(R.id.video_thumbnail)

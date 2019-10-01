@@ -1,6 +1,5 @@
 package com.smartsoft.movietracker.view.navigation;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Outline;
 import android.graphics.drawable.Drawable;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -21,7 +19,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.leanback.widget.ObjectAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -121,7 +118,6 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
         ImageView openDetailPage;
 
 
-
         float curveRadius;
         boolean isOpen = false;
 
@@ -157,11 +153,11 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
             layout.setOnFocusChangeListener((view, b) -> {
                 if (b) {
                     poster.setOutlineProvider(new ViewOutlineProvider() {
-                    @Override
-                    public void getOutline(View view, Outline outline) {
-                        outline.setRoundRect(0, 0, (int) (view.getWidth() + curveRadius), view.getHeight(), curveRadius);
-                    }
-                });
+                        @Override
+                        public void getOutline(View view, Outline outline) {
+                            outline.setRoundRect(0, 0, (int) (view.getWidth() + curveRadius), view.getHeight(), curveRadius);
+                        }
+                    });
                     poster.setClipToOutline(true);
 
                     presenter.setBackground(movie.getBackdropPath());
@@ -200,16 +196,16 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
             Iterator<Genre> genreIterator = genres.iterator();
             StringBuilder genreTitles = new StringBuilder();
-            while(genreIterator.hasNext()){
+            while (genreIterator.hasNext()) {
                 genreTitles.append(genreIterator.next().getName()).append(", ");
             }
-            genreTitles.replace(genreTitles.length()-2, genreTitles.length()-1, "");
+            genreTitles.replace(genreTitles.length() - 2, genreTitles.length() - 1, "");
 
             this.genres.setText(genreTitles);
 
             title.setText(movie.getTitle());
 
-            String [] releaseDateList;
+            String[] releaseDateList;
             releaseDateList = movie.getReleaseDate().split("-");
 
             releaseDate.setText(releaseDateList[0]);

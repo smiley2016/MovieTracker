@@ -44,7 +44,7 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
     @NonNull
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view =  LayoutInflater.from(mContext).inflate(R.layout.genre_element_card, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.genre_element_card, parent, false);
         return new RecyclerViewHolder(view);
     }
 
@@ -57,43 +57,43 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
     }
 
 
-
     @Override
     public int getItemCount() {
         return genreList.size();
     }
 
-    class RecyclerViewHolder extends RecyclerView.ViewHolder{
+    class RecyclerViewHolder extends RecyclerView.ViewHolder {
         TextView genreNameTextView;
         ImageView genreImageView;
         ConstraintLayout layout;
         ImageView select_icon;
+
         RecyclerViewHolder(View itemView) {
             super(itemView);
             layout = itemView.findViewById(R.id.vertical_grid_view_layout_element);
             genreNameTextView = itemView.findViewById(R.id.genre_description);
-            genreImageView =  itemView.findViewById(R.id.genre_image_view);
+            genreImageView = itemView.findViewById(R.id.genre_image_view);
             select_icon = itemView.findViewById(R.id.selected_icon);
 
         }
 
 
         void bind(Genre genre) {
-            Log.e(TAG, mContext.getString(R.string.bind)+genre.getName() + mContext.getString(R.string.isActivated) + genre.isActivated());
-            if(genre.isActivated()){
+            Log.e(TAG, mContext.getString(R.string.bind) + genre.getName() + mContext.getString(R.string.isActivated) + genre.isActivated());
+            if (genre.isActivated()) {
                 select_icon.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 select_icon.setVisibility(View.INVISIBLE);
             }
         }
     }
 
 
-    void setBundle(){
-        bundle.putSerializable( mContext.getString(R.string.genres), this.genres);
+    void setBundle() {
+        bundle.putSerializable(mContext.getString(R.string.genres), this.genres);
     }
 
-    public Bundle getBundle(){
+    public Bundle getBundle() {
         return bundle;
     }
 
@@ -115,10 +115,10 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
 
     }
 
-    void setList(){
-        if(bundle != null && !CollectionUtils.isEmpty(genres)){
-            for(Genre it: genres){
-                if(getGenreById(it.getId()) != null){
+    void setList() {
+        if (bundle != null && !CollectionUtils.isEmpty(genres)) {
+            for (Genre it : genres) {
+                if (getGenreById(it.getId()) != null) {
                     Objects.requireNonNull(getGenreById(it.getId())).setActivated(true);
                 }
             }
@@ -126,9 +126,9 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
         notifyDataSetChanged();
     }
 
-    private Genre getGenreById(Integer id){
-        for(Genre it: genreList){
-            if(it.getId().equals(id)){
+    private Genre getGenreById(Integer id) {
+        for (Genre it : genreList) {
+            if (it.getId().equals(id)) {
                 return it;
             }
         }

@@ -1,5 +1,6 @@
 package com.smartsoft.movietracker.view.detail;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,7 +10,6 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.ClassPresenterSelector;
 import androidx.leanback.widget.ItemBridgeAdapter;
@@ -46,23 +46,15 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
     ImageView background;
 
     @Override
-    @SuppressWarnings("unchecked")
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            movie = (Movie) getArguments().getSerializable("movie");
-            genres = (ArrayList<Genre>) getArguments().getSerializable(getString(R.string.genres));
-            Log.e(TAG, ""+movie);
-        }
-
         dPresenter = new DetailPagePresenter(this);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        if(rootView == null){
+        if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_detail_page, container, false);
             ButterKnife.bind(this, rootView);
             initializeViews();
@@ -77,6 +69,16 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
 
     }
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (getArguments() != null) {
+            movie = (Movie) getArguments().getSerializable("movie");
+            genres = (ArrayList<Genre>) getArguments().getSerializable(getString(R.string.genres));
+            Log.e(TAG, "" + movie);
+        }
+    }
 
     private void getAllData() {
         dPresenter.loadData(movie.getId());
@@ -88,9 +90,9 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
 
         ArrayList<String> currentMovieGenres = new ArrayList<>();
 
-        for(int i = 0; i<genres.size(); ++i){
-            for(int j = 0; j<movie.getGenreIds().size(); ++j){
-                if (movie.getGenreIds().get(j).equals(genres.get(i).getId())){
+        for (int i = 0; i < genres.size(); ++i) {
+            for (int j = 0; j < movie.getGenreIds().size(); ++j) {
+                if (movie.getGenreIds().get(j).equals(genres.get(i).getId())) {
                     currentMovieGenres.add(genres.get(i).getName());
                 }
             }
@@ -134,8 +136,4 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
         Objects.requireNonNull(getActivity()).onBackPressed();
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
 }

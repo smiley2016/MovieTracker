@@ -37,7 +37,7 @@ public class NoInternetFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        if(rootView == null){
+        if (rootView == null) {
             rootView = inflater.inflate(R.layout.no_internet, container, false);
         }
         ButterKnife.bind(this, rootView);
@@ -53,7 +53,7 @@ public class NoInternetFragment extends Fragment {
 
     private void initializeViews() {
         tryAgain.setOnClickListener(v -> {
-            if(Utils.isOnline(rootView.getContext())){
+            if (Utils.isOnline(rootView.getContext())) {
                 FragmentNavigation.getInstance().removeFragment(this);
             }
         });

@@ -1,31 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:leanback="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:leanback="http://schemas.android.com/apk/res-auto"
     android:alwaysRetainTaskState="true">
 
     <ImageView
         android:id="@+id/fragment_base_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/background"
         android:scaleType="centerCrop"
-
-        />
-
-
-    <com.smartsoft.movietracker.view.ToolbarView
-        android:id="@+id/base_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="85dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:src="@drawable/background"
 
         />
 
@@ -34,39 +23,49 @@
         android:id="@+id/choose_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:textSize="@dimen/choose_textView_textSize"
-        android:gravity="center"
-        android:focusable="false"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:text="@string/choose_genre_textView"
-        android:layout_marginTop="@dimen/choose_textView_marginTop"
-        android:layout_marginStart="@dimen/choose_textView_marginStart"
-        android:layout_marginEnd="@dimen/choose_textView_marginEnd"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:layout_marginStart="@dimen/choose_textView_marginStart"
+        android:layout_marginTop="@dimen/choose_textView_marginTop"
+        android:layout_marginEnd="@dimen/choose_textView_marginEnd"
+        android:focusable="false"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="@string/choose_genre_textView"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/choose_textView_textSize"
 
         />
+
 
     <androidx.leanback.widget.VerticalGridView
         android:id="@+id/gridView_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/verticalGridView_fragment_marginTop"
+        android:layout_below="@id/choose_textView"
         android:layout_marginStart="@dimen/verticalGridView_fragment_marginStart"
+        android:layout_marginTop="@dimen/verticalGridView_fragment_marginTop"
         android:layout_marginEnd="@dimen/verticalGridView_fragment_marginEnd"
-        android:paddingTop="@dimen/verticalGridView_paddingTop"
-        android:paddingBottom="@dimen/verticalGridView_paddingBottom"
-        android:paddingStart="@dimen/verticalGridView_paddingStart"
-        android:paddingEnd="@dimen/verticalGridView_paddingEnd"
+        android:clipChildren="false"
         android:clipToPadding="false"
         android:nextFocusUp="@id/toolbar_search"
-        leanback:focusOutFront="true"
+        android:paddingStart="@dimen/verticalGridView_paddingStart"
+        android:paddingTop="@dimen/verticalGridView_paddingTop"
+        android:paddingEnd="@dimen/verticalGridView_paddingEnd"
+        android:paddingBottom="@dimen/verticalGridView_paddingBottom"
         leanback:focusOutEnd="true"
-        android:layout_below="@id/choose_textView"
-        android:clipChildren="false"
+        leanback:focusOutFront="true" />
+
+    <com.smartsoft.movietracker.view.ToolbarView
+        android:id="@+id/base_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+
         />
 
 </RelativeLayout>

@@ -1,6 +1,5 @@
 package com.smartsoft.movietracker.view.detail;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,7 +40,7 @@ public class CastVerticalGridPresenter extends Presenter {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Object item) {
         PresenterViewHolder holder = (PresenterViewHolder) viewHolder;
-        ArrayList<Cast> cast = ((CastList)item).getCasts();
+        ArrayList<Cast> cast = ((CastList) item).getCasts();
         holder.bind(cast);
     }
 
@@ -51,7 +50,7 @@ public class CastVerticalGridPresenter extends Presenter {
     }
 
 
-    class PresenterViewHolder extends ViewHolder{
+    class PresenterViewHolder extends ViewHolder {
 
         @BindView(R.id.cast_TextView)
         TextView castTextView;
@@ -67,13 +66,13 @@ public class CastVerticalGridPresenter extends Presenter {
 
         }
 
-        public void bind(ArrayList<Cast> cast){
+        public void bind(ArrayList<Cast> cast) {
 
-            if(!cast.isEmpty()){
+            if (!cast.isEmpty()) {
                 castPresenter = new CastHorizontalGridPresenter(mContext);
 
                 ArrayObjectAdapter objectAdapter = new ArrayObjectAdapter();
-                for(Cast it: cast){
+                for (Cast it : cast) {
                     objectAdapter.add(it);
                 }
 
@@ -83,9 +82,10 @@ public class CastVerticalGridPresenter extends Presenter {
 
                 hGridView.setAdapter(itemBridgeAdapter);
 
-                castTextView.setText(R.string.cast); Log.e(TAG, "cast " + cast.size());
+                castTextView.setText(R.string.cast);
+                Log.e(TAG, "cast " + cast.size());
                 view.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 Log.e(TAG, "no cast list");
                 castTextView.setVisibility(View.GONE);
                 hGridView.setVisibility(View.GONE);

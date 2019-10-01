@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:id="@+id/similar_videos"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/similar_videos"
     android:layout_width="960dp"
-    android:layout_height="216dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="216dp">
 
     <TextView
         android:id="@+id/video_text_view"

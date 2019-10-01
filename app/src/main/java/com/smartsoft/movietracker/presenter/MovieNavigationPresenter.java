@@ -8,12 +8,12 @@ import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.service.ApiController;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+
 public class MovieNavigationPresenter {
 
     public static String TAG = MovieNavigationPresenter.class.getName();
@@ -25,10 +25,10 @@ public class MovieNavigationPresenter {
 
     }
 
-    public void updateMovieNavigationGridView(Context context, ArrayList<Genre> genres){
+    public void updateMovieNavigationGridView(Context context, ArrayList<Genre> genres) {
         ArrayList<Integer> genreIds = new ArrayList<>();
 
-        for(Genre it : genres){
+        for (Genre it : genres) {
             genreIds.add(it.getId());
         }
 
@@ -44,8 +44,8 @@ public class MovieNavigationPresenter {
                     @Override
                     public void onNext(ArrayList<Movie> movies) {
                         ArrayList<Movie> movieList = new ArrayList<>();
-                        for (Movie it: movies){
-                            if(it.getPosterPath() != null){
+                        for (Movie it : movies) {
+                            if (it.getPosterPath() != null) {
                                 movieList.add(it);
                             }
                         }
@@ -64,18 +64,16 @@ public class MovieNavigationPresenter {
                 });
 
 
+    }
 
-   }
-
-    public void setBackground(String path){
+    public void setBackground(String path) {
         movieNavigationInterface.setBackground(path);
     }
 
 
-
-
     public interface MovieNavigationInterface {
         void updateMovieNavigationGridView(ArrayList<Movie> movies);
+
         void setBackground(String path);
     }
 }

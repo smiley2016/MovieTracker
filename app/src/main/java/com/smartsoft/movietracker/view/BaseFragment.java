@@ -1,14 +1,10 @@
 package com.smartsoft.movietracker.view;
 
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,11 +17,8 @@ import com.bumptech.glide.request.transition.Transition;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.interfaces.BaseFragmentInterface;
 import com.smartsoft.movietracker.interfaces.ToolbarListener;
-import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.utils.Constant;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -38,7 +31,7 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
-public abstract class BaseFragment extends Fragment implements BaseFragmentInterface.BaseFragmentView {
+public abstract class BaseFragment extends Fragment implements BaseFragmentInterface {
 
     private static final String TAG = BaseFragment.class.getName();
 
@@ -47,25 +40,13 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
     protected View rootView;
 
     private ObservableEmitter<String> urlStreamEmitter;
-    private ObservableEmitter<Drawable> drawableStreamEmitter;
     private Drawable placeholderDrawable;
 
     private TextView text;
 
     private ToolbarView toolbarView;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
-
-    }
-
-    protected void initViews() {
-        background = rootView.findViewById(R.id.fragment_base_background);
-
-        text = rootView.findViewById(R.id.choose_textView);
-
+    protected void initEmmitters() {
         Observable.create((ObservableOnSubscribe<String>) emitter -> urlStreamEmitter = emitter)
                 .debounce(1000, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
@@ -109,56 +90,17 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
                     }
                 });
 
-        Observable.create((ObservableOnSubscribe<Drawable>) emitter -> drawableStreamEmitter = emitter)
-                .debounce(1000, TimeUnit.MILLISECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Drawable>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+    }
 
-                    }
+    protected void initViews() {
+        background = rootView.findViewById(R.id.fragment_base_background);
 
-                    @Override
-                    public void onNext(Drawable drawable) {
-                        Log.e(TAG, "found image " + drawable);
-                        Log.e(TAG, "found second image" + placeholderDrawable);
-                        if (drawable != null) {
-                            Glide.with(rootView.getContext()).load(drawable).placeholder(placeholderDrawable).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).transition(withCrossFade(500)).into(background);
-                        }
-                        placeholderDrawable = drawable;
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e(TAG, e.toString());
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
+        text = rootView.findViewById(R.id.choose_textView);
 
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        Log.e(TAG, getString(R.string.onStart));
-    }
-
-
-    @Override
-    public void setTitle() {
-        text.setText("");
-        text.setText(rootView.getContext().getString(R.string.choose_genre_textView));
-    }
-
-    @Override
-    public void setTitle(StringBuilder genreTitle){
-        text.setText("");
+    public void setTitle(String genreTitle) {
         text.setText(genreTitle);
     }
 
@@ -172,12 +114,6 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
     @Override
     public void onResume() {
         super.onResume();
-    }
-
-    @Override
-    public void setBackground(Drawable img) {
-        drawableStreamEmitter.onNext(img);
-
     }
 
     protected void setToolbarSearchButtonVisibility(int visibility) {

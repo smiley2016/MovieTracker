@@ -10,5 +10,6 @@ import retrofit2.http.Query;
 public interface VideoAPI {
 
     @GET("movie/{movie_id}/videos")
-    Observable<VideoResult> getVideos(@Path("movie_id") int movie_id, @Query("api_key") String api_key);
+    Observable<VideoResult> getVideos(@Path("movie_id") int movie_id,
+                                      @Query("api_key") String api_key);
 }

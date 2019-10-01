@@ -13,7 +13,4 @@ public class CastList {
         return casts;
     }
 
-    public void setCasts(ArrayList<Cast> casts) {
-        this.casts = casts;
-    }
 }

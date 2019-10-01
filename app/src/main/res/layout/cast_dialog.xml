@@ -1,45 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="350dp" android:layout_height="300dp"
+    android:layout_width="350dp"
+    android:layout_height="300dp"
     android:background="@drawable/toolbar_component_background_shape">
 
     <ImageView
         android:id="@+id/cast_dialog_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@id/cast_dialog_name"
+        android:layout_below="@id/cast_dialog_close"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_below="@id/cast_dialog_close"
-        android:layout_above="@id/cast_dialog_name"
-        android:focusable="false"
-        />
-
-    <TextView
-        android:id="@+id/cast_dialog_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:textColor="#EEEEEE"
-        android:focusable="false"
-        />
+        android:focusable="false" />
 
     <ImageView
         android:id="@+id/cast_dialog_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/dialog_close_button"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:layout_margin="16dp"
-        android:focusable="true"
         android:background="#242424"
-        android:stateListAnimator="@animator/toolbar_component_animator"
-        />
+        android:focusable="true"
+        android:src="@drawable/dialog_close_button"
+        android:stateListAnimator="@animator/toolbar_component_animator" />
+
+    <TextView
+        android:id="@+id/cast_dialog_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="8dp"
+        android:focusable="false"
+        android:gravity="center"
+        android:textColor="#EEEEEE" />
 
 </RelativeLayout>

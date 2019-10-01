@@ -3,7 +3,6 @@ package com.smartsoft.movietracker.utils;
 import android.app.Dialog;
 import android.content.Context;
 import android.text.method.ScrollingMovementMethod;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -24,10 +23,10 @@ public class Dialogs {
         review_comment.setText(comment);
         TextView reviewer = dialog.findViewById(R.id.dialog_reviewer);
         reviewer.setText(String.format("%s %s", reviewer.getText(), Author));
-        if(review_comment.getMaxLines() > 25){
+        if (review_comment.getMaxLines() > 25) {
             scroll.setFocusable(true);
             scroll.requestFocus();
-        }else{
+        } else {
             scroll.setFocusable(false);
             button.setFocusable(true);
             button.requestFocus();
@@ -37,8 +36,6 @@ public class Dialogs {
         button.setOnClickListener(view -> dialog.dismiss());
         dialog.show();
     }
-
-
 
 
     public static void startCastDialog(Context context, Cast cast) {

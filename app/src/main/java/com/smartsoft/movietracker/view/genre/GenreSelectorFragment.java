@@ -24,12 +24,12 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
 
     private VerticalGridView verticalGridView;
     private VerticalGridViewGenreAdapter adapter;
-    private GenreSelectorPresenter presenter = new GenreSelectorPresenter();
     private static final String TAG = GenreSelectorFragment.class.getSimpleName();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        GenreSelectorPresenter presenter = new GenreSelectorPresenter();
         presenter.updateGenres(this);
 
     }
@@ -37,30 +37,29 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(rootView == null){
+        if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_base, container, false);
         }
+        initViews();
+        initEmmitters();
+        setToolbarView(this);
+        setTitle(rootView.getContext().getString(R.string.choose_genre_textView));
+        initGridView();
         return rootView;
 
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        super.initViews();
-        super.setToolbarView(this);
-        super.setTitle();
-        verticalGridView = view.findViewById(R.id.gridView_container);
+    private void initGridView() {
+        verticalGridView = rootView.findViewById(R.id.gridView_container);
         verticalGridView.setNumColumns(Constant.GenreSelectorFragment.COLUMN_NUM);
-        verticalGridView.setItemSpacing(16);
-
+        verticalGridView.setItemSpacing((int) rootView.getContext().getResources().getDimension(R.dimen.spacing));
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if(adapter != null ){
-            Log.e(TAG, rootView.getContext().getString(R.string.onResume)+adapter.getBundle());
+        if (adapter != null) {
+            Log.e(TAG, rootView.getContext().getString(R.string.onResume) + adapter.getBundle());
             adapter.setList();
 
         }
@@ -79,14 +78,9 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
 
     }
 
-    public Bundle getAdapterBundle(){
+    public Bundle getAdapterBundle() {
         return adapter.getBundle();
     }
-
-    public void setAdapterBundle(){
-        adapter.setBundle();
-    }
-
 
     @Override
     public void onSortButtonClicked(Dialog dialog) {

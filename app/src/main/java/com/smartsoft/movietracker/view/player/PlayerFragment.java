@@ -1,6 +1,7 @@
 package com.smartsoft.movietracker.view.player;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.SparseArray;
@@ -50,8 +51,6 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
     private SimpleExoPlayer player;
     private ArrayList<Video> videos;
 
-    private PlayerPresenter presenter;
-
     private long playbackPosition;
     private int currentWindow;
     private int playIndex;
@@ -59,48 +58,44 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
 
     private ProgressBar progressBar;
     private FrameLayout videoTitleFrameLayout;
-    private HorizontalGridView hGridView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(rootView == null){
+        if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_player, container, false);
         }
-
+        initializeViews();
         return rootView;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        if(getArguments() != null){
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (getArguments() != null) {
             videos = (ArrayList<Video>) getArguments().getSerializable(getString(R.string.videos));
             playIndex = getArguments().getInt(getString(R.string.playIndex));
         }
-
-
-        initializeViews();
     }
 
     private void initializeViews() {
 
-        presenter = new PlayerPresenter(this);
+        PlayerPresenter presenter = new PlayerPresenter(this);
 
         playerView = rootView.findViewById(R.id.video_view);
 
         TextView title = rootView.findViewById(R.id.player_video_title);
         title.setText(videos.get(playIndex).getName());
 
-        hGridView = rootView.findViewById(R.id.recommended_videos_gridView);
+        HorizontalGridView hGridView = rootView.findViewById(R.id.recommended_videos_gridView);
         hGridView.setItemSpacing(8);
 
         PlayerVerticalGridPresenter vPresenter = new PlayerVerticalGridPresenter(rootView.getContext(), presenter, videos);
 
         ArrayObjectAdapter objectAdapter = new ArrayObjectAdapter();
 
-        for(Video it: videos){
+        for (Video it : videos) {
             objectAdapter.add(it);
         }
 
@@ -213,7 +208,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
     private void showPlayList() {
         if (videoTitleFrameLayout.getLayoutParams() instanceof ConstraintLayout.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) videoTitleFrameLayout.getLayoutParams();
-            p.setMargins(0, (int) pxFromDp(rootView.getContext(), 232), 0, (int)pxFromDp(rootView.getContext(), 22));
+            p.setMargins(0, (int) pxFromDp(rootView.getContext(), 232), 0, (int) pxFromDp(rootView.getContext(), 22));
             videoTitleFrameLayout.requestLayout();
         }
     }
@@ -250,16 +245,16 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
 
     @Override
     public void setPlaylistVisibility(int visibility) {
-        if(visibility == View.VISIBLE){
+        if (visibility == View.VISIBLE) {
             showPlayList();
-        }else{
+        } else {
             hidePlayList();
         }
     }
 
-    public void startNewVideo(int position){
+    public void startNewVideo(int position) {
         currentWindow = position;
-        if(playIndex != -1){
+        if (playIndex != -1) {
             player.seekTo(currentWindow, playbackPosition);
             player.setPlayWhenReady(playWhenReady);
         }
