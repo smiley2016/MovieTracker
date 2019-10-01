@@ -22,13 +22,18 @@ import com.smartsoft.movietracker.view.BaseFragment;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MovieNavigationFragment extends BaseFragment implements MovieNavigationPresenter.MovieNavigationInterface, ToolbarListener {
 
     public static String TAG = MovieNavigationFragment.class.getSimpleName();
-    private VerticalGridView verticalGridView;
     private MovieNavigationVerticalGridViewAdapter adapter;
     private MovieNavigationPresenter presenter;
     private ArrayList<Genre> selectedGenres;
+
+    @BindView(R.id.gridView_container)
+    VerticalGridView verticalGridView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,7 +49,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_base, container, false);
         }
-
+        ButterKnife.bind(this, rootView);
         initViews();
         initEmitters();
         setToolbarView(this);
@@ -54,7 +59,6 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     }
 
     private void initializeViews(){
-        verticalGridView = rootView.findViewById(R.id.gridView_container);
         verticalGridView.setNumColumns(Constant.GridView.COLUMN_NUM7);
         verticalGridView.setItemSpacing((int) rootView.getContext().getResources().getDimension(R.dimen.spacing));
         verticalGridView.setFocusDrawingOrderEnabled(true);

@@ -19,6 +19,9 @@ import com.smartsoft.movietracker.utils.Utils;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static com.smartsoft.movietracker.presenter.GenreSelectorPresenter.TAG;
 
 public class GenreSelectorVerticalGridViewAdapter extends RecyclerView.Adapter<GenreSelectorVerticalGridViewAdapter.RecyclerViewHolder> {
@@ -56,18 +59,19 @@ public class GenreSelectorVerticalGridViewAdapter extends RecyclerView.Adapter<G
     }
 
     class RecyclerViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.genre_description)
         TextView genreNameTextView;
+        @BindView(R.id.genre_image_view)
         ImageView genreImageView;
+        @BindView(R.id.vertical_grid_view_layout_element)
         ConstraintLayout layout;
+        @BindView(R.id.selected_icon)
         ImageView select_icon;
 
         RecyclerViewHolder(View itemView) {
             super(itemView);
-            layout = itemView.findViewById(R.id.vertical_grid_view_layout_element);
-            genreNameTextView = itemView.findViewById(R.id.genre_description);
-            genreImageView = itemView.findViewById(R.id.genre_image_view);
-            select_icon = itemView.findViewById(R.id.selected_icon);
-
+            ButterKnife.bind(this, itemView);
         }
 
 

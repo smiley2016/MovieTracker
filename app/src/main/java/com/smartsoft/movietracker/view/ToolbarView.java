@@ -6,16 +6,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.interfaces.ToolbarListener;
-import com.smartsoft.movietracker.utils.FragmentNavigation;
-import com.smartsoft.movietracker.utils.ToolbarDialog;
+import com.smartsoft.movietracker.view.dialogs.ToolbarSettingsDialog;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class ToolbarView extends RelativeLayout {
-    private ImageView settings;
-    private ImageView search;
+
+    @BindView(R.id.toolbar_settings)
+    ImageView settings;
+
+    @BindView(R.id.toolbar_search)
+    ImageView search;
+
     private ToolbarListener listener;
 
     public ToolbarView(Context context) {
@@ -39,8 +45,7 @@ public class ToolbarView extends RelativeLayout {
     private void initViews(Context context) {
         View v = LayoutInflater.from(context).inflate(R.layout.toolbar_view_layout, this, true);
 
-        search = v.findViewById(R.id.toolbar_search);
-        settings = v.findViewById(R.id.toolbar_settings);
+        ButterKnife.bind(this, v);
     }
 
     private void setOnClickListeners() {
@@ -48,7 +53,7 @@ public class ToolbarView extends RelativeLayout {
         search.setOnClickListener(view -> listener.onSearchButtonClicked());
 
         settings.setOnClickListener(view -> {
-            ToolbarDialog dialog = new ToolbarDialog(listener);
+            ToolbarSettingsDialog dialog = new ToolbarSettingsDialog(listener);
             dialog.startToolbarSettingsDialog(getContext());
         });
     }

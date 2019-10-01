@@ -23,7 +23,7 @@
     <dimen name="verticalGridView_paddingBottom">13dp</dimen>
 
 
-    <!--  Choose genres TextView dimens-->
+    <!--  Choose selectedGenres TextView dimens-->
 
     <dimen name="choose_textView_textSize">18sp</dimen>
     <dimen name="choose_textView_marginTop">113dp</dimen>

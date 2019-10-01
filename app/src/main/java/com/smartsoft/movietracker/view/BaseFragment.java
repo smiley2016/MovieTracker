@@ -21,6 +21,8 @@ import com.smartsoft.movietracker.utils.Constant;
 
 import java.util.concurrent.TimeUnit;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -35,16 +37,19 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
 
     private static final String TAG = BaseFragment.class.getName();
 
-    private ImageView background;
-
     protected View rootView;
 
     private ObservableEmitter<String> urlStreamEmitter;
     private Drawable placeholderDrawable;
 
-    private TextView text;
+    @BindView(R.id.base_toolbar)
+    ToolbarView toolbarView;
 
-    private ToolbarView toolbarView;
+    @BindView(R.id.choose_textView)
+    TextView text;
+
+    @BindView(R.id.fragment_base_background)
+    ImageView background;
 
     protected void initEmitters() {
         Observable.create((ObservableOnSubscribe<String>) emitter -> urlStreamEmitter = emitter)
@@ -93,10 +98,7 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
     }
 
     protected void initViews() {
-        background = rootView.findViewById(R.id.fragment_base_background);
-
-        text = rootView.findViewById(R.id.choose_textView);
-
+        ButterKnife.bind(this, rootView);
     }
 
     @Override
@@ -117,10 +119,8 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
     }
 
     protected void setToolbarView(ToolbarListener listener) {
-        toolbarView = rootView.findViewById(R.id.base_toolbar);
         toolbarView.setListener(listener);
     }
-
 
     public abstract void InternetConnected();
 

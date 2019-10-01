@@ -10,7 +10,7 @@ import androidx.leanback.widget.Presenter;
 
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.review.Review;
-import com.smartsoft.movietracker.utils.Dialogs;
+import com.smartsoft.movietracker.view.dialogs.ReviewDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,8 +57,8 @@ public class ReviewHorizontalGridPresenter extends Presenter {
         void bind(Context ctx, Review review) {
             reviewer.setText(review.getAuthor());
             reviewComment.setText(review.getContent());
-            layout.setOnClickListener(view -> Dialogs.startReviewDialog(ctx, review.getContent(), review.getAuthor()));
-
+            layout.setOnClickListener(view ->
+                    new ReviewDialog(review.getContent(), review.getAuthor(), ctx).startReviewDialog());
         }
     }
 }

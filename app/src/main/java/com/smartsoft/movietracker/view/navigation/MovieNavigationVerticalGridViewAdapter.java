@@ -46,13 +46,13 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
     private ArrayList<Movie> movieList;
     private Context ctx;
     private MovieNavigationPresenter presenter;
-    private ArrayList<Genre> genres;
+    private ArrayList<Genre> selectedGenres;
 
-    MovieNavigationVerticalGridViewAdapter(ArrayList<Movie> movieList, Context ctx, MovieNavigationPresenter presenter, ArrayList<Genre> genres) {
+    MovieNavigationVerticalGridViewAdapter(ArrayList<Movie> movieList, Context ctx, MovieNavigationPresenter presenter, ArrayList<Genre> selectedGenres) {
         this.movieList = movieList;
         this.ctx = ctx;
         this.presenter = presenter;
-        this.genres = genres;
+        this.selectedGenres = selectedGenres;
     }
 
     @NonNull
@@ -64,9 +64,9 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        holder.bind(movieList.get(position), ctx, presenter, genres);
+        holder.bind(movieList.get(position), ctx, presenter, selectedGenres);
         if (position >= movieList.size() - 1 % Constant.GridView.COLUMN_NUM5) {
-            presenter.updateMovieNavigationGridView(ctx, genres);
+            presenter.updateMovieNavigationGridView(ctx, selectedGenres);
         }
 
     }
@@ -126,7 +126,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
         }
 
 
-        void bind(Movie movie, Context ctx, MovieNavigationPresenter presenter, ArrayList<Genre> genres) {
+        void bind(Movie movie, Context ctx, MovieNavigationPresenter presenter, ArrayList<Genre> selectedGenres) {
 
 
             Glide.with(ctx).load(Constant.API.IMAGE_BASE_URL + movie.getPosterPath()).listener(new RequestListener<Drawable>() {
@@ -179,8 +179,8 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
                 } else {
                     isOpen = true;
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("movie", movie);
-                    bundle.putSerializable(ctx.getString(R.string.genres), genres);
+                    bundle.putSerializable(ctx.getString(R.string.movie), movie);
+                    bundle.putSerializable(ctx.getString(R.string.selectedGenres), selectedGenres);
                     FragmentNavigation.getInstance().showDetailPageFragment(bundle);
                 }
 
@@ -189,7 +189,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
             imdbRating.setText(String.format("IMDb: %s", movie.getVoteAverage()));
 
-            Iterator<Genre> genreIterator = genres.iterator();
+            Iterator<Genre> genreIterator = selectedGenres.iterator();
             StringBuilder genreTitles = new StringBuilder();
             while (genreIterator.hasNext()) {
                 genreTitles.append(genreIterator.next().getName()).append(", ");

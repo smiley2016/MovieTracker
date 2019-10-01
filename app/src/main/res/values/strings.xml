@@ -16,12 +16,12 @@
     <string name="logo">logo</string>
 
     <!--  GridView  -->
-    <string name="choose_genre_textView">Choose genres you want to Watch</string>
+    <string name="choose_genre_textView">Choose selectedGenres you want to Watch</string>
     <string name="no_selected_genres">Please select at least a genre</string>
     <string name="verticalGridView_element_setScaleSizeTo">1.14</string>
     <string name="verticalGridView_element_normalScaleSize">1</string>
     <string name="empty_genre_list_from_server">Empty genre list downloaded from the Server</string>
-    <string name="search_in_genres">search in genres</string>
+    <string name="search_in_genres">search in selectedGenres</string>
     <string name="genreIds">genreIds</string>
     <string name="removed_genre">Genre removed</string>
     <string name="added_genre">Genre added</string>
@@ -51,14 +51,14 @@
     <string name="zero">0</string>
     <string name="cast">CAST</string>
     <string name="videos">Videos</string>
-    <string name="genres">genres</string>
+    <string name="selectedGenres">selectedGenres</string>
     <string name="no_internet_connection">No internet Connection</string>
     <string name="internet_connected">Internet connected</string>
     <string name="no_internet_connection_please_check_your_internet_cable_plugged_in_your_device_or_if_you_are_using_wifi_check_if_it_works_correctly">No internet Connection, please check your internet cable plugged in your device or if you are using wifi check if it works correctly!</string>
     <string name="try_again">Try Again</string>
     <string name="exit_application">Exit Application</string>
-    <string name="selectedGenres">selectedGenres</string>
     <string name="movie">movie</string>
+    <string name="genres">genres</string>
 
 
 </resources>

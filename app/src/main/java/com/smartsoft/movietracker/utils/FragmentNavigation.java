@@ -80,11 +80,6 @@ public class FragmentNavigation {
         mFragmentManager.beginTransaction().add(myCurrentFragment, myCurrentFragment.getTag()).commit();
     }
 
-    public Fragment getCurrentFragment() {
-        return mFragmentManager.findFragmentById(R.id.fragment_holder);
-
-    }
-
     public void removeFragment(Fragment fragment) {
         mFragmentManager.beginTransaction().remove(fragment).commit();
     }

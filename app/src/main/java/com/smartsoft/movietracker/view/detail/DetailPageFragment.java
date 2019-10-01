@@ -45,6 +45,9 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
     @BindView(R.id.background_image)
     ImageView background;
 
+    @BindView(R.id.detail_page_grid_view)
+    VerticalGridView verticalGridView;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +78,7 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
         super.onAttach(context);
         if (getArguments() != null) {
             movie = (Movie) getArguments().getSerializable(getString(R.string.movie));
-            genres = (ArrayList<Genre>) getArguments().getSerializable(getString(R.string.genres));
+            genres = (ArrayList<Genre>) getArguments().getSerializable(getString(R.string.selectedGenres));
             Log.e(TAG, "" + movie);
         }
     }
@@ -98,8 +101,6 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
             }
 
         }
-
-        VerticalGridView verticalGridView = rootView.findViewById(R.id.detail_page_grid_view);
 
         objectAdapter = new ArrayObjectAdapter();
         objectAdapter.add(movie);

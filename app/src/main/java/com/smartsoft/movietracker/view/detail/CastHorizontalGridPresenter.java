@@ -20,7 +20,7 @@ import com.bumptech.glide.request.target.Target;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.cast.Cast;
 import com.smartsoft.movietracker.utils.Constant;
-import com.smartsoft.movietracker.utils.Dialogs;
+import com.smartsoft.movietracker.view.dialogs.CastDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -93,7 +93,7 @@ public class CastHorizontalGridPresenter extends Presenter {
                         }
                     }).into(actorPicture);
 
-            layout.setOnClickListener(view -> Dialogs.startCastDialog(ctx, cast));
+            layout.setOnClickListener(view -> new CastDialog(ctx, cast).startCastDialog());
 
 
         }
