@@ -16,9 +16,6 @@ public class GenreSelectorPresenter {
 
     public static String TAG = GenreSelectorPresenter.class.getName();
 
-    public GenreSelectorPresenter() {
-    }
-
     public void updateGenres(GenreSelectorInterface genreSelectorInterface) {
         ApiController.getInstance().getAllGenres()
                 .subscribeOn(Schedulers.io())
@@ -31,7 +28,10 @@ public class GenreSelectorPresenter {
 
                     @Override
                     public void onNext(ArrayList<Genre> genres) {
-                        genreSelectorInterface.updateGenres(genres);
+                        if(genreSelectorInterface != null){
+                            genreSelectorInterface.updateGenres(genres);
+                        }
+
                     }
 
                     @Override
