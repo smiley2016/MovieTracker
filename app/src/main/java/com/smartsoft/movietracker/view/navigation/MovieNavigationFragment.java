@@ -76,7 +76,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         if (adapter != null) {
             adapter.updateMovieList(movies);
         } else {
-            startRecyclerViewAdapter(movies);
+            initRecyclerViewAdapter(movies);
         }
 
 
@@ -98,7 +98,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         setTitle(genreTitle.toString());
     }
 
-    private void startRecyclerViewAdapter(ArrayList<Movie> movies) {
+    private void initRecyclerViewAdapter(ArrayList<Movie> movies) {
         adapter = new MovieNavigationVerticalGridViewAdapter(movies, getActivity(), presenter, selectedGenres);
         verticalGridView.setHasFixedSize(true);
         verticalGridView.setAdapter(adapter);
