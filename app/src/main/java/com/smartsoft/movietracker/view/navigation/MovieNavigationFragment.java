@@ -105,11 +105,6 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
     public void InternetConnected() {
 
     }

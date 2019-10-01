@@ -74,7 +74,7 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (getArguments() != null) {
-            movie = (Movie) getArguments().getSerializable("movie");
+            movie = (Movie) getArguments().getSerializable(getString(R.string.movie));
             genres = (ArrayList<Genre>) getArguments().getSerializable(getString(R.string.genres));
             Log.e(TAG, "" + movie);
         }

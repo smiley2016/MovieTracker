@@ -58,6 +58,7 @@
     <string name="try_again">Try Again</string>
     <string name="exit_application">Exit Application</string>
     <string name="selectedGenres">selectedGenres</string>
+    <string name="movie">movie</string>
 
 
 </resources>
