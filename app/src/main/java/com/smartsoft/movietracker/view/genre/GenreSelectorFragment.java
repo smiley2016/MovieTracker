@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class GenreSelectorFragment extends BaseFragment implements GenreSelectorPresenter.GenreSelectorInterface, ToolbarListener {
 
     private VerticalGridView verticalGridView;
-    private VerticalGridViewGenreAdapter adapter;
+    private GenreSelectorVerticalGridViewAdapter adapter;
     private static final String TAG = GenreSelectorFragment.class.getSimpleName();
 
     @Override
@@ -58,23 +58,13 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (adapter != null) {
-            Log.e(TAG, rootView.getContext().getString(R.string.onResume) + adapter.getBundle());
-            adapter.setList();
-
-        }
-    }
-
-    @Override
     public void InternetConnected() {
 
     }
 
     @Override
     public void updateGenres(ArrayList<Genre> genre) {
-        adapter = new VerticalGridViewGenreAdapter(getActivity(), genre);
+        adapter = new GenreSelectorVerticalGridViewAdapter(getActivity(), genre);
         verticalGridView.setHasFixedSize(true);
         verticalGridView.setAdapter(adapter);
 

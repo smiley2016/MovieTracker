@@ -25,7 +25,7 @@ import java.util.Objects;
 
 import static com.smartsoft.movietracker.presenter.GenreSelectorPresenter.TAG;
 
-public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalGridViewGenreAdapter.RecyclerViewHolder> {
+public class GenreSelectorVerticalGridViewAdapter extends RecyclerView.Adapter<GenreSelectorVerticalGridViewAdapter.RecyclerViewHolder> {
 
     private Context mContext;
     private ArrayList<Genre> genreList = new ArrayList<>();
@@ -33,7 +33,7 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
     private ArrayList<Genre> genres;
     private Bundle bundle;
 
-    VerticalGridViewGenreAdapter(Context context, ArrayList<Genre> list) {
+    GenreSelectorVerticalGridViewAdapter(Context context, ArrayList<Genre> list) {
         this.mContext = context;
         genreList.addAll(list);
         genres = new ArrayList<>();
@@ -62,7 +62,7 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
         return genreList.size();
     }
 
-    public ArrayList<Genre> getSelectedGenres() {
+    ArrayList<Genre> getSelectedGenres() {
         return genres;
     }
 
@@ -93,15 +93,6 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
     }
 
 
-    void setBundle() {
-        bundle.putSerializable(mContext.getString(R.string.genres), this.genres);
-    }
-
-    public Bundle getBundle() {
-        return bundle;
-    }
-
-
     private void manageGenreToList(Genre genres, int position) {
         if (this.genres.contains(genres)) {
             this.genres.remove(genres);
@@ -116,23 +107,4 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
 
     }
 
-    void setList() {
-        if (bundle != null && !CollectionUtils.isEmpty(genres)) {
-            for (Genre it : genres) {
-                if (getGenreById(it.getId()) != null) {
-                    Objects.requireNonNull(getGenreById(it.getId())).setActivated(true);
-                }
-            }
-        }
-        notifyDataSetChanged();
-    }
-
-    private Genre getGenreById(Integer id) {
-        for (Genre it : genreList) {
-            if (it.getId().equals(id)) {
-                return it;
-            }
-        }
-        return null;
-    }
 }
