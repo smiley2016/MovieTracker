@@ -46,7 +46,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         }
 
         initViews();
-        initEmmitters();
+        initEmitters();
         setToolbarView(this);
         setToolbarSearchButtonVisibility(View.INVISIBLE);
         initializeViews();
@@ -55,7 +55,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
 
     private void initializeViews(){
         verticalGridView = rootView.findViewById(R.id.gridView_container);
-        verticalGridView.setNumColumns(R.dimen.numColumns);
+        verticalGridView.setNumColumns(Constant.GridView.COLUMN_NUM7);
         verticalGridView.setItemSpacing((int) rootView.getContext().getResources().getDimension(R.dimen.spacing));
         verticalGridView.setFocusDrawingOrderEnabled(true);
         setGenreTitle();
@@ -66,7 +66,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (this.getArguments() != null) {
-            genres = (ArrayList<Genre>) this.getArguments().getSerializable(rootView.getContext().getString(R.string.genres));
+            genres = (ArrayList<Genre>) this.getArguments().getSerializable(getContext().getString(R.string.selectedGenres));
         }
     }
 
@@ -138,11 +138,8 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     }
 
     @Override
-    public int getBundleSize() {
-        return 255;
+    public void onSearchButtonClicked() {
+
     }
 
-    public Bundle getAdaptersBundle() {
-        return adapter.getBundle();
-    }
 }

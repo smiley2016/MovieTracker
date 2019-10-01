@@ -45,33 +45,21 @@ public class FragmentNavigation {
 
 
     public void showGenreSelectorFragment() {
-        Fragment myCurrentFragment = Fragment.instantiate(ctx, GenreSelectorFragment.class.getName(), bundle);
+        Fragment myCurrentFragment = Fragment.instantiate(ctx, GenreSelectorFragment.class.getName(), null);
         replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, false);
         Log.e(TAG, ctx.getString(R.string.genreSelectorFragment) + myCurrentFragment);
     }
 
-    public void showMovieNavigationFragment() {
 
-        Fragment myCurrentFragment = getCurrentFragment();
-        if (myCurrentFragment instanceof GenreSelectorFragment) {
-            if (((GenreSelectorFragment) myCurrentFragment).getAdapterBundle() != null) {
-                bundle = ((GenreSelectorFragment) myCurrentFragment).getAdapterBundle();
-            }
-        }
+    public void showMovieNavigationFragment(Bundle bundle) {
 
-        myCurrentFragment = Fragment.instantiate(ctx, MovieNavigationFragment.class.getName(), bundle);
+        Fragment myCurrentFragment = Fragment.instantiate(ctx, MovieNavigationFragment.class.getName(), bundle);
         replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, true);
     }
 
-    public void showDetailPageFragment() {
-        Fragment myCurrentFragment = getCurrentFragment();
-        if (((MovieNavigationFragment) myCurrentFragment).getAdaptersBundle() != null) {
-            bundle = ((MovieNavigationFragment) myCurrentFragment).getAdaptersBundle();
-        }
-
-        myCurrentFragment = Fragment.instantiate(ctx, DetailPageFragment.class.getName(), bundle);
+    public void showDetailPageFragment(Bundle bundle) {
+        Fragment myCurrentFragment = Fragment.instantiate(ctx, DetailPageFragment.class.getName(), bundle);
         replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, true);
-
     }
 
     public void showPlayerFragment(Bundle bundle) {

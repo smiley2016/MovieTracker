@@ -62,6 +62,10 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
         return genreList.size();
     }
 
+    public ArrayList<Genre> getSelectedGenres() {
+        return genres;
+    }
+
     class RecyclerViewHolder extends RecyclerView.ViewHolder {
         TextView genreNameTextView;
         ImageView genreImageView;
@@ -102,14 +106,11 @@ public class VerticalGridViewGenreAdapter extends RecyclerView.Adapter<VerticalG
         if (this.genres.contains(genres)) {
             this.genres.remove(genres);
             genres.setActivated(false);
-            bundle.clear();
-
             Utils.showToast(mContext, mContext.getResources().getString(R.string.removed_genre) + " " + genres.getName());
         } else {
             this.genres.add(genres);
             genres.setActivated(true);
             Utils.showToast(mContext, mContext.getResources().getString(R.string.added_genre) + " " + genres.getName());
-            setBundle();
         }
         notifyItemChanged(position);
 

@@ -23,8 +23,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ReviewVerticalGridPresenter extends Presenter {
-    private Context mContext;
     private static final String TAG = ReviewVerticalGridPresenter.class.getName();
+    private Context mContext;
 
     ReviewVerticalGridPresenter(Context mContext) {
         this.mContext = mContext;

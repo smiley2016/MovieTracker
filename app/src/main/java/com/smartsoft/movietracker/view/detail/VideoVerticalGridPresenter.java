@@ -25,8 +25,8 @@ import butterknife.ButterKnife;
 
 public class VideoVerticalGridPresenter extends Presenter implements DetailVideoGridInterface.VideoGridView {
 
-    private Context mContext;
     private static final String TAG = VideoVerticalGridPresenter.class.getName();
+    private Context mContext;
     private Bundle bundle;
     private ArrayList<Video> videos;
 

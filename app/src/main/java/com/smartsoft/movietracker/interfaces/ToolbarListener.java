@@ -6,6 +6,6 @@ public interface ToolbarListener {
 
     void onSortButtonClicked(Dialog dialog);
 
-    int getBundleSize();
+    void onSearchButtonClicked();
 
 }

@@ -37,11 +37,11 @@ public class Genre implements Serializable {
         this.name = name;
     }
 
-    public void setActivated(boolean activated) {
-        this.isActivated = activated;
-    }
-
     public boolean isActivated() {
         return isActivated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.isActivated = activated;
     }
 }

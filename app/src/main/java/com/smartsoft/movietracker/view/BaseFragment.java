@@ -46,7 +46,7 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
 
     private ToolbarView toolbarView;
 
-    protected void initEmmitters() {
+    protected void initEmitters() {
         Observable.create((ObservableOnSubscribe<String>) emitter -> urlStreamEmitter = emitter)
                 .debounce(1000, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
@@ -111,10 +111,6 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
 
     protected void setToolbarSearchButtonVisibility(int visibility) {
         toolbarView.setVisibleSearchIcon(visibility);

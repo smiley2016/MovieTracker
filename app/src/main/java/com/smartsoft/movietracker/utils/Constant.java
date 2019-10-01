@@ -2,8 +2,10 @@ package com.smartsoft.movietracker.utils;
 
 public class Constant {
 
-    public static class GenreSelectorFragment {
-        public static int COLUMN_NUM = 5;
+
+    public static class GridView {
+        public static int COLUMN_NUM5 = 5;
+        public static int COLUMN_NUM7 = 7;
     }
 
     public static class API {
@@ -14,9 +16,9 @@ public class Constant {
         public static final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
         public static final String IMAGE_ORIGINAL_BASE_URL = "https://image.tmdb.org/t/p/original";
         public static final String LANGUAGE = "en-US";
-        public static int PAGE = 0;
         public static final boolean INCLUDE_ADULT = false;
         public static final boolean INCLUDE_VIDEO = false;
+        public static int PAGE = 0;
 
     }
 }

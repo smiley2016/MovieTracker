@@ -36,7 +36,7 @@
     <dimen name="logoipsum_marginTop">16dp</dimen>
     <dimen name="logoipsum_height" format="float" type="dimen">20.32dp</dimen>
     <dimen name="logoipsum_marginBottom" format="float" type="dimen">16dp</dimen>
-    <!--  /GenreSelectorFragment  -->
+    <!--  /GridView  -->
 
     <!--  Vertical GridView Element dimens  -->
     <!--  Description  -->

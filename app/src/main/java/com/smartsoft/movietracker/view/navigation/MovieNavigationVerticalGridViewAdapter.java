@@ -47,14 +47,12 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
     private Context ctx;
     private MovieNavigationPresenter presenter;
     private ArrayList<Genre> genres;
-    private Bundle bundle;
 
     MovieNavigationVerticalGridViewAdapter(ArrayList<Movie> movieList, Context ctx, MovieNavigationPresenter presenter, ArrayList<Genre> genres) {
         this.movieList = movieList;
         this.ctx = ctx;
         this.presenter = presenter;
         this.genres = genres;
-        this.bundle = new Bundle();
     }
 
     @NonNull
@@ -66,8 +64,8 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        holder.bind(movieList.get(position), ctx, presenter, bundle, genres);
-        if (position >= movieList.size() - 1 % Constant.GenreSelectorFragment.COLUMN_NUM) {
+        holder.bind(movieList.get(position), ctx, presenter, genres);
+        if (position >= movieList.size() - 1 % Constant.GridView.COLUMN_NUM5) {
             presenter.updateMovieNavigationGridView(ctx, genres);
         }
 
@@ -84,10 +82,6 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
     void updateMovieList(ArrayList<Movie> movies) {
         movieList.addAll(movies);
-    }
-
-    public Bundle getBundle() {
-        return bundle;
     }
 
 
@@ -132,7 +126,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
         }
 
 
-        void bind(Movie movie, Context ctx, MovieNavigationPresenter presenter, Bundle bundle, ArrayList<Genre> genres) {
+        void bind(Movie movie, Context ctx, MovieNavigationPresenter presenter, ArrayList<Genre> genres) {
 
 
             Glide.with(ctx).load(Constant.API.IMAGE_BASE_URL + movie.getPosterPath()).listener(new RequestListener<Drawable>() {
@@ -184,9 +178,10 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
                     isOpen = false;
                 } else {
                     isOpen = true;
+                    Bundle bundle = new Bundle();
                     bundle.putSerializable("movie", movie);
                     bundle.putSerializable(ctx.getString(R.string.genres), genres);
-                    FragmentNavigation.getInstance().showDetailPageFragment();
+                    FragmentNavigation.getInstance().showDetailPageFragment(bundle);
                 }
 
 

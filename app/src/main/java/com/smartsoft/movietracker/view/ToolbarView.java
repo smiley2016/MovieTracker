@@ -47,13 +47,7 @@ public class ToolbarView extends RelativeLayout {
 
     private void setOnClickListeners() {
 
-        search.setOnClickListener(view -> {
-            if (listener.getBundleSize() > 0) {
-                FragmentNavigation.getInstance().showMovieNavigationFragment();
-                return;
-            }
-            Toast.makeText(getContext(), R.string.no_selected_genres, Toast.LENGTH_SHORT).show();
-        });
+        search.setOnClickListener(view -> listener.onSearchButtonClicked());
 
         settings.setOnClickListener(view -> {
             ToolbarDialog dialog = new ToolbarDialog(listener);
