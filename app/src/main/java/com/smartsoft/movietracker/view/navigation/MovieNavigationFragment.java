@@ -95,7 +95,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         }
         genreTitle.replace(genreTitle.length() - 3, genreTitle.length() - 1, "");
 
-        super.setTitle(genreTitle.toString());
+        setTitle(genreTitle.toString());
     }
 
     private void startRecyclerViewAdapter(ArrayList<Movie> movies) {
@@ -121,7 +121,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         if (adapter != null) {
             adapter.clearAll();
         }
-        super.setToolbarSearchButtonVisibility(View.VISIBLE);
+        setToolbarSearchButtonVisibility(View.VISIBLE);
     }
 
 
