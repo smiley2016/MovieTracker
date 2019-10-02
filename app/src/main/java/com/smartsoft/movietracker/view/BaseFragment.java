@@ -45,12 +45,15 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
     private ObservableEmitter<String> urlStreamEmitter;
     private Drawable placeholderDrawable;
 
+    @Nullable
     @BindView(R.id.choose_textView)
     TextView text;
 
+    @Nullable
     @BindView(R.id.fragment_base_background)
     ImageView background;
 
+    @Nullable
     @BindView(R.id.base_toolbar)
     protected ToolbarView toolbarView;
 

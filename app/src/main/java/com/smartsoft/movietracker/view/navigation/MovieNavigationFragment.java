@@ -40,7 +40,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new MovieNavigationPresenter(this);
-        presenter.updateMovieNavigationGridView(getContext(), selectedGenres);
+
     }
 
     @Nullable
@@ -56,6 +56,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         setToolbarView(this);
         setToolbarSearchButtonVisibility(View.INVISIBLE);
         initializeViews();
+        presenter.updateMovieNavigationGridView(getContext(), selectedGenres);
         return rootView;
     }
 
@@ -81,6 +82,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     public void updateMovieNavigationGridView(ArrayList<Movie> movies) {
         if (adapter != null) {
             adapter.updateMovieList(movies);
+            adapter.notifyDataSetChanged();
         } else {
             onInitRecyclerViewAdapter(movies);
         }
@@ -128,7 +130,10 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     @Override
     public void onSortButtonClicked(Dialog dialog) {
         dialog.dismiss();
-        adapter.clearAll();
+        if(adapter != null){
+            adapter.clearAll();
+            adapter.notifyDataSetChanged();
+        }
         Constant.API.PAGE = 0;
         presenter.updateMovieNavigationGridView(getContext(), selectedGenres);
     }
@@ -137,5 +142,4 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     public void onSearchButtonClicked() {
 
     }
-
 }

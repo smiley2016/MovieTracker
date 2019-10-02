@@ -80,7 +80,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new PlayerPresenter(this);
-        vPresenter = new PlayerVerticalGridPresenter(rootView.getContext(), presenter, videos);
+        vPresenter = new PlayerVerticalGridPresenter(getContext(), presenter, videos);
     }
 
     @Nullable

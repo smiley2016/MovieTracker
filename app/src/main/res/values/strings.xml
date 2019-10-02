@@ -16,7 +16,7 @@
     <string name="logo">logo</string>
 
     <!--  GridView  -->
-    <string name="choose_genre_textView">Choose selectedGenres you want to Watch</string>
+    <string name="choose_genre_textView">Choose a genre you want to Watch</string>
     <string name="no_selected_genres">Please select at least a genre</string>
     <string name="verticalGridView_element_setScaleSizeTo">1.14</string>
     <string name="verticalGridView_element_normalScaleSize">1</string>
