@@ -15,13 +15,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ToolbarView extends RelativeLayout {
-
     @BindView(R.id.toolbar_settings)
     ImageView settings;
-
     @BindView(R.id.toolbar_search)
     ImageView search;
-
     private ToolbarListener listener;
 
     public ToolbarView(Context context) {

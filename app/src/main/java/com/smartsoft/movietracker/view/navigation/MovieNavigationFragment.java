@@ -28,12 +28,13 @@ import butterknife.ButterKnife;
 public class MovieNavigationFragment extends BaseFragment implements MovieNavigationPresenter.MovieNavigationInterface, ToolbarListener {
 
     public static String TAG = MovieNavigationFragment.class.getSimpleName();
-    private MovieNavigationVerticalGridViewAdapter adapter;
-    private MovieNavigationPresenter presenter;
-    private ArrayList<Genre> selectedGenres;
 
     @BindView(R.id.gridView_container)
     VerticalGridView verticalGridView;
+
+    private MovieNavigationVerticalGridViewAdapter adapter;
+    private MovieNavigationPresenter presenter;
+    private ArrayList<Genre> selectedGenres = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     }
 
     private void initializeViews(){
+
         verticalGridView.setNumColumns(Constant.GridView.COLUMN_NUM7);
         verticalGridView.setItemSpacing((int) rootView.getContext().getResources().getDimension(R.dimen.spacing));
         verticalGridView.setFocusDrawingOrderEnabled(true);
@@ -80,7 +82,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         if (adapter != null) {
             adapter.updateMovieList(movies);
         } else {
-            initRecyclerViewAdapter(movies);
+            onInitRecyclerViewAdapter(movies);
         }
 
 
@@ -102,7 +104,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         setTitle(genreTitle.toString());
     }
 
-    private void initRecyclerViewAdapter(ArrayList<Movie> movies) {
+    private void onInitRecyclerViewAdapter(ArrayList<Movie> movies) {
         adapter = new MovieNavigationVerticalGridViewAdapter(movies, getActivity(), presenter, selectedGenres);
         verticalGridView.setHasFixedSize(true);
         verticalGridView.setAdapter(adapter);
@@ -122,12 +124,6 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         }
         setToolbarSearchButtonVisibility(View.VISIBLE);
     }
-
-
-    public MovieNavigationPresenter getPresenter() {
-        return presenter;
-    }
-
 
     @Override
     public void onSortButtonClicked(Dialog dialog) {

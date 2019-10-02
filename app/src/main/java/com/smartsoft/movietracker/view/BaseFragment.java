@@ -37,19 +37,22 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
 
     private static final String TAG = BaseFragment.class.getName();
 
+
+
+
     protected View rootView;
 
     private ObservableEmitter<String> urlStreamEmitter;
     private Drawable placeholderDrawable;
-
-    @BindView(R.id.base_toolbar)
-    ToolbarView toolbarView;
 
     @BindView(R.id.choose_textView)
     TextView text;
 
     @BindView(R.id.fragment_base_background)
     ImageView background;
+
+    @BindView(R.id.base_toolbar)
+    protected ToolbarView toolbarView;
 
     protected void initEmitters() {
         Observable.create((ObservableOnSubscribe<String>) emitter -> urlStreamEmitter = emitter)
@@ -99,6 +102,7 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
 
     protected void initViews() {
         ButterKnife.bind(this, rootView);
+
     }
 
     @Override
