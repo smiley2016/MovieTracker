@@ -53,7 +53,7 @@ public class ToolbarView extends RelativeLayout {
         search.setOnClickListener(view -> listener.onSearchButtonClicked());
 
         settings.setOnClickListener(view -> {
-            ToolbarSettingsDialog dialog = new ToolbarSettingsDialog(listener);
+            ToolbarSettingsDialog dialog = new ToolbarSettingsDialog(listener, context);
             dialog.startToolbarSettingsDialog(getContext());
         });
     }

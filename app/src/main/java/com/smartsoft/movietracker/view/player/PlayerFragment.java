@@ -45,7 +45,7 @@ import at.huber.youtubeExtractor.YtFile;
 
 import static com.smartsoft.movietracker.utils.Utils.pxFromDp;
 
-public class PlayerFragment extends BaseFragment implements PlayerInterface.PlayerView {
+public class PlayerFragment extends BaseFragment implements PlayerInterface {
 
     private PlayerView playerView;
     private SimpleExoPlayer player;

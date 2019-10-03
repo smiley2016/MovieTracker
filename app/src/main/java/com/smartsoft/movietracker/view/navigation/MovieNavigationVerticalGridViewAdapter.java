@@ -29,6 +29,7 @@ import com.bumptech.glide.request.target.Target;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.model.movie.Movie;
+import com.smartsoft.movietracker.presenter.BackgroundPresenter;
 import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
@@ -40,19 +41,26 @@ import java.util.Iterator;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter<MovieNavigationVerticalGridViewAdapter.Holder> implements Serializable {
+public class MovieNavigationVerticalGridViewAdapter extends
+        RecyclerView.Adapter<MovieNavigationVerticalGridViewAdapter.Holder>
+        implements Serializable {
 
     private static final String TAG = MovieNavigationVerticalGridViewAdapter.class.getName();
     private ArrayList<Movie> movieList;
     private Context ctx;
     private MovieNavigationPresenter presenter;
     private ArrayList<Genre> selectedGenres;
+    private BackgroundPresenter backgroundPresenter;
 
-    MovieNavigationVerticalGridViewAdapter(ArrayList<Movie> movieList, Context ctx, MovieNavigationPresenter presenter, ArrayList<Genre> selectedGenres) {
+    MovieNavigationVerticalGridViewAdapter(ArrayList<Movie> movieList, Context ctx,
+                                           MovieNavigationPresenter presenter,
+                                           ArrayList<Genre> selectedGenres,
+                                           BackgroundPresenter backgroundPresenter) {
         this.movieList = movieList;
         this.ctx = ctx;
         this.presenter = presenter;
         this.selectedGenres = selectedGenres;
+        this.backgroundPresenter = backgroundPresenter;
     }
 
     @NonNull
@@ -64,7 +72,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        holder.bind(movieList.get(position), ctx, presenter, selectedGenres);
+        holder.bind(movieList.get(position), ctx, selectedGenres, backgroundPresenter);
         if (position >= movieList.size() - 1 % Constant.GridView.COLUMN_NUM5) {
             presenter.updateMovieNavigationGridView(ctx, selectedGenres);
         }
@@ -126,22 +134,36 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
         }
 
 
-        void bind(Movie movie, Context ctx, MovieNavigationPresenter presenter, ArrayList<Genre> selectedGenres) {
+        void bind(Movie movie, Context ctx,
+                  ArrayList<Genre> selectedGenres, BackgroundPresenter backgroundPresenter) {
 
 
-            Glide.with(ctx).load(Constant.API.IMAGE_BASE_URL + movie.getPosterPath()).listener(new RequestListener<Drawable>() {
-                @Override
-                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                    progressBar.setVisibility(View.GONE);
-                    return false;
-                }
+            Glide.with(ctx)
+                    .load(Constant.API.IMAGE_BASE_URL + movie.getPosterPath())
+                    .listener(
+                            new RequestListener<Drawable>() {
 
-                @Override
-                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                    progressBar.setVisibility(View.GONE);
-                    return false;
-                }
-            }).error(R.drawable.error).into(poster);
+                                @Override
+
+                                public boolean onLoadFailed(@Nullable GlideException e,
+                                                            Object model, Target<Drawable> target,
+                                                            boolean isFirstResource) {
+                                    progressBar.setVisibility(View.GONE);
+                                    return false;
+                                }
+
+                                @Override
+                                public boolean onResourceReady(Drawable resource,
+                                                               Object model,
+                                                               Target<Drawable> target,
+                                                               DataSource dataSource,
+                                                               boolean isFirstResource) {
+                                    progressBar.setVisibility(View.GONE);
+                                    return false;
+                                }
+                            })
+                    .error(R.drawable.error)
+                    .into(poster);
 
 
             layout.setOnFocusChangeListener((view, b) -> {
@@ -149,14 +171,17 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
                     poster.setOutlineProvider(new ViewOutlineProvider() {
                         @Override
                         public void getOutline(View view, Outline outline) {
-                            outline.setRoundRect(0, 0, (int) (view.getWidth() + curveRadius), view.getHeight(), curveRadius);
+                            outline.setRoundRect(
+                                    0,
+                                    0,
+                                    (int) (view.getWidth() + curveRadius),
+                                    view.getHeight(),
+                                    curveRadius);
                         }
                     });
                     poster.setClipToOutline(true);
-
-                    presenter.setBackground(movie.getBackdropPath());
                     Log.e(TAG, ctx.getString(R.string.CardViewOnFocusChangeListener));
-                    presenter.setBackground(movie.getBackdropPath());
+                    backgroundPresenter.setBackground(movie.getBackdropPath());
                     isOpen = false;
                 } else {
                     poster.setClipToOutline(false);

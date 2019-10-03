@@ -43,6 +43,7 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
     private Drawable placeholderDrawable;
 
     @BindView(R.id.base_toolbar)
+    @Nullable
     ToolbarView toolbarView;
 
     @BindView(R.id.choose_textView)
@@ -115,7 +116,10 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
 
 
     protected void setToolbarSearchButtonVisibility(int visibility) {
-        toolbarView.setVisibleSearchIcon(visibility);
+        if(toolbarView != null){
+            toolbarView.setVisibleSearchIcon(visibility);
+        }
+
     }
 
     protected void setToolbarView(ToolbarListener listener) {

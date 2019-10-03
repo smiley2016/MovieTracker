@@ -34,7 +34,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DetailPageFragment extends BaseFragment implements DetailPageInterface.DetailPageViewInterface {
+public class DetailPageFragment extends BaseFragment implements DetailPageInterface {
     private static final String TAG = DetailPageFragment.class.getName();
 
     private Movie movie;

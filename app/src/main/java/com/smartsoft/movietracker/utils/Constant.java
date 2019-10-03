@@ -21,4 +21,11 @@ public class Constant {
         public static int PAGE = 0;
 
     }
+
+    public static class Sort{
+        public static final String popularity = "popularity";
+        public static final String releaseDate = "release_date";
+        public static final String originalTitle = "original_title";
+        public static final String voteAverage = "vote_average";
+    }
 }

@@ -18,6 +18,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.smartsoft.movietracker.R;
+import com.smartsoft.movietracker.interfaces.DetailVideoGridInterface;
 import com.smartsoft.movietracker.model.video.Video;
 import com.smartsoft.movietracker.utils.Constant;
 
@@ -53,8 +54,8 @@ public class VideoHorizontalGridPresenter extends Presenter implements DetailVid
 
 
     @Override
-    public void startPlayerActivity(String videoId) {
-        mInterface.startPlayerActivity(videoId);
+    public void startPlayer(String videoId) {
+        mInterface.startPlayer(videoId);
     }
 
     class PresenterViewHolder extends ViewHolder {
@@ -73,25 +74,37 @@ public class VideoHorizontalGridPresenter extends Presenter implements DetailVid
         }
 
         public void bind(Video video) {
-            Glide.with(mContext).load(Constant.API.BASE_YOUTUBE_URL_FOR_PICTURE + video.getKey() + Constant.API.YOUTUBE_THUMBNAIL).listener(new RequestListener<Drawable>() {
-                @Override
-                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                    videoThumbnail.setImageDrawable(mContext.getDrawable(R.drawable.error));
-                    Log.e("3ss", String.valueOf(e));
-                    return false;
-                }
 
-                @Override
-                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                    return false;
-                }
-            }).into(videoThumbnail);
+            Glide.with(mContext)
+                    .load(Constant.API.BASE_YOUTUBE_URL_FOR_PICTURE
+                            + video.getKey()
+                            + Constant.API.YOUTUBE_THUMBNAIL)
+                    .listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e,
+                                                        Object model,
+                                                        Target<Drawable> target,
+                                                        boolean isFirstResource) {
+
+                                videoThumbnail.setImageDrawable(mContext.getDrawable(R.drawable.error));
+                                Log.e("3ss", String.valueOf(e));
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource,
+                                                           Object model,
+                                                           Target<Drawable> target,
+                                                           DataSource dataSource,
+                                                           boolean isFirstResource) {
+                                return false;
+                            }
+                        })
+                    .into(videoThumbnail);
 
             videoTitle.setText(video.getName());
 
-            layout.setOnClickListener(view -> {
-                startPlayerActivity(video.getId());
-            });
+            layout.setOnClickListener(view -> startPlayer(video.getId()));
         }
     }
 }

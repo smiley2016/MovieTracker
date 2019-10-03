@@ -12,9 +12,11 @@ import androidx.annotation.Nullable;
 import androidx.leanback.widget.VerticalGridView;
 
 import com.smartsoft.movietracker.R;
+import com.smartsoft.movietracker.interfaces.BackgroundManagerInterface;
 import com.smartsoft.movietracker.interfaces.ToolbarListener;
 import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.model.movie.Movie;
+import com.smartsoft.movietracker.presenter.BackgroundPresenter;
 import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.view.BaseFragment;
@@ -25,11 +27,12 @@ import java.util.Iterator;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieNavigationFragment extends BaseFragment implements MovieNavigationPresenter.MovieNavigationInterface, ToolbarListener {
+public class MovieNavigationFragment extends BaseFragment implements MovieNavigationPresenter.MovieNavigationInterface, ToolbarListener, BackgroundManagerInterface {
 
     public static String TAG = MovieNavigationFragment.class.getSimpleName();
     private MovieNavigationVerticalGridViewAdapter adapter;
     private MovieNavigationPresenter presenter;
+    private BackgroundPresenter backgroundPresenter;
     private ArrayList<Genre> selectedGenres;
 
     @BindView(R.id.gridView_container)
@@ -38,6 +41,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        backgroundPresenter = new BackgroundPresenter(this);
         presenter = new MovieNavigationPresenter(this);
         presenter.updateMovieNavigationGridView(getContext(), selectedGenres);
     }
@@ -87,7 +91,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     }
 
     @Override
-    public void setBackground(String path) {
+    public void setBackground(String path){
         super.setBackground(path);
     }
 
@@ -103,7 +107,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     }
 
     private void initRecyclerViewAdapter(ArrayList<Movie> movies) {
-        adapter = new MovieNavigationVerticalGridViewAdapter(movies, getActivity(), presenter, selectedGenres);
+        adapter = new MovieNavigationVerticalGridViewAdapter(movies, getActivity(), presenter, selectedGenres, backgroundPresenter);
         verticalGridView.setHasFixedSize(true);
         verticalGridView.setAdapter(adapter);
     }

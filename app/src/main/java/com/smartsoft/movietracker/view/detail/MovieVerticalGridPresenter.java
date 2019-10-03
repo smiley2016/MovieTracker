@@ -25,7 +25,9 @@ public class MovieVerticalGridPresenter extends Presenter {
     private ArrayList<String> currentGenres;
     private DetailPagePresenter detailPagePresenter;
 
-    MovieVerticalGridPresenter(Context mContext, ArrayList<String> currentGenres, DetailPagePresenter detailPagePresenter) {
+    MovieVerticalGridPresenter(Context mContext,
+                               ArrayList<String> currentGenres,
+                               DetailPagePresenter detailPagePresenter) {
         this.mContext = mContext;
         this.currentGenres = currentGenres;
         this.detailPagePresenter = detailPagePresenter;
@@ -84,13 +86,11 @@ public class MovieVerticalGridPresenter extends Presenter {
             }
             genreNames.replace(genreNames.length() - 2, genreNames.length() - 1, "");
 
-            movie_description.setText(String.format("%s | Year %s | IMDb %s", genreNames, movie.getReleaseDate(), movie.getVoteAverage()));
-            plot.setText(movie.getOverview());
+            movie_description.setText(String.format("%s | Year %s | IMDb %s",
+                    genreNames, movie.getReleaseDate(),
+                    movie.getVoteAverage()));
 
-//            ConstraintSet constraintSet = new ConstraintSet();
-//            constraintSet.clone(constraintLayout);
-//            constraintSet.connect(R.id.add_watchlist_button, ConstraintSet.BASELINE, R.id.detail_movie_plot, ConstraintSet.BASELINE);
-//            constraintSet.applyTo(constraintLayout);
+            plot.setText(movie.getOverview());
 
             expand.requestFocus();
 

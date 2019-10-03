@@ -12,16 +12,16 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class DetailPagePresenter implements DetailPageInterface.DetailPagePresenterInterface {
+public class DetailPagePresenter {
     private static final String TAG = DetailPagePresenter.class.getName();
 
-    private DetailPageInterface.DetailPageViewInterface detailPageViewInterface;
+    private DetailPageInterface detailPageViewInterface;
 
-    public DetailPagePresenter(DetailPageInterface.DetailPageViewInterface detailPageViewInterface) {
+    public DetailPagePresenter(DetailPageInterface detailPageViewInterface) {
         this.detailPageViewInterface = detailPageViewInterface;
     }
 
-    @Override
+
     public void loadData(int movieId) {
         Observable.zip(
                 ApiController.getInstance().getCast(movieId),
@@ -54,7 +54,7 @@ public class DetailPagePresenter implements DetailPageInterface.DetailPagePresen
                 });
     }
 
-    @Override
+
     public void backPressed() {
         detailPageViewInterface.backPressed();
     }

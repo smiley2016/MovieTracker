@@ -14,6 +14,7 @@ import androidx.leanback.widget.Presenter;
 import androidx.leanback.widget.SinglePresenterSelector;
 
 import com.smartsoft.movietracker.R;
+import com.smartsoft.movietracker.interfaces.DetailVideoGridInterface;
 import com.smartsoft.movietracker.model.video.Video;
 import com.smartsoft.movietracker.model.video.VideoList;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
@@ -27,12 +28,10 @@ public class VideoVerticalGridPresenter extends Presenter implements DetailVideo
 
     private static final String TAG = VideoVerticalGridPresenter.class.getName();
     private Context mContext;
-    private Bundle bundle;
     private ArrayList<Video> videos;
 
-    public VideoVerticalGridPresenter(Context mContext) {
+    VideoVerticalGridPresenter(Context mContext) {
         this.mContext = mContext;
-        this.bundle = new Bundle();
         this.videos = new ArrayList<>();
     }
 
@@ -54,14 +53,15 @@ public class VideoVerticalGridPresenter extends Presenter implements DetailVideo
     }
 
     @Override
-    public void startPlayerActivity(String videoId) {
+    public void startPlayer(String videoId) {
         int playIndex = getPositionOfVideo(videoId);
+        Bundle bundle = new Bundle();
         bundle.putInt(mContext.getString(R.string.playIndex), playIndex);
         bundle.putSerializable(mContext.getString(R.string.videos), videos);
         FragmentNavigation.getInstance().showPlayerFragment(bundle);
     }
 
-    public int getPositionOfVideo(String videoId) {
+    private int getPositionOfVideo(String videoId) {
         for (int i = 0; i < videos.size(); ++i) {
             if (videos.get(i).getId().equals(videoId)) {
                 return i;

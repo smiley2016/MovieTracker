@@ -66,14 +66,8 @@ public class MovieNavigationPresenter {
 
     }
 
-    public void setBackground(String path) {
-        movieNavigationInterface.setBackground(path);
-    }
-
 
     public interface MovieNavigationInterface {
         void updateMovieNavigationGridView(ArrayList<Movie> movies);
-
-        void setBackground(String path);
     }
 }

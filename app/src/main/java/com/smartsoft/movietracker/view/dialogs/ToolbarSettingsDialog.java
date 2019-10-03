@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.interfaces.ToolbarListener;
+import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.SharedPreferences;
 
 import butterknife.BindView;
@@ -29,8 +30,11 @@ public class ToolbarSettingsDialog {
     @BindView(R.id.switch_order_by)
     Switch orderBy;
 
-    public ToolbarSettingsDialog(ToolbarListener listener) {
+    private Context context;
+
+    public ToolbarSettingsDialog(ToolbarListener listener, Context context) {
         this.listener = listener;
+        this.context = context;
     }
 
     public void startToolbarSettingsDialog(Context ctx) {
@@ -63,9 +67,9 @@ public class ToolbarSettingsDialog {
 
     private void setOrder(Switch orderBy, SharedPreferences orderSp) {
         if (orderBy.isChecked()) {
-            orderSp.writeOnStorage(".desc");
+            orderSp.writeOnStorage(context.getString(R.string.desc));
         } else {
-            orderSp.writeOnStorage(".asc");
+            orderSp.writeOnStorage(context.getString(R.string.asc));
         }
     }
 
@@ -79,26 +83,26 @@ public class ToolbarSettingsDialog {
     private void updateSharedPrefForSort(int checked, SharedPreferences sortSp) {
         switch (checked) {
             case R.id.radio_button_title: {
-                sortSp.writeOnStorage("original_title");
-                Log.e(TAG, "startToolbarSettingsDialog: " + checked);
+                sortSp.writeOnStorage(context.getString(R.string.originalTitle));
+                Log.e(TAG, context.getString(R.string.startToolbarSettingsDialog) + checked);
                 isChanged = true;
                 break;
             }
             case R.id.radio_button_rating: {
-                sortSp.writeOnStorage("popularity");
-                Log.e(TAG, "startToolbarSettingsDialog: " + checked);
+                sortSp.writeOnStorage(context.getString(R.string.popularity));
+                Log.e(TAG, context.getString(R.string.startToolbarSettingsDialog) + checked);
                 isChanged = true;
                 break;
             }
             case R.id.radio_button_release_date: {
-                sortSp.writeOnStorage("release_date");
-                Log.e(TAG, "startToolbarSettingsDialog: " + checked);
+                sortSp.writeOnStorage(context.getString(R.string.releaseDate));
+                Log.e(TAG, context.getString(R.string.startToolbarSettingsDialog) + checked);
                 isChanged = true;
                 break;
             }
             case R.id.radio_button_vote_average: {
-                sortSp.writeOnStorage("vote_average");
-                Log.e(TAG, "startToolbarSettingsDialog: " + checked);
+                sortSp.writeOnStorage(context.getString(R.string.voteAverage));
+                Log.e(TAG, context.getString(R.string.startToolbarSettingsDialog) + checked);
                 isChanged = true;
                 break;
             }
@@ -107,7 +111,7 @@ public class ToolbarSettingsDialog {
 
     private void setOrderBySwitchWithSharedPref(SharedPreferences orderSp) {
         String value = orderSp.ReadFromStorage();
-        if (value.equals(".asc")) {
+        if (value.equals(context.getString(R.string.asc))) {
             orderBy.setChecked(false);
         } else {
             orderBy.setChecked(true);
@@ -119,25 +123,26 @@ public class ToolbarSettingsDialog {
         String sort = sp.ReadFromStorage();
 
         switch (sort) {
-            case "popularity": {
+            case Constant.Sort.popularity: {
                 radioGroup.check(R.id.radio_button_rating);
                 break;
             }
-            case "vote_average": {
+            case Constant.Sort.voteAverage: {
                 radioGroup.check(R.id.radio_button_vote_average);
                 break;
             }
-            case "release_date": {
+            case Constant.Sort.releaseDate: {
                 radioGroup.check(R.id.radio_button_release_date);
                 break;
             }
-            case "original_title": {
+            case Constant.Sort.originalTitle: {
                 radioGroup.check(R.id.radio_button_title);
                 break;
             }
             default: {
-                Toast.makeText(context, "Sort hiba", Toast.LENGTH_SHORT).show();
-                Log.e(TAG, "setActiveButtonWithSharedPref: " + sort);
+
+                Toast.makeText(context, R.string.sortError, Toast.LENGTH_SHORT).show();
+                Log.e(TAG, context.getString(R.string.setActiveButtonWithSharedPref) + sort);
                 break;
             }
         }
