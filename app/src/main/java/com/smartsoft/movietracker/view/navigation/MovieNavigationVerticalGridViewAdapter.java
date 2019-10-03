@@ -66,7 +66,7 @@ public class MovieNavigationVerticalGridViewAdapter extends
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(ctx).inflate(R.layout.movie_element_card, parent, false);
+        View view = LayoutInflater.from(ctx).inflate(R.layout.movie_element, parent, false);
         return new Holder(view);
     }
 

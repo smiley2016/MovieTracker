@@ -40,7 +40,7 @@ public class GenreSelectorVerticalGridViewAdapter extends RecyclerView.Adapter<G
     @NonNull
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.genre_element_card, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.genre_element, parent, false);
         return new RecyclerViewHolder(view);
     }
 

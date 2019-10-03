@@ -2,10 +2,7 @@ package com.smartsoft.movietracker.view.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.text.Layout;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -45,7 +42,7 @@ public class ReviewDialog {
 
     public void startReviewDialog() {
         final Dialog dialog = new Dialog(context);
-        dialog.setContentView(R.layout.review_description_dialog);
+        dialog.setContentView(R.layout.review_dialog);
 
         initViews(dialog);
 

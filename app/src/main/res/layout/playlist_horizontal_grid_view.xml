@@ -9,13 +9,13 @@
     <androidx.leanback.widget.HorizontalGridView
         android:id="@+id/recommended_videos_gridView"
         android:layout_width="match_parent"
-        android:layout_height="158dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="@dimen/playlist_horizontal_grid_view_height"
+        android:layout_marginTop="@dimen/detail_movie_layout_watchlist_button_marginStart"
         android:clipToPadding="false"
         android:focusable="false"
-        android:paddingStart="48dp"
-        android:paddingTop="8dp"
-        android:paddingEnd="0dp"
+        android:paddingStart="@dimen/detail_movie_layout_movie_description_marginStart"
+        android:paddingTop="@dimen/detail_movie_layout_watchlist_button_marginStart"
+        android:paddingEnd="@dimen/playlist_horizontal_grid_view_paddingEnd"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -5,5 +5,7 @@
     <color name="white">#FFFFFF</color>
     <color name="base_app_color">#242424</color>
     <color name="backContrast">#0AFFE1</color>
+    <color name="light_grey">#EEEEEE</color>
+    <color name="custom_black">#FF000000</color>
 
 </resources>

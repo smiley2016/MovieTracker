@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/cast_section_layout"
-    android:layout_width="960dp"
-    android:layout_height="224dp"
-    android:layout_marginTop="68dp">
+    android:layout_width="@dimen/cast_layout_width"
+    android:layout_height="@dimen/cast_layout_height"
+    android:layout_marginTop="@dimen/cast_layout_marginTop">
 
     <TextView
         android:id="@+id/cast_TextView"
-        android:layout_width="69dp"
-        android:layout_height="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="843dp"
+        android:layout_marginStart="@dimen/cast_layout_text_view_marginStart"
+        android:layout_marginTop="@dimen/cast_layout_text_view_marginTop"
+        android:layout_marginEnd="@dimen/cast_layout_text_view_marginEnd"
         android:fontFamily="sans-serif"
-        android:text="Cast"
-        android:textSize="20sp"
+        android:text="@string/cast"
+        android:textSize="@dimen/cast_layout_text_view_size"
         android:textStyle="bold" />
 
     <androidx.leanback.widget.HorizontalGridView
         android:id="@+id/cast_actors_grid_view"
-        android:layout_width="912dp"
-        android:layout_height="140dp"
-        android:paddingTop="8dp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
+        android:layout_width="@dimen/cast_layout_horizontal_grid_view_width"
+        android:layout_height="@dimen/cast_layout_horizontal_grid_view_height"
+        android:paddingTop="@dimen/cast_layout_horizontal_grid_view_paddingTop"
+        android:paddingStart="@dimen/cast_layout_horizontal_grid_view_paddingTop"
+        android:paddingEnd="@dimen/cast_layout_horizontal_grid_view_paddingTop"
         android:clipToPadding="false"
         android:layout_below="@id/cast_TextView"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginStart="@dimen/cast_layout_horizontal_grid_view_cast_layout_horizontal_grid_view_marginStart"
+        android:layout_marginTop="@dimen/cast_layout_horizontal_grid_view_marginTop"
+        android:layout_marginBottom="@dimen/cast_layout_horizontal_grid_view_marginBottom" />
 
 </RelativeLayout>

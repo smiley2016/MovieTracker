@@ -2,19 +2,19 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:src="http://schemas.android.com/tools"
-    android:layout_width="512dp"
+    android:layout_width="@dimen/review_dialog_width"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="#242424"
+    android:background="@color/base_app_color"
     android:focusable="false"
     android:orientation="vertical">
 
 
     <Button
         android:id="@+id/dialog_close_button"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="@dimen/review_dialog_close_button_width"
+        android:layout_height="@dimen/review_dialog_close_button_height"
+        android:layout_marginEnd="@dimen/review_dialog_close_button_marginEnd"
         android:background="@drawable/toolbar_component_background_selector"
         android:focusable="true"
         android:foreground="@drawable/dialog_close_button"
@@ -42,8 +42,8 @@
             android:focusable="false"
             android:fontFamily="sans-serif"
             android:gravity="start"
-            android:padding="16dp"
-            android:textSize="14sp"
+            android:padding="@dimen/review_dialog_comment_padding"
+            android:textSize="@dimen/review_dialog_comment_size"
 
             />
 
@@ -52,15 +52,15 @@
 
     <TextView
         android:id="@+id/dialog_reviewer"
-        android:layout_width="168dp"
-        android:layout_height="24dp"
+        android:layout_width="@dimen/review_dialog_reviewer_width"
+        android:layout_height="@dimen/review_dialog_reviewer_height"
         android:layout_below="@id/comment_scroll_view"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/review_dialog_reviewer_marginTop"
         android:focusable="false"
         android:fontFamily="Roman"
         android:gravity="start"
         android:text="@string/review_by"
-        android:textSize="12sp"
+        android:textSize="@dimen/review_dialog_reviewer_size"
         app:layout_constraintBottom_toTopOf="@id/comment_scroll_view"
         app:layout_constraintEnd_toStartOf="@id/dialog_close_button"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/cast_element_layout"
-    android:layout_width="96dp"
-    android:layout_height="140dp"
+    android:layout_width="@dimen/cast_element_width"
+    android:layout_height="@dimen/cast_element_height"
     android:focusable="true"
     android:clipToPadding="false"
     android:stateListAnimator="@animator/cast_element_animator">
@@ -10,35 +10,35 @@
 
     <ImageView
         android:id="@+id/actor_picture"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
+        android:layout_width="@dimen/cast_element_picture_width_height"
+        android:layout_height="@dimen/cast_element_picture_width_height"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        />
+        android:contentDescription="@string/actorpicture" />
 
     <ProgressBar
         android:id="@+id/cast_element_progress_bar"
-        android:layout_width="88dp"
-        android:layout_height="88dp"
+        android:layout_width="@dimen/cast_element_progress_bar_width_height"
+        android:layout_height="@dimen/cast_element_progress_bar_width_height"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
 
     <TextView
         android:id="@+id/actor_name"
-        android:layout_width="96dp"
-        android:layout_height="52dp"
+        android:layout_width="@dimen/cast_element_actor_name_width"
+        android:layout_height="@dimen/cast_element_actor_name_height"
         android:layout_below="@id/actor_picture"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="@dimen/cast_element_actor_name_margin"
+        android:layout_marginEnd="@dimen/cast_element_actor_name_margin"
+        android:layout_marginBottom="@dimen/cast_element_actor_name_margin"
         android:fontFamily="sans-serif"
         android:gravity="center"
-        android:textColor="#EEEEEE"
-        android:textSize="10sp"
+        android:textColor="@color/light_grey"
+        android:textSize="@dimen/cast_element_actor_name_text_size"
         android:textStyle="bold" />
 
 

@@ -48,14 +48,14 @@
     <string name="playIndex">playIndex</string>
     <string name="YoutubeBaseUrl">https://youtube.com/watch?v=%s</string>
     <string name="zero">0</string>
-    <string name="cast">CAST</string>
+    <string name="cast">Cast</string>
     <string name="videos">Videos</string>
     <string name="selectedGenres">selectedGenres</string>
     <string name="no_internet_connection">No internet Connection</string>
     <string name="internet_connected">Internet connected</string>
     <string name="no_internet_connection_please_check_your_internet_cable_plugged_in_your_device_or_if_you_are_using_wifi_check_if_it_works_correctly">No internet Connection, please check your internet cable plugged in your device or if you are using wifi check if it works correctly!</string>
     <string name="try_again">Try Again</string>
-    <string name="exit_application">Exit Application</string>
+    <string name="exit_application">Exit</string>
     <string name="movie">movie</string>
     <string name="genres">genres</string>
     <string name="desc">.desc</string>
@@ -70,6 +70,20 @@
     <string name="review_by">Review by</string>
     <string name="year">Year</string>
     <string name="imdb">IMDb</string>
+    <string name="actorpicture">actorPicture</string>
+    <string name="backgroundImage">backGroundImage</string>
+    <string name="bottom_overlay">bottom_overlay</string>
+    <string name="background_overlay">background_overlay</string>
+    <string name="genre_image_view">genre_image_view</string>
+    <string name="select_icon">select_icon</string>
+    <string name="star_icon">star_icon</string>
+    <string name="movie_poster">movie_poster</string>
+    <string name="exo_prev">exo_prev</string>
+    <string name="exo_rew">exo_rew</string>
+    <string name="exo_pause">exo_pause</string>
+    <string name="exo_play">exo_play</string>
+    <string name="exo_ffwd">exo_ffwd</string>
+    <string name="exo_next">exo_next</string>
 
 
 </resources>
