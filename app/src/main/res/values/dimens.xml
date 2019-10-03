@@ -41,10 +41,10 @@
     <!--  Vertical GridView Element dimens  -->
     <!--  Description  -->
 
-    <dimen name="genre_description_marginStart">5dp</dimen>
-    <dimen name="genre_description_marginTop">5dp</dimen>
-    <dimen name="genre_description_marginEnd">5dp</dimen>
-    <dimen name="genre_description_marginBottom">74dp</dimen>
+    <dimen name="genre_description_marginStart">8dp</dimen>
+    <dimen name="genre_description_marginTop">8dp</dimen>
+    <dimen name="genre_description_marginEnd">8dp</dimen>
+    <dimen name="genre_description_marginBottom">8dp</dimen>
 
     <!--  Select icon  -->
 

@@ -48,11 +48,10 @@
         android:layout_marginStart="@dimen/genre_description_marginStart"
         android:layout_marginTop="@dimen/genre_description_marginTop"
         android:layout_marginEnd="@dimen/genre_description_marginEnd"
-        android:layout_marginBottom="@dimen/genre_description_marginBottom"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/genre_image_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.169" />
+         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
