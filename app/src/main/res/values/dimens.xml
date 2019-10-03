@@ -74,5 +74,8 @@
     <dimen name="spacing">8dp</dimen>
     <dimen name="image">24dp</dimen>
     <dimen name="numColumns">7</dimen>
+    <dimen name="cast_dialog_image_margin_start_end">100dp</dimen>
+    <dimen name="cast_dialog_close_margin">16dp</dimen>
+    <dimen name="cast_dialog_text_view_margin">8dp</dimen>
 
 </resources>

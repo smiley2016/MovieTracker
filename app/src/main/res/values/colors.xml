@@ -3,7 +3,7 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="overLayColor">#40000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="rounded_square_color">#242424</color>
+    <color name="base_app_color">#242424</color>
     <color name="backContrast">#0AFFE1</color>
 
 </resources>

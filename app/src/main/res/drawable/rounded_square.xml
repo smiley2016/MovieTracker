@@ -5,5 +5,5 @@
     <size
         android:width="@dimen/gridComponentSize"
         android:height="@dimen/gridComponentSize" />
-    <solid android:color="@color/rounded_square_color" />
+    <solid android:color="@color/base_app_color" />
 </shape>
