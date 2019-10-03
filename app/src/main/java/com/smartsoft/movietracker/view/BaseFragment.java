@@ -107,7 +107,9 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
 
     @Override
     public void setTitle(String genreTitle) {
-        text.setText(genreTitle);
+        if (text != null) {
+            text.setText(genreTitle);
+        }
     }
 
     @Override
@@ -126,7 +128,9 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
     }
 
     protected void setToolbarView(ToolbarListener listener) throws NullPointerException {
-        toolbarView.setListener(listener);
+        if (toolbarView != null) {
+            toolbarView.setListener(listener);
+        }
     }
 
     public abstract void InternetConnected();

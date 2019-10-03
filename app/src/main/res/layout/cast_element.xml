@@ -4,6 +4,7 @@
     android:layout_width="96dp"
     android:layout_height="140dp"
     android:focusable="true"
+    android:clipToPadding="false"
     android:stateListAnimator="@animator/cast_element_animator">
 
 
@@ -14,10 +15,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:paddingStart="8dp"
-        android:paddingTop="8dp"
-        android:paddingEnd="8dp"
-        android:paddingBottom="8dp" />
+        />
 
     <ProgressBar
         android:id="@+id/cast_element_progress_bar"

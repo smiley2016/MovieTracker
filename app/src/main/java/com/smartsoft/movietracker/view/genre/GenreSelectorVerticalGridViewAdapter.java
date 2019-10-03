@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.utils.Utils;
@@ -78,7 +79,7 @@ public class GenreSelectorVerticalGridViewAdapter extends RecyclerView.Adapter<G
         void bind(Genre genre, int position) {
             genreNameTextView.setText(genreList.get(position).getName());
 
-            Glide.with(mContext).load(R.drawable.background).into(genreImageView);
+            Glide.with(mContext).load(R.mipmap.genre).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(genreImageView);
 
             layout.setOnClickListener(view -> manageGenreToList(genreList.get(position), position));
 
