@@ -166,7 +166,7 @@ public class MovieNavigationVerticalGridViewAdapter extends
 
             layout.setOnFocusChangeListener((view, b) -> {
                 if (b) {
-                    if(getAdapterPosition() >= (movieList.size()-1) % Constant.GridView.COLUMN_NUM7){
+                    if(getAdapterPosition() >= (movieList.size()-1) - Constant.GridView.COLUMN_NUM7){
                         presenter.updateMovieNavigationGridView(ctx, selectedGenres);
                     }
 

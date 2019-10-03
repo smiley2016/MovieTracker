@@ -62,6 +62,7 @@
         android:id="@+id/base_toolbar"
         android:layout_width="match_parent"
         android:layout_height="85dp"
+        android:clipToPadding="false"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"

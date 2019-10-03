@@ -83,6 +83,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     public void updateMovieNavigationGridView(ArrayList<Movie> movies) {
         if (adapter != null) {
             adapter.updateMovieList(movies);
+            adapter.notifyDataSetChanged();
         } else {
             onInitRecyclerViewAdapter(movies);
         }
@@ -130,10 +131,10 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         dialog.dismiss();
         if(adapter != null){
             adapter.clearAll();
-            adapter.notifyDataSetChanged();
         }
         Constant.API.PAGE = 0;
         presenter.updateMovieNavigationGridView(getContext(), selectedGenres);
+
     }
 
     @Override
