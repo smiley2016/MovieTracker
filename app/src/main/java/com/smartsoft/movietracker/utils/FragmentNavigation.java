@@ -22,8 +22,6 @@ public class FragmentNavigation {
     private static FragmentNavigation sInstance;
     private FragmentManager mFragmentManager;
     private int mMainActivityFragmentContainer;
-    private Bundle bundle;
-    private Context ctx;
 
     public static FragmentNavigation getInstance() {
         if (sInstance == null) {
@@ -33,46 +31,44 @@ public class FragmentNavigation {
         return sInstance;
     }
 
+    private Fragment newInstance(Fragment fragment, Bundle bundle){
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     private FragmentNavigation() {
         mMainActivityFragmentContainer = R.id.fragment_holder;
     }
 
     public void initAttributes(Activity activity) {
         mFragmentManager = ((MainActivity) activity).getSupportFragmentManager();
-        this.ctx = activity;
-        bundle = new Bundle();
     }
 
 
-    public void showGenreSelectorFragment() {
-        Fragment myCurrentFragment = Fragment.instantiate(ctx, GenreSelectorFragment.class.getName(), null);
+    public void showGenreSelectorFragment(Context context) {
+        Fragment myCurrentFragment = newInstance(new GenreSelectorFragment(), null);
         replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, false);
-        Log.e(TAG, ctx.getString(R.string.genreSelectorFragment) + myCurrentFragment);
+        Log.e(TAG, context.getString(R.string.genreSelectorFragment) + myCurrentFragment);
     }
 
 
     public void showMovieNavigationFragment(Bundle bundle) {
-
-        Fragment myCurrentFragment = Fragment.instantiate(ctx, MovieNavigationFragment.class.getName(), bundle);
+        Fragment myCurrentFragment = newInstance(new MovieNavigationFragment(), bundle);
         replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, true);
     }
 
     public void showDetailPageFragment(Bundle bundle) {
-        Fragment myCurrentFragment = Fragment.instantiate(ctx, DetailPageFragment.class.getName(), bundle);
+        Fragment myCurrentFragment = newInstance(new DetailPageFragment(), bundle);
         replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, true);
     }
 
     public void showPlayerFragment(Bundle bundle) {
-        Fragment myCurrentFragment;
-        this.bundle = bundle;
-
-        myCurrentFragment = Fragment.instantiate(ctx, PlayerFragment.class.getName(), this.bundle);
+        Fragment myCurrentFragment = newInstance(new PlayerFragment(), bundle);
         replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, true);
     }
 
-    public void showNoInternetFragment() {
-        Fragment myCurrentFragment;
-        myCurrentFragment = Fragment.instantiate(ctx, NoInternetFragment.class.getName(), bundle);
+    void showNoInternetFragment() {
+        Fragment myCurrentFragment = newInstance(new NoInternetFragment(), null);
         addFragment(myCurrentFragment);
     }
 

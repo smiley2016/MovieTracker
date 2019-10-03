@@ -21,7 +21,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FragmentNavigation.getInstance().initAttributes(this);
-        FragmentNavigation.getInstance().showGenreSelectorFragment();
+        FragmentNavigation.getInstance().showGenreSelectorFragment(this);
         initNetworkHandler();
         networkHandler();
     }

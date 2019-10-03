@@ -55,7 +55,7 @@ public class ApiController {
 
 
     public Observable<ArrayList<Genre>> getAllGenres() {
-        return genreApiService.getGenres()
+        return genreApiService.getGenres(Constant.API.API_KEY, Constant.API.LANGUAGE)
                 .map(genreResultResponse -> {
                     Log.e(TAG, genreResultResponse.toString());
                     assert genreResultResponse.body() != null;
