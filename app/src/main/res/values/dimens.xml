@@ -59,10 +59,10 @@
     <dimen name="gridComponentSize">163dp</dimen>
     <dimen name="gridComponentImageSizeWidth" format="float">125dp</dimen>
     <dimen name="gridComponentImageSizeHeight" format="float">100dp</dimen>
-    <dimen name="gridView_element_image_marginStart">19dp</dimen>
-    <dimen name="gridView_element_image_marginEnd">19dp</dimen>
-    <dimen name="gridView_element_image_marginTop" format="float" type="dimen">31.5dp</dimen>
-    <dimen name="gridView_element_image_marginBottom" format="float" type="dimen">31.5dp</dimen>
+    <dimen name="gridView_element_image_marginStart">16dp</dimen>
+    <dimen name="gridView_element_image_marginEnd">16dp</dimen>
+    <dimen name="gridView_element_image_marginTop" format="float" type="dimen">8dp</dimen>
+    <dimen name="gridView_element_image_marginBottom" format="float" type="dimen">8dp</dimen>
 
     <!--  Element Background  -->
     <dimen name="rounded_square_radius">12dp</dimen>

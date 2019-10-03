@@ -12,18 +12,19 @@
 
     <ImageView
         android:id="@+id/genre_image_view"
-        android:layout_width="@dimen/gridComponentImageSizeWidth"
-        android:layout_height="@dimen/gridComponentImageSizeHeight"
+        android:layout_width="90dp"
+        android:layout_height="80dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/gridView_element_image_marginStart"
         android:layout_marginTop="@dimen/gridView_element_image_marginTop"
         android:layout_marginEnd="@dimen/gridView_element_image_marginEnd"
         android:layout_marginBottom="@dimen/gridView_element_image_marginBottom"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/genre_description"
+        app:layout_constraintBottom_toTopOf="@id/selected_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+         />
 
     <ImageView
         android:id="@+id/selected_icon"
