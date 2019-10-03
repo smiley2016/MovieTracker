@@ -86,9 +86,9 @@ public class MovieVerticalGridPresenter extends Presenter {
             }
             genreNames.replace(genreNames.length() - 2, genreNames.length() - 1, "");
 
-            movie_description.setText(String.format("%s | Year %s | IMDb %s",
-                    genreNames, movie.getReleaseDate(),
-                    movie.getVoteAverage()));
+            movie_description.setText(String.format("%s | %s %s | %s %s",
+                    genreNames,mContext.getString(R.string.year), movie.getReleaseDate(),
+                    mContext.getString(R.string.imdb),movie.getVoteAverage()));
 
             plot.setText(movie.getOverview());
 

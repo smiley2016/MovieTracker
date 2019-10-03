@@ -68,6 +68,8 @@
     <string name="sortError">Sort error</string>
     <string name="setActiveButtonWithSharedPref">setActiveButtonWithSharedPref:</string>
     <string name="review_by">Review by</string>
+    <string name="year">Year</string>
+    <string name="imdb">IMDb</string>
 
 
 </resources>
