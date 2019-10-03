@@ -2,7 +2,6 @@ package com.smartsoft.movietracker.view.genre;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,12 +26,11 @@ import butterknife.ButterKnife;
 
 public class GenreSelectorFragment extends BaseFragment implements GenreSelectorPresenter.GenreSelectorInterface, ToolbarListener {
 
+    @BindView(R.id.gridView_container)
+    VerticalGridView verticalGridView;
 
     private GenreSelectorVerticalGridViewAdapter adapter;
     private static final String TAG = GenreSelectorFragment.class.getSimpleName();
-
-    @BindView(R.id.gridView_container)
-    VerticalGridView verticalGridView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

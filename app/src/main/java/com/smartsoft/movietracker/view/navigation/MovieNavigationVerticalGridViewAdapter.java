@@ -73,9 +73,6 @@ public class MovieNavigationVerticalGridViewAdapter extends
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         holder.bind(movieList.get(position), ctx, selectedGenres, backgroundPresenter);
-        if (position >= movieList.size() - 1 % Constant.GridView.COLUMN_NUM5) {
-            presenter.updateMovieNavigationGridView(ctx, selectedGenres);
-        }
 
     }
 
@@ -93,7 +90,7 @@ public class MovieNavigationVerticalGridViewAdapter extends
     }
 
 
-    static class Holder extends RecyclerView.ViewHolder {
+    class Holder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.poster)
         ImageView poster;
@@ -137,6 +134,9 @@ public class MovieNavigationVerticalGridViewAdapter extends
         void bind(Movie movie, Context ctx,
                   ArrayList<Genre> selectedGenres, BackgroundPresenter backgroundPresenter) {
 
+            if(getAdapterPosition() >= (movieList.size()-1) % Constant.GridView.COLUMN_NUM7){
+                presenter.updateMovieNavigationGridView(ctx, selectedGenres);
+            }
 
             Glide.with(ctx)
                     .load(Constant.API.IMAGE_BASE_URL + movie.getPosterPath())
@@ -225,8 +225,13 @@ public class MovieNavigationVerticalGridViewAdapter extends
 
             title.setText(movie.getTitle());
 
-            String[] releaseDateList;
-            releaseDateList = movie.getReleaseDate().split("-");
+            String[] releaseDateList = new String[3];
+            if(movie.getReleaseDate() != null){
+                releaseDateList = movie.getReleaseDate().split("-");
+            }else{
+                releaseDateList[0] = "";
+            }
+
 
             releaseDate.setText(releaseDateList[0]);
 

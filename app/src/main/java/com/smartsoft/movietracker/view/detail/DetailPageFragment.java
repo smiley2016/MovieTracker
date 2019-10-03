@@ -102,6 +102,8 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
 
         }
 
+
+
         objectAdapter = new ArrayObjectAdapter();
         objectAdapter.add(movie);
 

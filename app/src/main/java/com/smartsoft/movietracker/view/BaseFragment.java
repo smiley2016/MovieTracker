@@ -46,9 +46,11 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
     @Nullable
     ToolbarView toolbarView;
 
+    @Nullable
     @BindView(R.id.choose_textView)
     TextView text;
 
+    @Nullable
     @BindView(R.id.fragment_base_background)
     ImageView background;
 
@@ -100,6 +102,7 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
 
     protected void initViews() {
         ButterKnife.bind(this, rootView);
+
     }
 
     @Override
@@ -122,7 +125,7 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
 
     }
 
-    protected void setToolbarView(ToolbarListener listener) {
+    protected void setToolbarView(ToolbarListener listener) throws NullPointerException {
         toolbarView.setListener(listener);
     }
 

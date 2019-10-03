@@ -23,6 +23,7 @@ import androidx.leanback.widget.ItemBridgeAdapter;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -42,12 +43,25 @@ import java.util.ArrayList;
 import at.huber.youtubeExtractor.VideoMeta;
 import at.huber.youtubeExtractor.YouTubeExtractor;
 import at.huber.youtubeExtractor.YtFile;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static com.smartsoft.movietracker.utils.Utils.pxFromDp;
 
 public class PlayerFragment extends BaseFragment implements PlayerInterface {
 
-    private PlayerView playerView;
+    @BindView(R.id.video_view)
+    PlayerView playerView;
+
+    @BindView(R.id.player_video_title)
+    TextView title;
+
+    @BindView(R.id.recommended_videos_gridView)
+    HorizontalGridView hGridView;
+
+    @BindView(R.id.player_progressBar)
+    ProgressBar progressBar;
+
     private SimpleExoPlayer player;
     private ArrayList<Video> videos;
 
@@ -56,8 +70,18 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
     private int playIndex;
     private boolean playWhenReady = true;
 
-    private ProgressBar progressBar;
-    private FrameLayout videoTitleFrameLayout;
+    @BindView(R.id.text_frame_layout)
+    FrameLayout videoTitleFrameLayout;
+
+    private PlayerPresenter presenter;
+    private PlayerVerticalGridPresenter vPresenter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        presenter = new PlayerPresenter(this);
+        vPresenter = new PlayerVerticalGridPresenter(getContext(), presenter, videos);
+    }
 
     @Nullable
     @Override
@@ -65,6 +89,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_player, container, false);
         }
+        ButterKnife.bind(this, rootView);
         initializeViews();
         return rootView;
     }
@@ -81,17 +106,9 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
 
     private void initializeViews() {
 
-        PlayerPresenter presenter = new PlayerPresenter(this);
-
-        playerView = rootView.findViewById(R.id.video_view);
-
-        TextView title = rootView.findViewById(R.id.player_video_title);
         title.setText(videos.get(playIndex).getName());
 
-        HorizontalGridView hGridView = rootView.findViewById(R.id.recommended_videos_gridView);
-        hGridView.setItemSpacing(8);
-
-        PlayerVerticalGridPresenter vPresenter = new PlayerVerticalGridPresenter(rootView.getContext(), presenter, videos);
+        hGridView.setItemSpacing((int) rootView.getContext().getResources().getDimension(R.dimen.spacing));
 
         ArrayObjectAdapter objectAdapter = new ArrayObjectAdapter();
 
@@ -100,14 +117,10 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
         }
 
         hGridView.setAdapter(
-                new ItemBridgeAdapter(objectAdapter, new ClassPresenterSelector().addClassPresenter(Video.class, vPresenter))
+                new ItemBridgeAdapter(objectAdapter,
+                        new ClassPresenterSelector()
+                                .addClassPresenter(Video.class, vPresenter))
         );
-
-
-        progressBar = rootView.findViewById(R.id.player_progressBar);
-
-        videoTitleFrameLayout = rootView.findViewById(R.id.text_frame_layout);
-
     }
 
 

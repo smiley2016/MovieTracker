@@ -83,8 +83,9 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     public void updateMovieNavigationGridView(ArrayList<Movie> movies) {
         if (adapter != null) {
             adapter.updateMovieList(movies);
+            adapter.notifyDataSetChanged();
         } else {
-            initRecyclerViewAdapter(movies);
+            onInitRecyclerViewAdapter(movies);
         }
 
 
@@ -106,7 +107,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         setTitle(genreTitle.toString());
     }
 
-    private void initRecyclerViewAdapter(ArrayList<Movie> movies) {
+    private void onInitRecyclerViewAdapter(ArrayList<Movie> movies) {
         adapter = new MovieNavigationVerticalGridViewAdapter(movies, getActivity(), presenter, selectedGenres, backgroundPresenter);
         verticalGridView.setHasFixedSize(true);
         verticalGridView.setAdapter(adapter);
@@ -127,16 +128,13 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         setToolbarSearchButtonVisibility(View.VISIBLE);
     }
 
-
-    public MovieNavigationPresenter getPresenter() {
-        return presenter;
-    }
-
-
     @Override
     public void onSortButtonClicked(Dialog dialog) {
         dialog.dismiss();
-        adapter.clearAll();
+        if(adapter != null){
+            adapter.clearAll();
+            adapter.notifyDataSetChanged();
+        }
         Constant.API.PAGE = 0;
         presenter.updateMovieNavigationGridView(getContext(), selectedGenres);
     }
@@ -145,5 +143,4 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     public void onSearchButtonClicked() {
 
     }
-
 }
