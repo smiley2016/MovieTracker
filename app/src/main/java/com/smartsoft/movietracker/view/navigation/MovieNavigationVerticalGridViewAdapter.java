@@ -134,9 +134,7 @@ public class MovieNavigationVerticalGridViewAdapter extends
         void bind(Movie movie, Context ctx,
                   ArrayList<Genre> selectedGenres, BackgroundPresenter backgroundPresenter) {
 
-            if(getAdapterPosition() >= (movieList.size()-1) % Constant.GridView.COLUMN_NUM7){
-                presenter.updateMovieNavigationGridView(ctx, selectedGenres);
-            }
+
 
             Glide.with(ctx)
                     .load(Constant.API.IMAGE_BASE_URL + movie.getPosterPath())
@@ -168,6 +166,10 @@ public class MovieNavigationVerticalGridViewAdapter extends
 
             layout.setOnFocusChangeListener((view, b) -> {
                 if (b) {
+                    if(getAdapterPosition() >= (movieList.size()-1) % Constant.GridView.COLUMN_NUM7){
+                        presenter.updateMovieNavigationGridView(ctx, selectedGenres);
+                    }
+
                     poster.setOutlineProvider(new ViewOutlineProvider() {
                         @Override
                         public void getOutline(View view, Outline outline) {

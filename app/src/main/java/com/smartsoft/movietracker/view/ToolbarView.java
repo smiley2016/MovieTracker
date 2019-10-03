@@ -20,6 +20,7 @@ public class ToolbarView extends RelativeLayout {
     @BindView(R.id.toolbar_search)
     ImageView search;
     private ToolbarListener listener;
+    private Context context;
 
     public ToolbarView(Context context) {
         this(context, null);
@@ -43,6 +44,7 @@ public class ToolbarView extends RelativeLayout {
         View v = LayoutInflater.from(context).inflate(R.layout.toolbar_view_layout, this, true);
 
         ButterKnife.bind(this, v);
+        this.context = context;
     }
 
     private void setOnClickListeners() {

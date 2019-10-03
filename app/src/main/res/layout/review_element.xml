@@ -37,6 +37,7 @@
         android:layout_marginBottom="8dp"
         android:fontFamily="Roman"
         android:gravity="start"
+        android:text="@string/review_by"
         android:textSize="10sp" />
 
 </RelativeLayout>

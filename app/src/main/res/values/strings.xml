@@ -25,7 +25,6 @@
     <string name="genreIds">genreIds</string>
     <string name="removed_genre">Genre removed</string>
     <string name="added_genre">Genre added</string>
-    <string name="review_by">Review by</string>
     <string name="genreSelectorFragment">showGenreSelectorFragment:</string>
 
     <string name="youtube_recommendation">Youtube recommendation</string>
@@ -68,6 +67,7 @@
     <string name="releaseDate">release_date</string>
     <string name="sortError">Sort error</string>
     <string name="setActiveButtonWithSharedPref">setActiveButtonWithSharedPref:</string>
+    <string name="review_by">Review by</string>
 
 
 </resources>

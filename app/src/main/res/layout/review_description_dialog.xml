@@ -27,7 +27,7 @@
         android:id="@+id/comment_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusable="false"
+        android:focusable="true"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"

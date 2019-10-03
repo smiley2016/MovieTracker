@@ -2,18 +2,23 @@ package com.smartsoft.movietracker.view.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.text.Layout;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.smartsoft.movietracker.R;
+import com.smartsoft.movietracker.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ReviewDialog {
 
+    private static final String TAG = ReviewDialog.class.getName();
     private String comment;
     private String author;
     private Context context;
@@ -27,7 +32,7 @@ public class ReviewDialog {
     @BindView(R.id.dialog_review_comment)
     TextView reviewComment;
 
-    @BindView(R.id.reviewer)
+    @BindView(R.id.dialog_reviewer)
     TextView reviewer;
 
 
@@ -44,20 +49,17 @@ public class ReviewDialog {
 
         initViews(dialog);
 
+        closeButton.setOnClickListener(view -> dialog.dismiss());
+
         reviewComment.setText(comment);
+
         reviewer.setText(String.format("%s %s", reviewer.getText(), author));
 
-        if (reviewComment.getMaxLines() > 25) {
-            scroll.setFocusable(true);
-            scroll.requestFocus();
-        } else {
-            scroll.setFocusable(false);
-            closeButton.setFocusable(true);
-            closeButton.requestFocus();
-        }
+        Utils.isScrollable(scroll, reviewComment, closeButton);
+
         reviewComment.setMovementMethod(new ScrollingMovementMethod() {
         });
-        closeButton.setOnClickListener(view -> dialog.dismiss());
+
         dialog.show();
     }
 
