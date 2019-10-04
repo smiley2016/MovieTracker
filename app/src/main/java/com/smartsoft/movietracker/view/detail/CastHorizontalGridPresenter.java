@@ -102,7 +102,7 @@ public class CastHorizontalGridPresenter extends Presenter {
                     })
                     .into(actorPicture);
 
-            layout.setOnClickListener(view -> new CastDialog(ctx, cast).startCastDialog());
+            layout.setOnClickListener(view -> new CastDialog(ctx, cast));
 
 
         }

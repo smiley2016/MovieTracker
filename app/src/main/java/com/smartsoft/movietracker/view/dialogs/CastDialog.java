@@ -27,9 +27,10 @@ public class CastDialog {
     public CastDialog(Context context, Cast cast) {
         this.context = context;
         this.cast = cast;
+        startCastDialog();
     }
 
-    public void startCastDialog() {
+    private void startCastDialog() {
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.cast_dialog);
 

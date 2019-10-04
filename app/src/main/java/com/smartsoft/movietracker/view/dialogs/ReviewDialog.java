@@ -33,10 +33,11 @@ public class ReviewDialog {
         this.comment = comment;
         this.author = author;
         this.context = context;
+        startReviewDialog();
     }
 
 
-    public void startReviewDialog() {
+    private void startReviewDialog() {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.review_dialog);
 

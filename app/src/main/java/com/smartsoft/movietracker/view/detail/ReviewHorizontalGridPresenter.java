@@ -58,7 +58,7 @@ public class ReviewHorizontalGridPresenter extends Presenter {
             reviewer.setText(review.getAuthor());
             reviewComment.setText(review.getContent());
             layout.setOnClickListener(view ->
-                    new ReviewDialog(review.getContent(), review.getAuthor(), ctx).startReviewDialog());
+                    new ReviewDialog(review.getContent(), review.getAuthor(), ctx));
         }
     }
 }
