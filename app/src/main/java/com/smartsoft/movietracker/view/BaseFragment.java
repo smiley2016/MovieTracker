@@ -38,21 +38,17 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
     private static final String TAG = BaseFragment.class.getName();
 
     protected View rootView;
-
-    private ObservableEmitter<String> urlStreamEmitter;
-    private Drawable placeholderDrawable;
-
     @BindView(R.id.base_toolbar)
     @Nullable
     ToolbarView toolbarView;
-
     @Nullable
     @BindView(R.id.choose_textView)
     TextView text;
-
     @Nullable
     @BindView(R.id.fragment_base_background)
     ImageView background;
+    private ObservableEmitter<String> urlStreamEmitter;
+    private Drawable placeholderDrawable;
 
     protected void initEmitters() {
         Observable.create((ObservableOnSubscribe<String>) emitter -> urlStreamEmitter = emitter)
@@ -121,7 +117,7 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
 
 
     protected void setToolbarSearchButtonVisibility(int visibility) {
-        if(toolbarView != null){
+        if (toolbarView != null) {
             toolbarView.setVisibleSearchIcon(visibility);
         }
 

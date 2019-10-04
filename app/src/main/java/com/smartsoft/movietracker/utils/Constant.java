@@ -22,7 +22,7 @@ public class Constant {
 
     }
 
-    public static class Sort{
+    public static class Sort {
         public static final String popularity = "popularity";
         public static final String releaseDate = "release_date";
         public static final String originalTitle = "original_title";

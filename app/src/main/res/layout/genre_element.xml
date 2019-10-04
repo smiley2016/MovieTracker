@@ -19,23 +19,23 @@
         android:layout_marginTop="@dimen/gridView_element_image_marginTop"
         android:layout_marginEnd="@dimen/gridView_element_image_marginEnd"
         android:layout_marginBottom="@dimen/gridView_element_image_marginBottom"
-        app:layout_constraintTop_toBottomOf="@id/genre_description"
+        android:contentDescription="@string/genre_image_view"
         app:layout_constraintBottom_toTopOf="@id/selected_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:contentDescription="@string/genre_image_view" />
+        app:layout_constraintTop_toBottomOf="@id/genre_description" />
 
     <ImageView
         android:id="@+id/selected_icon"
         android:layout_width="@dimen/select_icon_width"
         android:layout_height="@dimen/select_icon_height"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/select_icon"
         android:src="@drawable/select_icon"
         android:visibility="invisible"
-        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/genre_image_view"
-        android:contentDescription="@string/select_icon" />
+        app:layout_constraintTop_toBottomOf="@id/genre_image_view" />
 
     <TextView
         android:id="@+id/genre_description"
@@ -47,7 +47,6 @@
         app:layout_constraintBottom_toTopOf="@id/genre_image_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-         />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,6 @@
 package com.smartsoft.movietracker.service;
 
 import com.smartsoft.movietracker.model.genre.GenreResult;
-import com.smartsoft.movietracker.utils.Constant;
 
 import io.reactivex.Observable;
 import retrofit2.Response;

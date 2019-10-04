@@ -30,13 +30,12 @@ import butterknife.ButterKnife;
 public class MovieNavigationFragment extends BaseFragment implements MovieNavigationPresenter.MovieNavigationInterface, ToolbarListener, BackgroundManagerInterface {
 
     public static String TAG = MovieNavigationFragment.class.getSimpleName();
+    @BindView(R.id.gridView_container)
+    VerticalGridView verticalGridView;
     private MovieNavigationVerticalGridViewAdapter adapter;
     private MovieNavigationPresenter presenter;
     private BackgroundPresenter backgroundPresenter;
     private ArrayList<Genre> selectedGenres;
-
-    @BindView(R.id.gridView_container)
-    VerticalGridView verticalGridView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,7 +61,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         return rootView;
     }
 
-    private void initializeViews(){
+    private void initializeViews() {
         verticalGridView.setNumColumns(Constant.GridView.COLUMN_NUM7);
         verticalGridView.setItemSpacing((int) rootView.getContext().getResources().getDimension(R.dimen.spacing));
         verticalGridView.setFocusDrawingOrderEnabled(true);
@@ -92,7 +91,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     }
 
     @Override
-    public void setBackground(String path){
+    public void setBackground(String path) {
         super.setBackground(path);
     }
 
@@ -129,7 +128,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     @Override
     public void onSortButtonClicked(Dialog dialog) {
         dialog.dismiss();
-        if(adapter != null){
+        if (adapter != null) {
             adapter.clearAll();
         }
         Constant.API.PAGE = 0;

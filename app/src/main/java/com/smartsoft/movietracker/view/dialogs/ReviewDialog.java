@@ -16,21 +16,17 @@ import butterknife.ButterKnife;
 public class ReviewDialog {
 
     private static final String TAG = ReviewDialog.class.getName();
+    @BindView(R.id.comment_scroll_view)
+    ScrollView scroll;
+    @BindView(R.id.dialog_close_button)
+    Button closeButton;
+    @BindView(R.id.dialog_review_comment)
+    TextView reviewComment;
+    @BindView(R.id.dialog_reviewer)
+    TextView reviewer;
     private String comment;
     private String author;
     private Context context;
-
-    @BindView(R.id.comment_scroll_view)
-    ScrollView scroll;
-
-    @BindView(R.id.dialog_close_button)
-    Button closeButton;
-
-    @BindView(R.id.dialog_review_comment)
-    TextView reviewComment;
-
-    @BindView(R.id.dialog_reviewer)
-    TextView reviewer;
 
 
     public ReviewDialog(String comment, String author, Context context) {

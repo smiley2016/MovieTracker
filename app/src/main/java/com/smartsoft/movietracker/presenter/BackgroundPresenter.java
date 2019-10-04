@@ -10,7 +10,7 @@ public class BackgroundPresenter {
         this.backgroundManagerInterface = backgroundManagerInterface;
     }
 
-    public void setBackground(String path){
+    public void setBackground(String path) {
         backgroundManagerInterface.setBackground(path);
     }
 }

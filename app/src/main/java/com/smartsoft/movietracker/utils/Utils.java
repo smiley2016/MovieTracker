@@ -45,7 +45,7 @@ public final class Utils {
         }
     }
 
-    public static void isScrollable(ScrollView scroll, TextView reviewComment, Button closeButton){
+    public static void isScrollable(ScrollView scroll, TextView reviewComment, Button closeButton) {
         ViewTreeObserver viewTreeObserver = scroll.getViewTreeObserver();
 
         viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -54,9 +54,9 @@ public final class Utils {
                 scroll.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 int childHeight = reviewComment.getHeight();
                 boolean isScrollable = scroll.getHeight() < childHeight + scroll.getPaddingTop() + scroll.getPaddingBottom();
-                if(isScrollable){
+                if (isScrollable) {
                     scroll.requestFocus();
-                }else{
+                } else {
                     closeButton.setNextFocusDownId(closeButton.getId());
                 }
             }

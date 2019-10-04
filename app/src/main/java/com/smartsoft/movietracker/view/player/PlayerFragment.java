@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,6 @@ import androidx.leanback.widget.ItemBridgeAdapter;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -40,9 +38,6 @@ import com.smartsoft.movietracker.view.BaseFragment;
 
 import java.util.ArrayList;
 
-import at.huber.youtubeExtractor.VideoMeta;
-import at.huber.youtubeExtractor.YouTubeExtractor;
-import at.huber.youtubeExtractor.YtFile;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -61,19 +56,15 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
 
     @BindView(R.id.player_progressBar)
     ProgressBar progressBar;
-
+    @BindView(R.id.text_frame_layout)
+    FrameLayout videoTitleFrameLayout;
     private SimpleExoPlayer player;
     private ArrayList<Video> videos;
-
     private long playbackPosition;
     private int currentWindow;
     private int playIndex;
     private boolean playWhenReady = true;
     private ArrayList<Uri> youtubeLinks;
-
-    @BindView(R.id.text_frame_layout)
-    FrameLayout videoTitleFrameLayout;
-
     private PlayerPresenter presenter;
     private PlayerVerticalGridPresenter vPresenter;
 
@@ -140,7 +131,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
     private void makeListFromURIs() {
         MediaSource[] mediaSource = new MediaSource[videos.size()];
 
-        for(int i = 0; i<videos.size(); ++i){
+        for (int i = 0; i < videos.size(); ++i) {
             mediaSource[i] = buildMediaSource(youtubeLinks.get(i));
         }
         setMediaSource(mediaSource);
@@ -166,7 +157,6 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
                 new DefaultHttpDataSourceFactory(rootView.getContext().getString(R.string.ExoplayerCodeLab))).
                 createMediaSource(uri);
     }
-
 
 
     @Override

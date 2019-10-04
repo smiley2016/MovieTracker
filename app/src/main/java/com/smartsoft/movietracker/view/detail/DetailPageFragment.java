@@ -19,9 +19,6 @@ import androidx.leanback.widget.ItemBridgeAdapter;
 import androidx.leanback.widget.VerticalGridView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.exoplayer2.source.ExtractorMediaSource;
-import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.interfaces.DetailPageInterface;
 import com.smartsoft.movietracker.model.MovieDetails;
@@ -29,7 +26,6 @@ import com.smartsoft.movietracker.model.cast.CastList;
 import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.model.review.ReviewList;
-import com.smartsoft.movietracker.model.video.Video;
 import com.smartsoft.movietracker.model.video.VideoList;
 import com.smartsoft.movietracker.presenter.DetailPagePresenter;
 import com.smartsoft.movietracker.utils.Constant;
@@ -46,20 +42,17 @@ import butterknife.ButterKnife;
 
 public class DetailPageFragment extends BaseFragment implements DetailPageInterface {
     private static final String TAG = DetailPageFragment.class.getName();
-
+    private static final int[] yTags = {248, 46, 96, 95, 22, 18, 83, 82};
+    @BindView(R.id.background_image)
+    ImageView background;
+    @BindView(R.id.detail_page_grid_view)
+    VerticalGridView verticalGridView;
     private Movie movie;
     private ArrayList<Genre> genres;
     private ArrayObjectAdapter objectAdapter;
     private DetailPagePresenter dPresenter;
     private YouTubeExtractor youTubeExtractor;
-    private static final int[] yTags = {248, 46, 96, 95, 22, 18, 83, 82};
     private ArrayList<Uri> youtubeLinks;
-
-    @BindView(R.id.background_image)
-    ImageView background;
-
-    @BindView(R.id.detail_page_grid_view)
-    VerticalGridView verticalGridView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,7 +110,6 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
         }
 
 
-
         objectAdapter = new ArrayObjectAdapter();
         objectAdapter.add(movie);
 
@@ -154,7 +146,7 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
                 protected void onExtractionComplete(SparseArray<YtFile> ytFiles, VideoMeta videoMeta) {
                     if (ytFiles != null) {
                         String downloadUrl = getDownloadUrlForVideos(ytFiles);
-                        if(downloadUrl == null){
+                        if (downloadUrl == null) {
                             movieDetails.getVideos().remove(movieDetails.getVideos().get(finalI));
                             return;
                         }
@@ -169,11 +161,12 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
         objectAdapter.add(videoList);
     }
 
-    private String getDownloadUrlForVideos(SparseArray<YtFile> ytFiles){
-        for(int tag: yTags){
-            try{
+    private String getDownloadUrlForVideos(SparseArray<YtFile> ytFiles) {
+        for (int tag : yTags) {
+            try {
                 return ytFiles.get(tag).getUrl();
-            }catch (Exception ignore){}
+            } catch (Exception ignore) {
+            }
         }
         return null;
     }

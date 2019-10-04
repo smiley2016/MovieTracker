@@ -3,8 +3,8 @@
     android:id="@+id/cast_element_layout"
     android:layout_width="@dimen/cast_element_width"
     android:layout_height="@dimen/cast_element_height"
-    android:focusable="true"
     android:clipToPadding="false"
+    android:focusable="true"
     android:stateListAnimator="@animator/cast_element_animator">
 
 

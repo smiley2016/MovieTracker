@@ -135,7 +135,6 @@ public class MovieNavigationVerticalGridViewAdapter extends
                   ArrayList<Genre> selectedGenres, BackgroundPresenter backgroundPresenter) {
 
 
-
             Glide.with(ctx)
                     .load(Constant.API.IMAGE_BASE_URL + movie.getPosterPath())
                     .listener(
@@ -166,7 +165,7 @@ public class MovieNavigationVerticalGridViewAdapter extends
 
             layout.setOnFocusChangeListener((view, b) -> {
                 if (b) {
-                    if(getAdapterPosition() >= (movieList.size()-1) - Constant.GridView.COLUMN_NUM7){
+                    if (getAdapterPosition() >= (movieList.size() - 1) - Constant.GridView.COLUMN_NUM7) {
                         presenter.updateMovieNavigationGridView(ctx, selectedGenres);
                     }
 
@@ -228,9 +227,9 @@ public class MovieNavigationVerticalGridViewAdapter extends
             title.setText(movie.getTitle());
 
             String[] releaseDateList = new String[3];
-            if(movie.getReleaseDate() != null){
+            if (movie.getReleaseDate() != null) {
                 releaseDateList = movie.getReleaseDate().split("-");
-            }else{
+            } else {
                 releaseDateList[0] = "";
             }
 

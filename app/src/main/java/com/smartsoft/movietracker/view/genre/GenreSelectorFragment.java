@@ -26,11 +26,10 @@ import butterknife.ButterKnife;
 
 public class GenreSelectorFragment extends BaseFragment implements GenreSelectorPresenter.GenreSelectorInterface, ToolbarListener {
 
+    private static final String TAG = GenreSelectorFragment.class.getSimpleName();
     @BindView(R.id.gridView_container)
     VerticalGridView verticalGridView;
-
     private GenreSelectorVerticalGridViewAdapter adapter;
-    private static final String TAG = GenreSelectorFragment.class.getSimpleName();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,7 +83,7 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
     public void onSearchButtonClicked() {
         ArrayList<Genre> selectedGenres;
         selectedGenres = adapter.getSelectedGenres();
-        if(selectedGenres.size() > 0){
+        if (selectedGenres.size() > 0) {
             Bundle bundle = new Bundle();
             bundle.putSerializable(getString(R.string.selectedGenres), selectedGenres);
             FragmentNavigation.getInstance().showMovieNavigationFragment(bundle);

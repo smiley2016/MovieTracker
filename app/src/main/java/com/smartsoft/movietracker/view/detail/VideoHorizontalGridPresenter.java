@@ -2,7 +2,6 @@ package com.smartsoft.movietracker.view.detail;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +22,6 @@ import com.smartsoft.movietracker.interfaces.DetailVideoGridInterface;
 import com.smartsoft.movietracker.model.video.Video;
 import com.smartsoft.movietracker.utils.Constant;
 
-import java.util.ArrayList;
-
-import at.huber.youtubeExtractor.YouTubeExtractor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -84,26 +80,26 @@ public class VideoHorizontalGridPresenter extends Presenter implements DetailVid
                             + video.getKey()
                             + Constant.API.YOUTUBE_THUMBNAIL)
                     .listener(new RequestListener<Drawable>() {
-                            @Override
-                            public boolean onLoadFailed(@Nullable GlideException e,
-                                                        Object model,
-                                                        Target<Drawable> target,
-                                                        boolean isFirstResource) {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e,
+                                                    Object model,
+                                                    Target<Drawable> target,
+                                                    boolean isFirstResource) {
 
-                                videoThumbnail.setImageDrawable(mContext.getDrawable(R.drawable.error));
-                                Log.e("3ss", String.valueOf(e));
-                                return false;
-                            }
+                            videoThumbnail.setImageDrawable(mContext.getDrawable(R.drawable.error));
+                            Log.e("3ss", String.valueOf(e));
+                            return false;
+                        }
 
-                            @Override
-                            public boolean onResourceReady(Drawable resource,
-                                                           Object model,
-                                                           Target<Drawable> target,
-                                                           DataSource dataSource,
-                                                           boolean isFirstResource) {
-                                return false;
-                            }
-                        })
+                        @Override
+                        public boolean onResourceReady(Drawable resource,
+                                                       Object model,
+                                                       Target<Drawable> target,
+                                                       DataSource dataSource,
+                                                       boolean isFirstResource) {
+                            return false;
+                        }
+                    })
                     .into(videoThumbnail);
 
             videoTitle.setText(video.getName());

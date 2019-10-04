@@ -59,6 +59,20 @@ public class GenreSelectorVerticalGridViewAdapter extends RecyclerView.Adapter<G
         return selectedGenres;
     }
 
+    private void manageGenreToList(Genre genres, int position) {
+        if (selectedGenres.contains(genres)) {
+            selectedGenres.remove(genres);
+            genres.setActivated(false);
+            Utils.showToast(mContext, mContext.getResources().getString(R.string.removed_genre) + " " + genres.getName());
+        } else {
+            this.selectedGenres.add(genres);
+            genres.setActivated(true);
+            Utils.showToast(mContext, mContext.getResources().getString(R.string.added_genre) + " " + genres.getName());
+        }
+        notifyItemChanged(position);
+
+    }
+
     class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.genre_description)
@@ -90,21 +104,6 @@ public class GenreSelectorVerticalGridViewAdapter extends RecyclerView.Adapter<G
                 select_icon.setVisibility(View.INVISIBLE);
             }
         }
-    }
-
-
-    private void manageGenreToList(Genre genres, int position) {
-        if (selectedGenres.contains(genres)) {
-            selectedGenres.remove(genres);
-            genres.setActivated(false);
-            Utils.showToast(mContext, mContext.getResources().getString(R.string.removed_genre) + " " + genres.getName());
-        } else {
-            this.selectedGenres.add(genres);
-            genres.setActivated(true);
-            Utils.showToast(mContext, mContext.getResources().getString(R.string.added_genre) + " " + genres.getName());
-        }
-        notifyItemChanged(position);
-
     }
 
 }

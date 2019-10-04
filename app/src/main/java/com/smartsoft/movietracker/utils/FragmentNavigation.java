@@ -1,7 +1,6 @@
 package com.smartsoft.movietracker.utils;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -23,6 +22,10 @@ public class FragmentNavigation {
     private FragmentManager mFragmentManager;
     private int mMainActivityFragmentContainer;
 
+    private FragmentNavigation() {
+        mMainActivityFragmentContainer = R.id.fragment_holder;
+    }
+
     public static FragmentNavigation getInstance() {
         if (sInstance == null) {
             sInstance = new FragmentNavigation();
@@ -31,13 +34,9 @@ public class FragmentNavigation {
         return sInstance;
     }
 
-    private Fragment newInstance(Fragment fragment, Bundle bundle){
+    private Fragment newInstance(Fragment fragment, Bundle bundle) {
         fragment.setArguments(bundle);
         return fragment;
-    }
-
-    private FragmentNavigation() {
-        mMainActivityFragmentContainer = R.id.fragment_holder;
     }
 
     public void initAttributes(Activity activity) {

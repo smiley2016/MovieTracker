@@ -12,11 +12,11 @@
         android:layout_width="@dimen/movie_element_poster_width"
         android:layout_height="@dimen/movie_element_height"
         android:background="@drawable/movie_poster_rounded_corner_shape"
+        android:contentDescription="@string/movie_poster"
         android:focusable="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/movie_poster" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ProgressBar
@@ -47,9 +47,9 @@
             android:layout_marginStart="@dimen/movie_element_star_icon_marginStart"
             android:layout_marginTop="@dimen/movie_element_star_icon_marginTop"
             android:layout_marginBottom="@dimen/movie_element_star_icon_marginStart"
+            android:contentDescription="@string/star_icon"
             android:focusable="false"
-            android:src="@drawable/star_icon"
-            android:contentDescription="@string/star_icon" />
+            android:src="@drawable/star_icon" />
 
         <ImageView
             android:id="@+id/open_description"

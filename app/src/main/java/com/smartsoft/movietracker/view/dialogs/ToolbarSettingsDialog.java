@@ -18,18 +18,14 @@ import butterknife.ButterKnife;
 
 public class ToolbarSettingsDialog {
     private static final String TAG = ToolbarSettingsDialog.class.getName();
-    private ToolbarListener listener;
-    private boolean isChanged = false;
-
     @BindView(R.id.radio_button_group)
     RadioGroup radioGroup;
-
     @BindView(R.id.toolbar_settings_sort_button)
     Button sort;
-
     @BindView(R.id.switch_order_by)
     Switch orderBy;
-
+    private ToolbarListener listener;
+    private boolean isChanged = false;
     private Context context;
 
     public ToolbarSettingsDialog(ToolbarListener listener, Context context) {

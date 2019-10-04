@@ -28,7 +28,7 @@ public class GenreSelectorPresenter {
 
                     @Override
                     public void onNext(ArrayList<Genre> genres) {
-                        if(genreSelectorInterface != null){
+                        if (genreSelectorInterface != null) {
                             genreSelectorInterface.updateGenres(genres);
                         }
 

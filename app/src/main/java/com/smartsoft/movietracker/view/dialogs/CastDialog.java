@@ -15,18 +15,14 @@ import butterknife.ButterKnife;
 
 public class CastDialog {
 
-    private Context context;
-    private Cast cast;
-
-
     @BindView(R.id.cast_dialog_image)
     ImageView poster;
-
     @BindView(R.id.cast_dialog_name)
     TextView name;
-
     @BindView(R.id.cast_dialog_close)
     ImageView closeImageView;
+    private Context context;
+    private Cast cast;
 
     public CastDialog(Context context, Cast cast) {
         this.context = context;
