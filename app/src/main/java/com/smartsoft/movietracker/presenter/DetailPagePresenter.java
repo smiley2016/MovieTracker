@@ -2,7 +2,7 @@ package com.smartsoft.movietracker.presenter;
 
 import android.util.Log;
 
-import com.smartsoft.movietracker.interfaces.onDetailPageListener;
+import com.smartsoft.movietracker.interfaces.OnDetailPageListener;
 import com.smartsoft.movietracker.model.MovieDetails;
 import com.smartsoft.movietracker.service.ApiController;
 
@@ -15,9 +15,9 @@ import io.reactivex.schedulers.Schedulers;
 public class DetailPagePresenter {
     private static final String TAG = DetailPagePresenter.class.getName();
 
-    private onDetailPageListener detailPageViewInterface;
+    private OnDetailPageListener detailPageViewInterface;
 
-    public DetailPagePresenter(onDetailPageListener detailPageViewInterface) {
+    public DetailPagePresenter(OnDetailPageListener detailPageViewInterface) {
         this.detailPageViewInterface = detailPageViewInterface;
     }
 

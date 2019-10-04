@@ -2,7 +2,7 @@ package com.smartsoft.movietracker.interfaces;
 
 import com.smartsoft.movietracker.model.MovieDetails;
 
-public interface onDetailPageListener {
+public interface OnDetailPageListener {
 
     void loadData(MovieDetails movieDetails);
 

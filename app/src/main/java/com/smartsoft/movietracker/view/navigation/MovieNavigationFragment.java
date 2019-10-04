@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.leanback.widget.VerticalGridView;
 
 import com.smartsoft.movietracker.R;
-import com.smartsoft.movietracker.interfaces.onBackgroundChangeListener;
+import com.smartsoft.movietracker.interfaces.OnBackgroundChangeListener;
 import com.smartsoft.movietracker.interfaces.ToolbarListener;
 import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.model.movie.Movie;
@@ -27,7 +27,7 @@ import java.util.Iterator;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieNavigationFragment extends BaseFragment implements MovieNavigationPresenter.MovieNavigationInterface, ToolbarListener, onBackgroundChangeListener {
+public class MovieNavigationFragment extends BaseFragment implements MovieNavigationPresenter.MovieNavigationInterface, ToolbarListener, OnBackgroundChangeListener {
 
     public static String TAG = MovieNavigationFragment.class.getSimpleName();
     @BindView(R.id.gridView_container)
@@ -91,7 +91,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     }
 
     @Override
-    public void setBackground(String path) {
+    public void onBackgroundChange(String path) {
         super.setBackground(path);
     }
 
