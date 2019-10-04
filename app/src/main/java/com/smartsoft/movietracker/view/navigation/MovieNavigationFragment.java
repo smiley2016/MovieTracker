@@ -55,7 +55,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         ButterKnife.bind(this, rootView);
         initViews();
         initEmitters();
-        setToolbarView(this);
+        setToolbarViewListener(this);
         setToolbarSearchButtonVisibility(View.INVISIBLE);
         initializeViews();
         return rootView;

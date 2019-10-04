@@ -123,7 +123,7 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
 
     }
 
-    protected void setToolbarView(ToolbarListener listener) throws NullPointerException {
+    protected void setToolbarViewListener(ToolbarListener listener) throws NullPointerException {
         if (toolbarView != null) {
             toolbarView.setListener(listener);
         }

@@ -48,7 +48,7 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
         ButterKnife.bind(this, rootView);
         initViews();
         initEmitters();
-        setToolbarView(this);
+        setToolbarViewListener(this);
         setTitle(rootView.getContext().getString(R.string.choose_genre_textView));
         initGridView();
         return rootView;
