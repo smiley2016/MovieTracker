@@ -48,7 +48,7 @@ public class ReviewDialog {
 
         reviewer.setText(String.format("%s %s", reviewer.getText(), author));
 
-        Utils.isScrollable(scroll, reviewComment, closeButton);
+        Utils.setFocusByScrollViewState(scroll, reviewComment, closeButton);
 
         reviewComment.setMovementMethod(new ScrollingMovementMethod() {
         });

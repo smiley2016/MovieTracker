@@ -45,7 +45,7 @@ public final class Utils {
         }
     }
 
-    public static void isScrollable(ScrollView scroll, TextView reviewComment, Button closeButton) {
+    public static void setFocusByScrollViewState(ScrollView scroll, TextView reviewComment, Button closeButton) {
         ViewTreeObserver viewTreeObserver = scroll.getViewTreeObserver();
 
         viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
