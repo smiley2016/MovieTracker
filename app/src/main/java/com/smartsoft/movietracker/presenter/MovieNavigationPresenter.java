@@ -25,7 +25,7 @@ public class MovieNavigationPresenter {
 
     }
 
-    public void updateMovieNavigationGridView(Context context, ArrayList<Genre> selectedGenres) {
+    public void loadMovieNavigationPresenter(Context context, ArrayList<Genre> selectedGenres) {
         ArrayList<Integer> genreIds = new ArrayList<>();
 
         for (Genre it : selectedGenres) {
