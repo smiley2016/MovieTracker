@@ -131,7 +131,7 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
 
     @SuppressLint("StaticFieldLeak")
     @Override
-    public void loadData(MovieDetails movieDetails) {
+    public void displayData(MovieDetails movieDetails) {
 
         CastList cast = new CastList(movieDetails.getCasts());
         ReviewList list = new ReviewList(movieDetails.getReviews());

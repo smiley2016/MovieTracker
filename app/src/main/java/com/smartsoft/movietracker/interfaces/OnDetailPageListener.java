@@ -4,7 +4,7 @@ import com.smartsoft.movietracker.model.MovieDetails;
 
 public interface OnDetailPageListener {
 
-    void loadData(MovieDetails movieDetails);
+    void displayData(MovieDetails movieDetails);
 
     void backPressed();
 }

@@ -39,7 +39,7 @@ public class DetailPagePresenter {
                     public void onNext(MovieDetails movieDetails) {
                         Log.e(TAG, "DetailPagePresenter" + movieDetails);
 
-                        detailPageViewInterface.loadData(movieDetails);
+                        detailPageViewInterface.displayData(movieDetails);
                     }
 
                     @Override
