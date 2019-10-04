@@ -1,16 +1,16 @@
 package com.smartsoft.movietracker.presenter;
 
-import com.smartsoft.movietracker.interfaces.BackgroundManagerInterface;
+import com.smartsoft.movietracker.interfaces.onBackgroundChangeListener;
 
 public class BackgroundPresenter {
 
-    private BackgroundManagerInterface backgroundManagerInterface;
+    private onBackgroundChangeListener onBackgroundChangeListener;
 
-    public BackgroundPresenter(BackgroundManagerInterface backgroundManagerInterface) {
-        this.backgroundManagerInterface = backgroundManagerInterface;
+    public BackgroundPresenter(onBackgroundChangeListener onBackgroundChangeListener) {
+        this.onBackgroundChangeListener = onBackgroundChangeListener;
     }
 
     public void setBackground(String path) {
-        backgroundManagerInterface.setBackground(path);
+        onBackgroundChangeListener.setBackground(path);
     }
 }
