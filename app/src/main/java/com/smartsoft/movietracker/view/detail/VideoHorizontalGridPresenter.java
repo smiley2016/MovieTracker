@@ -2,6 +2,7 @@ package com.smartsoft.movietracker.view.detail;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,9 @@ import com.smartsoft.movietracker.interfaces.DetailVideoGridInterface;
 import com.smartsoft.movietracker.model.video.Video;
 import com.smartsoft.movietracker.utils.Constant;
 
+import java.util.ArrayList;
+
+import at.huber.youtubeExtractor.YouTubeExtractor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

@@ -57,8 +57,7 @@ public final class Utils {
                 if(isScrollable){
                     scroll.requestFocus();
                 }else{
-                    scroll.setFocusable(false);
-                    closeButton.requestFocus();
+                    closeButton.setNextFocusDownId(closeButton.getId());
                 }
             }
         });

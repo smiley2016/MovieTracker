@@ -1,8 +1,11 @@
 package com.smartsoft.movietracker.view.detail;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,9 @@ import androidx.leanback.widget.ItemBridgeAdapter;
 import androidx.leanback.widget.VerticalGridView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.interfaces.DetailPageInterface;
 import com.smartsoft.movietracker.model.MovieDetails;
@@ -23,6 +29,7 @@ import com.smartsoft.movietracker.model.cast.CastList;
 import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.model.review.ReviewList;
+import com.smartsoft.movietracker.model.video.Video;
 import com.smartsoft.movietracker.model.video.VideoList;
 import com.smartsoft.movietracker.presenter.DetailPagePresenter;
 import com.smartsoft.movietracker.utils.Constant;
@@ -31,6 +38,9 @@ import com.smartsoft.movietracker.view.BaseFragment;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import at.huber.youtubeExtractor.VideoMeta;
+import at.huber.youtubeExtractor.YouTubeExtractor;
+import at.huber.youtubeExtractor.YtFile;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -41,6 +51,9 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
     private ArrayList<Genre> genres;
     private ArrayObjectAdapter objectAdapter;
     private DetailPagePresenter dPresenter;
+    private YouTubeExtractor youTubeExtractor;
+    private static final int[] yTags = {248, 46, 96, 95, 22, 18, 83, 82};
+    private ArrayList<Uri> youtubeLinks;
 
     @BindView(R.id.background_image)
     ImageView background;
@@ -52,6 +65,7 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dPresenter = new DetailPagePresenter(this);
+        youtubeLinks = new ArrayList<>();
     }
 
     @Override
@@ -110,7 +124,7 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
         MovieVerticalGridPresenter movieVerticalGridPresenter = new MovieVerticalGridPresenter(rootView.getContext(), currentMovieGenres, dPresenter);
         CastVerticalGridPresenter castVerticalGridPresenter = new CastVerticalGridPresenter(rootView.getContext());
         ReviewVerticalGridPresenter reviewVerticalGridPresenter = new ReviewVerticalGridPresenter(rootView.getContext());
-        VideoVerticalGridPresenter videoVerticalGridPresenter = new VideoVerticalGridPresenter(rootView.getContext());
+        VideoVerticalGridPresenter videoVerticalGridPresenter = new VideoVerticalGridPresenter(rootView.getContext(), youtubeLinks);
 
         ClassPresenterSelector presenterSelector = new ClassPresenterSelector();
         presenterSelector.addClassPresenter(Movie.class, movieVerticalGridPresenter);
@@ -123,15 +137,45 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
 
     }
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     public void loadData(MovieDetails movieDetails) {
+
         CastList cast = new CastList(movieDetails.getCasts());
         ReviewList list = new ReviewList(movieDetails.getReviews());
-        VideoList videoList = new VideoList(movieDetails.getVideos());
         objectAdapter.add(cast);
         objectAdapter.add(list);
-        objectAdapter.add(videoList);
 
+        for (int i = Integer.parseInt(getString(R.string.zero)); i < movieDetails.getVideos().size(); ++i) {
+            String youtubeLink = String.format(getString(R.string.YoutubeBaseUrl), movieDetails.getVideos().get(i).getKey());
+            int finalI = i;
+            youTubeExtractor = new YouTubeExtractor(rootView.getContext()) {
+                @Override
+                protected void onExtractionComplete(SparseArray<YtFile> ytFiles, VideoMeta videoMeta) {
+                    if (ytFiles != null) {
+                        String downloadUrl = getDownloadUrlForVideos(ytFiles);
+                        if(downloadUrl == null){
+                            movieDetails.getVideos().remove(movieDetails.getVideos().get(finalI));
+                            return;
+                        }
+                        Uri uri = Uri.parse(downloadUrl);
+                        youtubeLinks.add(uri);
+                    }
+                }
+            };
+            youTubeExtractor.extract(youtubeLink, true, true);
+        }
+        VideoList videoList = new VideoList(movieDetails.getVideos());
+        objectAdapter.add(videoList);
+    }
+
+    private String getDownloadUrlForVideos(SparseArray<YtFile> ytFiles){
+        for(int tag: yTags){
+            try{
+                return ytFiles.get(tag).getUrl();
+            }catch (Exception ignore){}
+        }
+        return null;
     }
 
     @Override
@@ -139,4 +183,9 @@ public class DetailPageFragment extends BaseFragment implements DetailPageInterf
         Objects.requireNonNull(getActivity()).onBackPressed();
     }
 
+    @Override
+    public void onDestroy() {
+        youTubeExtractor.cancel(true);
+        super.onDestroy();
+    }
 }

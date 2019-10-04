@@ -25,7 +25,6 @@
     <string name="genreIds">genreIds</string>
     <string name="removed_genre">Genre removed</string>
     <string name="added_genre">Genre added</string>
-    <string name="genreSelectorFragment">showGenreSelectorFragment:</string>
 
     <string name="youtube_recommendation">Youtube recommendation</string>
 
@@ -84,6 +83,7 @@
     <string name="exo_play">exo_play</string>
     <string name="exo_ffwd">exo_ffwd</string>
     <string name="exo_next">exo_next</string>
+    <string name="youtubeLinks">youtubeLinks</string>
 
 
 </resources>

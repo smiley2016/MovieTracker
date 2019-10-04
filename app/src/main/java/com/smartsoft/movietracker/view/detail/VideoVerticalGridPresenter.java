@@ -1,6 +1,7 @@
 package com.smartsoft.movietracker.view.detail;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,9 +30,11 @@ public class VideoVerticalGridPresenter extends Presenter implements DetailVideo
     private static final String TAG = VideoVerticalGridPresenter.class.getName();
     private Context mContext;
     private ArrayList<Video> videos;
+    private ArrayList<Uri> youtubeLinks;
 
-    VideoVerticalGridPresenter(Context mContext) {
+    VideoVerticalGridPresenter(Context mContext, ArrayList<Uri> youtubeLinks) {
         this.mContext = mContext;
+        this.youtubeLinks = youtubeLinks;
         this.videos = new ArrayList<>();
     }
 
@@ -58,6 +61,7 @@ public class VideoVerticalGridPresenter extends Presenter implements DetailVideo
         Bundle bundle = new Bundle();
         bundle.putInt(mContext.getString(R.string.playIndex), playIndex);
         bundle.putSerializable(mContext.getString(R.string.videos), videos);
+        bundle.putSerializable(mContext.getString(R.string.youtubeLinks), youtubeLinks);
         FragmentNavigation.getInstance().showPlayerFragment(bundle);
     }
 

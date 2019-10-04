@@ -45,10 +45,10 @@ public class FragmentNavigation {
     }
 
 
-    public void showGenreSelectorFragment(Context context) {
+    public void showGenreSelectorFragment() {
         Fragment myCurrentFragment = newInstance(new GenreSelectorFragment(), null);
         replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, false);
-        Log.e(TAG, context.getString(R.string.genreSelectorFragment) + myCurrentFragment);
+        Log.e(TAG, "showGenreSelectorFragment:" + myCurrentFragment);
     }
 
 

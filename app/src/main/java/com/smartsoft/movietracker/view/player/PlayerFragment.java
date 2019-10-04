@@ -69,6 +69,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
     private int currentWindow;
     private int playIndex;
     private boolean playWhenReady = true;
+    private ArrayList<Uri> youtubeLinks;
 
     @BindView(R.id.text_frame_layout)
     FrameLayout videoTitleFrameLayout;
@@ -100,6 +101,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
         super.onAttach(context);
         if (getArguments() != null) {
             videos = (ArrayList<Video>) getArguments().getSerializable(getString(R.string.videos));
+            youtubeLinks = (ArrayList<Uri>) getArguments().getSerializable(getString(R.string.youtubeLinks));
             playIndex = getArguments().getInt(getString(R.string.playIndex));
         }
     }
@@ -138,25 +140,11 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
     private void makeListFromURIs() {
         MediaSource[] mediaSource = new MediaSource[videos.size()];
 
-        for (int i = Integer.parseInt(getString(R.string.zero)); i < videos.size(); ++i) {
-            String youtubeLink = String.format(getString(R.string.YoutubeBaseUrl), videos.get(i).getKey());
-            int finalI = i;
-            new YouTubeExtractor(rootView.getContext()) {
-                @Override
-                protected void onExtractionComplete(SparseArray<YtFile> ytFiles, VideoMeta videoMeta) {
-                    if (ytFiles != null) {
-                        int itag = 22;
-                        String downloadUrl = ytFiles.get(itag).getUrl();
-                        Uri uri = Uri.parse(downloadUrl);
-                        mediaSource[finalI] = buildMediaSource(uri);
-                        if (finalI == videos.size() - 1) {
-                            setMediaSource(mediaSource);
-                        }
-
-                    }
-                }
-            }.extract(youtubeLink, true, true);
+        for(int i = 0; i<videos.size(); ++i){
+            mediaSource[i] = buildMediaSource(youtubeLinks.get(i));
         }
+        setMediaSource(mediaSource);
+
     }
 
     private void setMediaSource(MediaSource[] mediaSource) {
@@ -179,6 +167,8 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
                 createMediaSource(uri);
     }
 
+
+
     @Override
     public void onStart() {
         super.onStart();
@@ -198,6 +188,13 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
 
     @Override
     public void InternetConnected() {
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
 
     }
 
