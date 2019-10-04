@@ -20,7 +20,7 @@ import androidx.leanback.widget.VerticalGridView;
 
 import com.bumptech.glide.Glide;
 import com.smartsoft.movietracker.R;
-import com.smartsoft.movietracker.interfaces.DetailPageInterface;
+import com.smartsoft.movietracker.interfaces.onDetailPageListener;
 import com.smartsoft.movietracker.model.MovieDetails;
 import com.smartsoft.movietracker.model.cast.CastList;
 import com.smartsoft.movietracker.model.genre.Genre;
@@ -40,7 +40,7 @@ import at.huber.youtubeExtractor.YtFile;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DetailPageFragment extends BaseFragment implements DetailPageInterface {
+public class DetailPageFragment extends BaseFragment implements onDetailPageListener {
     private static final String TAG = DetailPageFragment.class.getName();
     private static final int[] yTags = {248, 46, 96, 95, 22, 18, 83, 82};
     @BindView(R.id.background_image)
