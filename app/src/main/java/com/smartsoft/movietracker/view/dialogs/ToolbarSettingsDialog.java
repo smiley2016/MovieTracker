@@ -31,6 +31,7 @@ public class ToolbarSettingsDialog {
     public ToolbarSettingsDialog(ToolbarListener listener, Context context) {
         this.listener = listener;
         this.context = context;
+        startToolbarSettingsDialog(context);
     }
 
     public void startToolbarSettingsDialog(Context ctx) {
