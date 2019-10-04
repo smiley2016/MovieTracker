@@ -30,7 +30,7 @@ public class CastHorizontalGridPresenter extends Presenter {
     private Context mContext;
 
 
-    public CastHorizontalGridPresenter(Context mContext) {
+    CastHorizontalGridPresenter(Context mContext) {
         this.mContext = mContext;
     }
 
