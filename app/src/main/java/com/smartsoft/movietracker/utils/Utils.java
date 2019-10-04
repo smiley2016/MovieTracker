@@ -23,12 +23,12 @@ public final class Utils {
 
     public static String genreListToCsvIdString(List<Integer> genreIds) {
         if (genreIds == null || genreIds.isEmpty()) {
-            return "";
+            return StringUtils.EMPTY_STRING;
         }
         StringBuilder text = new StringBuilder();
         int i;
         for (i = 0; i < genreIds.size() - 1; i++) {
-            text.append(genreIds.get(i)).append(",");
+            text.append(genreIds.get(i)).append(StringUtils.COMMA_DELIMITER);
         }
         text.append(genreIds.get(i));
         return text.toString();
