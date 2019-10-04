@@ -41,10 +41,12 @@ public class ToolbarView extends RelativeLayout {
     }
 
     private void initViews(Context context) {
+        this.context = context;
+
         View v = LayoutInflater.from(context).inflate(R.layout.toolbar_view_layout, this, true);
 
         ButterKnife.bind(this, v);
-        this.context = context;
+        setOnClickListeners();
     }
 
     private void setOnClickListeners() {
@@ -59,7 +61,6 @@ public class ToolbarView extends RelativeLayout {
 
     public void setListener(ToolbarListener listener) {
         this.listener = listener;
-        setOnClickListeners();
     }
 
     public void setVisibleSearchIcon(int visibility) {
