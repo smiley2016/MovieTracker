@@ -34,7 +34,11 @@ public class FragmentNavigation {
         return sInstance;
     }
 
-    private Fragment newInstance(Fragment fragment, Bundle bundle) {
+    private Fragment setFragmentArguments(Fragment fragment, Bundle bundle) {
+        if(bundle == null){
+            fragment.setArguments(new Bundle());
+            return fragment;
+        }
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -45,29 +49,29 @@ public class FragmentNavigation {
 
 
     public void showGenreSelectorFragment() {
-        Fragment myCurrentFragment = newInstance(new GenreSelectorFragment(), null);
+        Fragment myCurrentFragment = setFragmentArguments(new GenreSelectorFragment(), null);
         replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, false);
         Log.e(TAG, "showGenreSelectorFragment:" + myCurrentFragment);
     }
 
 
     public void showMovieNavigationFragment(Bundle bundle) {
-        Fragment myCurrentFragment = newInstance(new MovieNavigationFragment(), bundle);
+        Fragment myCurrentFragment = setFragmentArguments(new MovieNavigationFragment(), bundle);
         replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, true);
     }
 
     public void showDetailPageFragment(Bundle bundle) {
-        Fragment myCurrentFragment = newInstance(new DetailPageFragment(), bundle);
+        Fragment myCurrentFragment = setFragmentArguments(new DetailPageFragment(), bundle);
         replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, true);
     }
 
     public void showPlayerFragment(Bundle bundle) {
-        Fragment myCurrentFragment = newInstance(new PlayerFragment(), bundle);
+        Fragment myCurrentFragment = setFragmentArguments(new PlayerFragment(), bundle);
         replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, true);
     }
 
     void showNoInternetFragment() {
-        Fragment myCurrentFragment = newInstance(new NoInternetFragment(), null);
+        Fragment myCurrentFragment = setFragmentArguments(new NoInternetFragment(), null);
         addFragment(myCurrentFragment);
     }
 

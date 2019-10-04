@@ -42,7 +42,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         super.onCreate(savedInstanceState);
         backgroundPresenter = new BackgroundPresenter(this);
         presenter = new MovieNavigationPresenter(this);
-        presenter.loadMovieNavigationPresenter(getContext(), selectedGenres);
+        presenter.loadMovieData(getContext(), selectedGenres);
     }
 
     @Nullable
@@ -132,7 +132,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
             adapter.clearAll();
         }
         Constant.API.PAGE = 0;
-        presenter.loadMovieNavigationPresenter(getContext(), selectedGenres);
+        presenter.loadMovieData(getContext(), selectedGenres);
 
     }
 
