@@ -34,7 +34,6 @@ import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -42,8 +41,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MovieNavigationVerticalGridViewAdapter extends
-        RecyclerView.Adapter<MovieNavigationVerticalGridViewAdapter.Holder>
-        implements Serializable {
+        RecyclerView.Adapter<MovieNavigationVerticalGridViewAdapter.Holder> {
 
     private static final String TAG = MovieNavigationVerticalGridViewAdapter.class.getName();
     private ArrayList<Movie> movieList;
