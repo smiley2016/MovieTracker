@@ -129,9 +129,9 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
 
     @SuppressLint("StaticFieldLeak")
     private void makeListFromURIs() {
-        MediaSource[] mediaSource = new MediaSource[videos.size()];
+        MediaSource[] mediaSource = new MediaSource[youtubeLinks.size()];
 
-        for (int i = 0; i < videos.size(); ++i) {
+        for (int i = 0; i < youtubeLinks.size(); ++i) {
             mediaSource[i] = buildMediaSource(youtubeLinks.get(i));
         }
         setMediaSource(mediaSource);
@@ -209,11 +209,9 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
         if (videoTitleFrameLayout.getLayoutParams() instanceof ConstraintLayout.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) videoTitleFrameLayout.getLayoutParams();
             p.setMargins((int) rootView.getResources().getDimension(R.dimen.playlist_margin_zero),
-                    (int) pxFromDp(rootView.getContext(), (int)rootView.getResources()
-                                    .getDimension(R.dimen.show_playlist_margin_offset_top)),
+                    (int) rootView.getResources().getDimension(R.dimen.show_playlist_margin_offset_top),
                     (int) rootView.getResources().getDimension(R.dimen.playlist_margin_zero),
-                    (int) pxFromDp(rootView.getContext(), rootView.getContext().getResources()
-                                    .getDimension(R.dimen.playlist_margin_offset_bottom)));
+                    (int) rootView.getContext().getResources().getDimension(R.dimen.playlist_margin_offset_bottom));
             videoTitleFrameLayout.requestLayout();
         }
     }

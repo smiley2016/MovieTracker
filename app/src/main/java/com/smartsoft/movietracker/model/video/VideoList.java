@@ -12,4 +12,8 @@ public class VideoList {
     public ArrayList<Video> getVideos() {
         return videos;
     }
+
+    public void addToList(Video video){
+        videos.add(video);
+    }
 }

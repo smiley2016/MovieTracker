@@ -183,9 +183,9 @@
     <dimen name="review_element_comment_marginTop">12dp</dimen>
     <dimen name="review_element_comment_marginEnd">8dp</dimen>
     <dimen name="review_element_comment_size">10sp</dimen>
-    <dimen name="playlist_margin_zero">0</dimen>
-    <dimen name="show_playlist_margin_offset_top">232</dimen>
-    <dimen name="hide_playlist_margin_offset_top">332</dimen>
-    <dimen name="playlist_margin_offset_bottom">22</dimen>
+    <dimen name="playlist_margin_zero">0dp</dimen>
+    <dimen name="show_playlist_margin_offset_top">232dp</dimen>
+    <dimen name="hide_playlist_margin_offset_top">332dp</dimen>
+    <dimen name="playlist_margin_offset_bottom">22dp</dimen>
 
 </resources>

@@ -133,16 +133,18 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
 
         CastList cast = new CastList(movieDetails.getCasts());
         ReviewList list = new ReviewList(movieDetails.getReviews());
+
         objectAdapter.add(cast);
         objectAdapter.add(list);
 
-        for (int i = Integer.parseInt(getString(R.string.zero)); i < movieDetails.getVideos().size(); ++i) {
+        for (int i = 0; i < movieDetails.getVideos().size(); ++i) {
             String youtubeLink = String.format(getString(R.string.YoutubeBaseUrl), movieDetails.getVideos().get(i).getKey());
             int finalI = i;
             youTubeExtractor = new YouTubeExtractor(rootView.getContext()) {
                 @Override
                 protected void onExtractionComplete(SparseArray<YtFile> ytFiles, VideoMeta videoMeta) {
                     if (ytFiles != null) {
+
                         String downloadUrl = getDownloadUrlForVideos(ytFiles);
                         if (downloadUrl == null) {
                             movieDetails.getVideos().remove(movieDetails.getVideos().get(finalI));
@@ -154,6 +156,7 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
                 }
             };
             youTubeExtractor.extract(youtubeLink, true, true);
+
         }
         VideoList videoList = new VideoList(movieDetails.getVideos());
         objectAdapter.add(videoList);
