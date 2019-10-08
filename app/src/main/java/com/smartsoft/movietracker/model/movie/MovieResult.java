@@ -30,4 +30,7 @@ public class MovieResult {
         return results;
     }
 
+    public Integer getTotalPages() {
+        return totalPages;
+    }
 }

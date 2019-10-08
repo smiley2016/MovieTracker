@@ -50,16 +50,19 @@ public class MovieNavigationVerticalGridViewAdapter extends
     private MovieNavigationPresenter presenter;
     private ArrayList<Genre> selectedGenres;
     private BackgroundPresenter backgroundPresenter;
+    private Integer totalPages;
 
     MovieNavigationVerticalGridViewAdapter(ArrayList<Movie> movieList, Context ctx,
                                            MovieNavigationPresenter presenter,
                                            ArrayList<Genre> selectedGenres,
-                                           BackgroundPresenter backgroundPresenter) {
+                                           BackgroundPresenter backgroundPresenter,
+                                           Integer totalPages) {
         this.movieList = movieList;
         this.ctx = ctx;
         this.presenter = presenter;
         this.selectedGenres = selectedGenres;
         this.backgroundPresenter = backgroundPresenter;
+        this.totalPages = totalPages;
     }
 
     @NonNull
@@ -160,7 +163,7 @@ public class MovieNavigationVerticalGridViewAdapter extends
 
             layout.setOnFocusChangeListener((view, b) -> {
                 if (b) {
-                    if (getAdapterPosition() >= (movieList.size() - 1) - Constant.GridView.COLUMN_NUM7) {
+                    if ((getAdapterPosition() >= (movieList.size() - 1) - Constant.GridView.COLUMN_NUM7) && (Constant.API.PAGE <= totalPages) ) {
                         presenter.loadMovieData(ctx, selectedGenres);
                     }
 

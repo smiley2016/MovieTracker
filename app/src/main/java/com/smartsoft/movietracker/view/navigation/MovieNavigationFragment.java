@@ -79,12 +79,12 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
     }
 
     @Override
-    public void updateMovieNavigationGridView(ArrayList<Movie> movies) {
+    public void updateMovieNavigationGridView(ArrayList<Movie> movies, Integer totalPages) {
         if (adapter != null) {
             adapter.updateMovieList(movies);
             adapter.notifyDataSetChanged();
         } else {
-            onInitRecyclerViewAdapter(movies);
+            onInitRecyclerViewAdapter(movies, totalPages);
         }
 
 
@@ -106,8 +106,14 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         setTitle(genreTitle.toString());
     }
 
-    private void onInitRecyclerViewAdapter(ArrayList<Movie> movies) {
-        adapter = new MovieNavigationVerticalGridViewAdapter(movies, getActivity(), presenter, selectedGenres, backgroundPresenter);
+    private void onInitRecyclerViewAdapter(ArrayList<Movie> movies, Integer totalPages) {
+        adapter = new MovieNavigationVerticalGridViewAdapter(
+                movies,
+                getActivity(),
+                presenter,
+                selectedGenres,
+                backgroundPresenter,
+                totalPages, totalPages1);
         verticalGridView.setHasFixedSize(true);
         verticalGridView.setAdapter(adapter);
     }

@@ -6,7 +6,7 @@ import android.util.Log;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.cast.Cast;
 import com.smartsoft.movietracker.model.genre.Genre;
-import com.smartsoft.movietracker.model.movie.Movie;
+import com.smartsoft.movietracker.model.movie.MovieResult;
 import com.smartsoft.movietracker.model.review.Review;
 import com.smartsoft.movietracker.model.review.ReviewResult;
 import com.smartsoft.movietracker.model.video.Video;
@@ -18,6 +18,8 @@ import com.smartsoft.movietracker.utils.Utils;
 import java.util.ArrayList;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.Function;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -63,7 +65,7 @@ public class ApiController {
                 });
     }
 
-    public Observable<ArrayList<Movie>> getMovies(Context context, ArrayList<Integer> genreIds) {
+    public Observable<MovieResult> getMovies(Context context, ArrayList<Integer> genreIds) {
 
         SharedPreferences sp = new SharedPreferences(context, context.getString(R.string.sortBy));
         String sortBy = sp.ReadFromStorage();
@@ -80,10 +82,10 @@ public class ApiController {
                 Constant.API.INCLUDE_VIDEO,
                 Constant.API.PAGE,
                 Utils.genreListToCsvIdString(genreIds)).map(movieResultResponse -> {
-            Log.e(TAG, context.getString(R.string.getMovies) + movieResultResponse.toString());
-            assert movieResultResponse.body() != null;
-            return movieResultResponse.body().getResults();
-        });
+                    Log.e(TAG, context.getString(R.string.getMovies) + movieResultResponse.toString());
+                    assert movieResultResponse.body() != null;
+                    return movieResultResponse.body();
+                });
     }
 
     public Observable<ArrayList<Cast>> getCast(int movie_id) {
