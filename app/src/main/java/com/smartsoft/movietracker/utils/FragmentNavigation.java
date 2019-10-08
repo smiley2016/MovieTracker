@@ -35,10 +35,6 @@ public class FragmentNavigation {
     }
 
     private Fragment setFragmentArguments(Fragment fragment, Bundle bundle) {
-        if(bundle == null){
-            fragment.setArguments(new Bundle());
-            return fragment;
-        }
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -49,7 +45,7 @@ public class FragmentNavigation {
 
 
     public void showGenreSelectorFragment() {
-        Fragment myCurrentFragment = setFragmentArguments(new GenreSelectorFragment(), null);
+        Fragment myCurrentFragment = setFragmentArguments(new GenreSelectorFragment(), new Bundle());
         replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, false);
         Log.e(TAG, "showGenreSelectorFragment:" + myCurrentFragment);
     }
@@ -71,7 +67,7 @@ public class FragmentNavigation {
     }
 
     void showNoInternetFragment() {
-        Fragment myCurrentFragment = setFragmentArguments(new NoInternetFragment(), null);
+        Fragment myCurrentFragment = setFragmentArguments(new NoInternetFragment(), new Bundle());
         addFragment(myCurrentFragment);
     }
 
