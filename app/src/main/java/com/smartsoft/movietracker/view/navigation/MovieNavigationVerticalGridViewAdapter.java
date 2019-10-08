@@ -211,7 +211,7 @@ public class MovieNavigationVerticalGridViewAdapter extends
 
             });
 
-            imdbRating.setText(String.format(ctx.getString(R.string.imdb_vote_average), movie.getVoteAverage()));
+            imdbRating.setText(String.format(ctx.getString(R.string.imdb_vote_average), String.valueOf(movie.getVoteAverage())));
 
             Iterator<Genre> genreIterator = selectedGenres.iterator();
             StringBuilder genreTitles = new StringBuilder();
@@ -224,15 +224,14 @@ public class MovieNavigationVerticalGridViewAdapter extends
 
             title.setText(movie.getTitle());
 
-            String[] releaseDateList = new String[Constant.MovieNavigation.releaseDateListSize];
-            if (movie.getReleaseDate() != null) {
-                releaseDateList = movie.getReleaseDate().split(StringUtils.HYPHEN_DELIMITER);
-            } else {
-                releaseDateList[0] = StringUtils.EMPTY_STRING;
+            String releaseYearList;
+            if(movie.getReleaseDate() != null){
+                releaseYearList = movie.getReleaseDate().substring(0, movie.getReleaseDate().indexOf(StringUtils.HYPHEN_DELIMITER));
+            }else{
+                releaseYearList = "";
             }
 
-
-            releaseDate.setText(releaseDateList[0]);
+            releaseDate.setText(releaseYearList);
 
         }
     }

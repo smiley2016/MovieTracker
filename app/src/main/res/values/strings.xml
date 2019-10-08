@@ -83,7 +83,8 @@
     <string name="exo_ffwd">exo_ffwd</string>
     <string name="exo_next">exo_next</string>
     <string name="youtubeLinks">youtubeLinks</string>
-    <string name="imdb_vote_average">IMDb: %d</string>
+    <string name="imdb_vote_average">IMDb: %s</string>
+    <string name="data_load_server_error">Data couldn\'t loaded from the Server</string>
 
 
 </resources>

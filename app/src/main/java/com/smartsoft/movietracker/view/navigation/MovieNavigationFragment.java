@@ -113,7 +113,7 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
                 presenter,
                 selectedGenres,
                 backgroundPresenter,
-                totalPages, totalPages1);
+                totalPages);
         verticalGridView.setHasFixedSize(true);
         verticalGridView.setAdapter(adapter);
     }

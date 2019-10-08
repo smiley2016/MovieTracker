@@ -2,7 +2,9 @@ package com.smartsoft.movietracker.presenter;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.model.movie.MovieResult;
@@ -47,19 +49,23 @@ public class MovieNavigationPresenter {
 
                     @Override
                     public void onNext(MovieResult movieResult) {
-                        ArrayList<Movie> movieList = movieResult.getResults();
-                        Integer totalPages = movieResult.getTotalPages();
-                        for (Movie it : movieList) {
-                            if (it.getPosterPath() != null) {
-                                movieList.add(it);
+                        if(movieResult != null){
+                            ArrayList<Movie> movieList = new ArrayList<>();
+                            for (Movie it : movieResult.getResults()) {
+                                if (it.getPosterPath() != null) {
+                                    movieList.add(it);
+                                }
                             }
+                            movieNavigationInterface.updateMovieNavigationGridView(movieList, movieResult.getTotalPages());
+                        }else{
+                            Toast.makeText(context, R.string.data_load_server_error, Toast.LENGTH_SHORT).show();
                         }
-                        movieNavigationInterface.updateMovieNavigationGridView(movieList, totalPages);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.e(TAG, "onError: "+ R.string.data_load_server_error, e);
+                        Toast.makeText(context, R.string.data_load_server_error, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

@@ -18,6 +18,7 @@ public class Constant {
         public static final String LANGUAGE = "en-US";
         public static final boolean INCLUDE_ADULT = false;
         public static final boolean INCLUDE_VIDEO = false;
+        public static final int RESPONSE_CODE = 200;
         public static int PAGE = 0;
 
     }
