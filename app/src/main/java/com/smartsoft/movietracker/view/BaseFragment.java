@@ -50,7 +50,7 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
     private ObservableEmitter<String> urlStreamEmitter;
     private Drawable placeholderDrawable;
 
-    protected void initEmitters() {
+    private void initEmitters() {
         Observable.create((ObservableOnSubscribe<String>) emitter -> urlStreamEmitter = emitter)
                 .debounce(1000, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
@@ -128,7 +128,7 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
 
     }
 
-    protected void setToolbarViewListener(ToolbarListener listener) throws NullPointerException {
+    private void setToolbarViewListener(ToolbarListener listener) throws NullPointerException {
         if (toolbarView != null) {
             toolbarView.setListener(listener);
         }

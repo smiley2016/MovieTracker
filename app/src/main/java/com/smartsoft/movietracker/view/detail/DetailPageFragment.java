@@ -47,7 +47,7 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
     @BindView(R.id.detail_page_grid_view)
     VerticalGridView verticalGridView;
     private Movie movie;
-    private ArrayList<Genre> genres;
+    private ArrayList<Genre> selectedGenres;
     private ArrayObjectAdapter objectAdapter;
     private DetailPagePresenter dPresenter;
     private YouTubeExtractor youTubeExtractor;
@@ -56,7 +56,6 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        genres = new ArrayList<>();
         youtubeLinks = new ArrayList<>();
         dPresenter = new DetailPagePresenter(this);
     }
@@ -70,7 +69,6 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
             initializeViews();
             getAllData();
         }
-
         return rootView;
     }
 
@@ -84,8 +82,9 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (getArguments() != null) {
+            selectedGenres = new ArrayList<>();
             movie = (Movie) getArguments().getSerializable(getString(R.string.movie));
-            genres = (ArrayList<Genre>) getArguments().getSerializable(getString(R.string.selectedGenres));
+            selectedGenres = (ArrayList<Genre>) getArguments().getSerializable(getString(R.string.selectedGenres));
         }
     }
 
@@ -99,10 +98,10 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
 
         ArrayList<String> currentMovieGenres = new ArrayList<>();
 
-        for (int i = 0; i < genres.size(); ++i) {
+        for (int i = 0; i < selectedGenres.size(); ++i) {
             for (int j = 0; j < movie.getGenreIds().size(); ++j) {
-                if (movie.getGenreIds().get(j).equals(genres.get(i).getId())) {
-                    currentMovieGenres.add(genres.get(i).getName());
+                if (movie.getGenreIds().get(j).equals(selectedGenres.get(i).getId())) {
+                    currentMovieGenres.add(selectedGenres.get(i).getName());
                 }
             }
 
