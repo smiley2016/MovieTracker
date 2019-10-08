@@ -3,6 +3,7 @@ package com.smartsoft.movietracker.view.player;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,13 +66,12 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
     private int playIndex;
     private boolean playWhenReady = true;
     private ArrayList<Uri> youtubeLinks;
-    private PlayerPresenter presenter;
     private PlayerVerticalGridPresenter vPresenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new PlayerPresenter(this);
+        PlayerPresenter presenter = new PlayerPresenter(this);
         vPresenter = new PlayerVerticalGridPresenter(getContext(), presenter, videos);
     }
 
@@ -162,7 +162,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
     @Override
     public void onStart() {
         super.onStart();
-        if (Util.SDK_INT > 23) {
+        if (Util.SDK_INT > Build.VERSION_CODES.M) {
             initializePlayer();
         }
     }
@@ -171,7 +171,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
     public void onResume() {
         super.onResume();
         hideSystemUi();
-        if ((Util.SDK_INT <= 23 || player == null)) {
+        if ((Util.SDK_INT <= Build.VERSION_CODES.M || player == null)) {
             initializePlayer();
         }
     }
@@ -200,7 +200,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
     @Override
     public void onPause() {
         super.onPause();
-        if (Util.SDK_INT <= 23) {
+        if (Util.SDK_INT <= Build.VERSION_CODES.M) {
             releasePlayer();
         }
     }
@@ -208,7 +208,12 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
     private void showPlayList() {
         if (videoTitleFrameLayout.getLayoutParams() instanceof ConstraintLayout.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) videoTitleFrameLayout.getLayoutParams();
-            p.setMargins(0, (int) pxFromDp(rootView.getContext(), 232), 0, (int) pxFromDp(rootView.getContext(), 22));
+            p.setMargins((int) rootView.getResources().getDimension(R.dimen.playlist_margin_zero),
+                    (int) pxFromDp(rootView.getContext(), (int)rootView.getResources()
+                                    .getDimension(R.dimen.show_playlist_margin_offset_top)),
+                    (int) rootView.getResources().getDimension(R.dimen.playlist_margin_zero),
+                    (int) pxFromDp(rootView.getContext(), rootView.getContext().getResources()
+                                    .getDimension(R.dimen.playlist_margin_offset_bottom)));
             videoTitleFrameLayout.requestLayout();
         }
     }
@@ -217,7 +222,12 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
 
         if (videoTitleFrameLayout.getLayoutParams() instanceof ConstraintLayout.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) videoTitleFrameLayout.getLayoutParams();
-            p.setMargins(0, (int) pxFromDp(rootView.getContext(), 332), 0, (int) pxFromDp(rootView.getContext(), 22));
+            p.setMargins((int) rootView.getResources().getDimension(R.dimen.playlist_margin_zero),
+                    (int) pxFromDp(rootView.getContext(), (int)rootView.getResources()
+                            .getDimension(R.dimen.show_playlist_margin_offset_top)),
+                    (int) rootView.getResources().getDimension(R.dimen.playlist_margin_zero),
+                    (int) pxFromDp(rootView.getContext(), rootView.getContext().getResources()
+                            .getDimension(R.dimen.playlist_margin_offset_bottom)));
             videoTitleFrameLayout.requestLayout();
         }
 
@@ -237,7 +247,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
     @Override
     public void onStop() {
         super.onStop();
-        if (Util.SDK_INT > 23) {
+        if (Util.SDK_INT > Build.VERSION_CODES.M) {
             releasePlayer();
         }
     }
