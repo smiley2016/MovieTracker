@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +41,7 @@ import butterknife.ButterKnife;
 
 public class DetailPageFragment extends BaseFragment implements OnDetailPageListener {
     private static final String TAG = DetailPageFragment.class.getName();
-    private static final int[] yTags = {248, 46, 96, 95, 22, 18, 83, 82};
+    private static final int[] youtubeResolutionTags = {248, 46, 96, 95, 22, 18, 83, 82};
     @BindView(R.id.background_image)
     ImageView background;
     @BindView(R.id.detail_page_grid_view)
@@ -57,8 +56,9 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dPresenter = new DetailPagePresenter(this);
+        genres = new ArrayList<>();
         youtubeLinks = new ArrayList<>();
+        dPresenter = new DetailPagePresenter(this);
     }
 
     @Override
@@ -161,7 +161,7 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
     }
 
     private String getDownloadUrlForVideos(SparseArray<YtFile> ytFiles) {
-        for (int tag : yTags) {
+        for (int tag : youtubeResolutionTags) {
             try {
                 return ytFiles.get(tag).getUrl();
             } catch (Exception ignore) {
