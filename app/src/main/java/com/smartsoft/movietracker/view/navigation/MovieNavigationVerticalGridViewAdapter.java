@@ -74,7 +74,7 @@ public class MovieNavigationVerticalGridViewAdapter extends
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        holder.bind(movieList.get(position), ctx, selectedGenres, backgroundPresenter);
+        holder.bind(movieList.get(position));
 
     }
 
@@ -129,8 +129,7 @@ public class MovieNavigationVerticalGridViewAdapter extends
         }
 
 
-        void bind(Movie movie, Context ctx,
-                  ArrayList<Genre> selectedGenres, BackgroundPresenter backgroundPresenter) {
+        void bind(Movie movie) {
 
 
             Glide.with(ctx)
