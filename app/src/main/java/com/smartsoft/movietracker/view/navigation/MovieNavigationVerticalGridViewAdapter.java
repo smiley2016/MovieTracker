@@ -33,6 +33,7 @@ import com.smartsoft.movietracker.presenter.BackgroundPresenter;
 import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
+import com.smartsoft.movietracker.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -114,15 +115,11 @@ public class MovieNavigationVerticalGridViewAdapter extends
         @BindView(R.id.open_description)
         ImageView openDetailPage;
 
-
-        float curveRadius;
         boolean isOpen = false;
 
         Holder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-
-            curveRadius = 24f;
 
             detailLayout.setClipToOutline(true);
 
@@ -171,11 +168,11 @@ public class MovieNavigationVerticalGridViewAdapter extends
                         @Override
                         public void getOutline(View view, Outline outline) {
                             outline.setRoundRect(
-                                    0,
-                                    0,
-                                    (int) (view.getWidth() + curveRadius),
+                                    Constant.MovieNavigation.offset,
+                                    Constant.MovieNavigation.offset,
+                                    (int) (view.getWidth() + Constant.MovieNavigation.curveRadius),
                                     view.getHeight(),
-                                    curveRadius);
+                                    Constant.MovieNavigation.curveRadius);
                         }
                     });
                     poster.setClipToOutline(true);
@@ -211,24 +208,24 @@ public class MovieNavigationVerticalGridViewAdapter extends
 
             });
 
-            imdbRating.setText(String.format("IMDb: %s", movie.getVoteAverage()));
+            imdbRating.setText(String.format(ctx.getString(R.string.imdb_vote_average), movie.getVoteAverage()));
 
             Iterator<Genre> genreIterator = selectedGenres.iterator();
             StringBuilder genreTitles = new StringBuilder();
             while (genreIterator.hasNext()) {
-                genreTitles.append(genreIterator.next().getName()).append(", ");
+                genreTitles.append(genreIterator.next().getName()).append(StringUtils.COMMA_DELIMITER_WITH_SPACE);
             }
-            genreTitles.replace(genreTitles.length() - 2, genreTitles.length() - 1, "");
+            genreTitles.replace(genreTitles.length() - 2, genreTitles.length() - 1, StringUtils.EMPTY_STRING);
 
             this.genres.setText(genreTitles);
 
             title.setText(movie.getTitle());
 
-            String[] releaseDateList = new String[3];
+            String[] releaseDateList = new String[Constant.MovieNavigation.releaseDateListSize];
             if (movie.getReleaseDate() != null) {
-                releaseDateList = movie.getReleaseDate().split("-");
+                releaseDateList = movie.getReleaseDate().split(StringUtils.HYPHEN_DELIMITER);
             } else {
-                releaseDateList[0] = "";
+                releaseDateList[0] = StringUtils.EMPTY_STRING;
             }
 
 

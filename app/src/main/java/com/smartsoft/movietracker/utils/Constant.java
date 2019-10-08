@@ -28,4 +28,10 @@ public class Constant {
         public static final String originalTitle = "original_title";
         public static final String voteAverage = "vote_average";
     }
+
+    public static class MovieNavigation {
+        public static final float curveRadius = 24f;
+        public static final int offset = 0;
+        public static final int releaseDateListSize = 3;
+    }
 }
