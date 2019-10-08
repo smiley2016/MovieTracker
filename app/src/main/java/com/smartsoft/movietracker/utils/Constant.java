@@ -15,7 +15,7 @@ public class Constant {
         public static final String API_KEY = "221aac16f7f58f1cf0fd5f99ff6e6b60";
         public static final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
         public static final String IMAGE_ORIGINAL_BASE_URL = "https://image.tmdb.org/t/p/original";
-        public static final String LANGUAGE = "ru-rRu";
+        public static final String LANGUAGE = "en-US";
         public static final boolean INCLUDE_ADULT = false;
         public static final boolean INCLUDE_VIDEO = false;
         public static int PAGE = 0;

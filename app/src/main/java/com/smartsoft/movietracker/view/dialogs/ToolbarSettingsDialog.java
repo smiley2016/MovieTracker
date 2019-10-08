@@ -27,6 +27,7 @@ public class ToolbarSettingsDialog {
     private ToolbarListener listener;
     private boolean isChanged = false;
     private Context context;
+    private String sortBy;
 
     public ToolbarSettingsDialog(ToolbarListener listener, Context context) {
         this.listener = listener;
@@ -34,7 +35,7 @@ public class ToolbarSettingsDialog {
         startToolbarSettingsDialog(context);
     }
 
-    public void startToolbarSettingsDialog(Context ctx) {
+    private void startToolbarSettingsDialog(Context ctx) {
         final Dialog dialog = new Dialog(ctx);
         dialog.setContentView(R.layout.toolbar_settings_dialog);
 
@@ -46,11 +47,12 @@ public class ToolbarSettingsDialog {
         setActiveButtonWithSharedPref(sortSp, ctx);
         setOrderBySwitchWithSharedPref(orderSp);
 
-        setSort(radioGroup, sortSp);
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> setSort(checkedId));
 
         sort.setOnClickListener(view -> {
             setOrder(orderBy, orderSp);
             if (isChanged) {
+                sortSp.writeOnStorage(sortBy);
                 listener.onSortButtonClicked(dialog);
             }
         });
@@ -70,41 +72,31 @@ public class ToolbarSettingsDialog {
         }
     }
 
-    private void setSort(RadioGroup radioGroup, SharedPreferences sortSp) {
-        radioGroup.setOnCheckedChangeListener((radioGroup1, checked) ->
-                updateSharedPrefForSort(checked, sortSp)
-
-        );
-    }
-
-    private void updateSharedPrefForSort(int checked, SharedPreferences sortSp) {
+    private void setSort(int checked) {
         switch (checked) {
             case R.id.radio_button_title: {
-                sortSp.writeOnStorage(context.getString(R.string.originalTitle));
-                Log.e(TAG, context.getString(R.string.startToolbarSettingsDialog) + checked);
+                sortBy = context.getString(R.string.originalTitle);
                 isChanged = true;
                 break;
             }
             case R.id.radio_button_rating: {
-                sortSp.writeOnStorage(context.getString(R.string.popularity));
-                Log.e(TAG, context.getString(R.string.startToolbarSettingsDialog) + checked);
+                sortBy = context.getString(R.string.popularity);
                 isChanged = true;
                 break;
             }
             case R.id.radio_button_release_date: {
-                sortSp.writeOnStorage(context.getString(R.string.releaseDate));
-                Log.e(TAG, context.getString(R.string.startToolbarSettingsDialog) + checked);
+                sortBy = context.getString(R.string.releaseDate);
                 isChanged = true;
                 break;
             }
             case R.id.radio_button_vote_average: {
-                sortSp.writeOnStorage(context.getString(R.string.voteAverage));
-                Log.e(TAG, context.getString(R.string.startToolbarSettingsDialog) + checked);
+                sortBy = context.getString(R.string.voteAverage);
                 isChanged = true;
                 break;
             }
         }
     }
+
 
     private void setOrderBySwitchWithSharedPref(SharedPreferences orderSp) {
         String value = orderSp.ReadFromStorage();
@@ -139,13 +131,9 @@ public class ToolbarSettingsDialog {
             default: {
 
                 Toast.makeText(context, R.string.sortError, Toast.LENGTH_SHORT).show();
-                Log.e(TAG, context.getString(R.string.setActiveButtonWithSharedPref) + sort);
+                Log.e(TAG, "setActiveButtonWithSharedPref:" + sort);
                 break;
             }
         }
-
-
     }
-
-
 }

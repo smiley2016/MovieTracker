@@ -15,7 +15,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:contentDescription="@string/actorpicture" />
+        android:contentDescription="@string/actorPicture" />
 
     <ProgressBar
         android:id="@+id/cast_element_progress_bar"
