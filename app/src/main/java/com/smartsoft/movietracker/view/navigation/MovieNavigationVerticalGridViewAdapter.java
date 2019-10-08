@@ -178,7 +178,6 @@ public class MovieNavigationVerticalGridViewAdapter extends
                         }
                     });
                     poster.setClipToOutline(true);
-                    Log.e(TAG, ctx.getString(R.string.CardViewOnFocusChangeListener));
                     backgroundPresenter.setBackground(movie.getBackdropPath());
                     isOpen = false;
                 } else {

@@ -96,8 +96,7 @@ public class GenreSelectorVerticalGridViewAdapter extends RecyclerView.Adapter<G
             Glide.with(mContext).load(R.mipmap.genre).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(genreImageView);
 
             layout.setOnClickListener(view -> manageGenreToList(genreList.get(position), position));
-
-            Log.e(TAG, mContext.getString(R.string.bind) + genre.getName() + mContext.getString(R.string.isActivated) + genre.isActivated());
+            
             if (genre.isActivated()) {
                 select_icon.setVisibility(View.VISIBLE);
             } else {

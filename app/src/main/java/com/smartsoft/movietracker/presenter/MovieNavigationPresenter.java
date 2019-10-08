@@ -64,7 +64,7 @@ public class MovieNavigationPresenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, "onError: "+ R.string.data_load_server_error, e);
+                        Log.e(TAG, "onError: Data couldn\\'t loaded from the Server", e);
                         Toast.makeText(context, R.string.data_load_server_error, Toast.LENGTH_SHORT).show();
                     }
 

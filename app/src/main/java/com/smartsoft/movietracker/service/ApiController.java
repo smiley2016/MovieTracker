@@ -82,7 +82,7 @@ public class ApiController {
                 Constant.API.INCLUDE_VIDEO,
                 Constant.API.PAGE,
                 Utils.genreListToCsvIdString(genreIds)).map(movieResultResponse -> {
-                Log.e(TAG, context.getString(R.string.getMovies) + movieResultResponse.toString());
+                Log.e(TAG, "getMovies:" + movieResultResponse.toString());
                 if (movieResultResponse.code() == Constant.API.RESPONSE_CODE) {
                     return movieResultResponse.body();
                 }

@@ -35,10 +35,7 @@
     <string name="movieReleaseDate">movieReleaseDate</string>
     <string name="movieBackDropPath">movieBackDropPath</string>
     <string name="movieId">movieId</string>
-    <string name="onResume">onResume:</string>
     <string name="isActivated">isActivated</string>
-    <string name="CardViewOnFocusChangeListener">CardView OnFocusChangeListener</string>
-    <string name="getMovies">getMovies:</string>
     <string name="onStart">onStart:</string>
     <string name="video">video</string>
 
