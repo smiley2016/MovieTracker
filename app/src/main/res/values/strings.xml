@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">MovieTracker</string>
-    <string name="back_button_press">Please click back again to exit</string>
-    <string name="bind">bind:</string>
 
     <!-- Toolbar   -->
     <string name="toolbar_settings_title">Title</string>
@@ -13,31 +11,16 @@
     <string name="toolbar_settings_asc">ASC</string>
     <string name="sortBy">sort_by</string>
     <string name="orderBy">order_by</string>
-    <string name="logo">logo</string>
 
     <!--  GridView  -->
     <string name="choose_genre_textView">Choose a genre you want to Watch</string>
     <string name="no_selected_genres">Please select at least a genre</string>
     <string name="verticalGridView_element_setScaleSizeTo">1.14</string>
     <string name="verticalGridView_element_normalScaleSize">1</string>
-    <string name="empty_genre_list_from_server">Empty genre list downloaded from the Server</string>
-    <string name="search_in_genres">search in selectedGenres</string>
-    <string name="genreIds">genreIds</string>
     <string name="removed_genre">Genre removed</string>
     <string name="added_genre">Genre added</string>
 
     <string name="youtube_recommendation">Youtube recommendation</string>
-
-    <!--  MovieNavigationFragment  -->
-    <string name="movieName">movieName</string>
-    <string name="moviePlot">moviePlot</string>
-    <string name="movieRate">movieRate</string>
-    <string name="movieReleaseDate">movieReleaseDate</string>
-    <string name="movieBackDropPath">movieBackDropPath</string>
-    <string name="movieId">movieId</string>
-    <string name="isActivated">isActivated</string>
-    <string name="onStart">onStart:</string>
-    <string name="video">video</string>
 
     <!--  PlayerFragment  -->
     <string name="ExoplayerCodeLab">exoplayer-codelab</string>
@@ -53,7 +36,6 @@
     <string name="try_again">Try Again</string>
     <string name="exit_application">Exit</string>
     <string name="movie">movie</string>
-    <string name="genres">genres</string>
     <string name="desc">.desc</string>
     <string name="asc">.asc</string>
     <string name="originalTitle">original_title</string>
@@ -65,7 +47,6 @@
     <string name="review_by">Review by</string>
     <string name="year">Year</string>
     <string name="imdb">IMDb</string>
-    <string name="actorPicture">actorPicture</string>
     <string name="backgroundImage">backGroundImage</string>
     <string name="bottom_overlay">bottom_overlay</string>
     <string name="background_overlay">background_overlay</string>

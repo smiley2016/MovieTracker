@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -59,18 +60,12 @@ public class GenreSelectorVerticalGridViewAdapter extends RecyclerView.Adapter<G
         return selectedGenres;
     }
 
-    private void manageGenreToList(Genre genres, int position) {
-        if (selectedGenres.contains(genres)) {
-            selectedGenres.remove(genres);
-            genres.setActivated(false);
-            Utils.showToast(mContext, mContext.getResources().getString(R.string.removed_genre) + " " + genres.getName());
-        } else {
-            this.selectedGenres.add(genres);
-            genres.setActivated(true);
-            Utils.showToast(mContext, mContext.getResources().getString(R.string.added_genre) + " " + genres.getName());
+    void setSelectedGenres() {
+        for(Genre it: genreList){
+            if(it.isActivated()){
+                selectedGenres.add(it);
+            }
         }
-        notifyItemChanged(position);
-
     }
 
     class RecyclerViewHolder extends RecyclerView.ViewHolder {
@@ -95,13 +90,15 @@ public class GenreSelectorVerticalGridViewAdapter extends RecyclerView.Adapter<G
 
             Glide.with(mContext).load(R.mipmap.genre).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(genreImageView);
 
-            layout.setOnClickListener(view -> manageGenreToList(genreList.get(position), position));
-            
-            if (genre.isActivated()) {
-                select_icon.setVisibility(View.VISIBLE);
-            } else {
-                select_icon.setVisibility(View.INVISIBLE);
-            }
+            layout.setOnClickListener(view -> {
+                if(genre.isActivated()){
+                    genre.setActivated(false);
+                    select_icon.setVisibility(View.INVISIBLE);
+                }else{
+                    genre.setActivated(true);
+                    select_icon.setVisibility(View.VISIBLE);
+                }
+            });
         }
     }
 

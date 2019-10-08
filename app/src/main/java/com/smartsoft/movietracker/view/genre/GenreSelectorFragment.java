@@ -82,6 +82,7 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
     @Override
     public void onSearchButtonClicked() {
         ArrayList<Genre> selectedGenres;
+        adapter.setSelectedGenres();
         selectedGenres = adapter.getSelectedGenres();
         if (selectedGenres.size() > 0) {
             Bundle bundle = new Bundle();
