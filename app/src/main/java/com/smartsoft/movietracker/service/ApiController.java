@@ -71,7 +71,7 @@ public class ApiController {
         SharedPreferences orderSp = new SharedPreferences(context, context.getString(R.string.orderBy));
         String orderBy = orderSp.ReadFromStorage();
 
-        Constant.API.PAGE++;
+
         Log.e(TAG, String.valueOf(Constant.API.PAGE));
         return movieApiService.getMovies(Constant.API.API_KEY,
                 Constant.API.LANGUAGE,

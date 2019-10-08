@@ -6,6 +6,7 @@ import android.util.Log;
 import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.service.ApiController;
+import com.smartsoft.movietracker.utils.Constant;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,8 @@ public class MovieNavigationPresenter {
         for (Genre it : selectedGenres) {
             genreIds.add(it.getId());
         }
+
+        Constant.API.PAGE++;
 
         ApiController.getInstance().getMovies(context, genreIds)
                 .subscribeOn(Schedulers.io())
