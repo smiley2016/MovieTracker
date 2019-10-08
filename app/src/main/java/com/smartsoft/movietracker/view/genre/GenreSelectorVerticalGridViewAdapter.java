@@ -62,7 +62,7 @@ public class GenreSelectorVerticalGridViewAdapter extends RecyclerView.Adapter<G
 
     void setSelectedGenres() {
         for(Genre it: genreList){
-            if(it.isActivated()){
+            if(it.isActivated() && !selectedGenres.contains(it)){
                 selectedGenres.add(it);
             }
         }

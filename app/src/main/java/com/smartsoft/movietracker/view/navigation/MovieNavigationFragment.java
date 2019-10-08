@@ -19,6 +19,7 @@ import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.presenter.BackgroundPresenter;
 import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
+import com.smartsoft.movietracker.utils.StringUtils;
 import com.smartsoft.movietracker.view.BaseFragment;
 
 import java.util.ArrayList;
@@ -51,12 +52,9 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
 
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_base, container, false);
+            ButterKnife.bind(this, rootView);
+            initViews(this, View.INVISIBLE, getGenreTitle());
         }
-        ButterKnife.bind(this, rootView);
-        initViews();
-        initEmitters();
-        setToolbarViewListener(this);
-        setToolbarSearchButtonVisibility(View.INVISIBLE);
         initializeViews();
         return rootView;
     }
@@ -65,7 +63,6 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         verticalGridView.setNumColumns(Constant.GridView.COLUMN_NUM7);
         verticalGridView.setItemSpacing((int) rootView.getContext().getResources().getDimension(R.dimen.spacing));
         verticalGridView.setFocusDrawingOrderEnabled(true);
-        setGenreTitle();
     }
 
     @Override
@@ -95,15 +92,15 @@ public class MovieNavigationFragment extends BaseFragment implements MovieNaviga
         super.setBackground(path);
     }
 
-    private void setGenreTitle() {
+    private String getGenreTitle() {
         Iterator<Genre> genreIterator = selectedGenres.iterator();
         StringBuilder genreTitle = new StringBuilder();
         while (genreIterator.hasNext()) {
-            genreTitle.append(genreIterator.next().getName()).append(" - ");
+            genreTitle.append(genreIterator.next().getName()).append(StringUtils.HYPHEN_DELITMITER_WITH_SPACE_IN_FRONT_AND_BACK);
         }
-        genreTitle.replace(genreTitle.length() - 3, genreTitle.length() - 1, "");
+        genreTitle.replace(genreTitle.length() - 3, genreTitle.length() - 1, StringUtils.EMPTY_STRING);
 
-        setTitle(genreTitle.toString());
+        return genreTitle.toString();
     }
 
     private void onInitRecyclerViewAdapter(ArrayList<Movie> movies, Integer totalPages) {

@@ -44,12 +44,10 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_base, container, false);
+            ButterKnife.bind(this, rootView);
+            initViews(this, View.VISIBLE, rootView.getContext().getString(R.string.choose_genre_textView));
         }
-        ButterKnife.bind(this, rootView);
-        initViews();
-        initEmitters();
-        setToolbarViewListener(this);
-        setTitle(rootView.getContext().getString(R.string.choose_genre_textView));
+
         initGridView();
         return rootView;
 

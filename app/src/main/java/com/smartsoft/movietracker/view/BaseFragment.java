@@ -96,8 +96,13 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentInter
 
     }
 
-    protected void initViews() {
+    protected void initViews(ToolbarListener listener, int visibility, String genreText) {
         ButterKnife.bind(this, rootView);
+
+        initEmitters();
+        setToolbarViewListener(listener);
+        setToolbarSearchButtonVisibility(visibility);
+        setTitle(genreText);
 
     }
 
