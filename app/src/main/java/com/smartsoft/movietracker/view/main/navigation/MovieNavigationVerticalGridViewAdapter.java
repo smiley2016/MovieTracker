@@ -1,10 +1,9 @@
-package com.smartsoft.movietracker.view.navigation;
+package com.smartsoft.movietracker.view.main.navigation;
 
 import android.content.Context;
 import android.graphics.Outline;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,6 @@ import com.bumptech.glide.request.target.Target;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.model.movie.Movie;
-import com.smartsoft.movietracker.presenter.BackgroundPresenter;
 import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
@@ -49,19 +47,16 @@ public class MovieNavigationVerticalGridViewAdapter extends
     private Context ctx;
     private MovieNavigationPresenter presenter;
     private ArrayList<Genre> selectedGenres;
-    private BackgroundPresenter backgroundPresenter;
     private Integer totalPages;
 
     MovieNavigationVerticalGridViewAdapter(ArrayList<Movie> movieList, Context ctx,
                                            MovieNavigationPresenter presenter,
                                            ArrayList<Genre> selectedGenres,
-                                           BackgroundPresenter backgroundPresenter,
                                            Integer totalPages) {
         this.movieList = movieList;
         this.ctx = ctx;
         this.presenter = presenter;
         this.selectedGenres = selectedGenres;
-        this.backgroundPresenter = backgroundPresenter;
         this.totalPages = totalPages;
     }
 
@@ -162,7 +157,7 @@ public class MovieNavigationVerticalGridViewAdapter extends
 
             layout.setOnFocusChangeListener((view, b) -> {
                 if (b) {
-                    if ((getAdapterPosition() >= (movieList.size() - 1) - Constant.GridView.COLUMN_NUM7) && (Constant.API.PAGE <= totalPages) ) {
+                    if ((getAdapterPosition() >= (movieList.size() - 1) - Constant.GridView.COLUMN_NUM7) && (Constant.API.PAGE <= totalPages)) {
                         presenter.loadMovieData(ctx, selectedGenres);
                     }
 
@@ -178,7 +173,7 @@ public class MovieNavigationVerticalGridViewAdapter extends
                         }
                     });
                     poster.setClipToOutline(true);
-                    backgroundPresenter.setBackground(movie.getBackdropPath());
+                    presenter.onBackgroundChange(movie.getBackdropPath());
                     isOpen = false;
                 } else {
                     poster.setClipToOutline(false);
@@ -223,9 +218,9 @@ public class MovieNavigationVerticalGridViewAdapter extends
             title.setText(movie.getTitle());
 
             String releaseYearList;
-            if(movie.getReleaseDate() != null){
+            if (movie.getReleaseDate() != null) {
                 releaseYearList = movie.getReleaseDate().substring(0, movie.getReleaseDate().indexOf(StringUtils.HYPHEN_DELIMITER));
-            }else{
+            } else {
                 releaseYearList = "";
             }
 

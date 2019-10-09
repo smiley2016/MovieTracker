@@ -45,7 +45,11 @@
         android:src="@drawable/start_over"
         android:stateListAnimator="@animator/toolbar_component_animator"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/exo_progress" />
+        app:layout_constraintTop_toTopOf="@id/exo_progress"
+        android:nextFocusDown="@+id/movie_detail_frame_layout"
+        android:nextFocusRight="@id/exo_rew"
+        android:nextFocusLeft="@id/exo_prev"
+        android:nextFocusUp="@id/exo_prev"/>
 
     <ImageView
         android:id="@+id/exo_rew"
@@ -59,7 +63,10 @@
         android:src="@drawable/backward_icon_10"
         android:stateListAnimator="@animator/toolbar_component_animator"
         app:layout_constraintStart_toEndOf="@id/exo_prev"
-        app:layout_constraintTop_toBottomOf="@id/exo_progress" />
+        app:layout_constraintTop_toBottomOf="@id/exo_progress"
+        android:nextFocusDown="@+id/movie_detail_frame_layout"
+        android:nextFocusLeft="@id/exo_prev"
+        android:nextFocusUp="@id/exo_rew"/>
 
     <ImageView
         android:id="@+id/exo_pause"
@@ -73,7 +80,11 @@
         android:stateListAnimator="@animator/toolbar_component_animator"
         android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@id/exo_rew"
-        app:layout_constraintTop_toBottomOf="@id/exo_progress" />
+        app:layout_constraintTop_toBottomOf="@id/exo_progress"
+        android:nextFocusDown="@+id/movie_detail_frame_layout"
+        android:nextFocusRight="@id/exo_ffwd"
+        android:nextFocusLeft="@id/exo_rew"
+        android:nextFocusUp="@id/exo_pause"/>
 
 
     <ImageView
@@ -87,7 +98,11 @@
         android:src="@drawable/play_icon"
         android:stateListAnimator="@animator/toolbar_component_animator"
         app:layout_constraintStart_toEndOf="@id/exo_rew"
-        app:layout_constraintTop_toBottomOf="@id/exo_progress" />
+        app:layout_constraintTop_toBottomOf="@id/exo_progress"
+        android:nextFocusDown="@+id/movie_detail_frame_layout"
+        android:nextFocusRight="@id/exo_ffwd"
+        android:nextFocusLeft="@id/exo_rew"
+        android:nextFocusUp="@id/exo_play"/>
 
     <ImageView
         android:id="@+id/exo_ffwd"
@@ -100,7 +115,10 @@
         android:src="@drawable/fast_forward_30"
         android:stateListAnimator="@animator/toolbar_component_animator"
         app:layout_constraintStart_toEndOf="@id/exo_rew"
-        app:layout_constraintTop_toBottomOf="@id/exo_progress" />
+        app:layout_constraintTop_toBottomOf="@id/exo_progress"
+        android:nextFocusDown="@+id/movie_detail_frame_layout"
+        android:nextFocusRight="@id/exo_next"
+        android:nextFocusUp="@id/exo_ffwd"/>
 
     <ImageView
         android:id="@+id/exo_next"
@@ -116,7 +134,11 @@
         android:stateListAnimator="@animator/toolbar_component_animator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/exo_ffwd"
-        app:layout_constraintTop_toBottomOf="@id/exo_progress" />
+        app:layout_constraintTop_toBottomOf="@id/exo_progress"
+        android:nextFocusDown="@+id/movie_detail_frame_layout"
+        android:nextFocusRight="@id/exo_next"
+        android:nextFocusLeft="@id/exo_ffwd"
+        android:nextFocusUp="@id/exo_next"/>
 
     <ProgressBar
         android:id="@+id/player_progressBar"
@@ -183,7 +205,8 @@
         android:paddingEnd="@dimen/player_control_layout_horizontal_grid_view_paddingEnd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recommended_videos_textView" />
+        app:layout_constraintTop_toBottomOf="@id/recommended_videos_textView"
+        />
 
     <com.google.android.exoplayer2.ui.DefaultTimeBar
         android:id="@+id/exo_progress"

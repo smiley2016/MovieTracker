@@ -77,8 +77,14 @@ public class MovieNavigationPresenter {
 
     }
 
+    public void onBackgroundChange(String backgroundPath){
+        movieNavigationInterface.onBackgroundChange(backgroundPath);
+    }
+
 
     public interface MovieNavigationInterface {
         void updateMovieNavigationGridView(ArrayList<Movie> movies, Integer totalPages);
+
+        void onBackgroundChange(String backdropPath);
     }
 }

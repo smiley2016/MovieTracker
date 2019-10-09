@@ -1,4 +1,4 @@
-package com.smartsoft.movietracker.view.genre;
+package com.smartsoft.movietracker.view.main.genre;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -18,13 +18,14 @@ import com.smartsoft.movietracker.presenter.GenreSelectorPresenter;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
 import com.smartsoft.movietracker.view.BaseFragment;
+import com.smartsoft.movietracker.view.main.BaseMainNavigationFragment;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class GenreSelectorFragment extends BaseFragment implements GenreSelectorPresenter.GenreSelectorInterface, ToolbarListener {
+public class GenreSelectorFragment extends BaseMainNavigationFragment implements GenreSelectorPresenter.GenreSelectorInterface, ToolbarListener {
 
     private static final String TAG = GenreSelectorFragment.class.getSimpleName();
     @BindView(R.id.gridView_container)
@@ -60,7 +61,7 @@ public class GenreSelectorFragment extends BaseFragment implements GenreSelector
     }
 
     @Override
-    public void InternetConnected() {
+    public void onInternetConnected() {
 
     }
 

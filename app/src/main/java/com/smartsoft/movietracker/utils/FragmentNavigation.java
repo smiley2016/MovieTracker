@@ -12,8 +12,8 @@ import com.smartsoft.movietracker.MainActivity;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.view.NoInternetFragment;
 import com.smartsoft.movietracker.view.detail.DetailPageFragment;
-import com.smartsoft.movietracker.view.genre.GenreSelectorFragment;
-import com.smartsoft.movietracker.view.navigation.MovieNavigationFragment;
+import com.smartsoft.movietracker.view.main.genre.GenreSelectorFragment;
+import com.smartsoft.movietracker.view.main.navigation.MovieNavigationFragment;
 import com.smartsoft.movietracker.view.player.PlayerFragment;
 
 public class FragmentNavigation {

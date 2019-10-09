@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.smartsoft.movietracker">
 
+
     <application
+        android:name="com.smartsoft.movietracker.utils.ApplicationNetworkReceiver"
         android:allowBackup="true"
         android:banner="@mipmap/ic_launcher"
         android:icon="@mipmap/ic_launcher"

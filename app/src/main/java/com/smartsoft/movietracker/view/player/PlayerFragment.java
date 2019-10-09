@@ -221,11 +221,11 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
         if (videoTitleFrameLayout.getLayoutParams() instanceof ConstraintLayout.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) videoTitleFrameLayout.getLayoutParams();
             p.setMargins((int) rootView.getResources().getDimension(R.dimen.playlist_margin_zero),
-                    (int) pxFromDp(rootView.getContext(), (int)rootView.getResources()
-                            .getDimension(R.dimen.show_playlist_margin_offset_top)),
+                    (int)rootView.getResources()
+                            .getDimension(R.dimen.hide_playlist_margin_offset_top),
                     (int) rootView.getResources().getDimension(R.dimen.playlist_margin_zero),
-                    (int) pxFromDp(rootView.getContext(), rootView.getContext().getResources()
-                            .getDimension(R.dimen.playlist_margin_offset_bottom)));
+                    (int) rootView.getContext().getResources()
+                            .getDimension(R.dimen.playlist_margin_offset_bottom));
             videoTitleFrameLayout.requestLayout();
         }
 

@@ -11,10 +11,13 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
 
     private static final String TAG = NetworkChangeReceiver.class.getName();
 
-    private Activity activity;
+    private static NetworkChangeReceiver sInstance;
 
-    public NetworkChangeReceiver(Activity activity) {
-        this.activity = activity;
+    public static NetworkChangeReceiver getInstance() {
+        if(sInstance == null){
+            sInstance = new NetworkChangeReceiver();
+        }
+        return sInstance;
     }
 
     @Override
