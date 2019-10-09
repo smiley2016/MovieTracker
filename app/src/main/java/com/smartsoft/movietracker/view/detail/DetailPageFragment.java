@@ -85,6 +85,9 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
             selectedGenres = new ArrayList<>();
             movie = (Movie) getArguments().getSerializable(getString(R.string.movie));
             selectedGenres = (ArrayList<Genre>) getArguments().getSerializable(getString(R.string.selectedGenres));
+            if(selectedGenres == null){
+                selectedGenres = new ArrayList<>();
+            }
         }
     }
 
