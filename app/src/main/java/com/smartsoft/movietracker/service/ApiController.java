@@ -65,7 +65,7 @@ public class ApiController {
                 });
     }
 
-    public Observable<MovieResult> getMovies(Context context, ArrayList<Integer> genreIds) {
+    public Observable<MovieResult> getMovies(Context context, ArrayList<Integer> genreIds, Integer page) {
 
         SharedPreferences sp = new SharedPreferences(context, context.getString(R.string.sortBy));
         String sortBy = sp.ReadFromStorage();
@@ -74,13 +74,13 @@ public class ApiController {
         String orderBy = orderSp.ReadFromStorage();
 
 
-        Log.e(TAG, String.valueOf(Constant.API.PAGE));
+        Log.e(TAG, String.valueOf(page));
         return movieApiService.getMovies(Constant.API.API_KEY,
                 Constant.API.LANGUAGE,
                 sortBy + orderBy,
                 Constant.API.INCLUDE_ADULT,
                 Constant.API.INCLUDE_VIDEO,
-                Constant.API.PAGE,
+                page,
                 Utils.genreListToCsvIdString(genreIds)).map(movieResultResponse -> {
                 Log.e(TAG, "getMovies:" + movieResultResponse.toString());
                 if (movieResultResponse.code() == Constant.API.RESPONSE_CODE) {

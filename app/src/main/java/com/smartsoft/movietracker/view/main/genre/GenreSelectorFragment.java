@@ -36,7 +36,6 @@ public class GenreSelectorFragment extends BaseMainNavigationFragment implements
     VerticalGridView verticalGridView;
     private ArrayList<Genre> genreList;
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

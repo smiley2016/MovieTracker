@@ -23,10 +23,11 @@ public class MovieNavigationPresenter {
     public static String TAG = MovieNavigationPresenter.class.getName();
 
     private MovieNavigationInterface movieNavigationInterface;
+    private Integer page;
 
     public MovieNavigationPresenter(MovieNavigationInterface movieNavigationInterface) {
         this.movieNavigationInterface = movieNavigationInterface;
-
+        page = 0;
     }
 
     public void loadMovieData(Context context, ArrayList<Genre> selectedGenres) {
@@ -36,9 +37,9 @@ public class MovieNavigationPresenter {
             genreIds.add(it.getId());
         }
 
-        Constant.API.PAGE++;
+        page++;
 
-        ApiController.getInstance().getMovies(context, genreIds)
+        ApiController.getInstance().getMovies(context, genreIds, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<MovieResult>() {
@@ -81,6 +82,13 @@ public class MovieNavigationPresenter {
         movieNavigationInterface.onBackgroundChange(backgroundPath);
     }
 
+    public void clearPage() {
+        page = 0;
+    }
+
+    public Integer getPage() {
+        return page;
+    }
 
     public interface MovieNavigationInterface {
         void updateMovieNavigationGridView(ArrayList<Movie> movies, Integer totalPages);

@@ -144,7 +144,7 @@ public class MovieNavigationFragment extends BaseMainNavigationFragment implemen
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Constant.API.PAGE = 0;
+        presenter.clearPage();
         adapter = null;
         setToolbarSearchButtonVisibility(View.VISIBLE);
     }
@@ -155,7 +155,7 @@ public class MovieNavigationFragment extends BaseMainNavigationFragment implemen
         if (adapter != null) {
             adapter.clearAll();
         }
-        Constant.API.PAGE = 0;
+        presenter.clearPage();
         presenter.loadMovieData(getContext(), selectedGenres);
 
     }
