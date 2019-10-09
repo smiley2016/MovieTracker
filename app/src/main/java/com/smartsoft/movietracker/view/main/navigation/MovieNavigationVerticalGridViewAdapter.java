@@ -42,7 +42,6 @@ import butterknife.ButterKnife;
 public class MovieNavigationVerticalGridViewAdapter extends
         RecyclerView.Adapter<MovieNavigationVerticalGridViewAdapter.Holder> {
 
-    private static final String TAG = MovieNavigationVerticalGridViewAdapter.class.getName();
     private ArrayList<Movie> movieList;
     private Context ctx;
     private MovieNavigationPresenter presenter;
@@ -167,9 +166,9 @@ public class MovieNavigationVerticalGridViewAdapter extends
                             outline.setRoundRect(
                                     Constant.MovieNavigation.offset,
                                     Constant.MovieNavigation.offset,
-                                    (int) (view.getWidth() + Constant.MovieNavigation.curveRadius),
+                                    (view.getWidth() + (int) ctx.getResources().getDimension(R.dimen.curve_radius)),
                                     view.getHeight(),
-                                    Constant.MovieNavigation.curveRadius);
+                                    (int) ctx.getResources().getDimension(R.dimen.curve_radius));
                         }
                     });
                     poster.setClipToOutline(true);
