@@ -14,9 +14,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.genre.Genre;
-import com.smartsoft.movietracker.presenter.GenreSelectorPresenter;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,15 +21,9 @@ import butterknife.ButterKnife;
 public class GenreGridViewPresenter extends Presenter {
 
     private Context mContext;
-    private ArrayList<Genre> selectedGenres;
-    private GenreSelectorPresenter genreSelectorPresenter;
-    private GenreSelectorPresenter.GenreSelectorInterface genreSelectorInterface;
 
-    GenreGridViewPresenter(Context mContext, GenreSelectorPresenter genreSelectorPresenter, GenreSelectorPresenter.GenreSelectorInterface genreSelectorInterface) {
+    GenreGridViewPresenter(Context mContext) {
         this.mContext = mContext;
-        this.genreSelectorPresenter = genreSelectorPresenter;
-        this.genreSelectorInterface = genreSelectorInterface;
-        this.selectedGenres = new ArrayList<>();
     }
 
     @Override
@@ -45,7 +36,7 @@ public class GenreGridViewPresenter extends Presenter {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Object item) {
         PresenterViewHolder holder = (PresenterViewHolder) viewHolder;
-        holder.bind((Genre)item);
+        holder.bind((Genre) item);
     }
 
     @Override
@@ -53,15 +44,7 @@ public class GenreGridViewPresenter extends Presenter {
 
     }
 
-    ArrayList<Genre> getSelectedGenres() {
-        return selectedGenres;
-    }
-
-    void setSelectedGenres() {
-        genreSelectorPresenter.setSelectedGenres(selectedGenres, genreSelectorInterface);
-    }
-
-    class PresenterViewHolder extends ViewHolder{
+    class PresenterViewHolder extends ViewHolder {
 
         @BindView(R.id.genre_description)
         TextView genreNameTextView;
@@ -84,10 +67,10 @@ public class GenreGridViewPresenter extends Presenter {
             Glide.with(mContext).load(R.mipmap.genre).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(genreImageView);
 
             layout.setOnClickListener(view -> {
-                if(genre.isActivated()){
+                if (genre.isActivated()) {
                     genre.setActivated(false);
                     select_icon.setVisibility(View.INVISIBLE);
-                }else{
+                } else {
                     genre.setActivated(true);
                     select_icon.setVisibility(View.VISIBLE);
                 }

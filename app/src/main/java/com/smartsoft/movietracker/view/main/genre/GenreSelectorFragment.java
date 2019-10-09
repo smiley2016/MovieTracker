@@ -34,14 +34,14 @@ public class GenreSelectorFragment extends BaseMainNavigationFragment implements
     @BindView(R.id.gridView_container)
     VerticalGridView verticalGridView;
     private ArrayList<Genre> genreList;
-    private GenreGridViewPresenter genreGridViewPresenter;
-    private GenreSelectorPresenter genreSelectorPresenter;
+    private ArrayList<Genre> selectedGenres;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         genreList = new ArrayList<>();
-        genreSelectorPresenter = new GenreSelectorPresenter();
+        selectedGenres = new ArrayList<>();
+        GenreSelectorPresenter genreSelectorPresenter = new GenreSelectorPresenter();
         genreSelectorPresenter.updateGenres(this);
     }
 
@@ -72,7 +72,7 @@ public class GenreSelectorFragment extends BaseMainNavigationFragment implements
 
     @Override
     public void updateGenres(ArrayList<Genre> genre) {
-        genreGridViewPresenter = new GenreGridViewPresenter(rootView.getContext(), genreSelectorPresenter, this);
+        GenreGridViewPresenter genreGridViewPresenter = new GenreGridViewPresenter(rootView.getContext());
 
         ArrayObjectAdapter objectAdapter = new ArrayObjectAdapter();
 
@@ -92,8 +92,8 @@ public class GenreSelectorFragment extends BaseMainNavigationFragment implements
 
     }
 
-    @Override
-    public void setSelectedGenres(ArrayList<Genre> selectedGenres) {
+
+    private void setSelectedGenres() {
         for(Genre it: genreList){
             if(it.isActivated() && !selectedGenres.contains(it)){
                 selectedGenres.add(it);
@@ -108,9 +108,7 @@ public class GenreSelectorFragment extends BaseMainNavigationFragment implements
 
     @Override
     public void onSearchButtonClicked() {
-        ArrayList<Genre> selectedGenres;
-        genreGridViewPresenter.setSelectedGenres();
-        selectedGenres = genreGridViewPresenter.getSelectedGenres();
+        setSelectedGenres();
         if (selectedGenres.size() > 0) {
             Bundle bundle = new Bundle();
             bundle.putSerializable(getString(R.string.selectedGenres), selectedGenres);

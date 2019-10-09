@@ -46,15 +46,9 @@ public class GenreSelectorPresenter {
                 });
     }
 
-    public void setSelectedGenres(ArrayList<Genre> selectedGenres, GenreSelectorInterface genreSelectorInterface){
-        genreSelectorInterface.setSelectedGenres(selectedGenres);
-    }
-
 
     //TODO: Ennek a MovieNavigationInterface-nak adj valami mas nevet mert elegge megteveszto (pl GenreView vagy valami hasonlo)
     public interface GenreSelectorInterface {
         void updateGenres(ArrayList<Genre> list);
-
-        void setSelectedGenres(ArrayList<Genre> selectedGenres);
     }
 }
