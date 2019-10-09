@@ -7,48 +7,50 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.leanback.widget.Presenter;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.genre.Genre;
+import com.smartsoft.movietracker.presenter.GenreSelectorPresenter;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class GenreSelectorVerticalGridViewAdapter extends RecyclerView.Adapter<GenreSelectorVerticalGridViewAdapter.RecyclerViewHolder> {
+public class GenreGridViewPresenter extends Presenter {
 
     private Context mContext;
-    private ArrayList<Genre> genreList = new ArrayList<>();
     private ArrayList<Genre> selectedGenres;
+    private GenreSelectorPresenter genreSelectorPresenter;
+    private GenreSelectorPresenter.GenreSelectorInterface genreSelectorInterface;
 
-    GenreSelectorVerticalGridViewAdapter(Context context, ArrayList<Genre> list) {
-        this.mContext = context;
-        genreList.addAll(list);
-        selectedGenres = new ArrayList<>();
-    }
-
-    @NonNull
-    @Override
-    public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.genre_element, parent, false);
-        return new RecyclerViewHolder(view);
+    GenreGridViewPresenter(Context mContext, GenreSelectorPresenter genreSelectorPresenter, GenreSelectorPresenter.GenreSelectorInterface genreSelectorInterface) {
+        this.mContext = mContext;
+        this.genreSelectorPresenter = genreSelectorPresenter;
+        this.genreSelectorInterface = genreSelectorInterface;
+        this.selectedGenres = new ArrayList<>();
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
-        holder.bind(genreList.get(position), position);
+    public ViewHolder onCreateViewHolder(ViewGroup parent) {
+        View view = LayoutInflater.from(mContext)
+                .inflate(R.layout.genre_element, parent, false);
+        return new PresenterViewHolder(view);
     }
 
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder, Object item) {
+        PresenterViewHolder holder = (PresenterViewHolder) viewHolder;
+        holder.bind((Genre)item);
+    }
 
     @Override
-    public int getItemCount() {
-        return genreList.size();
+    public void onUnbindViewHolder(ViewHolder viewHolder) {
+
     }
 
     ArrayList<Genre> getSelectedGenres() {
@@ -56,14 +58,10 @@ public class GenreSelectorVerticalGridViewAdapter extends RecyclerView.Adapter<G
     }
 
     void setSelectedGenres() {
-        for(Genre it: genreList){
-            if(it.isActivated() && !selectedGenres.contains(it)){
-                selectedGenres.add(it);
-            }
-        }
+        genreSelectorPresenter.setSelectedGenres(selectedGenres, genreSelectorInterface);
     }
 
-    class RecyclerViewHolder extends RecyclerView.ViewHolder {
+    class PresenterViewHolder extends ViewHolder{
 
         @BindView(R.id.genre_description)
         TextView genreNameTextView;
@@ -74,14 +72,14 @@ public class GenreSelectorVerticalGridViewAdapter extends RecyclerView.Adapter<G
         @BindView(R.id.selected_icon)
         ImageView select_icon;
 
-        RecyclerViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
+        PresenterViewHolder(View view) {
+            super(view);
+
+            ButterKnife.bind(this, view);
         }
 
-
-        void bind(Genre genre, int position) {
-            genreNameTextView.setText(genreList.get(position).getName());
+        void bind(Genre genre) {
+            genreNameTextView.setText(genre.getName());
 
             Glide.with(mContext).load(R.mipmap.genre).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(genreImageView);
 
@@ -96,5 +94,4 @@ public class GenreSelectorVerticalGridViewAdapter extends RecyclerView.Adapter<G
             });
         }
     }
-
 }

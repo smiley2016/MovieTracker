@@ -9,6 +9,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.leanback.widget.ArrayObjectAdapter;
+import androidx.leanback.widget.ItemBridgeAdapter;
+import androidx.leanback.widget.PresenterSelector;
+import androidx.leanback.widget.SinglePresenterSelector;
 import androidx.leanback.widget.VerticalGridView;
 
 import com.smartsoft.movietracker.R;
@@ -17,7 +21,6 @@ import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.presenter.GenreSelectorPresenter;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
-import com.smartsoft.movietracker.view.BaseFragment;
 import com.smartsoft.movietracker.view.main.BaseMainNavigationFragment;
 
 import java.util.ArrayList;
@@ -30,14 +33,16 @@ public class GenreSelectorFragment extends BaseMainNavigationFragment implements
     private static final String TAG = GenreSelectorFragment.class.getSimpleName();
     @BindView(R.id.gridView_container)
     VerticalGridView verticalGridView;
-    private GenreSelectorVerticalGridViewAdapter adapter;
+    private ArrayList<Genre> genreList;
+    private GenreGridViewPresenter genreGridViewPresenter;
+    private GenreSelectorPresenter genreSelectorPresenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        GenreSelectorPresenter presenter = new GenreSelectorPresenter();
-        presenter.updateGenres(this);
-
+        genreList = new ArrayList<>();
+        genreSelectorPresenter = new GenreSelectorPresenter();
+        genreSelectorPresenter.updateGenres(this);
     }
 
     @Nullable
@@ -67,10 +72,33 @@ public class GenreSelectorFragment extends BaseMainNavigationFragment implements
 
     @Override
     public void updateGenres(ArrayList<Genre> genre) {
-        adapter = new GenreSelectorVerticalGridViewAdapter(getActivity(), genre);
+        genreGridViewPresenter = new GenreGridViewPresenter(rootView.getContext(), genreSelectorPresenter, this);
+
+        ArrayObjectAdapter objectAdapter = new ArrayObjectAdapter();
+
+        for(Genre it: genre){
+            genreList.add(it);
+            objectAdapter.add(it);
+        }
+
+        PresenterSelector presenterSelector = new SinglePresenterSelector(genreGridViewPresenter);
+
+        ItemBridgeAdapter adapter = new ItemBridgeAdapter();
+        adapter.setAdapter(objectAdapter);
+        adapter.setPresenter(presenterSelector);
+
         verticalGridView.setHasFixedSize(true);
         verticalGridView.setAdapter(adapter);
 
+    }
+
+    @Override
+    public void setSelectedGenres(ArrayList<Genre> selectedGenres) {
+        for(Genre it: genreList){
+            if(it.isActivated() && !selectedGenres.contains(it)){
+                selectedGenres.add(it);
+            }
+        }
     }
 
     @Override
@@ -81,8 +109,8 @@ public class GenreSelectorFragment extends BaseMainNavigationFragment implements
     @Override
     public void onSearchButtonClicked() {
         ArrayList<Genre> selectedGenres;
-        adapter.setSelectedGenres();
-        selectedGenres = adapter.getSelectedGenres();
+        genreGridViewPresenter.setSelectedGenres();
+        selectedGenres = genreGridViewPresenter.getSelectedGenres();
         if (selectedGenres.size() > 0) {
             Bundle bundle = new Bundle();
             bundle.putSerializable(getString(R.string.selectedGenres), selectedGenres);
