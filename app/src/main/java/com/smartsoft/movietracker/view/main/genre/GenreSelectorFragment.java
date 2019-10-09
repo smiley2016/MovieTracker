@@ -27,6 +27,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.http.GET;
 
 public class GenreSelectorFragment extends BaseMainNavigationFragment implements GenreSelectorPresenter.GenreSelectorInterface, ToolbarListener {
 
@@ -34,13 +35,12 @@ public class GenreSelectorFragment extends BaseMainNavigationFragment implements
     @BindView(R.id.gridView_container)
     VerticalGridView verticalGridView;
     private ArrayList<Genre> genreList;
-    private ArrayList<Genre> selectedGenres;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         genreList = new ArrayList<>();
-        selectedGenres = new ArrayList<>();
         GenreSelectorPresenter genreSelectorPresenter = new GenreSelectorPresenter();
         genreSelectorPresenter.updateGenres(this);
     }
@@ -93,12 +93,14 @@ public class GenreSelectorFragment extends BaseMainNavigationFragment implements
     }
 
 
-    private void setSelectedGenres() {
+    private ArrayList<Genre> setSelectedGenres() {
+        ArrayList<Genre> selectedGenres = new ArrayList<>();
         for(Genre it: genreList){
             if(it.isActivated() && !selectedGenres.contains(it)){
                 selectedGenres.add(it);
             }
         }
+        return selectedGenres;
     }
 
     @Override
@@ -108,7 +110,7 @@ public class GenreSelectorFragment extends BaseMainNavigationFragment implements
 
     @Override
     public void onSearchButtonClicked() {
-        setSelectedGenres();
+        ArrayList<Genre> selectedGenres = setSelectedGenres();
         if (selectedGenres.size() > 0) {
             Bundle bundle = new Bundle();
             bundle.putSerializable(getString(R.string.selectedGenres), selectedGenres);
