@@ -81,13 +81,10 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
     @SuppressWarnings("unchecked")
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        selectedGenres = new ArrayList<>();
         if (getArguments() != null) {
-            selectedGenres = new ArrayList<>();
             movie = (Movie) getArguments().getSerializable(getString(R.string.movie));
             selectedGenres = (ArrayList<Genre>) getArguments().getSerializable(getString(R.string.selectedGenres));
-            if(selectedGenres == null){
-                selectedGenres = new ArrayList<>();
-            }
         }
     }
 
