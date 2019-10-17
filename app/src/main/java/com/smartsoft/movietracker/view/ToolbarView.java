@@ -6,18 +6,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.interfaces.ToolbarListener;
-import com.smartsoft.movietracker.utils.FragmentNavigation;
-import com.smartsoft.movietracker.utils.ToolbarDialog;
+import com.smartsoft.movietracker.view.dialogs.ToolbarSettingsDialog;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class ToolbarView extends RelativeLayout {
-    private ImageView settings;
-    private ImageView search;
+    @BindView(R.id.toolbar_settings)
+    ImageView settings;
+    @BindView(R.id.toolbar_search)
+    ImageView search;
     private ToolbarListener listener;
-    private LayoutInflater mInflater;
+    private Context context;
 
     public ToolbarView(Context context) {
         this(context, null);
@@ -38,10 +41,12 @@ public class ToolbarView extends RelativeLayout {
     }
 
     private void initViews(Context context) {
+        this.context = context;
+
         View v = LayoutInflater.from(context).inflate(R.layout.toolbar_view_layout, this, true);
 
-        search = v.findViewById(R.id.toolbar_search);
-        settings = v.findViewById(R.id.toolbar_settings);
+        ButterKnife.bind(this, v);
+        setOnClickListeners();
     }
 
     private void setOnClickListeners() {
@@ -49,14 +54,12 @@ public class ToolbarView extends RelativeLayout {
         search.setOnClickListener(view -> listener.onSearchButtonClicked());
 
         settings.setOnClickListener(view -> {
-            ToolbarDialog dialog = new ToolbarDialog(listener);
-            dialog.startToolbarSettingsDialog(getContext());
+            new ToolbarSettingsDialog(listener, context);
         });
     }
 
     public void setListener(ToolbarListener listener) {
         this.listener = listener;
-        setOnClickListeners();
     }
 
     public void setVisibleSearchIcon(int visibility) {

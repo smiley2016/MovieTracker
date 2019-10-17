@@ -18,7 +18,18 @@ public class Constant {
         public static final String LANGUAGE = "en-US";
         public static final boolean INCLUDE_ADULT = false;
         public static final boolean INCLUDE_VIDEO = false;
-        public static int PAGE = 0;
+        public static final int RESPONSE_CODE = 200;
 
+    }
+
+    public static class Sort {
+        public static final String popularity = "popularity";
+        public static final String releaseDate = "release_date";
+        public static final String originalTitle = "original_title";
+        public static final String voteAverage = "vote_average";
+    }
+
+    public static class MovieNavigation {
+        public static final int offset = 0;
     }
 }

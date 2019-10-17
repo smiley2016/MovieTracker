@@ -4,19 +4,21 @@
     android:id="@+id/detail_page_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF000000">
+    android:background="@color/custom_black">
 
     <ImageView
         android:id="@+id/background_image"
-        android:layout_width="720dp"
-        android:layout_height="400dp"
+        android:layout_width="@dimen/fragment_detail_page_background_image_width"
+        android:layout_height="@dimen/fragment_detail_page_background_image_height"
+        android:contentDescription="@string/backgroundImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/movie_bottom_overlay"
-        android:layout_width="960dp"
-        android:layout_height="160dp"
+        android:layout_width="@dimen/cast_layout_width"
+        android:layout_height="@dimen/fragment_detail_page_bottom_overlay_height"
+        android:contentDescription="@string/bottom_overlay"
         android:src="@drawable/movie_bottom_overlay"
         app:layout_constraintBottom_toBottomOf="@id/background_image"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,8 +26,9 @@
 
     <ImageView
         android:id="@+id/movie_background_overlay"
-        android:layout_width="360dp"
-        android:layout_height="400dp"
+        android:layout_width="@dimen/fragment_detail_page_background_overlay_width"
+        android:layout_height="@dimen/fragment_detail_page_background_overlay_height"
+        android:contentDescription="@string/background_overlay"
         android:src="@drawable/movie_picture_gradient_overlay"
         app:layout_constraintStart_toStartOf="@id/background_image"
         app:layout_constraintTop_toTopOf="parent" />

@@ -3,8 +3,8 @@ package com.smartsoft.movietracker.view.player;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,25 +39,41 @@ import com.smartsoft.movietracker.view.BaseFragment;
 
 import java.util.ArrayList;
 
-import at.huber.youtubeExtractor.VideoMeta;
-import at.huber.youtubeExtractor.YouTubeExtractor;
-import at.huber.youtubeExtractor.YtFile;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static com.smartsoft.movietracker.utils.Utils.pxFromDp;
 
-public class PlayerFragment extends BaseFragment implements PlayerInterface.PlayerView {
+public class PlayerFragment extends BaseFragment implements PlayerInterface {
 
-    private PlayerView playerView;
+    @BindView(R.id.video_view)
+    PlayerView playerView;
+
+    @BindView(R.id.player_video_title)
+    TextView title;
+
+    @BindView(R.id.recommended_videos_gridView)
+    HorizontalGridView hGridView;
+
+    @BindView(R.id.player_progressBar)
+    ProgressBar progressBar;
+    @BindView(R.id.text_frame_layout)
+    FrameLayout videoTitleFrameLayout;
     private SimpleExoPlayer player;
     private ArrayList<Video> videos;
-
     private long playbackPosition;
     private int currentWindow;
     private int playIndex;
     private boolean playWhenReady = true;
+    private ArrayList<Uri> youtubeLinks;
+    private PlayerVerticalGridPresenter vPresenter;
 
-    private ProgressBar progressBar;
-    private FrameLayout videoTitleFrameLayout;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        PlayerPresenter presenter = new PlayerPresenter(this);
+        vPresenter = new PlayerVerticalGridPresenter(getContext(), presenter, videos);
+    }
 
     @Nullable
     @Override
@@ -65,6 +81,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_player, container, false);
         }
+        ButterKnife.bind(this, rootView);
         initializeViews();
         return rootView;
     }
@@ -75,23 +92,16 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
         super.onAttach(context);
         if (getArguments() != null) {
             videos = (ArrayList<Video>) getArguments().getSerializable(getString(R.string.videos));
+            youtubeLinks = (ArrayList<Uri>) getArguments().getSerializable(getString(R.string.youtubeLinks));
             playIndex = getArguments().getInt(getString(R.string.playIndex));
         }
     }
 
     private void initializeViews() {
 
-        PlayerPresenter presenter = new PlayerPresenter(this);
-
-        playerView = rootView.findViewById(R.id.video_view);
-
-        TextView title = rootView.findViewById(R.id.player_video_title);
         title.setText(videos.get(playIndex).getName());
 
-        HorizontalGridView hGridView = rootView.findViewById(R.id.recommended_videos_gridView);
-        hGridView.setItemSpacing(8);
-
-        PlayerVerticalGridPresenter vPresenter = new PlayerVerticalGridPresenter(rootView.getContext(), presenter, videos);
+        hGridView.setItemSpacing((int) rootView.getContext().getResources().getDimension(R.dimen.spacing));
 
         ArrayObjectAdapter objectAdapter = new ArrayObjectAdapter();
 
@@ -100,14 +110,10 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
         }
 
         hGridView.setAdapter(
-                new ItemBridgeAdapter(objectAdapter, new ClassPresenterSelector().addClassPresenter(Video.class, vPresenter))
+                new ItemBridgeAdapter(objectAdapter,
+                        new ClassPresenterSelector()
+                                .addClassPresenter(Video.class, vPresenter))
         );
-
-
-        progressBar = rootView.findViewById(R.id.player_progressBar);
-
-        videoTitleFrameLayout = rootView.findViewById(R.id.text_frame_layout);
-
     }
 
 
@@ -123,27 +129,13 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
 
     @SuppressLint("StaticFieldLeak")
     private void makeListFromURIs() {
-        MediaSource[] mediaSource = new MediaSource[videos.size()];
+        MediaSource[] mediaSource = new MediaSource[youtubeLinks.size()];
 
-        for (int i = Integer.parseInt(getString(R.string.zero)); i < videos.size(); ++i) {
-            String youtubeLink = String.format(getString(R.string.YoutubeBaseUrl), videos.get(i).getKey());
-            int finalI = i;
-            new YouTubeExtractor(rootView.getContext()) {
-                @Override
-                protected void onExtractionComplete(SparseArray<YtFile> ytFiles, VideoMeta videoMeta) {
-                    if (ytFiles != null) {
-                        int itag = 22;
-                        String downloadUrl = ytFiles.get(itag).getUrl();
-                        Uri uri = Uri.parse(downloadUrl);
-                        mediaSource[finalI] = buildMediaSource(uri);
-                        if (finalI == videos.size() - 1) {
-                            setMediaSource(mediaSource);
-                        }
-
-                    }
-                }
-            }.extract(youtubeLink, true, true);
+        for (int i = 0; i < youtubeLinks.size(); ++i) {
+            mediaSource[i] = buildMediaSource(youtubeLinks.get(i));
         }
+        setMediaSource(mediaSource);
+
     }
 
     private void setMediaSource(MediaSource[] mediaSource) {
@@ -166,10 +158,11 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
                 createMediaSource(uri);
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
-        if (Util.SDK_INT > 23) {
+        if (Util.SDK_INT > Build.VERSION_CODES.M) {
             initializePlayer();
         }
     }
@@ -178,13 +171,20 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
     public void onResume() {
         super.onResume();
         hideSystemUi();
-        if ((Util.SDK_INT <= 23 || player == null)) {
+        if ((Util.SDK_INT <= Build.VERSION_CODES.M || player == null)) {
             initializePlayer();
         }
     }
 
     @Override
     public void InternetConnected() {
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
 
     }
 
@@ -200,7 +200,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
     @Override
     public void onPause() {
         super.onPause();
-        if (Util.SDK_INT <= 23) {
+        if (Util.SDK_INT <= Build.VERSION_CODES.M) {
             releasePlayer();
         }
     }
@@ -208,7 +208,10 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
     private void showPlayList() {
         if (videoTitleFrameLayout.getLayoutParams() instanceof ConstraintLayout.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) videoTitleFrameLayout.getLayoutParams();
-            p.setMargins(0, (int) pxFromDp(rootView.getContext(), 232), 0, (int) pxFromDp(rootView.getContext(), 22));
+            p.setMargins((int) rootView.getResources().getDimension(R.dimen.playlist_margin_zero),
+                    (int) rootView.getResources().getDimension(R.dimen.show_playlist_margin_offset_top),
+                    (int) rootView.getResources().getDimension(R.dimen.playlist_margin_zero),
+                    (int) rootView.getContext().getResources().getDimension(R.dimen.playlist_margin_offset_bottom));
             videoTitleFrameLayout.requestLayout();
         }
     }
@@ -217,7 +220,12 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
 
         if (videoTitleFrameLayout.getLayoutParams() instanceof ConstraintLayout.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) videoTitleFrameLayout.getLayoutParams();
-            p.setMargins(0, (int) pxFromDp(rootView.getContext(), 332), 0, (int) pxFromDp(rootView.getContext(), 22));
+            p.setMargins((int) rootView.getResources().getDimension(R.dimen.playlist_margin_zero),
+                    (int)rootView.getResources()
+                            .getDimension(R.dimen.hide_playlist_margin_offset_top),
+                    (int) rootView.getResources().getDimension(R.dimen.playlist_margin_zero),
+                    (int) rootView.getContext().getResources()
+                            .getDimension(R.dimen.playlist_margin_offset_bottom));
             videoTitleFrameLayout.requestLayout();
         }
 
@@ -237,7 +245,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface.Play
     @Override
     public void onStop() {
         super.onStop();
-        if (Util.SDK_INT > 23) {
+        if (Util.SDK_INT > Build.VERSION_CODES.M) {
             releasePlayer();
         }
     }

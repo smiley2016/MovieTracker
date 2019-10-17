@@ -6,7 +6,7 @@ import android.util.Log;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.cast.Cast;
 import com.smartsoft.movietracker.model.genre.Genre;
-import com.smartsoft.movietracker.model.movie.Movie;
+import com.smartsoft.movietracker.model.movie.MovieResult;
 import com.smartsoft.movietracker.model.review.Review;
 import com.smartsoft.movietracker.model.review.ReviewResult;
 import com.smartsoft.movietracker.model.video.Video;
@@ -18,6 +18,8 @@ import com.smartsoft.movietracker.utils.Utils;
 import java.util.ArrayList;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.Function;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -55,7 +57,7 @@ public class ApiController {
 
 
     public Observable<ArrayList<Genre>> getAllGenres() {
-        return genreApiService.getGenres()
+        return genreApiService.getGenres(Constant.API.API_KEY, Constant.API.LANGUAGE)
                 .map(genreResultResponse -> {
                     Log.e(TAG, genreResultResponse.toString());
                     assert genreResultResponse.body() != null;
@@ -63,7 +65,7 @@ public class ApiController {
                 });
     }
 
-    public Observable<ArrayList<Movie>> getMovies(Context context, ArrayList<Integer> genreIds) {
+    public Observable<MovieResult> getMovies(Context context, ArrayList<Integer> genreIds, Integer page) {
 
         SharedPreferences sp = new SharedPreferences(context, context.getString(R.string.sortBy));
         String sortBy = sp.ReadFromStorage();
@@ -71,19 +73,21 @@ public class ApiController {
         SharedPreferences orderSp = new SharedPreferences(context, context.getString(R.string.orderBy));
         String orderBy = orderSp.ReadFromStorage();
 
-        Constant.API.PAGE++;
-        Log.e(TAG, String.valueOf(Constant.API.PAGE));
+
+        Log.e(TAG, String.valueOf(page));
         return movieApiService.getMovies(Constant.API.API_KEY,
                 Constant.API.LANGUAGE,
                 sortBy + orderBy,
                 Constant.API.INCLUDE_ADULT,
                 Constant.API.INCLUDE_VIDEO,
-                Constant.API.PAGE,
+                page,
                 Utils.genreListToCsvIdString(genreIds)).map(movieResultResponse -> {
-            Log.e(TAG, context.getString(R.string.getMovies) + movieResultResponse.toString());
-            assert movieResultResponse.body() != null;
-            return movieResultResponse.body().getResults();
-        });
+                Log.e(TAG, "getMovies:" + movieResultResponse.toString());
+                if (movieResultResponse.code() == Constant.API.RESPONSE_CODE) {
+                    return movieResultResponse.body();
+                }
+                return null;
+            });
     }
 
     public Observable<ArrayList<Cast>> getCast(int movie_id) {

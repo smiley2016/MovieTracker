@@ -1,6 +1,7 @@
 package com.smartsoft.movietracker.view.detail;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.leanback.widget.Presenter;
 import androidx.leanback.widget.SinglePresenterSelector;
 
 import com.smartsoft.movietracker.R;
+import com.smartsoft.movietracker.interfaces.DetailVideoGridInterface;
 import com.smartsoft.movietracker.model.video.Video;
 import com.smartsoft.movietracker.model.video.VideoList;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
@@ -27,12 +29,12 @@ public class VideoVerticalGridPresenter extends Presenter implements DetailVideo
 
     private static final String TAG = VideoVerticalGridPresenter.class.getName();
     private Context mContext;
-    private Bundle bundle;
     private ArrayList<Video> videos;
+    private ArrayList<Uri> youtubeLinks;
 
-    public VideoVerticalGridPresenter(Context mContext) {
+    VideoVerticalGridPresenter(Context mContext, ArrayList<Uri> youtubeLinks) {
         this.mContext = mContext;
-        this.bundle = new Bundle();
+        this.youtubeLinks = youtubeLinks;
         this.videos = new ArrayList<>();
     }
 
@@ -54,14 +56,16 @@ public class VideoVerticalGridPresenter extends Presenter implements DetailVideo
     }
 
     @Override
-    public void startPlayerActivity(String videoId) {
+    public void startPlayer(String videoId) {
         int playIndex = getPositionOfVideo(videoId);
+        Bundle bundle = new Bundle();
         bundle.putInt(mContext.getString(R.string.playIndex), playIndex);
         bundle.putSerializable(mContext.getString(R.string.videos), videos);
+        bundle.putSerializable(mContext.getString(R.string.youtubeLinks), youtubeLinks);
         FragmentNavigation.getInstance().showPlayerFragment(bundle);
     }
 
-    public int getPositionOfVideo(String videoId) {
+    private int getPositionOfVideo(String videoId) {
         for (int i = 0; i < videos.size(); ++i) {
             if (videos.get(i).getId().equals(videoId)) {
                 return i;

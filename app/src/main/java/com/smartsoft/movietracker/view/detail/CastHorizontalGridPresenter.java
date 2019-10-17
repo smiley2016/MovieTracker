@@ -20,7 +20,7 @@ import com.bumptech.glide.request.target.Target;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.cast.Cast;
 import com.smartsoft.movietracker.utils.Constant;
-import com.smartsoft.movietracker.utils.Dialogs;
+import com.smartsoft.movietracker.view.dialogs.CastDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +30,7 @@ public class CastHorizontalGridPresenter extends Presenter {
     private Context mContext;
 
 
-    public CastHorizontalGridPresenter(Context mContext) {
+    CastHorizontalGridPresenter(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -72,12 +72,15 @@ public class CastHorizontalGridPresenter extends Presenter {
 
         void bind(Context ctx, Cast cast) {
 
-            Glide.with(ctx).load(Constant.API.IMAGE_ORIGINAL_BASE_URL + cast.getProfilePath())
+            Glide.with(ctx)
+                    .load(Constant.API.IMAGE_ORIGINAL_BASE_URL + cast.getProfilePath())
                     .circleCrop()
                     .error(R.mipmap.unkown_person_round_v2_legacy)
                     .listener(new RequestListener<Drawable>() {
                         @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        public boolean onLoadFailed(@Nullable GlideException e,
+                                                    Object model, Target<Drawable> target,
+                                                    boolean isFirstResource) {
                             progressBar.setVisibility(View.GONE);
                             actorName.setVisibility(View.VISIBLE);
                             actorName.setText(cast.getName());
@@ -86,14 +89,20 @@ public class CastHorizontalGridPresenter extends Presenter {
                         }
 
                         @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        public boolean onResourceReady(Drawable resource,
+                                                       Object model,
+                                                       Target<Drawable> target,
+                                                       DataSource dataSource,
+                                                       boolean isFirstResource) {
                             progressBar.setVisibility(View.GONE);
                             actorName.setText(cast.getName());
+
                             return false;
                         }
-                    }).into(actorPicture);
+                    })
+                    .into(actorPicture);
 
-            layout.setOnClickListener(view -> Dialogs.startCastDialog(ctx, cast));
+            layout.setOnClickListener(view -> new CastDialog(ctx, cast));
 
 
         }

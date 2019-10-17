@@ -2,7 +2,7 @@ package com.smartsoft.movietracker.presenter;
 
 import android.util.Log;
 
-import com.smartsoft.movietracker.interfaces.DetailPageInterface;
+import com.smartsoft.movietracker.interfaces.OnDetailPageListener;
 import com.smartsoft.movietracker.model.MovieDetails;
 import com.smartsoft.movietracker.service.ApiController;
 
@@ -12,16 +12,16 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class DetailPagePresenter implements DetailPageInterface.DetailPagePresenterInterface {
+public class DetailPagePresenter {
     private static final String TAG = DetailPagePresenter.class.getName();
 
-    private DetailPageInterface.DetailPageViewInterface detailPageViewInterface;
+    private OnDetailPageListener detailPageViewInterface;
 
-    public DetailPagePresenter(DetailPageInterface.DetailPageViewInterface detailPageViewInterface) {
+    public DetailPagePresenter(OnDetailPageListener detailPageViewInterface) {
         this.detailPageViewInterface = detailPageViewInterface;
     }
 
-    @Override
+
     public void loadData(int movieId) {
         Observable.zip(
                 ApiController.getInstance().getCast(movieId),
@@ -39,7 +39,7 @@ public class DetailPagePresenter implements DetailPageInterface.DetailPagePresen
                     public void onNext(MovieDetails movieDetails) {
                         Log.e(TAG, "DetailPagePresenter" + movieDetails);
 
-                        detailPageViewInterface.loadData(movieDetails);
+                        detailPageViewInterface.displayData(movieDetails);
                     }
 
                     @Override
@@ -54,7 +54,7 @@ public class DetailPagePresenter implements DetailPageInterface.DetailPagePresen
                 });
     }
 
-    @Override
+
     public void backPressed() {
         detailPageViewInterface.backPressed();
     }

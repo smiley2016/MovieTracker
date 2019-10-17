@@ -12,6 +12,7 @@ import androidx.leanback.widget.Presenter;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.presenter.DetailPagePresenter;
+import com.smartsoft.movietracker.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,7 +26,9 @@ public class MovieVerticalGridPresenter extends Presenter {
     private ArrayList<String> currentGenres;
     private DetailPagePresenter detailPagePresenter;
 
-    MovieVerticalGridPresenter(Context mContext, ArrayList<String> currentGenres, DetailPagePresenter detailPagePresenter) {
+    MovieVerticalGridPresenter(Context mContext,
+                               ArrayList<String> currentGenres,
+                               DetailPagePresenter detailPagePresenter) {
         this.mContext = mContext;
         this.currentGenres = currentGenres;
         this.detailPagePresenter = detailPagePresenter;
@@ -79,18 +82,16 @@ public class MovieVerticalGridPresenter extends Presenter {
             Iterator<String> genreNameIterator = currentGenres.iterator();
             while (genreNameIterator.hasNext()) {
                 if (genreNameIterator.hasNext()) {
-                    genreNames.append(genreNameIterator.next()).append(", ");
+                    genreNames.append(genreNameIterator.next()).append(StringUtils.COMMA_DELIMITER_WITH_SPACE);
                 }
             }
-            genreNames.replace(genreNames.length() - 2, genreNames.length() - 1, "");
+            genreNames.replace(genreNames.length() - 2, genreNames.length() - 1, StringUtils.EMPTY_STRING);
 
-            movie_description.setText(String.format("%s | Year %s | IMDb %s", genreNames, movie.getReleaseDate(), movie.getVoteAverage()));
+            movie_description.setText(String.format("%s | %s %s | %s %s",
+                    genreNames, mContext.getString(R.string.year), movie.getReleaseDate(),
+                    mContext.getString(R.string.imdb), movie.getVoteAverage()));
+
             plot.setText(movie.getOverview());
-
-//            ConstraintSet constraintSet = new ConstraintSet();
-//            constraintSet.clone(constraintLayout);
-//            constraintSet.connect(R.id.add_watchlist_button, ConstraintSet.BASELINE, R.id.detail_movie_plot, ConstraintSet.BASELINE);
-//            constraintSet.applyTo(constraintLayout);
 
             expand.requestFocus();
 

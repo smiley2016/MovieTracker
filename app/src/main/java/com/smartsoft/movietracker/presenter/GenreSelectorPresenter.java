@@ -28,7 +28,7 @@ public class GenreSelectorPresenter {
 
                     @Override
                     public void onNext(ArrayList<Genre> genres) {
-                        if(genreSelectorInterface != null){
+                        if (genreSelectorInterface != null) {
                             genreSelectorInterface.updateGenres(genres);
                         }
 
@@ -50,6 +50,5 @@ public class GenreSelectorPresenter {
     //TODO: Ennek a MovieNavigationInterface-nak adj valami mas nevet mert elegge megteveszto (pl GenreView vagy valami hasonlo)
     public interface GenreSelectorInterface {
         void updateGenres(ArrayList<Genre> list);
-
     }
 }

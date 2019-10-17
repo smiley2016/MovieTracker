@@ -1,7 +1,6 @@
 package com.smartsoft.movietracker.utils;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -13,8 +12,8 @@ import com.smartsoft.movietracker.MainActivity;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.view.NoInternetFragment;
 import com.smartsoft.movietracker.view.detail.DetailPageFragment;
-import com.smartsoft.movietracker.view.genre.GenreSelectorFragment;
-import com.smartsoft.movietracker.view.navigation.MovieNavigationFragment;
+import com.smartsoft.movietracker.view.main.genre.GenreSelectorFragment;
+import com.smartsoft.movietracker.view.main.navigation.MovieNavigationFragment;
 import com.smartsoft.movietracker.view.player.PlayerFragment;
 
 public class FragmentNavigation {
@@ -22,8 +21,10 @@ public class FragmentNavigation {
     private static FragmentNavigation sInstance;
     private FragmentManager mFragmentManager;
     private int mMainActivityFragmentContainer;
-    private Bundle bundle;
-    private Context ctx;
+
+    private FragmentNavigation() {
+        mMainActivityFragmentContainer = R.id.fragment_holder;
+    }
 
     public static FragmentNavigation getInstance() {
         if (sInstance == null) {
@@ -33,56 +34,45 @@ public class FragmentNavigation {
         return sInstance;
     }
 
-    private FragmentNavigation() {
-        mMainActivityFragmentContainer = R.id.fragment_holder;
+    private Fragment setFragmentArguments(Fragment fragment, Bundle bundle) {
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     public void initAttributes(Activity activity) {
         mFragmentManager = ((MainActivity) activity).getSupportFragmentManager();
-        this.ctx = activity;
-        bundle = new Bundle();
     }
 
 
     public void showGenreSelectorFragment() {
-        Fragment myCurrentFragment = Fragment.instantiate(ctx, GenreSelectorFragment.class.getName(), null);
+        Fragment myCurrentFragment = setFragmentArguments(new GenreSelectorFragment(), new Bundle());
         replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, false);
-        Log.e(TAG, ctx.getString(R.string.genreSelectorFragment) + myCurrentFragment);
+        Log.e(TAG, "showGenreSelectorFragment:" + myCurrentFragment);
     }
 
 
     public void showMovieNavigationFragment(Bundle bundle) {
-
-        Fragment myCurrentFragment = Fragment.instantiate(ctx, MovieNavigationFragment.class.getName(), bundle);
+        Fragment myCurrentFragment = setFragmentArguments(new MovieNavigationFragment(), bundle);
         replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, true);
     }
 
     public void showDetailPageFragment(Bundle bundle) {
-        Fragment myCurrentFragment = Fragment.instantiate(ctx, DetailPageFragment.class.getName(), bundle);
+        Fragment myCurrentFragment = setFragmentArguments(new DetailPageFragment(), bundle);
         replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, true);
     }
 
     public void showPlayerFragment(Bundle bundle) {
-        Fragment myCurrentFragment;
-        this.bundle = bundle;
-
-        myCurrentFragment = Fragment.instantiate(ctx, PlayerFragment.class.getName(), this.bundle);
+        Fragment myCurrentFragment = setFragmentArguments(new PlayerFragment(), bundle);
         replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, true);
     }
 
-    public void showNoInternetFragment() {
-        Fragment myCurrentFragment;
-        myCurrentFragment = Fragment.instantiate(ctx, NoInternetFragment.class.getName(), bundle);
+    void showNoInternetFragment() {
+        Fragment myCurrentFragment = setFragmentArguments(new NoInternetFragment(), new Bundle());
         addFragment(myCurrentFragment);
     }
 
     private void addFragment(Fragment myCurrentFragment) {
         mFragmentManager.beginTransaction().add(myCurrentFragment, myCurrentFragment.getTag()).commit();
-    }
-
-    public Fragment getCurrentFragment() {
-        return mFragmentManager.findFragmentById(R.id.fragment_holder);
-
     }
 
     public void removeFragment(Fragment fragment) {

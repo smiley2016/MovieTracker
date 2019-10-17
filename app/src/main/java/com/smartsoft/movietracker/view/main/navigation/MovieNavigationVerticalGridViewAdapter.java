@@ -1,10 +1,9 @@
-package com.smartsoft.movietracker.view.navigation;
+package com.smartsoft.movietracker.view.main.navigation;
 
 import android.content.Context;
 import android.graphics.Outline;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,42 +31,44 @@ import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
+import com.smartsoft.movietracker.utils.StringUtils;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter<MovieNavigationVerticalGridViewAdapter.Holder> implements Serializable {
+public class MovieNavigationVerticalGridViewAdapter extends
+        RecyclerView.Adapter<MovieNavigationVerticalGridViewAdapter.Holder> {
 
-    private static final String TAG = MovieNavigationVerticalGridViewAdapter.class.getName();
     private ArrayList<Movie> movieList;
     private Context ctx;
     private MovieNavigationPresenter presenter;
-    private ArrayList<Genre> genres;
+    private ArrayList<Genre> selectedGenres;
+    private Integer totalPages;
 
-    MovieNavigationVerticalGridViewAdapter(ArrayList<Movie> movieList, Context ctx, MovieNavigationPresenter presenter, ArrayList<Genre> genres) {
+    MovieNavigationVerticalGridViewAdapter(ArrayList<Movie> movieList, Context ctx,
+                                           MovieNavigationPresenter presenter,
+                                           ArrayList<Genre> selectedGenres,
+                                           Integer totalPages) {
         this.movieList = movieList;
         this.ctx = ctx;
         this.presenter = presenter;
-        this.genres = genres;
+        this.selectedGenres = selectedGenres;
+        this.totalPages = totalPages;
     }
 
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(ctx).inflate(R.layout.movie_element_card, parent, false);
+        View view = LayoutInflater.from(ctx).inflate(R.layout.movie_element, parent, false);
         return new Holder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        holder.bind(movieList.get(position), ctx, presenter, genres);
-        if (position >= movieList.size() - 1 % Constant.GridView.COLUMN_NUM5) {
-            presenter.updateMovieNavigationGridView(ctx, genres);
-        }
+        holder.bind(movieList.get(position));
 
     }
 
@@ -85,7 +86,7 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
     }
 
 
-    static class Holder extends RecyclerView.ViewHolder {
+    class Holder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.poster)
         ImageView poster;
@@ -111,52 +112,67 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
         @BindView(R.id.open_description)
         ImageView openDetailPage;
 
-
-        float curveRadius;
         boolean isOpen = false;
 
         Holder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
 
-            curveRadius = 24f;
-
             detailLayout.setClipToOutline(true);
 
         }
 
 
-        void bind(Movie movie, Context ctx, MovieNavigationPresenter presenter, ArrayList<Genre> genres) {
+        void bind(Movie movie) {
 
 
-            Glide.with(ctx).load(Constant.API.IMAGE_BASE_URL + movie.getPosterPath()).listener(new RequestListener<Drawable>() {
-                @Override
-                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                    progressBar.setVisibility(View.GONE);
-                    return false;
-                }
+            Glide.with(ctx)
+                    .load(Constant.API.IMAGE_BASE_URL + movie.getPosterPath())
+                    .listener(
+                            new RequestListener<Drawable>() {
 
-                @Override
-                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                    progressBar.setVisibility(View.GONE);
-                    return false;
-                }
-            }).error(R.drawable.error).into(poster);
+                                @Override
+
+                                public boolean onLoadFailed(@Nullable GlideException e,
+                                                            Object model, Target<Drawable> target,
+                                                            boolean isFirstResource) {
+                                    progressBar.setVisibility(View.GONE);
+                                    return false;
+                                }
+
+                                @Override
+                                public boolean onResourceReady(Drawable resource,
+                                                               Object model,
+                                                               Target<Drawable> target,
+                                                               DataSource dataSource,
+                                                               boolean isFirstResource) {
+                                    progressBar.setVisibility(View.GONE);
+                                    return false;
+                                }
+                            })
+                    .error(R.drawable.error)
+                    .into(poster);
 
 
             layout.setOnFocusChangeListener((view, b) -> {
                 if (b) {
+                    if ((getAdapterPosition() >= (movieList.size() - 1) - Constant.GridView.COLUMN_NUM7) && (presenter.getPage() <= totalPages)) {
+                        presenter.loadMovieData(ctx, selectedGenres);
+                    }
+
                     poster.setOutlineProvider(new ViewOutlineProvider() {
                         @Override
                         public void getOutline(View view, Outline outline) {
-                            outline.setRoundRect(0, 0, (int) (view.getWidth() + curveRadius), view.getHeight(), curveRadius);
+                            outline.setRoundRect(
+                                    Constant.MovieNavigation.offset,
+                                    Constant.MovieNavigation.offset,
+                                    (view.getWidth() + (int) ctx.getResources().getDimension(R.dimen.curve_radius)),
+                                    view.getHeight(),
+                                    (int) ctx.getResources().getDimension(R.dimen.curve_radius));
                         }
                     });
                     poster.setClipToOutline(true);
-
-                    presenter.setBackground(movie.getBackdropPath());
-                    Log.e(TAG, ctx.getString(R.string.CardViewOnFocusChangeListener));
-                    presenter.setBackground(movie.getBackdropPath());
+                    presenter.onBackgroundChange(movie.getBackdropPath());
                     isOpen = false;
                 } else {
                     poster.setClipToOutline(false);
@@ -179,31 +195,35 @@ public class MovieNavigationVerticalGridViewAdapter extends RecyclerView.Adapter
                 } else {
                     isOpen = true;
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("movie", movie);
-                    bundle.putSerializable(ctx.getString(R.string.genres), genres);
+                    bundle.putSerializable(ctx.getString(R.string.movie), movie);
+                    bundle.putSerializable(ctx.getString(R.string.selectedGenres), selectedGenres);
                     FragmentNavigation.getInstance().showDetailPageFragment(bundle);
                 }
 
 
             });
 
-            imdbRating.setText(String.format("IMDb: %s", movie.getVoteAverage()));
+            imdbRating.setText(String.format(ctx.getString(R.string.imdb_vote_average), String.valueOf(movie.getVoteAverage())));
 
-            Iterator<Genre> genreIterator = genres.iterator();
+            Iterator<Genre> genreIterator = selectedGenres.iterator();
             StringBuilder genreTitles = new StringBuilder();
             while (genreIterator.hasNext()) {
-                genreTitles.append(genreIterator.next().getName()).append(", ");
+                genreTitles.append(genreIterator.next().getName()).append(StringUtils.COMMA_DELIMITER_WITH_SPACE);
             }
-            genreTitles.replace(genreTitles.length() - 2, genreTitles.length() - 1, "");
+            genreTitles.replace(genreTitles.length() - 2, genreTitles.length() - 1, StringUtils.EMPTY_STRING);
 
             this.genres.setText(genreTitles);
 
             title.setText(movie.getTitle());
 
-            String[] releaseDateList;
-            releaseDateList = movie.getReleaseDate().split("-");
+            String releaseYearList;
+            if (movie.getReleaseDate() != null) {
+                releaseYearList = movie.getReleaseDate().substring(0, movie.getReleaseDate().indexOf(StringUtils.HYPHEN_DELIMITER));
+            } else {
+                releaseYearList = "";
+            }
 
-            releaseDate.setText(releaseDateList[0]);
+            releaseDate.setText(releaseYearList);
 
         }
     }

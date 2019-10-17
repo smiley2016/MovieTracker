@@ -23,56 +23,33 @@
         android:focusable="false"
         android:src="@drawable/logo_ipsum" />
 
-    <LinearLayout
-        android:layout_width="40dp"
-        android:layout_height="52dp"
+
+    <ImageView
+        android:id="@+id/toolbar_settings"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/toolbar_component_background_selector"
-        android:clipToPadding="false"
-        android:focusable="false"
-        android:paddingStart="8dp"
-        android:paddingTop="15dp"
-        android:paddingEnd="8dp"
-        android:paddingBottom="13dp">
-
-        <ImageView
-            android:id="@+id/toolbar_settings"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="top|end"
-            android:focusable="true"
-            android:src="@drawable/settings_icon"
-            android:stateListAnimator="@animator/toolbar_component_animator" />
+        android:layout_gravity="top|end"
+        android:layout_marginEnd="24dp"
+        android:focusable="true"
+        android:src="@drawable/settings_icon"
+        android:stateListAnimator="@animator/toolbar_component_animator" />
 
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="40dp"
-        android:layout_height="52dp"
+    <ImageView
+        android:id="@+id/toolbar_search"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="48dp"
-        android:clipToPadding="false"
-        android:focusable="false"
-        android:paddingTop="15dp"
-        android:paddingBottom="13dp">
-
-        <ImageView
-            android:id="@+id/toolbar_search"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="top|end"
-            android:layout_marginStart="8dp"
-            android:focusable="true"
-            android:src="@drawable/search_icon"
-            android:stateListAnimator="@animator/toolbar_component_animator" />
-
-
-    </LinearLayout>
+        android:layout_gravity="top|end"
+        android:layout_marginEnd="24dp"
+        android:layout_toStartOf="@id/toolbar_settings"
+        android:focusable="true"
+        android:src="@drawable/search_icon"
+        android:stateListAnimator="@animator/toolbar_component_animator" />
 
 
 </RelativeLayout>

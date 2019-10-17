@@ -23,7 +23,7 @@
     <dimen name="verticalGridView_paddingBottom">13dp</dimen>
 
 
-    <!--  Choose genres TextView dimens-->
+    <!--  Choose selectedGenres TextView dimens-->
 
     <dimen name="choose_textView_textSize">18sp</dimen>
     <dimen name="choose_textView_marginTop">113dp</dimen>
@@ -41,16 +41,16 @@
     <!--  Vertical GridView Element dimens  -->
     <!--  Description  -->
 
-    <dimen name="genre_description_marginStart">5dp</dimen>
-    <dimen name="genre_description_marginTop">5dp</dimen>
-    <dimen name="genre_description_marginEnd">5dp</dimen>
-    <dimen name="genre_description_marginBottom">74dp</dimen>
+    <dimen name="genre_description_marginStart">8dp</dimen>
+    <dimen name="genre_description_marginTop">8dp</dimen>
+    <dimen name="genre_description_marginEnd">8dp</dimen>
+    <dimen name="genre_description_marginBottom">8dp</dimen>
 
     <!--  Select icon  -->
 
     <dimen name="select_icon_width">15dp</dimen>
     <dimen name="select_icon_height">15dp</dimen>
-    <dimen name="select_icon_marginStart">74dp</dimen>
+    <dimen name="select_icon_marginStart">24dp</dimen>
     <dimen name="select_icon_marginTop">133dp</dimen>
     <dimen name="select_icon_marginEnd">74dp</dimen>
     <dimen name="select_icon_marginBottom">17dp</dimen>
@@ -59,10 +59,10 @@
     <dimen name="gridComponentSize">163dp</dimen>
     <dimen name="gridComponentImageSizeWidth" format="float">125dp</dimen>
     <dimen name="gridComponentImageSizeHeight" format="float">100dp</dimen>
-    <dimen name="gridView_element_image_marginStart">19dp</dimen>
-    <dimen name="gridView_element_image_marginEnd">19dp</dimen>
-    <dimen name="gridView_element_image_marginTop" format="float" type="dimen">31.5dp</dimen>
-    <dimen name="gridView_element_image_marginBottom" format="float" type="dimen">31.5dp</dimen>
+    <dimen name="gridView_element_image_marginStart">16dp</dimen>
+    <dimen name="gridView_element_image_marginEnd">16dp</dimen>
+    <dimen name="gridView_element_image_marginTop" format="float" type="dimen">8dp</dimen>
+    <dimen name="gridView_element_image_marginBottom" format="float" type="dimen">8dp</dimen>
 
     <!--  Element Background  -->
     <dimen name="rounded_square_radius">12dp</dimen>
@@ -74,5 +74,119 @@
     <dimen name="spacing">8dp</dimen>
     <dimen name="image">24dp</dimen>
     <dimen name="numColumns">7</dimen>
+    <dimen name="cast_dialog_image_margin_start_end">100dp</dimen>
+    <dimen name="cast_dialog_close_margin">16dp</dimen>
+    <dimen name="cast_dialog_text_view_margin">8dp</dimen>
+    <dimen name="cast_element_picture_width_height">96dp</dimen>
+    <dimen name="cast_element_progress_bar_width_height">88dp</dimen>
+    <dimen name="cast_element_actor_name_width">96dp</dimen>
+    <dimen name="cast_element_actor_name_height">52dp</dimen>
+    <dimen name="cast_element_actor_name_margin">8dp</dimen>
+    <dimen name="cast_element_actor_name_text_size">10sp</dimen>
+    <dimen name="cast_element_width">96dp</dimen>
+    <dimen name="cast_element_height">140dp</dimen>
+    <dimen name="cast_layout_width">960dp</dimen>
+    <dimen name="cast_layout_height">240dp</dimen>
+    <dimen name="cast_layout_marginTop">68dp</dimen>
+    <dimen name="cast_layout_text_view_marginStart">48dp</dimen>
+    <dimen name="cast_layout_text_view_marginTop">16dp</dimen>
+    <dimen name="cast_layout_text_view_marginEnd">843dp</dimen>
+    <dimen name="cast_layout_text_view_size">20sp</dimen>
+    <dimen name="cast_layout_horizontal_grid_view_width">912dp</dimen>
+    <dimen name="cast_layout_horizontal_grid_view_height">156dp</dimen>
+    <dimen name="cast_layout_horizontal_grid_view_paddingTop">8dp</dimen>
+    <dimen name="cast_layout_horizontal_grid_view_cast_layout_horizontal_grid_view_marginStart">
+        40dp
+    </dimen>
+    <dimen name="cast_layout_horizontal_grid_view_marginTop">18dp</dimen>
+    <dimen name="cast_layout_horizontal_grid_view_marginBottom">30dp</dimen>
+    <dimen name="detail_movie_layout_back_button_width_height">24dp</dimen>
+    <dimen name="detail_movie_layout_back_button_marginStart">48dp</dimen>
+    <dimen name="detail_movie_layout_back_button_marginTop">16dp</dimen>
+    <dimen name="detail_movie_layout_watchlist_button_marginStart">8dp</dimen>
+    <dimen name="detail_movie_layout_watchlist_button_marginEnd">488dp</dimen>
+    <dimen name="detail_movie_layout_movie_description_width">408dp</dimen>
+    <dimen name="detail_movie_layout_movie_description_height">16dp</dimen>
+    <dimen name="detail_movie_layout_movie_description_marginStart">48dp</dimen>
+    <dimen name="detail_movie_layout_movie_description_marginTop">12dp</dimen>
+    <dimen name="detail_movie_layout_movie_description_marginEnd">504dp</dimen>
+    <dimen name="detail_movie_layout_plot_width">400dp</dimen>
+    <dimen name="detail_movie_layout_plot_marginTop">32dp</dimen>
+    <dimen name="detail_movie_layout_plot_marginEnd">512dp</dimen>
+    <dimen name="detail_movie_layout_title_marginTop">64dp</dimen>
+    <dimen name="fragment_base_toolbar_view_height">85dp</dimen>
+    <dimen name="fragment_detail_page_background_image_width">720dp</dimen>
+    <dimen name="fragment_detail_page_background_image_height">400dp</dimen>
+    <dimen name="fragment_detail_page_bottom_overlay_height">160dp</dimen>
+    <dimen name="fragment_detail_page_background_overlay_width">360dp</dimen>
+    <dimen name="fragment_detail_page_background_overlay_height">400dp</dimen>
+    <dimen name="playlist_horizontal_grid_view_height">158dp</dimen>
+    <dimen name="playlist_horizontal_grid_view_paddingEnd">0dp</dimen>
+    <dimen name="movie_element_height">162dp</dimen>
+    <dimen name="movie_element_poster_width">108dp</dimen>
+    <dimen name="movie_element_star_icon_marginStart">6dp</dimen>
+    <dimen name="movie_element_star_icon_marginTop">56dp</dimen>
+    <dimen name="movie_element_genres_text_view_width">104dp</dimen>
+    <dimen name="movie_element_genres_text_view_height">30dp</dimen>
+    <dimen name="movie_element_release_date_text_view_size">12sp</dimen>
+    <dimen name="movie_element_imdb_rating_height">16dp</dimen>
+    <dimen name="movie_element_imdb_rating_width">52dp</dimen>
+    <dimen name="movie_element_imdb_rating_marginStart">22dp</dimen>
+    <dimen name="movie_element_imdb_rating_marginTop">56dp</dimen>
+    <dimen name="movie_element_imdb_rating_marginBottom">6dp</dimen>
+    <dimen name="movie_component_title_height">32dp</dimen>
+    <dimen name="genre_element_image_view_width">90dp</dimen>
+    <dimen name="genre_element_image_view_height">80dp</dimen>
+    <dimen name="no_internet_exit_button_marginTop">64dp</dimen>
+    <dimen name="no_internet_text_view_width">400dp</dimen>
+    <dimen name="no_internet_text_view_marginTop">128dp</dimen>
+    <dimen name="player_control_layout_text_frame_layout_width">656dp</dimen>
+    <dimen name="player_control_layout_text_frame_layout_height">32dp</dimen>
+    <dimen name="player_control_layout_text_frame_layout_marginTop">332dp</dimen>
+    <dimen name="player_control_layout_text_frame_layout_marginBottom">22dp</dimen>
+    <dimen name="player_control_layout_exo_prev_width_height">24dp</dimen>
+    <dimen name="player_control_layout_exo_prev_marginStart">276dp</dimen>
+    <dimen name="player_control_layout_exo_prev_marginTop">26dp</dimen>
+    <dimen name="player_control_layout_exo_rew_marginStart">70dp</dimen>
+    <dimen name="player_control_layout_exo_ffwd_marginStart">164dp</dimen>
+    <dimen name="player_control_layout_exo_next_marginEnd">276dp</dimen>
+    <dimen name="player_control_layout_player_progress_bar_height">150dp</dimen>
+    <dimen name="player_control_layout_exo_position_width">72dp</dimen>
+    <dimen name="player_control_layout_exo_position_height">16dp</dimen>
+    <dimen name="player_control_layout_exo_position_marginStart">48dp</dimen>
+    <dimen name="player_control_layout_exo_position_marginTop">16dp</dimen>
+    <dimen name="player_control_layout_horizontal_grid_view_height">158dp</dimen>
+    <dimen name="player_control_layout_horizontal_grid_view_marginTop">8dp</dimen>
+    <dimen name="player_control_layout_horizontal_grid_view_paddingStart">48dp</dimen>
+    <dimen name="player_control_layout_horizontal_grid_view_paddingTop">8dp</dimen>
+    <dimen name="player_control_layout_horizontal_grid_view_paddingEnd">0dp</dimen>
+    <dimen name="player_control_layout_default_time_bar_width">688dp</dimen>
+    <dimen name="player_control_layout_default_time_bar_height">4dp</dimen>
+    <dimen name="player_control_layout_default_time_bar_marginStart">16dp</dimen>
+    <dimen name="player_control_layout_default_time_bar_marginTop">22dp</dimen>
+    <dimen name="player_control_layout_default_time_bar_marginEnd">16dp</dimen>
+    <dimen name="review_dialog_width">512dp</dimen>
+    <dimen name="review_dialog_close_button_width">24dp</dimen>
+    <dimen name="review_dialog_close_button_height">24dp</dimen>
+    <dimen name="review_dialog_close_button_marginEnd">16dp</dimen>
+    <dimen name="review_dialog_comment_padding">16dp</dimen>
+    <dimen name="review_dialog_comment_size">14sp</dimen>
+    <dimen name="review_dialog_reviewer_width">168dp</dimen>
+    <dimen name="review_dialog_reviewer_height">24dp</dimen>
+    <dimen name="review_dialog_reviewer_marginTop">16dp</dimen>
+    <dimen name="review_dialog_reviewer_size">12sp</dimen>
+    <dimen name="review_element_width">184dp</dimen>
+    <dimen name="review_element_height">136dp</dimen>
+    <dimen name="review_element_comment_width">168dp</dimen>
+    <dimen name="review_element_comment_height">64dp</dimen>
+    <dimen name="review_element_comment_marginStart">8dp</dimen>
+    <dimen name="review_element_comment_marginTop">12dp</dimen>
+    <dimen name="review_element_comment_marginEnd">8dp</dimen>
+    <dimen name="review_element_comment_size">10sp</dimen>
+    <dimen name="playlist_margin_zero">0dp</dimen>
+    <dimen name="show_playlist_margin_offset_top">232dp</dimen>
+    <dimen name="hide_playlist_margin_offset_top">332dp</dimen>
+    <dimen name="playlist_margin_offset_bottom">22dp</dimen>
+    <dimen name="curve_radius">24f</dimen>
 
 </resources>

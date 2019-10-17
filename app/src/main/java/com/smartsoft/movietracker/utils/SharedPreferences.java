@@ -14,7 +14,7 @@ public class SharedPreferences {
 
     }
 
-    void writeOnStorage(String value) {
+    public void writeOnStorage(String value) {
         android.content.SharedPreferences.Editor editor = sp.edit();
         editor.putString(key, value).apply();
     }
