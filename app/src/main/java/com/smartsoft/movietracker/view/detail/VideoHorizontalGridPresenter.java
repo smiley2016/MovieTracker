@@ -30,13 +30,13 @@ public class VideoHorizontalGridPresenter extends Presenter implements DetailVid
     private Context mContext;
     private DetailVideoGridInterface.VideoGridView mInterface;
 
-    public VideoHorizontalGridPresenter(Context mContext, DetailVideoGridInterface.VideoGridView mInterface) {
-        this.mContext = mContext;
+    VideoHorizontalGridPresenter(DetailVideoGridInterface.VideoGridView mInterface) {
         this.mInterface = mInterface;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent) {
+        mContext = parent.getContext();
         return new PresenterViewHolder(View.inflate(mContext, R.layout.video_element, null));
     }
 

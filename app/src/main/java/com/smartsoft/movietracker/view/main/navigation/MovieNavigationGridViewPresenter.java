@@ -15,10 +15,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.leanback.widget.Presenter;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -39,54 +38,53 @@ import java.util.Iterator;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieNavigationVerticalGridViewAdapter extends
-        RecyclerView.Adapter<MovieNavigationVerticalGridViewAdapter.Holder> {
+class MovieNavigationGridViewPresenter extends Presenter {
 
-    private ArrayList<Movie> movieList;
     private Context ctx;
     private MovieNavigationPresenter presenter;
     private ArrayList<Genre> selectedGenres;
     private Integer totalPages;
+    private Integer size;
 
-    MovieNavigationVerticalGridViewAdapter(ArrayList<Movie> movieList, Context ctx,
-                                           MovieNavigationPresenter presenter,
-                                           ArrayList<Genre> selectedGenres,
-                                           Integer totalPages) {
-        this.movieList = movieList;
-        this.ctx = ctx;
+
+    MovieNavigationGridViewPresenter(MovieNavigationPresenter presenter,
+                                     ArrayList<Genre> selectedGenres,
+                                     Integer totalPages) {
         this.presenter = presenter;
         this.selectedGenres = selectedGenres;
         this.totalPages = totalPages;
-    }
-
-    @NonNull
-    @Override
-    public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(ctx).inflate(R.layout.movie_element, parent, false);
-        return new Holder(view);
+        this.size = 0;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Holder holder, int position) {
-        holder.bind(movieList.get(position));
-
+    public ViewHolder onCreateViewHolder(ViewGroup parent) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_element, parent, false);
+        ctx = parent.getContext();
+        return new PresenterViewHolder(view);
     }
 
     @Override
-    public int getItemCount() {
-        return movieList.size();
+    public void onBindViewHolder(ViewHolder viewHolder, Object item) {
+        PresenterViewHolder holder = (PresenterViewHolder) viewHolder;
+        holder.bind((Movie) item);
     }
 
-    void clearAll() {
-        movieList.clear();
+    @Override
+    public void onUnbindViewHolder(ViewHolder viewHolder) {
+
     }
 
-    void updateMovieList(ArrayList<Movie> movies) {
-        movieList.addAll(movies);
+    void updateListSize(int size) {
+        this.size += size;
+    }
+
+    void clearListSize() {
+        this.size = 0;
     }
 
 
-    class Holder extends RecyclerView.ViewHolder {
+    class PresenterViewHolder extends ViewHolder {
+
 
         @BindView(R.id.poster)
         ImageView poster;
@@ -109,12 +107,9 @@ public class MovieNavigationVerticalGridViewAdapter extends
         @BindView(R.id.imdb_rating)
         TextView imdbRating;
 
-        @BindView(R.id.open_description)
-        ImageView openDetailPage;
-
         boolean isOpen = false;
 
-        Holder(@NonNull View itemView) {
+        PresenterViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
 
@@ -153,10 +148,10 @@ public class MovieNavigationVerticalGridViewAdapter extends
                     .error(R.drawable.error)
                     .into(poster);
 
-
             layout.setOnFocusChangeListener((view, b) -> {
                 if (b) {
-                    if ((getAdapterPosition() >= (movieList.size() - 1) - Constant.GridView.COLUMN_NUM7) && (presenter.getPage() <= totalPages)) {
+
+                    if (presenter.getPosition(movie) >= (size - Constant.GridView.COLUMN_NUM7) && (presenter.getPage() <= totalPages)) {
                         presenter.loadMovieData(ctx, selectedGenres);
                     }
 
@@ -220,12 +215,11 @@ public class MovieNavigationVerticalGridViewAdapter extends
             if (movie.getReleaseDate() != null) {
                 releaseYearList = movie.getReleaseDate().substring(0, movie.getReleaseDate().indexOf(StringUtils.HYPHEN_DELIMITER));
             } else {
-                releaseYearList = "";
+                releaseYearList = StringUtils.EMPTY_STRING;
             }
 
             releaseDate.setText(releaseYearList);
 
         }
     }
-
 }

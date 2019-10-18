@@ -54,6 +54,8 @@ public class ToolbarSettingsDialog {
             if (isChanged) {
                 sortSp.writeOnStorage(sortBy);
                 listener.onSortButtonClicked(dialog);
+            }else{
+                dialog.dismiss();
             }
         });
 

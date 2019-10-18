@@ -32,14 +32,14 @@ public class VideoVerticalGridPresenter extends Presenter implements DetailVideo
     private ArrayList<Video> videos;
     private ArrayList<Uri> youtubeLinks;
 
-    VideoVerticalGridPresenter(Context mContext, ArrayList<Uri> youtubeLinks) {
-        this.mContext = mContext;
+    VideoVerticalGridPresenter(ArrayList<Uri> youtubeLinks) {
         this.youtubeLinks = youtubeLinks;
         this.videos = new ArrayList<>();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent) {
+        mContext = parent.getContext();
         return new PresenterViewHolder(View.inflate(mContext, R.layout.video_layout, null));
     }
 
@@ -96,7 +96,7 @@ public class VideoVerticalGridPresenter extends Presenter implements DetailVideo
         public void bind(ArrayList<Video> videos, DetailVideoGridInterface.VideoGridView mInterface) {
             if (!videos.isEmpty()) {
 
-                videoHorizontalGridPresenter = new VideoHorizontalGridPresenter(mContext, mInterface);
+                videoHorizontalGridPresenter = new VideoHorizontalGridPresenter(mInterface);
                 videoTextView.setText(R.string.videos);
 
 

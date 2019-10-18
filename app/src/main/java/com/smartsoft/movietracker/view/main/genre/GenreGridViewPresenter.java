@@ -22,14 +22,11 @@ public class GenreGridViewPresenter extends Presenter {
 
     private Context mContext;
 
-    GenreGridViewPresenter(Context mContext) {
-        this.mContext = mContext;
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent) {
-        View view = LayoutInflater.from(mContext)
+        View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.genre_element, parent, false);
+        mContext = parent.getContext();
         return new PresenterViewHolder(view);
     }
 

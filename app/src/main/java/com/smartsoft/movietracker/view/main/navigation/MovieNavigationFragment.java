@@ -12,6 +12,10 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.leanback.widget.ArrayObjectAdapter;
+import androidx.leanback.widget.ItemBridgeAdapter;
+import androidx.leanback.widget.PresenterSelector;
+import androidx.leanback.widget.SinglePresenterSelector;
 import androidx.leanback.widget.VerticalGridView;
 
 import com.bumptech.glide.Glide;
@@ -53,11 +57,12 @@ public class MovieNavigationFragment extends BaseMainNavigationFragment implemen
     @BindView(R.id.fragment_base_background)
     ImageView background;
 
-    private MovieNavigationVerticalGridViewAdapter adapter;
     private MovieNavigationPresenter presenter;
     private ArrayList<Genre> selectedGenres;
     private ObservableEmitter<String> urlStreamEmitter;
     private Drawable placeholderDrawable;
+    private MovieNavigationGridViewPresenter gridViewPresenter;
+    private ArrayObjectAdapter objectAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,19 +103,25 @@ public class MovieNavigationFragment extends BaseMainNavigationFragment implemen
 
     @Override
     public void updateMovieNavigationGridView(ArrayList<Movie> movies, Integer totalPages) {
-        if (adapter != null) {
-            adapter.updateMovieList(movies);
-            adapter.notifyDataSetChanged();
+
+        if (objectAdapter != null) {
+            objectAdapter.addAll(objectAdapter.size(), movies);
+            gridViewPresenter.updateListSize(movies.size());
+
         } else {
             onInitRecyclerViewAdapter(movies, totalPages);
         }
-
 
     }
 
     @Override
     public void onBackgroundChange(String backdropPath) {
         urlStreamEmitter.onNext(Constant.API.IMAGE_ORIGINAL_BASE_URL + backdropPath);
+    }
+
+    @Override
+    public int getPosition(Movie movie) {
+        return objectAdapter.indexOf(movie);
     }
 
 
@@ -125,13 +136,22 @@ public class MovieNavigationFragment extends BaseMainNavigationFragment implemen
         return genreTitle.toString();
     }
 
-    private void onInitRecyclerViewAdapter(ArrayList<Movie> movies, Integer totalPages) {
-        adapter = new MovieNavigationVerticalGridViewAdapter(
-                movies,
-                getActivity(),
-                presenter,
-                selectedGenres,
-                totalPages);
+    private void onInitRecyclerViewAdapter(ArrayList<Movie> movies, int totalPages) {
+
+        gridViewPresenter = new MovieNavigationGridViewPresenter(
+                presenter, selectedGenres, totalPages);
+
+        objectAdapter = new ArrayObjectAdapter();
+
+        objectAdapter.addAll(0, movies);
+        gridViewPresenter.updateListSize(movies.size());
+
+        PresenterSelector presenterSelector = new SinglePresenterSelector(gridViewPresenter);
+
+        ItemBridgeAdapter adapter = new ItemBridgeAdapter();
+        adapter.setAdapter(objectAdapter);
+        adapter.setPresenter(presenterSelector);
+
         verticalGridView.setHasFixedSize(true);
         verticalGridView.setAdapter(adapter);
     }
@@ -145,15 +165,16 @@ public class MovieNavigationFragment extends BaseMainNavigationFragment implemen
     public void onDestroy() {
         super.onDestroy();
         presenter.clearPage();
-        adapter = null;
+        gridViewPresenter = null;
         setToolbarSearchButtonVisibility(View.VISIBLE);
     }
 
     @Override
     public void onSortButtonClicked(Dialog dialog) {
         dialog.dismiss();
-        if (adapter != null) {
-            adapter.clearAll();
+        if (gridViewPresenter != null) {
+            objectAdapter.clear();
+            gridViewPresenter.clearListSize();
         }
         presenter.clearPage();
         presenter.loadMovieData(getContext(), selectedGenres);

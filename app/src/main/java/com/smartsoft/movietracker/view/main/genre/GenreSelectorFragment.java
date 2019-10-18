@@ -71,7 +71,7 @@ public class GenreSelectorFragment extends BaseMainNavigationFragment implements
 
     @Override
     public void updateGenres(ArrayList<Genre> genre) {
-        GenreGridViewPresenter genreGridViewPresenter = new GenreGridViewPresenter(rootView.getContext());
+        GenreGridViewPresenter genreGridViewPresenter = new GenreGridViewPresenter();
 
         ArrayObjectAdapter objectAdapter = new ArrayObjectAdapter();
 

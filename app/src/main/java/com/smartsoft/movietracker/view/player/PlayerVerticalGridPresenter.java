@@ -33,14 +33,14 @@ public class PlayerVerticalGridPresenter extends Presenter {
     private PlayerPresenter presenter;
     private ArrayList<Video> videos;
 
-    public PlayerVerticalGridPresenter(Context mContext, PlayerPresenter presenter, ArrayList<Video> videos) {
-        this.mContext = mContext;
+    PlayerVerticalGridPresenter(PlayerPresenter presenter, ArrayList<Video> videos) {
         this.presenter = presenter;
         this.videos = videos;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent) {
+        mContext = parent.getContext();
         return new PresenterViewHolder(View.inflate(mContext, R.layout.video_element, null));
     }
 
@@ -66,7 +66,7 @@ public class PlayerVerticalGridPresenter extends Presenter {
         ConstraintLayout layout;
 
 
-        public PresenterViewHolder(View view) {
+        PresenterViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

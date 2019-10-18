@@ -9,7 +9,6 @@ import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.model.movie.MovieResult;
 import com.smartsoft.movietracker.service.ApiController;
-import com.smartsoft.movietracker.utils.Constant;
 
 import java.util.ArrayList;
 
@@ -90,9 +89,15 @@ public class MovieNavigationPresenter {
         return page;
     }
 
+    public int getPosition(Movie movie){
+        return movieNavigationInterface.getPosition(movie);
+    }
+
     public interface MovieNavigationInterface {
         void updateMovieNavigationGridView(ArrayList<Movie> movies, Integer totalPages);
 
         void onBackgroundChange(String backdropPath);
+
+        int getPosition(Movie movie);
     }
 }
