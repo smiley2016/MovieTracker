@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/review_dialog_width"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/review_dialog_height"
     android:layout_gravity="center"
     android:background="@color/base_app_color"
     android:focusable="false"
@@ -25,7 +25,7 @@
     <ScrollView
         android:id="@+id/comment_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="272dp"
         android:focusable="true"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbars="vertical"
@@ -40,10 +40,9 @@
             android:layout_height="wrap_content"
             android:focusable="false"
             android:fontFamily="sans-serif"
-            android:gravity="start"
             android:padding="@dimen/review_dialog_comment_padding"
+            android:layout_marginBottom="16dp"
             android:textSize="@dimen/review_dialog_comment_size"
-
             />
 
     </ScrollView>

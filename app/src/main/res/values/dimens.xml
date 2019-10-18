@@ -187,6 +187,7 @@
     <dimen name="show_playlist_margin_offset_top">232dp</dimen>
     <dimen name="hide_playlist_margin_offset_top">332dp</dimen>
     <dimen name="playlist_margin_offset_bottom">22dp</dimen>
-    <dimen name="curve_radius">24f</dimen>
+    <dimen name="curve_radius">12dp</dimen>
+    <dimen name="review_dialog_height">312dp</dimen>
 
 </resources>

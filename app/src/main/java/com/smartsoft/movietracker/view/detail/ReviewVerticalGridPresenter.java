@@ -26,12 +26,9 @@ public class ReviewVerticalGridPresenter extends Presenter {
     private static final String TAG = ReviewVerticalGridPresenter.class.getName();
     private Context mContext;
 
-    ReviewVerticalGridPresenter(Context mContext) {
-        this.mContext = mContext;
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent) {
+        mContext = parent.getContext();
         return new PresenterViewHolder(View.inflate(mContext, R.layout.review_section_layout, null));
     }
 
@@ -71,7 +68,7 @@ public class ReviewVerticalGridPresenter extends Presenter {
 
             if (!reviews.isEmpty()) {
                 view.setVisibility(View.VISIBLE);
-                reviewAdapter = new ReviewHorizontalGridPresenter(mContext);
+                reviewAdapter = new ReviewHorizontalGridPresenter();
 
                 ArrayObjectAdapter objectAdapter = new ArrayObjectAdapter();
 

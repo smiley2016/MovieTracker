@@ -29,14 +29,10 @@ public class CastHorizontalGridPresenter extends Presenter {
 
     private Context mContext;
 
-
-    CastHorizontalGridPresenter(Context mContext) {
-        this.mContext = mContext;
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent) {
-        return new PresenterViewHolder(View.inflate(mContext, R.layout.cast_element, null));
+        mContext = parent.getContext();
+        return new PresenterViewHolder(View.inflate(parent.getContext(), R.layout.cast_element, null));
     }
 
     @Override

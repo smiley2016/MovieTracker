@@ -111,10 +111,10 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
         objectAdapter = new ArrayObjectAdapter();
         objectAdapter.add(movie);
 
-        MovieVerticalGridPresenter movieVerticalGridPresenter = new MovieVerticalGridPresenter(rootView.getContext(), currentMovieGenres, dPresenter);
-        CastVerticalGridPresenter castVerticalGridPresenter = new CastVerticalGridPresenter(rootView.getContext());
-        ReviewVerticalGridPresenter reviewVerticalGridPresenter = new ReviewVerticalGridPresenter(rootView.getContext());
-        VideoVerticalGridPresenter videoVerticalGridPresenter = new VideoVerticalGridPresenter(rootView.getContext(), youtubeLinks);
+        MovieVerticalGridPresenter movieVerticalGridPresenter = new MovieVerticalGridPresenter(currentMovieGenres, dPresenter);
+        CastVerticalGridPresenter castVerticalGridPresenter = new CastVerticalGridPresenter();
+        ReviewVerticalGridPresenter reviewVerticalGridPresenter = new ReviewVerticalGridPresenter();
+        VideoVerticalGridPresenter videoVerticalGridPresenter = new VideoVerticalGridPresenter(youtubeLinks);
 
         ClassPresenterSelector presenterSelector = new ClassPresenterSelector();
         presenterSelector.addClassPresenter(Movie.class, movieVerticalGridPresenter);

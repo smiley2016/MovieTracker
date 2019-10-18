@@ -72,7 +72,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PlayerPresenter presenter = new PlayerPresenter(this);
-        vPresenter = new PlayerVerticalGridPresenter(getContext(), presenter, videos);
+        vPresenter = new PlayerVerticalGridPresenter(presenter, videos);
     }
 
     @Nullable

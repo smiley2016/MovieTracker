@@ -19,12 +19,9 @@ public class ReviewHorizontalGridPresenter extends Presenter {
 
     private Context mContext;
 
-    public ReviewHorizontalGridPresenter(Context mContext) {
-        this.mContext = mContext;
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent) {
+        mContext = parent.getContext();
         return new PresenterViewHolder(View.inflate(mContext, R.layout.review_element, null));
     }
 

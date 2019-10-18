@@ -26,16 +26,15 @@ public class MovieVerticalGridPresenter extends Presenter {
     private ArrayList<String> currentGenres;
     private DetailPagePresenter detailPagePresenter;
 
-    MovieVerticalGridPresenter(Context mContext,
-                               ArrayList<String> currentGenres,
+    MovieVerticalGridPresenter(ArrayList<String> currentGenres,
                                DetailPagePresenter detailPagePresenter) {
-        this.mContext = mContext;
         this.currentGenres = currentGenres;
         this.detailPagePresenter = detailPagePresenter;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent) {
+        mContext = parent.getContext();
         return new PresenterViewHolder(View.inflate(mContext, R.layout.detail_movie_layout, null));
     }
 

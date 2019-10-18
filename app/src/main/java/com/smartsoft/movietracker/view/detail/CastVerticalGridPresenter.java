@@ -28,13 +28,10 @@ public class CastVerticalGridPresenter extends Presenter {
 
     private Context mContext;
 
-    public CastVerticalGridPresenter(Context mContext) {
-        this.mContext = mContext;
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent) {
-        return new PresenterViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.cast_layout, parent, false));
+        mContext = parent.getContext();
+        return new PresenterViewHolder(LayoutInflater.from(mContext).inflate(R.layout.cast_layout, parent, false));
     }
 
     @Override
@@ -69,7 +66,7 @@ public class CastVerticalGridPresenter extends Presenter {
         public void bind(ArrayList<Cast> cast) {
 
             if (!cast.isEmpty()) {
-                castPresenter = new CastHorizontalGridPresenter(mContext);
+                castPresenter = new CastHorizontalGridPresenter();
 
                 ArrayObjectAdapter objectAdapter = new ArrayObjectAdapter();
                 for (Cast it : cast) {
