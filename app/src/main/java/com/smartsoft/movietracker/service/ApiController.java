@@ -18,8 +18,6 @@ import com.smartsoft.movietracker.utils.Utils;
 import java.util.ArrayList;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Function;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -82,12 +80,12 @@ public class ApiController {
                 Constant.API.INCLUDE_VIDEO,
                 page,
                 Utils.genreListToCsvIdString(genreIds)).map(movieResultResponse -> {
-                Log.e(TAG, "getMovies:" + movieResultResponse.toString());
-                if (movieResultResponse.code() == Constant.API.RESPONSE_CODE) {
-                    return movieResultResponse.body();
-                }
-                return null;
-            });
+            Log.e(TAG, "getMovies:" + movieResultResponse.toString());
+            if (movieResultResponse.code() == Constant.API.RESPONSE_CODE) {
+                return movieResultResponse.body();
+            }
+            return null;
+        });
     }
 
     public Observable<ArrayList<Cast>> getCast(int movie_id) {

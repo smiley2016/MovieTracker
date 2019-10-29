@@ -3,4 +3,19 @@
 
     <style name="AppTheme" parent="@style/Theme.Leanback" />
 
+    <style name="FullScreenDialogStyle" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimaryDark">@color/custom_black</item>
+        <item name="colorPrimary">@color/backContrast</item>
+
+        <!-- Set this to true if you want Full Screen without status bar -->
+        <item name="android:windowFullscreen">false</item>
+
+        <item name="android:windowIsFloating">false</item>
+
+        <!-- This is important! Don't forget to set window background -->
+        <item name="android:windowBackground">@color/background_with_alpha_black_70</item>
+
+    </style>
+
 </resources>

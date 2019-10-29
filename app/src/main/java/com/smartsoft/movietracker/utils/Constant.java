@@ -32,4 +32,8 @@ public class Constant {
     public static class MovieNavigation {
         public static final int offset = 0;
     }
+
+    public static class FragmentNavigation {
+        public static final String DialogFragment = "dialog";
+    }
 }

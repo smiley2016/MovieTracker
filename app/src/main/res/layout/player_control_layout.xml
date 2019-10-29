@@ -42,14 +42,14 @@
         android:layout_marginTop="@dimen/player_control_layout_exo_prev_marginTop"
         android:contentDescription="@string/exo_prev"
         android:focusable="true"
+        android:nextFocusLeft="@id/exo_prev"
+        android:nextFocusRight="@id/exo_rew"
+        android:nextFocusUp="@id/exo_prev"
+        android:nextFocusDown="@+id/movie_detail_frame_layout"
         android:src="@drawable/start_over"
         android:stateListAnimator="@animator/toolbar_component_animator"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/exo_progress"
-        android:nextFocusDown="@+id/movie_detail_frame_layout"
-        android:nextFocusRight="@id/exo_rew"
-        android:nextFocusLeft="@id/exo_prev"
-        android:nextFocusUp="@id/exo_prev"/>
+        app:layout_constraintTop_toTopOf="@id/exo_progress" />
 
     <ImageView
         android:id="@+id/exo_rew"
@@ -60,13 +60,13 @@
         android:layout_marginTop="@dimen/player_control_layout_exo_prev_marginTop"
         android:contentDescription="@string/exo_rew"
         android:focusable="true"
+        android:nextFocusLeft="@id/exo_prev"
+        android:nextFocusUp="@id/exo_rew"
+        android:nextFocusDown="@+id/movie_detail_frame_layout"
         android:src="@drawable/backward_icon_10"
         android:stateListAnimator="@animator/toolbar_component_animator"
         app:layout_constraintStart_toEndOf="@id/exo_prev"
-        app:layout_constraintTop_toBottomOf="@id/exo_progress"
-        android:nextFocusDown="@+id/movie_detail_frame_layout"
-        android:nextFocusLeft="@id/exo_prev"
-        android:nextFocusUp="@id/exo_rew"/>
+        app:layout_constraintTop_toBottomOf="@id/exo_progress" />
 
     <ImageView
         android:id="@+id/exo_pause"
@@ -76,15 +76,15 @@
         android:layout_marginTop="@dimen/player_control_layout_exo_prev_marginTop"
         android:contentDescription="@string/exo_pause"
         android:focusable="true"
+        android:nextFocusLeft="@id/exo_rew"
+        android:nextFocusRight="@id/exo_ffwd"
+        android:nextFocusUp="@id/exo_pause"
+        android:nextFocusDown="@+id/movie_detail_frame_layout"
         android:src="@drawable/pause_icon"
         android:stateListAnimator="@animator/toolbar_component_animator"
         android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@id/exo_rew"
-        app:layout_constraintTop_toBottomOf="@id/exo_progress"
-        android:nextFocusDown="@+id/movie_detail_frame_layout"
-        android:nextFocusRight="@id/exo_ffwd"
-        android:nextFocusLeft="@id/exo_rew"
-        android:nextFocusUp="@id/exo_pause"/>
+        app:layout_constraintTop_toBottomOf="@id/exo_progress" />
 
 
     <ImageView
@@ -95,14 +95,14 @@
         android:layout_marginTop="@dimen/player_control_layout_exo_prev_marginTop"
         android:contentDescription="@string/exo_play"
         android:focusable="true"
+        android:nextFocusLeft="@id/exo_rew"
+        android:nextFocusRight="@id/exo_ffwd"
+        android:nextFocusUp="@id/exo_play"
+        android:nextFocusDown="@+id/movie_detail_frame_layout"
         android:src="@drawable/play_icon"
         android:stateListAnimator="@animator/toolbar_component_animator"
         app:layout_constraintStart_toEndOf="@id/exo_rew"
-        app:layout_constraintTop_toBottomOf="@id/exo_progress"
-        android:nextFocusDown="@+id/movie_detail_frame_layout"
-        android:nextFocusRight="@id/exo_ffwd"
-        android:nextFocusLeft="@id/exo_rew"
-        android:nextFocusUp="@id/exo_play"/>
+        app:layout_constraintTop_toBottomOf="@id/exo_progress" />
 
     <ImageView
         android:id="@+id/exo_ffwd"
@@ -112,13 +112,13 @@
         android:layout_marginTop="@dimen/player_control_layout_exo_prev_marginTop"
         android:contentDescription="@string/exo_ffwd"
         android:focusable="true"
+        android:nextFocusRight="@id/exo_next"
+        android:nextFocusUp="@id/exo_ffwd"
+        android:nextFocusDown="@+id/movie_detail_frame_layout"
         android:src="@drawable/fast_forward_30"
         android:stateListAnimator="@animator/toolbar_component_animator"
         app:layout_constraintStart_toEndOf="@id/exo_rew"
-        app:layout_constraintTop_toBottomOf="@id/exo_progress"
-        android:nextFocusDown="@+id/movie_detail_frame_layout"
-        android:nextFocusRight="@id/exo_next"
-        android:nextFocusUp="@id/exo_ffwd"/>
+        app:layout_constraintTop_toBottomOf="@id/exo_progress" />
 
     <ImageView
         android:id="@+id/exo_next"
@@ -129,16 +129,16 @@
         android:layout_marginEnd="@dimen/player_control_layout_exo_next_marginEnd"
         android:contentDescription="@string/exo_next"
         android:focusable="true"
+        android:nextFocusLeft="@id/exo_ffwd"
+        android:nextFocusRight="@id/exo_next"
+        android:nextFocusUp="@id/exo_next"
+        android:nextFocusDown="@+id/movie_detail_frame_layout"
         android:rotation="180"
         android:src="@drawable/next_icon"
         android:stateListAnimator="@animator/toolbar_component_animator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/exo_ffwd"
-        app:layout_constraintTop_toBottomOf="@id/exo_progress"
-        android:nextFocusDown="@+id/movie_detail_frame_layout"
-        android:nextFocusRight="@id/exo_next"
-        android:nextFocusLeft="@id/exo_ffwd"
-        android:nextFocusUp="@id/exo_next"/>
+        app:layout_constraintTop_toBottomOf="@id/exo_progress" />
 
     <ProgressBar
         android:id="@+id/player_progressBar"
@@ -205,8 +205,7 @@
         android:paddingEnd="@dimen/player_control_layout_horizontal_grid_view_paddingEnd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recommended_videos_textView"
-        />
+        app:layout_constraintTop_toBottomOf="@id/recommended_videos_textView" />
 
     <com.google.android.exoplayer2.ui.DefaultTimeBar
         android:id="@+id/exo_progress"

@@ -1,4 +1,4 @@
-package com.smartsoft.movietracker.view.dialogs;
+package com.smartsoft.movietracker.view.toolbar;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -29,7 +29,7 @@ public class ToolbarSettingsDialog {
     private Context context;
     private String sortBy;
 
-    public ToolbarSettingsDialog(ToolbarListener listener, Context context) {
+    ToolbarSettingsDialog(ToolbarListener listener, Context context) {
         this.listener = listener;
         this.context = context;
         startToolbarSettingsDialog(context);

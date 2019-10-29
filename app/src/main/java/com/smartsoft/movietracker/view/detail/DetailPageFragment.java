@@ -61,6 +61,15 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
     }
 
     @Override
+    public void onInternetConnected() {
+        super.onInternetConnected();
+        if (objectAdapter != null && objectAdapter.size() == 0) {
+            getAllData();
+        }
+        getAllData();
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         if (rootView == null) {
@@ -70,11 +79,6 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
             getAllData();
         }
         return rootView;
-    }
-
-    @Override
-    public void InternetConnected() {
-
     }
 
     @Override

@@ -4,14 +4,15 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.smartsoft.movietracker.MainActivity;
 import com.smartsoft.movietracker.R;
-import com.smartsoft.movietracker.view.NoInternetFragment;
 import com.smartsoft.movietracker.view.detail.DetailPageFragment;
+import com.smartsoft.movietracker.view.internet.NoInternetDialogFragment;
 import com.smartsoft.movietracker.view.main.genre.GenreSelectorFragment;
 import com.smartsoft.movietracker.view.main.navigation.MovieNavigationFragment;
 import com.smartsoft.movietracker.view.player.PlayerFragment;
@@ -21,6 +22,7 @@ public class FragmentNavigation {
     private static FragmentNavigation sInstance;
     private FragmentManager mFragmentManager;
     private int mMainActivityFragmentContainer;
+    private FragmentTransaction mFragmentTransaction;
 
     private FragmentNavigation() {
         mMainActivityFragmentContainer = R.id.fragment_holder;
@@ -46,55 +48,74 @@ public class FragmentNavigation {
 
     public void showGenreSelectorFragment() {
         Fragment myCurrentFragment = setFragmentArguments(new GenreSelectorFragment(), new Bundle());
-        replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, false);
-        Log.e(TAG, "showGenreSelectorFragment:" + myCurrentFragment);
+        replaceFragment(myCurrentFragment, mMainActivityFragmentContainer);
     }
 
 
     public void showMovieNavigationFragment(Bundle bundle) {
         Fragment myCurrentFragment = setFragmentArguments(new MovieNavigationFragment(), bundle);
-        replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, true);
+        replaceFragment(myCurrentFragment, mMainActivityFragmentContainer);
     }
 
     public void showDetailPageFragment(Bundle bundle) {
         Fragment myCurrentFragment = setFragmentArguments(new DetailPageFragment(), bundle);
-        replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, true);
+        replaceFragment(myCurrentFragment, mMainActivityFragmentContainer);
     }
 
     public void showPlayerFragment(Bundle bundle) {
         Fragment myCurrentFragment = setFragmentArguments(new PlayerFragment(), bundle);
-        replaceFragment(myCurrentFragment, mMainActivityFragmentContainer, true);
+        replaceFragment(myCurrentFragment, mMainActivityFragmentContainer);
     }
 
-    void showNoInternetFragment() {
-        Fragment myCurrentFragment = setFragmentArguments(new NoInternetFragment(), new Bundle());
-        addFragment(myCurrentFragment);
+    public void showNoInternetFragment() {
+        DialogFragment noInternetFragment = new NoInternetDialogFragment();
+        noInternetFragment.setArguments(new Bundle());
+        noInternetFragment.show(mFragmentManager, Constant.FragmentNavigation.DialogFragment);
     }
 
-    private void addFragment(Fragment myCurrentFragment) {
-        mFragmentManager.beginTransaction().add(myCurrentFragment, myCurrentFragment.getTag()).commit();
+    public Fragment getCurrentFragment() {
+        return mFragmentManager.findFragmentById(mMainActivityFragmentContainer);
     }
 
-    public void removeFragment(Fragment fragment) {
-        mFragmentManager.beginTransaction().remove(fragment).commit();
+    public void removeNoInternetDialogFragmentFromBackStack() {
+        Fragment myCurrentFragment = mFragmentManager.findFragmentByTag(Constant.FragmentNavigation.DialogFragment);
+        mFragmentTransaction = mFragmentManager.beginTransaction();
+
+        if (myCurrentFragment != null) {
+            mFragmentTransaction.remove(myCurrentFragment);
+        }
+        mFragmentTransaction.addToBackStack(null);
     }
 
-    private void replaceFragment(Fragment fragment, int container, boolean addToBackStack) {
-        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+    public void dismissFragment() {
+        Fragment myCurrentFragment = mFragmentManager.findFragmentByTag(Constant.FragmentNavigation.DialogFragment);
+
+        if (myCurrentFragment != null) {
+            ((NoInternetDialogFragment) myCurrentFragment).dismiss();
+        }
+    }
+
+    public int getBackStackEntryCount() {
+        return mFragmentManager.getBackStackEntryCount();
+    }
+
+
+    private void replaceFragment(Fragment fragment, int container) {
+        mFragmentTransaction = mFragmentManager.beginTransaction();
 
         mFragmentTransaction.setReorderingAllowed(false);
 
         mFragmentTransaction.replace(container, fragment, fragment.getTag());
 
-        if (addToBackStack) {
-            mFragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
-        }
+        mFragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
+
         try {
             mFragmentTransaction.commit();
+            Log.d(TAG, "replaceFragment: ");
         } catch (Exception e) {
             e.printStackTrace();
+            e.getMessage();
         }
-
 
     }
 

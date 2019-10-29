@@ -112,6 +112,7 @@ public class MovieNavigationFragment extends BaseMainNavigationFragment implemen
             onInitRecyclerViewAdapter(movies, totalPages);
         }
 
+
     }
 
     @Override
@@ -158,7 +159,13 @@ public class MovieNavigationFragment extends BaseMainNavigationFragment implemen
 
     @Override
     public void onInternetConnected() {
-
+        super.onInternetConnected();
+        if (objectAdapter != null && objectAdapter.size() == 0) {
+            if (presenter.getPage() == 1) {
+                presenter.clearPage();
+            }
+            presenter.loadMovieData(rootView.getContext(), selectedGenres);
+        }
     }
 
     @Override

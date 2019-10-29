@@ -49,7 +49,7 @@ public class MovieNavigationPresenter {
 
                     @Override
                     public void onNext(MovieResult movieResult) {
-                        if(movieResult != null){
+                        if (movieResult != null) {
                             ArrayList<Movie> movieList = new ArrayList<>();
                             for (Movie it : movieResult.getResults()) {
                                 if (it.getPosterPath() != null) {
@@ -57,7 +57,7 @@ public class MovieNavigationPresenter {
                                 }
                             }
                             movieNavigationInterface.updateMovieNavigationGridView(movieList, movieResult.getTotalPages());
-                        }else{
+                        } else {
                             Toast.makeText(context, R.string.data_load_server_error, Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -77,7 +77,7 @@ public class MovieNavigationPresenter {
 
     }
 
-    public void onBackgroundChange(String backgroundPath){
+    public void onBackgroundChange(String backgroundPath) {
         movieNavigationInterface.onBackgroundChange(backgroundPath);
     }
 
@@ -89,7 +89,7 @@ public class MovieNavigationPresenter {
         return page;
     }
 
-    public int getPosition(Movie movie){
+    public int getPosition(Movie movie) {
         return movieNavigationInterface.getPosition(movie);
     }
 
