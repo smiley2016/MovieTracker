@@ -1,4 +1,4 @@
-package com.smartsoft.movietracker.view;
+package com.smartsoft.movietracker.view.toolbar;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.interfaces.ToolbarListener;
-import com.smartsoft.movietracker.view.dialogs.ToolbarSettingsDialog;
+import com.smartsoft.movietracker.view.toolbar.ToolbarSettingsDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

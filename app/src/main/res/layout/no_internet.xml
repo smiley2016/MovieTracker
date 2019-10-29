@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/no_internet_dialog"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#70918D8D">
+    android:background="@color/background_with_alpha_black_70"
+    android:focusable="false">
 
     <Button
         android:id="@+id/try_again_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/no_internet_exit_button_marginTop"
-        android:background="@color/custom_black"
+        android:background="@drawable/button_color_selector"
+        android:focusable="true"
         android:text="@string/try_again"
+        android:textColor="@color/custom_black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/exit_button"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,8 +26,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/no_internet_exit_button_marginTop"
-        android:background="@color/custom_black"
+        android:background="@drawable/button_color_selector"
+        android:focusable="true"
         android:text="@string/exit_application"
+        android:textColor="@color/custom_black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/try_again_button"
@@ -34,6 +40,7 @@
         android:layout_width="@dimen/no_internet_text_view_width"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/no_internet_text_view_marginTop"
+        android:focusable="false"
         android:text="@string/no_internet_connection_please_check_your_internet_cable_plugged_in_your_device_or_if_you_are_using_wifi_check_if_it_works_correctly"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -63,7 +63,7 @@
     <string name="youtubeLinks">youtubeLinks</string>
     <string name="imdb_vote_average">IMDb: %s</string>
     <string name="data_load_server_error">Data couldn\'t loaded from the Server</string>
-    <string name="empty_string"/>
+    <string name="empty_string" />
 
 
 </resources>

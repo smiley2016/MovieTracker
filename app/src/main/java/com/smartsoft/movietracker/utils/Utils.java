@@ -39,6 +39,7 @@ public final class Utils {
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             assert cm != null;
             NetworkInfo netInfo = cm.getActiveNetworkInfo();
+//            return false;
             return (netInfo != null && netInfo.isConnected());
         } catch (NullPointerException e) {
             return false;

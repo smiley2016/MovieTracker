@@ -120,7 +120,6 @@ class MovieNavigationGridViewPresenter extends Presenter {
 
         void bind(Movie movie) {
 
-
             Glide.with(ctx)
                     .load(Constant.API.IMAGE_BASE_URL + movie.getPosterPath())
                     .listener(

@@ -2,6 +2,7 @@ package com.smartsoft.movietracker.view.main.genre;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.http.GET;
 
 public class GenreSelectorFragment extends BaseMainNavigationFragment implements GenreSelectorPresenter.GenreSelectorInterface, ToolbarListener {
 
@@ -35,12 +35,15 @@ public class GenreSelectorFragment extends BaseMainNavigationFragment implements
     @BindView(R.id.gridView_container)
     VerticalGridView verticalGridView;
     private ArrayList<Genre> genreList;
+    private GenreSelectorPresenter genreSelectorPresenter;
+    private ArrayObjectAdapter objectAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         genreList = new ArrayList<>();
-        GenreSelectorPresenter genreSelectorPresenter = new GenreSelectorPresenter();
+        objectAdapter = new ArrayObjectAdapter();
+        genreSelectorPresenter = new GenreSelectorPresenter();
         genreSelectorPresenter.updateGenres(this);
     }
 
@@ -66,14 +69,17 @@ public class GenreSelectorFragment extends BaseMainNavigationFragment implements
 
     @Override
     public void onInternetConnected() {
-
+        super.onInternetConnected();
+        if (objectAdapter != null && objectAdapter.size() == 0) {
+            genreSelectorPresenter.updateGenres(this);
+        }
     }
+
+
 
     @Override
     public void updateGenres(ArrayList<Genre> genre) {
         GenreGridViewPresenter genreGridViewPresenter = new GenreGridViewPresenter();
-
-        ArrayObjectAdapter objectAdapter = new ArrayObjectAdapter();
 
         for(Genre it: genre){
             genreList.add(it);
@@ -114,6 +120,7 @@ public class GenreSelectorFragment extends BaseMainNavigationFragment implements
             Bundle bundle = new Bundle();
             bundle.putSerializable(getString(R.string.selectedGenres), selectedGenres);
             FragmentNavigation.getInstance().showMovieNavigationFragment(bundle);
+            Log.d(TAG, "onSearchButtonClicked: ");
             return;
         }
         Toast.makeText(rootView.getContext(), R.string.no_selected_genres, Toast.LENGTH_SHORT).show();

@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:leanback="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:alwaysRetainTaskState="true">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/fragment_base_background"
@@ -58,7 +57,7 @@
         leanback:focusOutEnd="true"
         leanback:focusOutFront="true" />
 
-    <com.smartsoft.movietracker.view.ToolbarView
+    <com.smartsoft.movietracker.view.toolbar.ToolbarView
         android:id="@+id/base_toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/fragment_base_toolbar_view_height"

@@ -1,6 +1,7 @@
 package com.smartsoft.movietracker.view.player;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.DialogFragment;
 import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.ClassPresenterSelector;
 import androidx.leanback.widget.HorizontalGridView;
@@ -23,6 +25,7 @@ import androidx.leanback.widget.ItemBridgeAdapter;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -35,14 +38,13 @@ import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.interfaces.PlayerInterface;
 import com.smartsoft.movietracker.model.video.Video;
 import com.smartsoft.movietracker.presenter.PlayerPresenter;
+import com.smartsoft.movietracker.utils.FragmentNavigation;
 import com.smartsoft.movietracker.view.BaseFragment;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.smartsoft.movietracker.utils.Utils.pxFromDp;
 
 public class PlayerFragment extends BaseFragment implements PlayerInterface {
 
@@ -64,15 +66,33 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
     private long playbackPosition;
     private int currentWindow;
     private int playIndex;
-    private boolean playWhenReady = true;
+    private boolean playWhenReady;
     private ArrayList<Uri> youtubeLinks;
     private PlayerVerticalGridPresenter vPresenter;
+    private ArrayObjectAdapter objectAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PlayerPresenter presenter = new PlayerPresenter(this);
-        vPresenter = new PlayerVerticalGridPresenter(presenter, videos);
+        if(videos != null){
+            vPresenter = new PlayerVerticalGridPresenter(presenter, videos);
+        }
+    }
+
+    @Override
+    public void onInternetConnected() {
+        super.onInternetConnected();
+        if(objectAdapter != null && objectAdapter.size() == 0 && videos != null){
+            objectAdapter.addAll(0, videos);
+        }
+        player.setPlayWhenReady(true);
+    }
+
+    @Override
+    public void onInternetDisconnected() {
+        super.onInternetDisconnected();
+        player.setPlayWhenReady(false);
     }
 
     @Nullable
@@ -98,16 +118,15 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
     }
 
     private void initializeViews() {
+        objectAdapter = new ArrayObjectAdapter();
 
-        title.setText(videos.get(playIndex).getName());
+        if(videos != null){
+            title.setText(videos.get(playIndex).getName());
+
+           objectAdapter.addAll(0, videos);
+        }
 
         hGridView.setItemSpacing((int) rootView.getContext().getResources().getDimension(R.dimen.spacing));
-
-        ArrayObjectAdapter objectAdapter = new ArrayObjectAdapter();
-
-        for (Video it : videos) {
-            objectAdapter.add(it);
-        }
 
         hGridView.setAdapter(
                 new ItemBridgeAdapter(objectAdapter,
@@ -118,6 +137,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
 
 
     private void initializePlayer() {
+        playWhenReady = true;
 
         player = ExoPlayerFactory.newSimpleInstance(
                 new DefaultRenderersFactory(rootView.getContext()),
@@ -174,11 +194,6 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
         if ((Util.SDK_INT <= Build.VERSION_CODES.M || player == null)) {
             initializePlayer();
         }
-    }
-
-    @Override
-    public void InternetConnected() {
-
     }
 
     @Override
@@ -264,7 +279,7 @@ public class PlayerFragment extends BaseFragment implements PlayerInterface {
         currentWindow = position;
         if (playIndex != -1) {
             player.seekTo(currentWindow, playbackPosition);
-            player.setPlayWhenReady(playWhenReady);
+            player.setPlayWhenReady(true);
         }
     }
 }
