@@ -9,7 +9,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
- * This interface contains the @GET method of the {@link com.smartsoft.movietracker.model.cast.Cast}
+ * This interface contains the @GET method of the {@link com.smartsoft.movietracker.model.cast.CastResult}
  */
 
 public interface CastAPI {
