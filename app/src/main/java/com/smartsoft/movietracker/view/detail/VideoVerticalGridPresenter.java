@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class VideoVerticalGridPresenter extends Presenter implements DetailVideoGridInterface.VideoGridView {
+public class VideoVerticalGridPresenter extends Presenter implements DetailVideoGridInterface {
 
     private static final String TAG = VideoVerticalGridPresenter.class.getName();
     private Context mContext;
@@ -93,7 +93,7 @@ public class VideoVerticalGridPresenter extends Presenter implements DetailVideo
 
         }
 
-        public void bind(ArrayList<Video> videos, DetailVideoGridInterface.VideoGridView mInterface) {
+        public void bind(ArrayList<Video> videos, DetailVideoGridInterface mInterface) {
             if (!videos.isEmpty()) {
 
                 videoHorizontalGridPresenter = new VideoHorizontalGridPresenter(mInterface);

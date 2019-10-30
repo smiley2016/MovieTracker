@@ -25,12 +25,12 @@ import com.smartsoft.movietracker.utils.Constant;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class VideoHorizontalGridPresenter extends Presenter implements DetailVideoGridInterface.VideoGridIntPresenter {
+public class VideoHorizontalGridPresenter extends Presenter {
 
     private Context mContext;
-    private DetailVideoGridInterface.VideoGridView mInterface;
+    private DetailVideoGridInterface mInterface;
 
-    VideoHorizontalGridPresenter(DetailVideoGridInterface.VideoGridView mInterface) {
+    VideoHorizontalGridPresenter(DetailVideoGridInterface mInterface) {
         this.mInterface = mInterface;
     }
 
@@ -53,8 +53,7 @@ public class VideoHorizontalGridPresenter extends Presenter implements DetailVid
     }
 
 
-    @Override
-    public void startPlayer(String videoId) {
+    private void startPlayerById(String videoId) {
         mInterface.startPlayer(videoId);
     }
 
@@ -104,7 +103,7 @@ public class VideoHorizontalGridPresenter extends Presenter implements DetailVid
 
             videoTitle.setText(video.getName());
 
-            layout.setOnClickListener(view -> startPlayer(video.getId()));
+            layout.setOnClickListener(view -> startPlayerById(video.getId()));
         }
     }
 }
