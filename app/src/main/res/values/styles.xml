@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppTheme" parent="@style/Theme.Leanback" />
 
@@ -7,15 +7,433 @@
         <item name="android:windowNoTitle">true</item>
         <item name="colorPrimaryDark">@color/custom_black</item>
         <item name="colorPrimary">@color/backContrast</item>
-
-        <!-- Set this to true if you want Full Screen without status bar -->
-        <item name="android:windowFullscreen">false</item>
-
+        <item name="android:windowFullscreen">true</item>
         <item name="android:windowIsFloating">false</item>
-
-        <!-- This is important! Don't forget to set window background -->
         <item name="android:windowBackground">@color/background_with_alpha_black_70</item>
 
     </style>
+
+    <style name="CastDialogImage">
+        <item name="android:layout_width">175dp</item>
+        <item name="android:layout_height">184dp</item>
+        <item name="android:layout_marginStart">@dimen/cast_dialog_image_margin_start_end</item>
+        <item name="android:layout_marginEnd">@dimen/cast_dialog_image_margin_start_end</item>
+    </style>
+
+    <style name="CastDialogCloseImage">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:background">@color/base_app_color</item>
+        <item name="android:src">@drawable/dialog_close_button</item>
+    </style>
+
+    <style name="CastDialogTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/cast_dialog_name_height</item>
+        <item name="android:layout_margin">@dimen/cast_dialog_text_view_margin</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/light_grey</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
+    <style name="CastElement">
+        <item name="android:layout_width">@dimen/cast_element_width</item>
+        <item name="android:layout_height">@dimen/cast_element_height</item>
+    </style>
+
+    <style name="CastElementActorPicture">
+        <item  name="android:layout_width">@dimen/cast_element_picture_width_height</item>
+        <item name="android:layout_height">@dimen/cast_element_picture_width_height</item>
+    </style>
+
+    <style name="CastElementProgressBar">
+        <item name="android:layout_height">@dimen/cast_element_progress_bar_width_height</item>
+        <item name="android:layout_width">@dimen/cast_element_progress_bar_width_height</item>
+    </style>
+
+    <style name="CastElementActorName">
+        <item name="android:layout_width">@dimen/cast_element_actor_name_width</item>
+        <item name="android:layout_height">@dimen/cast_element_actor_name_height</item>
+        <item name="android:layout_marginStart">@dimen/cast_element_actor_name_margin</item>
+        <item name="android:layout_marginEnd">@dimen/cast_element_actor_name_margin</item>
+        <item name="android:layout_marginBottom">@dimen/cast_element_actor_name_margin</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/light_grey</item>
+        <item name="android:textSize">@dimen/cast_element_actor_name_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="CastLayoutTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/cast_layout_text_view_marginStart</item>
+        <item name="android:layout_marginTop">@dimen/cast_layout_text_view_marginTop</item>
+        <item name="android:layout_marginEnd">@dimen/cast_layout_text_view_marginEnd</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">@dimen/cast_layout_text_view_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CastLayoutHorizontalGridView">
+        <item name="android:layout_width">@dimen/cast_layout_horizontal_grid_view_width</item>
+        <item name="android:layout_height">@dimen/cast_layout_horizontal_grid_view_height</item>
+        <item name="android:layout_marginStart">@dimen/cast_layout_horizontal_grid_view_cast_layout_horizontal_grid_view_marginStart</item>
+        <item name="android:layout_marginTop">@dimen/cast_layout_horizontal_grid_view_marginTop</item>
+        <item name="android:layout_marginBottom">@dimen/cast_layout_horizontal_grid_view_marginBottom</item>
+        <item name="android:paddingStart">@dimen/cast_layout_horizontal_grid_view_paddingTop</item>
+        <item name="android:paddingTop">@dimen/cast_layout_horizontal_grid_view_paddingTop</item>
+        <item name="android:paddingEnd">@dimen/cast_layout_horizontal_grid_view_paddingTop</item>
+    </style>
+
+    <style name="DetailMovieLayoutBackButton">
+        <item name="android:layout_width">@dimen/detail_movie_layout_back_button_width_height</item>
+        <item name="android:layout_height">@dimen/detail_movie_layout_back_button_width_height</item>
+        <item name="android:layout_marginStart">@dimen/detail_movie_layout_back_button_marginStart</item>
+        <item name="android:layout_marginTop">@dimen/detail_movie_layout_back_button_marginTop</item>
+        <item name="android:background">@drawable/toolbar_component_background_selector</item>
+        <item name="android:src">@drawable/back_icon</item>
+    </style>
+
+    <style name="DetailMovieLayoutWatchListButton">
+        <item name="android:layout_width">@dimen/detail_movie_layout_back_button_width_height</item>
+        <item name="android:layout_height">@dimen/detail_movie_layout_back_button_width_height</item>
+        <item name="android:layout_marginStart">@dimen/detail_movie_layout_watchlist_button_marginStart</item>
+        <item name="android:layout_marginEnd">@dimen/detail_movie_layout_watchlist_button_marginEnd</item>
+        <item name="android:background">@drawable/toolbar_component_background_selector</item>
+        <item name="android:src">@drawable/add_watchlist</item>
+    </style>
+
+    <style name="DetailMovieLayoutMovieDescription">
+        <item name="android:layout_marginStart">@dimen/detail_movie_layout_movie_description_marginStart</item>
+        <item name="android:layout_marginTop">@dimen/detail_movie_layout_movie_description_marginTop</item>
+        <item name="android:layout_marginEnd">@dimen/detail_movie_layout_movie_description_marginEnd</item>
+    </style>
+
+    <style name="DetailMovieLayoutMoviePlot">
+        <item name="android:layout_width">@dimen/detail_movie_layout_plot_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/detail_movie_layout_movie_description_marginStart</item>
+        <item name="android:layout_marginTop">@dimen/detail_movie_layout_plot_marginTop</item>
+        <item name="android:layout_marginEnd">@dimen/detail_movie_layout_plot_marginEnd</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">3</item>
+    </style>
+
+    <style name="DetailMovieLayoutMovieTitle">
+        <item name="android:layout_width">@dimen/detail_movie_layout_plot_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/detail_movie_layout_movie_description_marginStart</item>
+        <item name="android:layout_marginTop">@dimen/detail_movie_layout_title_marginTop</item>
+        <item name="android:layout_marginEnd">@dimen/detail_movie_layout_plot_marginEnd</item>
+        <item name="android:maxLines">3</item>
+        <item name="android:textSize">@dimen/cast_layout_text_view_size</item>
+    </style>
+
+    <style name="FragmentBaseBackground">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:src">@drawable/background</item>
+    </style>
+
+    <style name="FragmentBaseChooserTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/choose_textView_marginStart</item>
+        <item name="android:layout_marginTop">@dimen/choose_textView_marginTop</item>
+        <item name="android:layout_marginEnd">@dimen/choose_textView_marginEnd</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/choose_textView_textSize</item>
+    </style>
+
+    <style name="FragmentBaseVerticalGridView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginStart">@dimen/verticalGridView_fragment_marginStart</item>
+        <item name="android:layout_marginTop">@dimen/verticalGridView_fragment_marginTop</item>
+        <item name="android:layout_marginEnd">@dimen/verticalGridView_fragment_marginEnd</item>
+        <item name="android:paddingStart">@dimen/verticalGridView_paddingStart</item>
+        <item name="android:paddingTop">@dimen/verticalGridView_paddingTop</item>
+        <item name="android:paddingEnd">@dimen/verticalGridView_paddingEnd</item>
+        <item name="android:paddingBottom">@dimen/verticalGridView_paddingBottom</item>
+    </style>
+
+    <style name="GenreElementImageView">
+        <item name="android:layout_width">@dimen/genre_element_image_view_width</item>
+        <item name="android:layout_height">@dimen/genre_element_image_view_height</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginStart">@dimen/gridView_element_image_marginStart</item>
+        <item name="android:layout_marginTop">@dimen/gridView_element_image_marginTop</item>
+        <item name="android:layout_marginEnd">@dimen/gridView_element_image_marginEnd</item>
+        <item name="android:layout_marginBottom">@dimen/gridView_element_image_marginBottom</item>
+    </style>
+
+    <style name="GenreElementSelectIcon">
+        <item name="android:layout_width">@dimen/select_icon_width</item>
+        <item name="android:layout_height">@dimen/select_icon_height</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:src">@drawable/select_icon</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
+    <style name="GenreElementName">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/genre_description_marginStart</item>
+        <item name="android:layout_marginTop">@dimen/genre_description_marginTop</item>
+        <item name="android:layout_marginEnd">@dimen/genre_description_marginEnd</item>
+    </style>
+
+    <style name="GenreElement">
+        <item name="android:layout_width">@dimen/gridComponentSize</item>
+        <item name="android:layout_height">@dimen/gridComponentSize</item>
+        <item name="android:background">@drawable/grid_view_background_resource_selector</item>
+        <item name="android:foreground">@drawable/grid_view_foreground_resource_selector</item>
+    </style>
+
+    <style name="MovieElementRelativeLayout">
+        <item name="android:layout_width">@dimen/movie_element_poster_width</item>
+        <item name="android:layout_height">@dimen/movie_element_height</item>
+        <item name="android:background">@drawable/movie_detail_page_layout_round_shape</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="MovieElementStarIcon">
+        <item name="android:layout_width">@dimen/cast_dialog_close_margin</item>
+        <item name="android:layout_height">@dimen/cast_dialog_close_margin</item>
+        <item name="android:layout_marginStart">@dimen/movie_element_star_icon_marginStart</item>
+        <item name="android:layout_marginTop">@dimen/movie_element_star_icon_marginTop</item>
+        <item name="android:layout_marginBottom">@dimen/movie_element_star_icon_marginStart</item>
+    </style>
+
+    <style name="MovieElementMovieGenres">
+        <item name="android:layout_width">@dimen/movie_element_genres_text_view_width</item>
+        <item name="android:layout_height">@dimen/movie_element_genres_text_view_height</item>
+        <item name="android:layout_marginStart">@dimen/movie_element_star_icon_marginStart</item>
+        <item name="android:layout_marginEnd">@dimen/detail_movie_layout_watchlist_button_marginStart</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textColor">@color/light_grey</item>
+        <item name="android:textSize">@dimen/cast_element_actor_name_text_size</item>
+    </style>
+
+    <style name="MovieElementMovieReleaseDate">
+        <item name="android:layout_width">@dimen/movie_element_genres_text_view_width</item>
+        <item name="android:layout_height">@dimen/detail_movie_layout_back_button_marginTop</item>
+        <item name="android:layout_marginStart">@dimen/movie_element_star_icon_marginStart</item>
+        <item name="android:layout_marginTop">@dimen/movie_element_star_icon_marginStart</item>
+        <item name="android:layout_marginEnd">
+            @dimen/detail_movie_layout_watchlist_button_marginStart
+        </item>
+        <item name="android:textSize">@dimen/movie_element_release_date_text_view_size</item>
+    </style>
+
+    <style name="MovieElementMovieImdbRating">
+        <item name="android:layout_width">@dimen/movie_element_imdb_rating_width</item>
+        <item name="android:layout_height">@dimen/movie_element_imdb_rating_height</item>
+        <item name="android:layout_marginStart">@dimen/movie_element_imdb_rating_marginStart</item>
+        <item name="android:layout_marginTop">@dimen/movie_element_imdb_rating_marginTop</item>
+        <item name="android:layout_marginBottom">@dimen/movie_element_imdb_rating_marginBottom
+        </item>
+        <item name="android:textColor">@color/light_grey</item>
+        <item name="android:textSize">@dimen/cast_element_actor_name_text_size</item>
+    </style>
+
+    <style name="MovieElementMovieTitle">
+        <item name="android:layout_width">@dimen/movie_element_genres_text_view_width</item>
+        <item name="android:layout_height">@dimen/movie_component_title_height</item>
+        <item name="android:layout_marginStart">@dimen/movie_element_star_icon_marginStart</item>
+        <item name="android:layout_marginEnd">
+            @dimen/detail_movie_layout_watchlist_button_marginStart
+        </item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">3</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/movie_element_release_date_text_view_size</item>
+    </style>
+
+    <style name="NoInternetTryAgainButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/no_internet_exit_button_marginTop</item>
+        <item name="android:background">@drawable/button_color_selector</item>
+        <item name="android:textColor">@color/custom_black</item>
+    </style>
+
+    <style name="NoInternetTextView">
+        <item name="android:layout_width">@dimen/no_internet_text_view_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/no_internet_text_view_marginTop</item>
+    </style>
+
+    <style name="PlayerControlLayoutFrameLayout">
+        <item name="android:layout_width">@dimen/player_control_layout_text_frame_layout_width
+        </item>
+        <item name="android:layout_height">@dimen/player_control_layout_text_frame_layout_height
+        </item>
+        <item name="android:layout_marginTop">
+            @dimen/player_control_layout_text_frame_layout_marginTop
+        </item>
+        <item name="android:layout_marginBottom">
+            @dimen/player_control_layout_text_frame_layout_marginBottom
+        </item>
+    </style>
+
+    <style name="PlayerButton">
+        <item name="android:layout_width">@dimen/player_control_layout_exo_prev_width_height</item>
+        <item name="android:layout_height">@dimen/player_control_layout_exo_prev_width_height</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">@dimen/player_control_layout_exo_prev_marginTop</item>
+        <item name="android:stateListAnimator">@animator/toolbar_component_animator</item>
+    </style>
+
+    <style name="PlayerExoPosition">
+        <item name="android:layout_width">@dimen/player_control_layout_exo_position_width</item>
+        <item name="android:layout_height">@dimen/player_control_layout_exo_position_height</item>
+        <item name="android:layout_marginTop">@dimen/player_control_layout_exo_position_marginTop
+        </item>
+        <item name="android:textColor">@color/light_grey</item>
+    </style>
+
+    <style name="PlayerRecommendedVideos">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">48dp</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_marginEnd">668dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/light_grey</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="PlayerRecommendedVideosHorizontalGridView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">
+            @dimen/player_control_layout_horizontal_grid_view_height
+        </item>
+        <item name="android:layout_marginTop">
+            @dimen/player_control_layout_horizontal_grid_view_marginTop
+        </item>
+        <item name="android:paddingStart">
+            @dimen/player_control_layout_horizontal_grid_view_paddingStart
+        </item>
+        <item name="android:paddingTop">
+            @dimen/player_control_layout_horizontal_grid_view_paddingTop
+        </item>
+        <item name="android:paddingEnd">
+            @dimen/player_control_layout_horizontal_grid_view_paddingEnd
+        </item>
+    </style>
+
+    <style name="PlayerControlLayoutTimeBar">
+        <item name="android:layout_width">@dimen/player_control_layout_default_time_bar_width</item>
+        <item name="android:layout_height">@dimen/player_control_layout_default_time_bar_height
+        </item>
+        <item name="android:layout_marginStart">
+            @dimen/player_control_layout_default_time_bar_marginStart
+        </item>
+        <item name="android:layout_marginTop">
+            @dimen/player_control_layout_default_time_bar_marginTop
+        </item>
+        <item name="android:layout_marginEnd">
+            @dimen/player_control_layout_default_time_bar_marginEnd
+        </item>
+    </style>
+
+    <style name="ReviewDialogCloseButton">
+        <item name="android:layout_width">@dimen/review_dialog_close_button_width</item>
+        <item name="android:layout_height">@dimen/review_dialog_close_button_height</item>
+        <item name="android:layout_marginEnd">@dimen/review_dialog_close_button_marginEnd</item>
+        <item name="android:background">@drawable/toolbar_component_background_selector</item>
+        <item name="android:foreground">@drawable/dialog_close_button</item>
+        <item name="android:stateListAnimator">@animator/cast_element_animator</item>
+    </style>
+
+    <style name="ReviewDialogReview">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:padding">@dimen/review_dialog_comment_padding</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:textSize">@dimen/review_dialog_comment_size</item>
+    </style>
+
+    <style name="ReviewDialogAuthor">
+        <item name="android:layout_width">@dimen/review_dialog_reviewer_width</item>
+        <item name="android:layout_height">@dimen/review_dialog_reviewer_height</item>
+        <item name="android:layout_marginTop">@dimen/review_dialog_reviewer_marginTop</item>
+        <item name="android:fontFamily">Roman</item>
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/review_dialog_reviewer_size</item>
+    </style>
+
+    <style name="ReviewElementReview">
+        <item name="android:layout_width">@dimen/review_element_comment_width</item>
+        <item name="android:layout_height">@dimen/review_element_comment_height</item>
+        <item name="android:layout_marginStart">@dimen/review_element_comment_marginStart</item>
+        <item name="android:layout_marginTop">@dimen/review_element_comment_marginTop</item>
+        <item name="android:layout_marginEnd">@dimen/review_element_comment_marginEnd</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:gravity">start</item>
+        <item name="android:maxLines">8</item>
+        <item name="android:textSize">@dimen/review_element_comment_size</item>
+    </style>
+
+    <style name="ReviewElementAuthor">
+        <item name="android:layout_width">168dp</item>
+        <item name="android:layout_height">16dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:fontFamily">Roman</item>
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="ReviewSectionHorizontalGridView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">136dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:paddingStart">48dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <style name="VideoElement">
+        <item name="android:layout_width">184dp</item>
+        <item name="android:layout_height">158dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:background">@color/base_app_color</item>
+        <item name="android:stateListAnimator">@animator/video_element_animator</item>
+    </style>
+
+    <style name="VideoElementSubtractIcon">
+        <item name="android:layout_width">13.33dp</item>
+        <item name="android:layout_height">13.33dp</item>
+        <item name="android:layout_marginStart">164dp</item>
+        <item name="android:layout_marginTop">9.33dp</item>
+        <item name="android:layout_marginEnd">9.33dp</item>
+        <item name="android:layout_marginBottom">9.33dp</item>
+    </style>
+
+    <style name="VideoElementVideoTitle">
+        <item name="android:layout_width">144dp</item>
+        <item name="android:layout_height">16dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginEnd">32dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 
 </resources>

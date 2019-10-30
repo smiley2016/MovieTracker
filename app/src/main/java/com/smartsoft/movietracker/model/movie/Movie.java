@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -38,7 +39,7 @@ public class Movie implements Serializable {
     private String originalTitle;
     @SerializedName("genre_ids")
     @Expose
-    private List<Integer> genreIds;
+    private ArrayList<Integer> genreIds;
     @SerializedName("title")
     @Expose
     private String title;
@@ -54,7 +55,7 @@ public class Movie implements Serializable {
 
     public Movie(Double popularity, Integer voteCount, Boolean video, String posterPath,
                  Integer id, Boolean adult, String backdropPath, String originalLanguage,
-                 String originalTitle, List<Integer> genreIds, String title, Double voteAverage,
+                 String originalTitle, ArrayList<Integer> genreIds, String title, Double voteAverage,
                  String overview, String releaseDate) {
         this.popularity = popularity;
         this.voteCount = voteCount;
@@ -72,7 +73,7 @@ public class Movie implements Serializable {
         this.releaseDate = releaseDate;
     }
 
-    public List<Integer> getGenreIds() {
+    public ArrayList<Integer> getGenreIds() {
         return genreIds;
     }
 

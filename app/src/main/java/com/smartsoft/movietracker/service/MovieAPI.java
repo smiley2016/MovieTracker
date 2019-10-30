@@ -5,6 +5,7 @@ import com.smartsoft.movietracker.model.movie.MovieResult;
 import io.reactivex.Observable;
 import retrofit2.Response;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface MovieAPI {
@@ -17,4 +18,5 @@ public interface MovieAPI {
                                                 @Query("include_video") boolean isVideo,
                                                 @Query("page") int page,
                                                 @Query("with_genres") String genreIds);
+
 }

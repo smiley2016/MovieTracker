@@ -29,6 +29,45 @@ public class MovieNavigationPresenter {
         page = 0;
     }
 
+
+    public void loadMovieData(String searchForString, Context context){
+        page++;
+        ApiController.getInstance().getSearchedMovies(searchForString, page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<MovieResult>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(MovieResult movieResult) {
+                        if(movieResult != null){
+                            ArrayList<Movie> movieList = new ArrayList<>();
+                            for (Movie it : movieResult.getResults()) {
+                                if (it.getPosterPath() != null) {
+                                    movieList.add(it);
+                                }
+                            }
+                            movieNavigationInterface.updateMovieNavigationGridView(movieList, movieResult.getTotalPages());
+                        }else{
+                            Toast.makeText(context, "Data couldn\\'t loaded from the Server", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "onNext: ", e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
     public void loadMovieData(Context context, ArrayList<Genre> selectedGenres) {
         ArrayList<Integer> genreIds = new ArrayList<>();
 
@@ -58,14 +97,14 @@ public class MovieNavigationPresenter {
                             }
                             movieNavigationInterface.updateMovieNavigationGridView(movieList, movieResult.getTotalPages());
                         } else {
-                            Toast.makeText(context, R.string.data_load_server_error, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, R.string.data_loading_server_error, Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Log.e(TAG, "onError: Data couldn\\'t loaded from the Server", e);
-                        Toast.makeText(context, R.string.data_load_server_error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, R.string.data_loading_server_error, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

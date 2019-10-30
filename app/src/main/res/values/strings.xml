@@ -29,7 +29,7 @@
     <string name="zero">0</string>
     <string name="cast">Cast</string>
     <string name="videos">Videos</string>
-    <string name="selectedGenres">selectedGenres</string>
+    <string name="allGenres">allGenres</string>
     <string name="no_internet_connection">No internet Connection</string>
     <string name="internet_connected">Internet connected</string>
     <string name="no_internet_connection_please_check_your_internet_cable_plugged_in_your_device_or_if_you_are_using_wifi_check_if_it_works_correctly">No internet Connection, please check your internet cable plugged in your device or if you are using wifi check if it works correctly!</string>
@@ -62,8 +62,12 @@
     <string name="exo_next">exo_next</string>
     <string name="youtubeLinks">youtubeLinks</string>
     <string name="imdb_vote_average">IMDb: %s</string>
-    <string name="data_load_server_error">Data couldn\'t loaded from the Server</string>
-    <string name="empty_string" />
+    <string name="empty_string"/>
+    <string name="search">Search</string>
+    <string name="genres">genres</string>
+    <string name="selectedGenres">selectedGenres</string>
+    <string name="search_in_all_genres">Search in all genres</string>
+    <string name="data_loading_server_error">Data couldn\\\'t loaded from the Server</string>
 
 
 </resources>

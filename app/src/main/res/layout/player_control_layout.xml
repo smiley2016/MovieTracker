@@ -7,10 +7,7 @@
 
     <FrameLayout
         android:id="@+id/text_frame_layout"
-        android:layout_width="@dimen/player_control_layout_text_frame_layout_width"
-        android:layout_height="@dimen/player_control_layout_text_frame_layout_height"
-        android:layout_marginTop="@dimen/player_control_layout_text_frame_layout_marginTop"
-        android:layout_marginBottom="@dimen/player_control_layout_text_frame_layout_marginBottom"
+        style="@style/PlayerControlLayoutFrameLayout"
         android:focusable="false"
         app:layout_constraintBottom_toTopOf="@id/exo_progress"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,7 +20,7 @@
             android:layout_height="match_parent"
             android:focusable="false"
             android:gravity="center"
-            android:textColor="#EEEEEE"
+            android:textColor="@color/light_grey"
             app:layout_constraintBottom_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,11 +32,8 @@
 
     <ImageView
         android:id="@+id/exo_prev"
-        android:layout_width="@dimen/player_control_layout_exo_prev_width_height"
-        android:layout_height="@dimen/player_control_layout_exo_prev_width_height"
-        android:layout_gravity="center"
+        style="@style/PlayerButton"
         android:layout_marginStart="@dimen/player_control_layout_exo_prev_marginStart"
-        android:layout_marginTop="@dimen/player_control_layout_exo_prev_marginTop"
         android:contentDescription="@string/exo_prev"
         android:focusable="true"
         android:nextFocusLeft="@id/exo_prev"
@@ -47,33 +41,26 @@
         android:nextFocusUp="@id/exo_prev"
         android:nextFocusDown="@+id/movie_detail_frame_layout"
         android:src="@drawable/start_over"
-        android:stateListAnimator="@animator/toolbar_component_animator"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/exo_progress" />
 
     <ImageView
         android:id="@+id/exo_rew"
-        android:layout_width="@dimen/player_control_layout_exo_prev_width_height"
-        android:layout_height="@dimen/player_control_layout_exo_prev_width_height"
-        android:layout_gravity="center"
+        style="@style/PlayerButton"
         android:layout_marginStart="@dimen/player_control_layout_exo_rew_marginStart"
-        android:layout_marginTop="@dimen/player_control_layout_exo_prev_marginTop"
         android:contentDescription="@string/exo_rew"
         android:focusable="true"
         android:nextFocusLeft="@id/exo_prev"
         android:nextFocusUp="@id/exo_rew"
         android:nextFocusDown="@+id/movie_detail_frame_layout"
         android:src="@drawable/backward_icon_10"
-        android:stateListAnimator="@animator/toolbar_component_animator"
         app:layout_constraintStart_toEndOf="@id/exo_prev"
         app:layout_constraintTop_toBottomOf="@id/exo_progress" />
 
     <ImageView
         android:id="@+id/exo_pause"
-        android:layout_width="@dimen/player_control_layout_exo_prev_width_height"
-        android:layout_height="@dimen/player_control_layout_exo_prev_width_height"
+        style="@style/PlayerButton"
         android:layout_marginStart="@dimen/player_control_layout_exo_rew_marginStart"
-        android:layout_marginTop="@dimen/player_control_layout_exo_prev_marginTop"
         android:contentDescription="@string/exo_pause"
         android:focusable="true"
         android:nextFocusLeft="@id/exo_rew"
@@ -81,7 +68,6 @@
         android:nextFocusUp="@id/exo_pause"
         android:nextFocusDown="@+id/movie_detail_frame_layout"
         android:src="@drawable/pause_icon"
-        android:stateListAnimator="@animator/toolbar_component_animator"
         android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@id/exo_rew"
         app:layout_constraintTop_toBottomOf="@id/exo_progress" />
@@ -89,10 +75,8 @@
 
     <ImageView
         android:id="@+id/exo_play"
-        android:layout_width="@dimen/player_control_layout_exo_prev_width_height"
-        android:layout_height="@dimen/player_control_layout_exo_prev_width_height"
+        style="@style/PlayerButton"
         android:layout_marginStart="@dimen/player_control_layout_exo_rew_marginStart"
-        android:layout_marginTop="@dimen/player_control_layout_exo_prev_marginTop"
         android:contentDescription="@string/exo_play"
         android:focusable="true"
         android:nextFocusLeft="@id/exo_rew"
@@ -100,32 +84,26 @@
         android:nextFocusUp="@id/exo_play"
         android:nextFocusDown="@+id/movie_detail_frame_layout"
         android:src="@drawable/play_icon"
-        android:stateListAnimator="@animator/toolbar_component_animator"
         app:layout_constraintStart_toEndOf="@id/exo_rew"
         app:layout_constraintTop_toBottomOf="@id/exo_progress" />
 
     <ImageView
         android:id="@+id/exo_ffwd"
-        android:layout_width="@dimen/player_control_layout_exo_prev_width_height"
-        android:layout_height="@dimen/player_control_layout_exo_prev_width_height"
+        style="@style/PlayerButton"
         android:layout_marginStart="@dimen/player_control_layout_exo_ffwd_marginStart"
-        android:layout_marginTop="@dimen/player_control_layout_exo_prev_marginTop"
         android:contentDescription="@string/exo_ffwd"
         android:focusable="true"
         android:nextFocusRight="@id/exo_next"
         android:nextFocusUp="@id/exo_ffwd"
         android:nextFocusDown="@+id/movie_detail_frame_layout"
         android:src="@drawable/fast_forward_30"
-        android:stateListAnimator="@animator/toolbar_component_animator"
         app:layout_constraintStart_toEndOf="@id/exo_rew"
         app:layout_constraintTop_toBottomOf="@id/exo_progress" />
 
     <ImageView
         android:id="@+id/exo_next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/PlayerButton"
         android:layout_marginStart="@dimen/player_control_layout_exo_rew_marginStart"
-        android:layout_marginTop="@dimen/player_control_layout_exo_prev_marginTop"
         android:layout_marginEnd="@dimen/player_control_layout_exo_next_marginEnd"
         android:contentDescription="@string/exo_next"
         android:focusable="true"
@@ -135,7 +113,6 @@
         android:nextFocusDown="@+id/movie_detail_frame_layout"
         android:rotation="180"
         android:src="@drawable/next_icon"
-        android:stateListAnimator="@animator/toolbar_component_animator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/exo_ffwd"
         app:layout_constraintTop_toBottomOf="@id/exo_progress" />
@@ -152,24 +129,18 @@
 
     <TextView
         android:id="@+id/exo_position"
-        android:layout_width="@dimen/player_control_layout_exo_position_width"
-        android:layout_height="@dimen/player_control_layout_exo_position_height"
-        android:layout_marginStart="@dimen/player_control_layout_exo_position_marginStart"
-        android:layout_marginTop="@dimen/player_control_layout_exo_position_marginTop"
+        style="@style/PlayerExoPosition"
         android:focusable="false"
-        android:textColor="@color/light_grey"
+        android:layout_marginStart="@dimen/player_control_layout_exo_position_marginStart"
         app:layout_constraintEnd_toStartOf="@id/exo_progress"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_frame_layout" />
 
     <TextView
         android:id="@+id/exo_duration"
-        android:layout_width="@dimen/player_control_layout_exo_position_width"
-        android:layout_height="@dimen/player_control_layout_exo_position_height"
-        android:layout_marginTop="@dimen/player_control_layout_exo_position_marginTop"
+        style="@style/PlayerExoPosition"
         android:layout_marginEnd="@dimen/player_control_layout_exo_rew_marginStart"
         android:focusable="false"
-        android:textColor="@color/light_grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/exo_progress"
         app:layout_constraintTop_toBottomOf="@id/text_frame_layout"
@@ -178,42 +149,25 @@
 
     <TextView
         android:id="@+id/recommended_videos_textView"
-        android:layout_width="244dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="668dp"
-        android:layout_marginBottom="8dp"
+        style="@style/PlayerRecommendedVideos"
         android:focusable="false"
-        android:gravity="center"
         android:text="@string/youtube_recommendation"
-        android:textColor="#EEEEEE"
-        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/exo_prev" />
 
     <androidx.leanback.widget.HorizontalGridView
         android:id="@+id/recommended_videos_gridView"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/player_control_layout_horizontal_grid_view_height"
-        android:layout_marginTop="@dimen/player_control_layout_horizontal_grid_view_marginTop"
+        style="@style/PlayerRecommendedVideosHorizontalGridView"
         android:clipToPadding="false"
         android:focusable="false"
-        android:paddingStart="@dimen/player_control_layout_horizontal_grid_view_paddingStart"
-        android:paddingTop="@dimen/player_control_layout_horizontal_grid_view_paddingTop"
-        android:paddingEnd="@dimen/player_control_layout_horizontal_grid_view_paddingEnd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/recommended_videos_textView" />
 
     <com.google.android.exoplayer2.ui.DefaultTimeBar
         android:id="@+id/exo_progress"
-        android:layout_width="@dimen/player_control_layout_default_time_bar_width"
-        android:layout_height="@dimen/player_control_layout_default_time_bar_height"
-        android:layout_marginStart="@dimen/player_control_layout_default_time_bar_marginStart"
-        android:layout_marginTop="@dimen/player_control_layout_default_time_bar_marginTop"
-        android:layout_marginEnd="@dimen/player_control_layout_default_time_bar_marginEnd"
+        style="@style/PlayerControlLayoutTimeBar"
         android:focusable="false"
         app:layout_constraintEnd_toEndOf="@+id/exo_duration"
         app:layout_constraintStart_toEndOf="@id/exo_position"

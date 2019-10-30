@@ -10,6 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.leanback.widget.Presenter;
 
 import com.smartsoft.movietracker.R;
+import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.model.movie.Movie;
 import com.smartsoft.movietracker.presenter.DetailPagePresenter;
 import com.smartsoft.movietracker.utils.StringUtils;
@@ -23,12 +24,12 @@ import butterknife.ButterKnife;
 public class MovieVerticalGridPresenter extends Presenter {
 
     private Context mContext;
-    private ArrayList<String> currentGenres;
+    private ArrayList<Genre> allGenres;
     private DetailPagePresenter detailPagePresenter;
 
-    MovieVerticalGridPresenter(ArrayList<String> currentGenres,
+    MovieVerticalGridPresenter(ArrayList<Genre> allGenres,
                                DetailPagePresenter detailPagePresenter) {
-        this.currentGenres = currentGenres;
+        this.allGenres = allGenres;
         this.detailPagePresenter = detailPagePresenter;
     }
 
@@ -64,30 +65,29 @@ public class MovieVerticalGridPresenter extends Presenter {
         @BindView(R.id.detail_page_detail_movie_layout)
         ConstraintLayout constraintLayout;
 
-        StringBuilder genreNames;
-
-
         public PresenterViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            genreNames = new StringBuilder();
-
         }
 
         public void bind(Movie movie) {
             title.setText(movie.getTitle());
 
 
-            Iterator<String> genreNameIterator = currentGenres.iterator();
-            while (genreNameIterator.hasNext()) {
-                if (genreNameIterator.hasNext()) {
-                    genreNames.append(genreNameIterator.next()).append(StringUtils.COMMA_DELIMITER_WITH_SPACE);
+            StringBuilder genreTitles = new StringBuilder();
+            if(movie.getGenreIds().size() != 0){
+                for(Genre it: allGenres){
+                    for(Integer currIt: movie.getGenreIds()){
+                        if(currIt.equals(it.getId())){
+                            genreTitles.append(it.getName()).append(StringUtils.COMMA_DELIMITER_WITH_SPACE);
+                        }
+                    }
                 }
+                genreTitles.replace(genreTitles.length() - 2, genreTitles.length() - 1, StringUtils.EMPTY_STRING);
             }
-            genreNames.replace(genreNames.length() - 2, genreNames.length() - 1, StringUtils.EMPTY_STRING);
 
             movie_description.setText(String.format("%s | %s %s | %s %s",
-                    genreNames, mContext.getString(R.string.year), movie.getReleaseDate(),
+                    genreTitles, mContext.getString(R.string.year), movie.getReleaseDate(),
                     mContext.getString(R.string.imdb), movie.getVoteAverage()));
 
             plot.setText(movie.getOverview());

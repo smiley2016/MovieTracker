@@ -30,6 +30,4 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
             e.printStackTrace();
         }
     }
-
-
 }

@@ -47,7 +47,7 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
     @BindView(R.id.detail_page_grid_view)
     VerticalGridView verticalGridView;
     private Movie movie;
-    private ArrayList<Genre> selectedGenres;
+    private ArrayList<Genre> allGenres;
     private ArrayObjectAdapter objectAdapter;
     private DetailPagePresenter dPresenter;
     private YouTubeExtractor youTubeExtractor;
@@ -66,7 +66,6 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
         if (objectAdapter != null && objectAdapter.size() == 0) {
             getAllData();
         }
-        getAllData();
     }
 
     @Override
@@ -85,10 +84,10 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
     @SuppressWarnings("unchecked")
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        selectedGenres = new ArrayList<>();
+        allGenres = new ArrayList<>();
         if (getArguments() != null) {
             movie = (Movie) getArguments().getSerializable(getString(R.string.movie));
-            selectedGenres = (ArrayList<Genre>) getArguments().getSerializable(getString(R.string.selectedGenres));
+            allGenres = (ArrayList<Genre>) getArguments().getSerializable(getString(R.string.allGenres));
         }
     }
 
@@ -100,22 +99,10 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
 
         Glide.with(rootView.getContext()).load(Constant.API.IMAGE_ORIGINAL_BASE_URL + movie.getBackdropPath()).into(background);
 
-        ArrayList<String> currentMovieGenres = new ArrayList<>();
-
-        for (int i = 0; i < selectedGenres.size(); ++i) {
-            for (int j = 0; j < movie.getGenreIds().size(); ++j) {
-                if (movie.getGenreIds().get(j).equals(selectedGenres.get(i).getId())) {
-                    currentMovieGenres.add(selectedGenres.get(i).getName());
-                }
-            }
-
-        }
-
-
         objectAdapter = new ArrayObjectAdapter();
         objectAdapter.add(movie);
 
-        MovieVerticalGridPresenter movieVerticalGridPresenter = new MovieVerticalGridPresenter(currentMovieGenres, dPresenter);
+        MovieVerticalGridPresenter movieVerticalGridPresenter = new MovieVerticalGridPresenter(allGenres, dPresenter);
         CastVerticalGridPresenter castVerticalGridPresenter = new CastVerticalGridPresenter();
         ReviewVerticalGridPresenter reviewVerticalGridPresenter = new ReviewVerticalGridPresenter();
         VideoVerticalGridPresenter videoVerticalGridPresenter = new VideoVerticalGridPresenter(youtubeLinks);
@@ -178,12 +165,18 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
 
     @Override
     public void backPressed() {
+        if(youTubeExtractor != null){
+            youTubeExtractor.cancel(true);
+        }
+
         Objects.requireNonNull(getActivity()).onBackPressed();
     }
 
     @Override
     public void onDestroy() {
-        youTubeExtractor.cancel(true);
+        if(youTubeExtractor != null){
+            youTubeExtractor.cancel(true);
+        }
         super.onDestroy();
     }
 }

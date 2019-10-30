@@ -2,58 +2,36 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:leanback="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <ImageView
         android:id="@+id/fragment_base_background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/FragmentBaseBackground"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/background"
-
         />
 
 
     <TextView
         android:id="@+id/choose_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/FragmentBaseChooserTextView"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="@dimen/choose_textView_marginStart"
-        android:layout_marginTop="@dimen/choose_textView_marginTop"
-        android:layout_marginEnd="@dimen/choose_textView_marginEnd"
         android:focusable="false"
-        android:fontFamily="sans-serif"
-        android:gravity="center"
-        android:text="@string/choose_genre_textView"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="@dimen/choose_textView_textSize"
-
         />
 
 
     <androidx.leanback.widget.VerticalGridView
         android:id="@+id/gridView_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/FragmentBaseVerticalGridView"
         android:layout_below="@id/choose_textView"
-        android:layout_marginStart="@dimen/verticalGridView_fragment_marginStart"
-        android:layout_marginTop="@dimen/verticalGridView_fragment_marginTop"
-        android:layout_marginEnd="@dimen/verticalGridView_fragment_marginEnd"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:nextFocusUp="@id/toolbar_search"
-        android:paddingStart="@dimen/verticalGridView_paddingStart"
-        android:paddingTop="@dimen/verticalGridView_paddingTop"
-        android:paddingEnd="@dimen/verticalGridView_paddingEnd"
-        android:paddingBottom="@dimen/verticalGridView_paddingBottom"
         leanback:focusOutEnd="true"
         leanback:focusOutFront="true" />
 
@@ -65,7 +43,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:clipToPadding="false"
-
         />
 
 </RelativeLayout>

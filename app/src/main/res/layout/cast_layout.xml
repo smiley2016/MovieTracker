@@ -7,31 +7,19 @@
 
     <TextView
         android:id="@+id/cast_TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/CastLayoutTextView"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="@dimen/cast_layout_text_view_marginStart"
-        android:layout_marginTop="@dimen/cast_layout_text_view_marginTop"
-        android:layout_marginEnd="@dimen/cast_layout_text_view_marginEnd"
-        android:fontFamily="sans-serif"
         android:text="@string/cast"
-        android:textSize="@dimen/cast_layout_text_view_size"
-        android:textStyle="bold" />
+        />
 
     <androidx.leanback.widget.HorizontalGridView
         android:id="@+id/cast_actors_grid_view"
-        android:layout_width="@dimen/cast_layout_horizontal_grid_view_width"
-        android:layout_height="@dimen/cast_layout_horizontal_grid_view_height"
+        style="@style/CastLayoutHorizontalGridView"
         android:layout_below="@id/cast_TextView"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="@dimen/cast_layout_horizontal_grid_view_cast_layout_horizontal_grid_view_marginStart"
-        android:layout_marginTop="@dimen/cast_layout_horizontal_grid_view_marginTop"
-        android:layout_marginBottom="@dimen/cast_layout_horizontal_grid_view_marginBottom"
         android:clipToPadding="false"
-        android:paddingStart="@dimen/cast_layout_horizontal_grid_view_paddingTop"
-        android:paddingTop="@dimen/cast_layout_horizontal_grid_view_paddingTop"
-        android:paddingEnd="@dimen/cast_layout_horizontal_grid_view_paddingTop" />
+         />
 
 </RelativeLayout>

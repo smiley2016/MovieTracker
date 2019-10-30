@@ -32,7 +32,6 @@ import com.smartsoft.movietracker.utils.StringUtils;
 import com.smartsoft.movietracker.view.main.BaseMainNavigationFragment;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -59,16 +58,19 @@ public class MovieNavigationFragment extends BaseMainNavigationFragment implemen
 
     private MovieNavigationPresenter presenter;
     private ArrayList<Genre> selectedGenres;
+    private ArrayList<Genre> allGenres;
     private ObservableEmitter<String> urlStreamEmitter;
     private Drawable placeholderDrawable;
+    private ArrayList<Movie> movies;
     private MovieNavigationGridViewPresenter gridViewPresenter;
     private ArrayObjectAdapter objectAdapter;
+    private boolean isSearched = false;
+    private String searchForString;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new MovieNavigationPresenter(this);
-        presenter.loadMovieData(getContext(), selectedGenres);
+        movies = new ArrayList<>();
     }
 
     @Nullable
@@ -96,13 +98,29 @@ public class MovieNavigationFragment extends BaseMainNavigationFragment implemen
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         selectedGenres = new ArrayList<>();
-        if (this.getArguments() != null) {
-            selectedGenres = (ArrayList<Genre>) this.getArguments().getSerializable(context.getString(R.string.selectedGenres));
+        allGenres = new ArrayList<>();
+        presenter = new MovieNavigationPresenter(this);
+        if (getArguments() != null && getArguments().getSerializable(context.getString(R.string.selectedGenres)) != null) {
+            selectedGenres = (ArrayList<Genre>) getArguments().getSerializable(context.getString(R.string.selectedGenres));
+            if (selectedGenres != null) {
+                presenter.loadMovieData(context, selectedGenres);
+            }
         }
+        if(getArguments() != null && getArguments().getString(context.getString(R.string.search)) != null){
+            searchForString = getArguments().getString(context.getString(R.string.search));
+            isSearched = true;
+            presenter.loadMovieData(searchForString, getContext());
+        }
+        if(getArguments() != null){
+            allGenres = (ArrayList<Genre>) getArguments().getSerializable(context.getString(R.string.allGenres));
+        }
+
+
     }
 
     @Override
     public void updateMovieNavigationGridView(ArrayList<Movie> movies, Integer totalPages) {
+        this.movies.addAll(movies);
 
         if (objectAdapter != null) {
             objectAdapter.addAll(objectAdapter.size(), movies);
@@ -111,7 +129,6 @@ public class MovieNavigationFragment extends BaseMainNavigationFragment implemen
         } else {
             onInitRecyclerViewAdapter(movies, totalPages);
         }
-
 
     }
 
@@ -127,20 +144,25 @@ public class MovieNavigationFragment extends BaseMainNavigationFragment implemen
 
 
     private String getGenreTitle() {
-        Iterator<Genre> genreIterator = selectedGenres.iterator();
         StringBuilder genreTitle = new StringBuilder();
-        while (genreIterator.hasNext()) {
-            genreTitle.append(genreIterator.next().getName()).append(StringUtils.HYPHEN_DELITMITER_WITH_SPACE_IN_FRONT_AND_BACK);
-        }
-        genreTitle.replace(genreTitle.length() - 3, genreTitle.length() - 1, StringUtils.EMPTY_STRING);
+        if(selectedGenres.size() != 0){
 
-        return genreTitle.toString();
+            for (Genre selectedGenre : selectedGenres) {
+                genreTitle.append(selectedGenre.getName()).append(StringUtils.HYPHEN_DELITMITER_WITH_SPACE_IN_FRONT_AND_BACK);
+            }
+            genreTitle.replace(genreTitle.length() - 3, genreTitle.length() - 1, StringUtils.EMPTY_STRING);
+
+            return genreTitle.toString();
+        }else{
+            return getString(R.string.search_in_all_genres);
+        }
+
     }
 
     private void onInitRecyclerViewAdapter(ArrayList<Movie> movies, int totalPages) {
 
         gridViewPresenter = new MovieNavigationGridViewPresenter(
-                presenter, selectedGenres, totalPages);
+                presenter, allGenres, selectedGenres, totalPages, isSearched, searchForString);
 
         objectAdapter = new ArrayObjectAdapter();
 
@@ -173,7 +195,6 @@ public class MovieNavigationFragment extends BaseMainNavigationFragment implemen
         super.onDestroy();
         presenter.clearPage();
         gridViewPresenter = null;
-        setToolbarSearchButtonVisibility(View.VISIBLE);
     }
 
     @Override
@@ -191,6 +212,16 @@ public class MovieNavigationFragment extends BaseMainNavigationFragment implemen
     @Override
     public void onSearchButtonClicked() {
 
+    }
+
+    @Override
+    public void onSearch() {
+        if(objectAdapter != null){
+            objectAdapter.clear();
+            presenter.clearPage();
+            presenter.loadMovieData(super.getSearchText(), rootView.getContext());
+
+        }
     }
 
     private void initEmitters() {

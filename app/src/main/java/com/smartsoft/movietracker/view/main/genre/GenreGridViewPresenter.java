@@ -43,7 +43,7 @@ public class GenreGridViewPresenter extends Presenter {
 
     class PresenterViewHolder extends ViewHolder {
 
-        @BindView(R.id.genre_description)
+        @BindView(R.id.genre_name)
         TextView genreNameTextView;
         @BindView(R.id.genre_image_view)
         ImageView genreImageView;

@@ -42,24 +42,34 @@ class MovieNavigationGridViewPresenter extends Presenter {
 
     private Context ctx;
     private MovieNavigationPresenter presenter;
+    private ArrayList<Genre> allGenres;
     private ArrayList<Genre> selectedGenres;
     private Integer totalPages;
-    private Integer size;
+    private boolean isSearched;
+    private String searchForString;
+    private int size;
 
 
     MovieNavigationGridViewPresenter(MovieNavigationPresenter presenter,
+                                     ArrayList<Genre> allGenres,
                                      ArrayList<Genre> selectedGenres,
-                                     Integer totalPages) {
+                                     Integer totalPages,
+                                     boolean isSearched,
+                                     String searchForString) {
+
         this.presenter = presenter;
+        this.allGenres = allGenres;
         this.selectedGenres = selectedGenres;
         this.totalPages = totalPages;
+        this.isSearched = isSearched;
+        this.searchForString = searchForString;
         this.size = 0;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_element, parent, false);
         ctx = parent.getContext();
+        View view = LayoutInflater.from(ctx).inflate(R.layout.movie_element, parent, false);
         return new PresenterViewHolder(view);
     }
 
@@ -120,6 +130,12 @@ class MovieNavigationGridViewPresenter extends Presenter {
 
         void bind(Movie movie) {
 
+            boolean isLastItemInRow = false;
+
+            if((presenter.getPosition(movie)+1) % 7 == 0){
+                isLastItemInRow = true;
+            }
+
             Glide.with(ctx)
                     .load(Constant.API.IMAGE_BASE_URL + movie.getPosterPath())
                     .listener(
@@ -147,11 +163,17 @@ class MovieNavigationGridViewPresenter extends Presenter {
                     .error(R.drawable.error)
                     .into(poster);
 
+            boolean finalIsLastItemInRow = isLastItemInRow;
+
             layout.setOnFocusChangeListener((view, b) -> {
                 if (b) {
 
                     if (presenter.getPosition(movie) >= (size - Constant.GridView.COLUMN_NUM7) && (presenter.getPage() <= totalPages)) {
-                        presenter.loadMovieData(ctx, selectedGenres);
+                        if (isSearched) {
+                            presenter.loadMovieData(searchForString, ctx);
+                        } else {
+                            presenter.loadMovieData(ctx, selectedGenres);
+                        }
                     }
 
                     poster.setOutlineProvider(new ViewOutlineProvider() {
@@ -170,8 +192,13 @@ class MovieNavigationGridViewPresenter extends Presenter {
                     isOpen = false;
                 } else {
                     poster.setClipToOutline(false);
-                    if (detailLayout.getVisibility() == View.VISIBLE && !isOpen) {
-                        Animation animation = AnimationUtils.loadAnimation(ctx, R.anim.detil_layout_close_animator);
+                    if (detailLayout.getVisibility() == View.VISIBLE && !isOpen ) {
+                        Animation animation;
+                        if(finalIsLastItemInRow){
+                            animation = AnimationUtils.loadAnimation(ctx, R.anim.detail_layout_close_left_animator);
+                        }else{
+                            animation = AnimationUtils.loadAnimation(ctx, R.anim.detil_layout_close_right_animator);
+                        }
                         detailLayout.setAnimation(animation);
                         detailLayout.setVisibility(View.GONE);
 
@@ -180,17 +207,23 @@ class MovieNavigationGridViewPresenter extends Presenter {
                 }
             });
 
+
             layout.setOnClickListener(view -> {
                 if (detailLayout.getVisibility() == View.GONE) {
-                    Animation animator = AnimationUtils.loadAnimation(ctx, R.anim.detail_layout_open_animator);
+                    Animation animation;
+                    if(finalIsLastItemInRow){
+                        animation = AnimationUtils.loadAnimation(ctx, R.anim.detail_layout_open_left_animator);
+                    }else{
+                        animation = AnimationUtils.loadAnimation(ctx, R.anim.detail_layout_open_right_animator);
+                    }
                     detailLayout.setVisibility(View.VISIBLE);
-                    detailLayout.setAnimation(animator);
+                    detailLayout.setAnimation(animation);
                     isOpen = false;
                 } else {
                     isOpen = true;
                     Bundle bundle = new Bundle();
                     bundle.putSerializable(ctx.getString(R.string.movie), movie);
-                    bundle.putSerializable(ctx.getString(R.string.selectedGenres), selectedGenres);
+                    bundle.putSerializable(ctx.getString(R.string.allGenres), allGenres);
                     FragmentNavigation.getInstance().showDetailPageFragment(bundle);
                 }
 
@@ -199,12 +232,18 @@ class MovieNavigationGridViewPresenter extends Presenter {
 
             imdbRating.setText(String.format(ctx.getString(R.string.imdb_vote_average), String.valueOf(movie.getVoteAverage())));
 
-            Iterator<Genre> genreIterator = selectedGenres.iterator();
             StringBuilder genreTitles = new StringBuilder();
-            while (genreIterator.hasNext()) {
-                genreTitles.append(genreIterator.next().getName()).append(StringUtils.COMMA_DELIMITER_WITH_SPACE);
+            if (movie.getGenreIds().size() != 0) {
+                for (Genre it : allGenres) {
+                    for (Integer currIt : movie.getGenreIds()) {
+                        if (currIt.equals(it.getId())) {
+                            genreTitles.append(it.getName()).append(StringUtils.COMMA_DELIMITER_WITH_SPACE);
+                        }
+                    }
+                }
+                genreTitles.replace(genreTitles.length() - 2, genreTitles.length() - 1, StringUtils.EMPTY_STRING);
             }
-            genreTitles.replace(genreTitles.length() - 2, genreTitles.length() - 1, StringUtils.EMPTY_STRING);
+
 
             this.genres.setText(genreTitles);
 
@@ -212,7 +251,8 @@ class MovieNavigationGridViewPresenter extends Presenter {
 
             String releaseYearList;
             if (movie.getReleaseDate() != null) {
-                releaseYearList = movie.getReleaseDate().substring(0, movie.getReleaseDate().indexOf(StringUtils.HYPHEN_DELIMITER));
+                releaseYearList = movie.getReleaseDate().substring(0, movie.getReleaseDate().indexOf(StringUtils.HYPHEN_DELIMITER) + 1)
+                        .replace(StringUtils.HYPHEN_DELIMITER, StringUtils.EMPTY_STRING);
             } else {
                 releaseYearList = StringUtils.EMPTY_STRING;
             }
@@ -221,4 +261,5 @@ class MovieNavigationGridViewPresenter extends Presenter {
 
         }
     }
+
 }

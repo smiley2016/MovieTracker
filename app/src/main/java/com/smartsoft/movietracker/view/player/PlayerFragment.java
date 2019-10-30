@@ -1,7 +1,6 @@
 package com.smartsoft.movietracker.view.player;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.DialogFragment;
 import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.ClassPresenterSelector;
 import androidx.leanback.widget.HorizontalGridView;
@@ -25,7 +23,6 @@ import androidx.leanback.widget.ItemBridgeAdapter;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -38,7 +35,6 @@ import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.interfaces.PlayerInterface;
 import com.smartsoft.movietracker.model.video.Video;
 import com.smartsoft.movietracker.presenter.PlayerPresenter;
-import com.smartsoft.movietracker.utils.FragmentNavigation;
 import com.smartsoft.movietracker.view.BaseFragment;
 
 import java.util.ArrayList;

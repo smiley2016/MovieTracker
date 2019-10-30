@@ -23,7 +23,7 @@
     <dimen name="verticalGridView_paddingBottom">13dp</dimen>
 
 
-    <!--  Choose selectedGenres TextView dimens-->
+    <!--  Choose allGenres TextView dimens-->
 
     <dimen name="choose_textView_textSize">18sp</dimen>
     <dimen name="choose_textView_marginTop">113dp</dimen>
@@ -105,8 +105,6 @@
     <dimen name="detail_movie_layout_back_button_marginTop">16dp</dimen>
     <dimen name="detail_movie_layout_watchlist_button_marginStart">8dp</dimen>
     <dimen name="detail_movie_layout_watchlist_button_marginEnd">488dp</dimen>
-    <dimen name="detail_movie_layout_movie_description_width">408dp</dimen>
-    <dimen name="detail_movie_layout_movie_description_height">16dp</dimen>
     <dimen name="detail_movie_layout_movie_description_marginStart">48dp</dimen>
     <dimen name="detail_movie_layout_movie_description_marginTop">12dp</dimen>
     <dimen name="detail_movie_layout_movie_description_marginEnd">504dp</dimen>
@@ -189,5 +187,6 @@
     <dimen name="playlist_margin_offset_bottom">22dp</dimen>
     <dimen name="curve_radius">12dp</dimen>
     <dimen name="review_dialog_height">312dp</dimen>
+    <dimen name="cast_dialog_name_height">64dp</dimen>
 
 </resources>

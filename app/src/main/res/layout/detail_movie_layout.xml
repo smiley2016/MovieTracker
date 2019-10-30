@@ -9,64 +9,39 @@
 
     <ImageView
         android:id="@+id/back_button"
-        android:layout_width="@dimen/detail_movie_layout_back_button_width_height"
-        android:layout_height="@dimen/detail_movie_layout_back_button_width_height"
-        android:layout_marginStart="@dimen/detail_movie_layout_back_button_marginStart"
-        android:layout_marginTop="@dimen/detail_movie_layout_back_button_marginTop"
-        android:background="@drawable/toolbar_component_background_selector"
+        style="@style/DetailMovieLayoutBackButton"
         android:focusable="true"
-        android:src="@drawable/back_icon"
         app:layout_constraintBottom_toTopOf="@id/detail_movie_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
 
     <ImageView
         android:id="@+id/add_watchlist_button"
-        android:layout_width="@dimen/detail_movie_layout_back_button_width_height"
-        android:layout_height="@dimen/detail_movie_layout_back_button_width_height"
-        android:layout_marginStart="@dimen/detail_movie_layout_watchlist_button_marginStart"
-        android:layout_marginEnd="@dimen/detail_movie_layout_watchlist_button_marginEnd"
-        android:background="@drawable/toolbar_component_background_selector"
+        style="@style/DetailMovieLayoutWatchListButton"
         android:focusable="true"
-        android:src="@drawable/add_watchlist"
         android:stateListAnimator="@animator/move_description_animator"
         app:layout_constraintBottom_toBottomOf="@id/detail_movie_plot"
         app:layout_constraintStart_toEndOf="@id/detail_movie_plot" />
 
     <TextView
         android:id="@+id/detail_movie_description"
-        android:layout_width="@dimen/detail_movie_layout_movie_description_width"
-        android:layout_height="@dimen/detail_movie_layout_movie_description_height"
-        android:layout_marginStart="@dimen/detail_movie_layout_movie_description_marginStart"
-        android:layout_marginTop="@dimen/detail_movie_layout_movie_description_marginTop"
-        android:layout_marginEnd="@dimen/detail_movie_layout_movie_description_marginEnd"
+        style="@style/DetailMovieLayoutMovieDescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/detail_movie_title" />
 
     <TextView
         android:id="@+id/detail_movie_plot"
-        android:layout_width="@dimen/detail_movie_layout_plot_width"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/detail_movie_layout_movie_description_marginStart"
-        android:layout_marginTop="@dimen/detail_movie_layout_plot_marginTop"
-        android:layout_marginEnd="@dimen/detail_movie_layout_plot_marginEnd"
-        android:ellipsize="end"
-        android:maxLines="3"
+        style="@style/DetailMovieLayoutMoviePlot"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/detail_movie_description" />
 
     <TextView
         android:id="@+id/detail_movie_title"
-        android:layout_width="@dimen/detail_movie_layout_plot_width"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/detail_movie_layout_movie_description_marginStart"
-        android:layout_marginTop="@dimen/detail_movie_layout_title_marginTop"
-        android:layout_marginEnd="@dimen/detail_movie_layout_plot_marginEnd"
-        android:maxLines="3"
-        android:textSize="@dimen/cast_layout_text_view_size"
+        style="@style/DetailMovieLayoutMovieTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

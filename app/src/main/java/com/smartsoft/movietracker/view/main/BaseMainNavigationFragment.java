@@ -6,7 +6,6 @@ import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.interfaces.ToolbarListener;
 import com.smartsoft.movietracker.view.BaseFragment;
 import com.smartsoft.movietracker.view.toolbar.ToolbarView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -45,4 +44,7 @@ public abstract class BaseMainNavigationFragment extends BaseFragment {
         }
     }
 
+    protected String getSearchText(){
+       return toolbarView.getSearchText();
+    }
 }

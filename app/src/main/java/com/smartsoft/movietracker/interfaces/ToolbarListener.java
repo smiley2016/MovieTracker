@@ -8,4 +8,6 @@ public interface ToolbarListener {
 
     void onSearchButtonClicked();
 
+    void onSearch();
+
 }

@@ -2,7 +2,6 @@ package com.smartsoft.movietracker.view.main.genre;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.ItemBridgeAdapter;
 import androidx.leanback.widget.PresenterSelector;
@@ -119,10 +119,19 @@ public class GenreSelectorFragment extends BaseMainNavigationFragment implements
         if (selectedGenres.size() > 0) {
             Bundle bundle = new Bundle();
             bundle.putSerializable(getString(R.string.selectedGenres), selectedGenres);
+            bundle.putSerializable(rootView.getContext().getString(R.string.allGenres), genreList);
             FragmentNavigation.getInstance().showMovieNavigationFragment(bundle);
-            Log.d(TAG, "onSearchButtonClicked: ");
             return;
         }
         Toast.makeText(rootView.getContext(), R.string.no_selected_genres, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSearch() {
+        Bundle bundle = new Bundle();
+        bundle.putString(rootView.getContext().getString(R.string.search), super.getSearchText());
+        bundle.putSerializable(rootView.getContext().getString(R.string.allGenres), genreList);
+        FragmentNavigation.getInstance().showMovieNavigationFragment(bundle);
+
     }
 }

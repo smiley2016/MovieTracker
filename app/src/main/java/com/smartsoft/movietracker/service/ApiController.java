@@ -18,6 +18,7 @@ import com.smartsoft.movietracker.utils.Utils;
 import java.util.ArrayList;
 
 import io.reactivex.Observable;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -31,6 +32,7 @@ public class ApiController {
     private CastAPI castApiService;
     private ReviewAPI reviewApiService;
     private VideoAPI videoApiService;
+    private SearchMovieAPI searchMovieService;
 
     private ApiController() {
 
@@ -43,7 +45,8 @@ public class ApiController {
         movieApiService = mRetrofit.create(MovieAPI.class);
         castApiService = mRetrofit.create(CastAPI.class);
         reviewApiService = mRetrofit.create(ReviewAPI.class);
-        videoApiService = mRetrofit.create((VideoAPI.class));
+        videoApiService = mRetrofit.create(VideoAPI.class);
+        searchMovieService = mRetrofit.create(SearchMovieAPI.class);
     }
 
     public static ApiController getInstance() {
@@ -60,6 +63,18 @@ public class ApiController {
                     Log.e(TAG, genreResultResponse.toString());
                     assert genreResultResponse.body() != null;
                     return genreResultResponse.body().getGenres();
+                });
+    }
+
+    public Observable<MovieResult> getSearchedMovies(String keyword ,Integer page){
+        return searchMovieService
+                .getSearchedMoviesByString(
+                        Constant.API.API_KEY,
+                        keyword,
+                        true,
+                        page).map(searchedMovieResultResponse -> {
+                    Log.e(TAG, "getSearchedMovies: "+ searchedMovieResultResponse.toString());
+                            return searchedMovieResultResponse.body();
                 });
     }
 
@@ -105,6 +120,7 @@ public class ApiController {
         return videoApiService.getVideos(movie_id, Constant.API.API_KEY)
                 .map(VideoResult::getResults);
     }
+
 
 
 }

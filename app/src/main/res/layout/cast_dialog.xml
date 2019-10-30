@@ -6,39 +6,28 @@
 
     <ImageView
         android:id="@+id/cast_dialog_image"
-        android:layout_width="175dp"
-        android:layout_height="184dp"
+        style="@style/CastDialogImage"
         android:layout_above="@id/cast_dialog_name"
         android:layout_below="@id/cast_dialog_close"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="@dimen/cast_dialog_image_margin_start_end"
-        android:layout_marginEnd="@dimen/cast_dialog_image_margin_start_end"
         android:focusable="false" />
 
     <ImageView
         android:id="@+id/cast_dialog_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/CastDialogCloseImage"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_margin="@dimen/cast_dialog_close_margin"
-        android:background="@color/base_app_color"
         android:focusable="true"
-        android:src="@drawable/dialog_close_button"
         android:stateListAnimator="@animator/toolbar_component_animator" />
 
     <TextView
         android:id="@+id/cast_dialog_name"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
+        style="@style/CastDialogTextView"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/cast_dialog_text_view_margin"
         android:focusable="false"
-        android:gravity="center"
-        android:maxLines="2"
-        android:textColor="#EEEEEE" />
+         />
 
 </RelativeLayout>

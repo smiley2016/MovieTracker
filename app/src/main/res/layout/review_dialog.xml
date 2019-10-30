@@ -11,13 +11,7 @@
 
     <Button
         android:id="@+id/dialog_close_button"
-        android:layout_width="@dimen/review_dialog_close_button_width"
-        android:layout_height="@dimen/review_dialog_close_button_height"
-        android:layout_marginEnd="@dimen/review_dialog_close_button_marginEnd"
-        android:background="@drawable/toolbar_component_background_selector"
-        android:focusable="true"
-        android:foreground="@drawable/dialog_close_button"
-        android:stateListAnimator="@animator/cast_element_animator"
+        style="@style/ReviewDialogCloseButton"
         app:layout_constraintBaseline_toBaselineOf="@id/dialog_reviewer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,28 +30,18 @@
 
         <TextView
             android:id="@+id/dialog_review_comment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            style="@style/ReviewDialogReview"
             android:focusable="false"
-            android:fontFamily="sans-serif"
-            android:padding="@dimen/review_dialog_comment_padding"
-            android:textSize="@dimen/review_dialog_comment_size" />
+            />
 
     </ScrollView>
 
 
     <TextView
         android:id="@+id/dialog_reviewer"
-        android:layout_width="@dimen/review_dialog_reviewer_width"
-        android:layout_height="@dimen/review_dialog_reviewer_height"
-        android:layout_below="@id/comment_scroll_view"
-        android:layout_marginTop="@dimen/review_dialog_reviewer_marginTop"
+        style="@style/ReviewDialogAuthor"
         android:focusable="false"
-        android:fontFamily="Roman"
-        android:gravity="start"
         android:text="@string/review_by"
-        android:textSize="@dimen/review_dialog_reviewer_size"
         app:layout_constraintBottom_toTopOf="@id/comment_scroll_view"
         app:layout_constraintEnd_toStartOf="@id/dialog_close_button"
         app:layout_constraintStart_toStartOf="parent"

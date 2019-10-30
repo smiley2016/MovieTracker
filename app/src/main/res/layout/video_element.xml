@@ -2,12 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/video_element_layout"
-    android:layout_width="184dp"
-    android:layout_height="158dp"
-    android:layout_marginBottom="16dp"
-    android:background="@color/base_app_color"
-    android:focusable="true"
-    android:stateListAnimator="@animator/video_element_animator">
+    style="@style/VideoElement"
+    android:focusable="true">
 
     <FrameLayout
         android:id="@+id/movie_detail_frame_layout"
@@ -19,24 +15,12 @@
 
         <ImageView
             android:id="@+id/subtract"
-            android:layout_width="13.33dp"
-            android:layout_height="13.33dp"
-            android:layout_marginStart="164dp"
-            android:layout_marginTop="9.33dp"
-            android:layout_marginEnd="9.33dp"
-            android:layout_marginBottom="9.33dp"
-
+            style="@style/VideoElementSubtractIcon"
             />
 
         <TextView
             android:id="@+id/video_title"
-            android:layout_width="144dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
-            android:textSize="12sp"
+            style="@style/VideoElementVideoTitle"
 
             />
 

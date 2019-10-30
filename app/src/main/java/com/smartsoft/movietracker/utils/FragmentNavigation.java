@@ -2,13 +2,10 @@ package com.smartsoft.movietracker.utils;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
-
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.smartsoft.movietracker.MainActivity;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.view.detail.DetailPageFragment;
@@ -111,10 +108,8 @@ public class FragmentNavigation {
 
         try {
             mFragmentTransaction.commit();
-            Log.d(TAG, "replaceFragment: ");
         } catch (Exception e) {
             e.printStackTrace();
-            e.getMessage();
         }
 
     }
