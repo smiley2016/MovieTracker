@@ -49,5 +49,5 @@ public interface OnDetailPageListener {
      * and in this case we have to stop the
      * {@link at.huber.youtubeExtractor.YouTubeExtractor}
      */
-    void backPressed();
+    void    backPressed();
 }
