@@ -106,6 +106,8 @@
     </style>
 
     <style name="DetailMovieLayoutMovieDescription">
+        <item name="android:minWidth">100dp</item>
+        <item name="android:minHeight">16dp</item>
         <item name="android:layout_marginStart">@dimen/detail_movie_layout_movie_description_marginStart</item>
         <item name="android:layout_marginTop">@dimen/detail_movie_layout_movie_description_marginTop</item>
         <item name="android:layout_marginEnd">@dimen/detail_movie_layout_movie_description_marginEnd</item>
