@@ -39,20 +39,60 @@ import at.huber.youtubeExtractor.YtFile;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * @see DetailPageFragment is a {@link androidx.fragment.app.Fragment}
+ * that handle the app lifeCycle in the presented section
+ * Load the views with the downloaded data
+ * Initialize the presenters
+ * Extracting the video URLs
+ */
 public class DetailPageFragment extends BaseFragment implements OnDetailPageListener {
-    private static final String TAG = DetailPageFragment.class.getName();
+
+    /**
+     * Youtube resolution tags
+     */
     private static final int[] youtubeResolutionTags = {248, 46, 96, 95, 22, 18, 83, 82};
+
     @BindView(R.id.background_image)
     ImageView background;
     @BindView(R.id.detail_page_grid_view)
     VerticalGridView verticalGridView;
+
+    /**
+     * Current Movie which displayed
+     */
     private Movie movie;
+
+    /**
+     * Contains all the genres
+     */
     private ArrayList<Genre> allGenres;
+
+    /**
+     * The adapter where the app load the downloaded data
+     */
     private ArrayObjectAdapter objectAdapter;
+
+    /**
+     * The class presenter who does the Data downloading
+     */
     private DetailPagePresenter dPresenter;
+
+    /**
+     * A third party library object which makes download URL from URIs
+     */
     private YouTubeExtractor youTubeExtractor;
+
+    /**
+     * Contains Youtube URIs
+     */
     private ArrayList<Uri> youtubeLinks;
 
+    /**
+     * Fragment Lifecycle function where initialize
+     * @see #youtubeLinks #dPresenter
+     * @param savedInstanceState Save the state of the Fragment
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +100,10 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
         dPresenter = new DetailPagePresenter(this);
     }
 
+    /**
+     * When the Internet comes back this overrode
+     * function calls to make some changes on the attributes
+     */
     @Override
     public void onInternetConnected() {
         super.onInternetConnected();
@@ -68,6 +112,15 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
         }
     }
 
+    /**
+     * @see androidx.fragment.app.Fragment#onCreateView(LayoutInflater, ViewGroup, Bundle)
+     * is a function that calls when the Fragment is created but it has no view. This means
+     * that this function calls {@link LayoutInflater} to make from the XML file a view
+     * @param inflater The {@link LayoutInflater} object
+     * @param container The fragment holder where the XML file will be painted
+     * @param savedInstanceState Fragment state container
+     * @return A view that contains all properties and elements from the XML file.
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -80,6 +133,11 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
         return rootView;
     }
 
+    /**
+     * Fragment lifecycle function
+     * Usage for save the Bundles
+     * @param context Where running the Fragment
+     */
     @Override
     @SuppressWarnings("unchecked")
     public void onAttach(@NonNull Context context) {
@@ -91,10 +149,20 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
         }
     }
 
+    /**
+     * This function start the data downloading from the API
+     */
     private void getAllData() {
         dPresenter.loadData(movie.getId());
     }
 
+    /**
+     * View initializer
+     * Loads the images, initializes the presenter for {@link VerticalGridView}
+     * Initializes {@link ItemBridgeAdapter}
+     * Initializes {@link ClassPresenterSelector}
+     * set the {@link VerticalGridView} adapter
+     */
     private void initializeViews() {
 
         Glide.with(rootView.getContext()).load(Constant.API.IMAGE_ORIGINAL_BASE_URL + movie.getBackdropPath()).into(background);
@@ -118,6 +186,13 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
 
     }
 
+    /**
+     * This function fills the {@link #objectAdapter} after the data is downloaded,
+     * When the Videos downloaded the function calls the {@link YouTubeExtractor} async tast
+     * to generate download URLs from Youtube URIs.
+     * @param movieDetails is used as a current storage in what
+     *      *     we temporary saving the downloaded data (more specifically in this variable we
+     */
     @SuppressLint("StaticFieldLeak")
     @Override
     public void displayData(MovieDetails movieDetails) {
@@ -153,6 +228,12 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
         objectAdapter.add(videoList);
     }
 
+    /**
+     * This function tries to make download URL from {@link SparseArray}
+     * element based on the {@link #youtubeResolutionTags}
+     * @param ytFiles The
+     * @return links generated without {@link #youtubeResolutionTags}
+     */
     private String getDownloadUrlForVideos(SparseArray<YtFile> ytFiles) {
         for (int tag : youtubeResolutionTags) {
             try {
@@ -163,6 +244,11 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
         return null;
     }
 
+    /**
+     * This function is overrode from {@link OnDetailPageListener}
+     * and used for cancelling the Youtube extraction if it didn't
+     * finish yet when the user click the back button.
+     */
     @Override
     public void backPressed() {
         if(youTubeExtractor != null){
@@ -172,6 +258,13 @@ public class DetailPageFragment extends BaseFragment implements OnDetailPageList
         Objects.requireNonNull(getActivity()).onBackPressed();
     }
 
+    /**
+     * This function is a fragment lifecycle function and it calls when
+     * the {@link DetailPageFragment} is leaved by the user and never will comes back
+     * Especially it has no need, then this delete from the memory.
+     * And before the fragment will be destroyed it cancels the {@link YouTubeExtractor}
+     * if needs.
+     */
     @Override
     public void onDestroy() {
         if(youTubeExtractor != null){
