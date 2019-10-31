@@ -10,7 +10,7 @@ public class Review {
     private String author;
     @SerializedName("content")
     @Expose
-    private String content;
+    public String content;
     @SerializedName("id")
     @Expose
     private String id;

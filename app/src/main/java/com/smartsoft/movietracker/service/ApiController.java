@@ -163,7 +163,7 @@ public class ApiController {
                 Constant.API.INCLUDE_ADULT,
                 Constant.API.INCLUDE_VIDEO,
                 page,
-                Utils.genreListToCsvIdString(genreIds)).map(movieResultResponse -> {
+                Utils.genreListToString(genreIds)).map(movieResultResponse -> {
             Log.e(TAG, "getMovies:" + movieResultResponse.toString());
             if (movieResultResponse.code() == Constant.API.RESPONSE_CODE) {
                 return movieResultResponse.body();

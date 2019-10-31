@@ -15,7 +15,7 @@ public abstract class BaseMainNavigationFragment extends BaseFragment {
     ToolbarView toolbarView;
 
     @BindView(R.id.choose_textView)
-    TextView text;
+    public TextView text;
 
     protected void initViews(ToolbarListener listener, int visibility, String genreText) {
         ButterKnife.bind(this, rootView);
@@ -31,7 +31,7 @@ public abstract class BaseMainNavigationFragment extends BaseFragment {
         }
     }
 
-    protected void setToolbarSearchButtonVisibility(int visibility) {
+    private void setToolbarSearchButtonVisibility(int visibility) {
         if (toolbarView != null) {
             toolbarView.setVisibleSearchIcon(visibility);
         }

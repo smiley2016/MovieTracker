@@ -25,7 +25,7 @@ public class ToolbarView extends RelativeLayout {
     @BindView(R.id.toolbar_search)
     ImageView search;
     @BindView(R.id.search_edit_text)
-    EditText searchEditText;
+    public EditText searchEditText;
 
     private View view;
 
