@@ -22,18 +22,37 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * @see CastVerticalGridPresenter is
+ * a {@link androidx.leanback.widget.VerticalGridView} component
+ * for handle the {@link Cast} element rollability in vertical direction
+ */
 public class CastVerticalGridPresenter extends Presenter {
 
+    /**
+     * Contains the class name
+     */
     private static final String TAG = CastVerticalGridPresenter.class.getName();
 
-    private Context mContext;
-
+    /**
+     * This function create the from the XML cast_element layout a real view
+     * @param parent The ViewGroup wherein the
+     *               {@link android.view.LayoutInflater} will paints the XML
+     * @return {@link CastVerticalGridPresenter.PresenterViewHolder}
+     */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent) {
-        mContext = parent.getContext();
-        return new PresenterViewHolder(LayoutInflater.from(mContext).inflate(R.layout.cast_layout, parent, false));
+        return new PresenterViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.cast_layout, parent, false));
     }
 
+    /**
+     * Onto every single element the {@link CastVerticalGridPresenter#onBindViewHolder(ViewHolder, Object)}
+     * calls the {@link CastVerticalGridPresenter.PresenterViewHolder#bind(ArrayList)} function to initializes it's views
+     * how behaves in the app.
+     * @param viewHolder {@link androidx.leanback.widget.Presenter.ViewHolder} what holds the elements in
+     * {@link androidx.leanback.widget.VerticalGridView}
+     * @param item Contains all the elements from the {@link androidx.leanback.widget.ArrayObjectAdapter}
+     */
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Object item) {
         PresenterViewHolder holder = (PresenterViewHolder) viewHolder;
@@ -41,12 +60,20 @@ public class CastVerticalGridPresenter extends Presenter {
         holder.bind(cast);
     }
 
+    /**
+     * App doesn't use this function
+     * @param viewHolder {@link androidx.leanback.widget.Presenter.ViewHolder} what holds the elements in
+     *                  {@link androidx.leanback.widget.HorizontalGridView}
+     */
     @Override
     public void onUnbindViewHolder(ViewHolder viewHolder) {
 
     }
 
-
+    /**
+     * Inner class is contains a {@link Cast} views of the element
+     * and it's properties
+     */
     class PresenterViewHolder extends ViewHolder {
 
         @BindView(R.id.cast_TextView)
@@ -56,13 +83,20 @@ public class CastVerticalGridPresenter extends Presenter {
 
         CastHorizontalGridPresenter castPresenter;
 
-
+        /**
+         * Inner class constructor
+         * @param view The initialized element
+         */
         public PresenterViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
 
         }
-
+        /**
+         * Initializer function for one element
+         * @param cast {@link ArrayList} that contains the {@link Cast}
+         *                              objects which will be initialize
+         */
         public void bind(ArrayList<Cast> cast) {
 
             if (!cast.isEmpty()) {
