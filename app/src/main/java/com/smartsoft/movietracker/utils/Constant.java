@@ -7,12 +7,20 @@ package com.smartsoft.movietracker.utils;
 
 public class Constant {
 
-
+    /**
+     * All the
+     * {@link androidx.leanback.widget.HorizontalGridView}
+     * {@link androidx.leanback.widget.VerticalGridView}
+     * constant variables
+     */
     public static class GridView {
         public static int COLUMN_NUM5 = 5;
         public static int COLUMN_NUM7 = 7;
     }
 
+    /**
+     * All variables for the {@link retrofit2.Retrofit} query and API
+     */
     public static class API {
         public static final String BASE_YOUTUBE_URL_FOR_PICTURE = "http://img.youtube.com/vi/";
         public static final String YOUTUBE_THUMBNAIL = "/0.jpg";
@@ -27,6 +35,9 @@ public class Constant {
 
     }
 
+    /**
+     * All variables for the sort/order dialog
+     */
     public static class Sort {
         public static final String popularity = "popularity";
         public static final String releaseDate = "release_date";
@@ -34,10 +45,18 @@ public class Constant {
         public static final String voteAverage = "vote_average";
     }
 
-    public static class MovieNavigation {
+    /**
+     * @see com.smartsoft.movietracker.view.main.navigation.MovieNavigationFragment
+     * variables
+     */
+    public static class MovieNavigationPresenter {
         public static final int offset = 0;
     }
 
+    /**
+     * @see com.smartsoft.movietracker.utils.FragmentNavigation
+     * variables
+     */
     public static class FragmentNavigation {
         static final String DialogFragment = "dialog";
     }

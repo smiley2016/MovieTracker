@@ -27,13 +27,11 @@ import com.bumptech.glide.request.target.Target;
 import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.model.genre.Genre;
 import com.smartsoft.movietracker.model.movie.Movie;
-import com.smartsoft.movietracker.presenter.MovieNavigationPresenter;
 import com.smartsoft.movietracker.utils.Constant;
 import com.smartsoft.movietracker.utils.FragmentNavigation;
 import com.smartsoft.movietracker.utils.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,7 +39,7 @@ import butterknife.ButterKnife;
 class MovieNavigationGridViewPresenter extends Presenter {
 
     private Context ctx;
-    private MovieNavigationPresenter presenter;
+    private com.smartsoft.movietracker.presenter.MovieNavigationPresenter presenter;
     private ArrayList<Genre> allGenres;
     private ArrayList<Genre> selectedGenres;
     private Integer totalPages;
@@ -50,7 +48,7 @@ class MovieNavigationGridViewPresenter extends Presenter {
     private int size;
 
 
-    MovieNavigationGridViewPresenter(MovieNavigationPresenter presenter,
+    MovieNavigationGridViewPresenter(com.smartsoft.movietracker.presenter.MovieNavigationPresenter presenter,
                                      ArrayList<Genre> allGenres,
                                      ArrayList<Genre> selectedGenres,
                                      Integer totalPages,
@@ -180,8 +178,8 @@ class MovieNavigationGridViewPresenter extends Presenter {
                         @Override
                         public void getOutline(View view, Outline outline) {
                             outline.setRoundRect(
-                                    Constant.MovieNavigation.offset,
-                                    Constant.MovieNavigation.offset,
+                                    Constant.MovieNavigationPresenter.offset,
+                                    Constant.MovieNavigationPresenter.offset,
                                     (view.getWidth() + (int) ctx.getResources().getDimension(R.dimen.curve_radius)),
                                     view.getHeight(),
                                     (int) ctx.getResources().getDimension(R.dimen.curve_radius));
