@@ -148,7 +148,7 @@ public class MovieNavigationFragment extends BaseMainNavigationFragment implemen
         if(selectedGenres.size() != 0){
 
             for (Genre selectedGenre : selectedGenres) {
-                genreTitle.append(selectedGenre.getName()).append(StringUtils.HYPHEN_DELITMITER_WITH_SPACE_IN_FRONT_AND_BACK);
+                genreTitle.append(selectedGenre.getName()).append(StringUtils.HYPHEN_DELIMITER_WITH_SPACE_IN_FRONT_AND_BACK);
             }
             genreTitle.replace(genreTitle.length() - 3, genreTitle.length() - 1, StringUtils.EMPTY_STRING);
 
