@@ -25,21 +25,50 @@ import com.smartsoft.movietracker.utils.Constant;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * @see VideoHorizontalGridPresenter is
+ * a {@link androidx.leanback.widget.HorizontalGridView} component
+ * for handle the {@link Video} element rollability in horizontal direction
+ */
 public class VideoHorizontalGridPresenter extends Presenter {
 
+    /**
+     * Where running the presenter
+     */
     private Context mContext;
+    /**
+     * DetailVideoGridInterface reference
+     */
     private DetailVideoGridInterface mInterface;
 
+    /**
+     * Class constructor
+     * @param mInterface {@link #mInterface}
+     */
     VideoHorizontalGridPresenter(DetailVideoGridInterface mInterface) {
         this.mInterface = mInterface;
     }
 
+    /**
+     * This function create the from the XML video_element layout a real view
+     * @param parent The ViewGroup wherein the
+     *               {@link android.view.LayoutInflater} will paints the XML
+     * @return {@link PresenterViewHolder}
+     */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent) {
         mContext = parent.getContext();
         return new PresenterViewHolder(View.inflate(mContext, R.layout.video_element, null));
     }
 
+    /**
+     * Onto every single element the {@link #onBindViewHolder(ViewHolder, Object)}
+     * calls the {@link PresenterViewHolder#bind(Video)} function to initializes it's views
+     * how behaves in the app.
+     * @param viewHolder {@link androidx.leanback.widget.Presenter.ViewHolder} what holds the elements in
+     * {@link androidx.leanback.widget.HorizontalGridView}
+     * @param item Contains all the elements from the {@link androidx.leanback.widget.ArrayObjectAdapter}
+     */
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Object item) {
         PresenterViewHolder holder = (PresenterViewHolder) viewHolder;
@@ -47,16 +76,29 @@ public class VideoHorizontalGridPresenter extends Presenter {
         holder.bind(video);
     }
 
+    /**
+     * App doesn't use this function
+     * @param viewHolder {@link androidx.leanback.widget.Presenter.ViewHolder} what holds the elements in
+     *                  {@link androidx.leanback.widget.HorizontalGridView}
+     */
     @Override
     public void onUnbindViewHolder(ViewHolder viewHolder) {
 
     }
 
-
+    /**
+     * This function calls the {@link DetailVideoGridInterface#startPlayer(String)}
+     * to start that video which Id is same as videoId what gets on the input
+     * @param videoId Video ID
+     */
     private void startPlayerById(String videoId) {
         mInterface.startPlayer(videoId);
     }
 
+    /**
+     * Inner class is contains a {@link Video} views of the element
+     * and it's properties
+     */
     class PresenterViewHolder extends ViewHolder {
         @BindView(R.id.video_title)
         TextView videoTitle;
@@ -66,12 +108,20 @@ public class VideoHorizontalGridPresenter extends Presenter {
         ConstraintLayout layout;
 
 
+        /**
+         * Inner class constructor
+         * @param view The view that holding the presenter
+         */
         public PresenterViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
 
         }
 
+        /**
+         * Initializer function for one element
+         * @param video {@link Video} object which will be initialize
+         */
         public void bind(Video video) {
 
             Glide.with(mContext)
