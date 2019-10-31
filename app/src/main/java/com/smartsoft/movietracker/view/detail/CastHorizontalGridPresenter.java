@@ -25,16 +25,38 @@ import com.smartsoft.movietracker.view.dialogs.CastDialog;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * @see CastHorizontalGridPresenter is
+ * a {@link androidx.leanback.widget.HorizontalGridView} component
+ * for handle the {@link Cast} element rollability in horizontal direction
+ */
 public class CastHorizontalGridPresenter extends Presenter {
 
+    /**
+     * Where the {@link CastHorizontalGridPresenter} is initialized and running.
+     */
     private Context mContext;
 
+    /**
+     * This function create the from the XML cast_element layout a real view
+     * @param parent The ViewGroup wherein the
+     *               {@link android.view.LayoutInflater} will paints the XML
+     * @return {@link PresenterViewHolder}
+     */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent) {
         mContext = parent.getContext();
         return new PresenterViewHolder(View.inflate(parent.getContext(), R.layout.cast_element, null));
     }
 
+    /**
+     * Onto every single element the {@link CastHorizontalGridPresenter#onBindViewHolder(ViewHolder, Object)}
+     * calls the {@link PresenterViewHolder#bind(Context, Cast)} function to initializes it's views
+     * how behaves in the app.
+     * @param viewHolder {@link androidx.leanback.widget.Presenter.ViewHolder} what holds the elements in
+     * {@link androidx.leanback.widget.HorizontalGridView}
+     * @param item Contains all the elements from the {@link androidx.leanback.widget.ArrayObjectAdapter}
+     */
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Object item) {
         PresenterViewHolder holder = (PresenterViewHolder) viewHolder;
@@ -42,11 +64,20 @@ public class CastHorizontalGridPresenter extends Presenter {
         holder.bind(mContext, cast);
     }
 
+    /**
+     * App doesn't use this function
+     * @param viewHolder {@link androidx.leanback.widget.Presenter.ViewHolder} what holds the elements in
+     *                  {@link androidx.leanback.widget.HorizontalGridView}
+     */
     @Override
     public void onUnbindViewHolder(ViewHolder viewHolder) {
 
     }
 
+    /**
+     * Inner class is contains a {@link Cast} views of the element
+     * and it's properties
+     */
     class PresenterViewHolder extends ViewHolder {
         @BindView(R.id.actor_name)
         TextView actorName;
@@ -60,12 +91,20 @@ public class CastHorizontalGridPresenter extends Presenter {
         @BindView(R.id.cast_element_progress_bar)
         ProgressBar progressBar;
 
-
+        /**
+         * Inner class constructor
+         * @param view The view that holding the presenter
+         */
         public PresenterViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
 
+        /**
+         * Initializer function for one element
+         * @param ctx Context where the CastHorizontalGridView is running
+         * @param cast {@link Cast} object which will be initialize
+         */
         void bind(Context ctx, Cast cast) {
 
             Glide.with(ctx)
@@ -99,7 +138,6 @@ public class CastHorizontalGridPresenter extends Presenter {
                     .into(actorPicture);
 
             layout.setOnClickListener(view -> new CastDialog(ctx, cast));
-
 
         }
     }
