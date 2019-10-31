@@ -1,5 +1,10 @@
 package com.smartsoft.movietracker.utils;
 
+
+/**
+ * This class contains the constant data what are using everywhere in the app
+ */
+
 public class Constant {
 
 
@@ -34,6 +39,6 @@ public class Constant {
     }
 
     public static class FragmentNavigation {
-        public static final String DialogFragment = "dialog";
+        static final String DialogFragment = "dialog";
     }
 }
