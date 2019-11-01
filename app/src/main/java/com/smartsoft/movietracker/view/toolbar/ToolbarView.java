@@ -1,4 +1,5 @@
 package com.smartsoft.movietracker.view.toolbar;
+
 import android.content.Context;
 import android.os.Handler;
 import android.text.Editable;
@@ -15,6 +16,7 @@ import com.smartsoft.movietracker.R;
 import com.smartsoft.movietracker.interfaces.ToolbarListener;
 import com.smartsoft.movietracker.utils.StringUtils;
 import com.smartsoft.movietracker.utils.Utils;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -23,7 +25,7 @@ public class ToolbarView extends RelativeLayout {
     @BindView(R.id.toolbar_settings)
     ImageView settings;
     @BindView(R.id.toolbar_search)
-    ImageView search;
+    public ImageView search;
     @BindView(R.id.search_edit_text)
     public EditText searchEditText;
 

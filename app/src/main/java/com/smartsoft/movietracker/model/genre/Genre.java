@@ -14,7 +14,7 @@ public class Genre implements Serializable {
     @Expose
     private String name;
 
-    private boolean isActivated;
+    public boolean isActivated;
 
     public Genre(Integer id, String name) {
         this.id = id;
